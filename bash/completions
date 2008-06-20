@@ -1,0 +1,2 @@
+source ~/.bash/git_completion
+complete -C ~/.bash/rake_completion.rb -o default rake
