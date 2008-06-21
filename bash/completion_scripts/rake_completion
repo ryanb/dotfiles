@@ -23,7 +23,7 @@ class RakeCompletion
   private
   
   def typed
-    @command.split(' ').last
+    @command[/\s(.+?)$/, 1] || ''
   end
   
   def typed_before_colon
