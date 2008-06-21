@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+typed = ENV["COMP_LINE"][/\s(.+?)$/, 1]
+puts `ls ~/code/ | grep "^#{typed}"`
+exit 0

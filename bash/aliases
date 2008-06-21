@@ -1,8 +1,8 @@
 
 # cd
 
-alias c='cd ~/code/'
 alias up='cd ..'
+function c { cd ~/code/$1; }
 
 
 # ls
