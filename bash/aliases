@@ -1,0 +1,30 @@
+
+# cd
+
+alias c='cd ~/code/'
+
+
+# ls
+
+alias l="ls -lah"
+alias ll="ls -l"
+alias la='ls -A'
+
+
+# git
+
+alias gl='git pull'
+alias gp='git push'
+alias gd='git diff'
+alias gc='git commit -v'
+alias gca='git commit -v -a'
+alias gco='git checkout'
+alias gb='git branch -v'
+alias gs='git status -v'
+
+
+# rails
+
+alias sc='script/console'
+alias ss='script/server'
+alias a='autotest -rails'
