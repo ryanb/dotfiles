@@ -6,7 +6,7 @@ exit 0 unless /^rake(?:\s+([-\w]+))?\s*$/ =~ ENV["COMP_LINE"]
 task_prefix = $1
 
 # Customize this line to where you want to put the rake task caches
-task_file = File.join(Dir.pwd, '.rake-tasks~')
+task_file = File.join(Dir.pwd, '._rake_tasks')
 
 if File.file?(task_file)
   tasks = IO.read(task_file).split
