@@ -2,6 +2,7 @@
 # cd
 
 alias c='cd ~/code/'
+alias up='cd ..'
 
 
 # ls
@@ -28,3 +29,8 @@ alias gs='git status -v'
 alias sc='script/console'
 alias ss='script/server'
 alias a='autotest -rails'
+
+
+# misc
+
+alias reload='. ~/.bash_profile'
