@@ -7,7 +7,7 @@
 # you can auto-complete tasks as you are typing them by hitting [tab] or [tab][tab]
 # This also caches the rake tasks for optimium speed
 class RakeCompletion
-  CACHE_FILE_NAME = '._rake_tasks'
+  CACHE_FILE_NAME = '.rake_tasks~'
   
   def initialize(command)
     @command = command
