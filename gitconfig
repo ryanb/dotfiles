@@ -10,3 +10,5 @@
 [core]
 	excludesfile = /Users/rbates/.gitignore
 	editor = mate -w
+[apply]
+	whitespace = nowarn
