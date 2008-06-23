@@ -7,7 +7,7 @@ function c { cd ~/code/$1; }
 
 # ls
 
-alias l="ls -lah"
+alias l="ls -lAh"
 alias ll="ls -l"
 alias la='ls -A'
 
@@ -29,6 +29,9 @@ alias gs='git status -v'
 alias sc='script/console'
 alias ss='script/server'
 alias a='autotest -rails'
+alias tlog='tail -f log/development.log'
+alias scaffold='script/generate nifty_scaffold'
+alias migrate='rake db:migrate db:test:clone'
 
 
 # misc
