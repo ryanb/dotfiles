@@ -1,0 +1,45 @@
+
+# cd
+
+alias ..='cd ..'
+function c { cd ~/code/$1; }
+
+
+# ls
+
+alias l="ls -lAh"
+alias ll="ls -l"
+alias la='ls -A'
+
+
+# git
+
+alias gl='git pull'
+alias gp='git push'
+alias gd='git diff'
+alias gc='git commit'
+alias gca='git commit -a'
+alias gco='git checkout'
+alias gb='git branch'
+alias gs='git status'
+
+
+# rails
+
+alias sc='script/console'
+alias ss='script/server'
+alias a='autotest -rails'
+alias tlog='tail -f log/development.log'
+alias scaffold='script/generate nifty_scaffold'
+alias migrate='rake db:migrate db:test:clone'
+
+
+# misc
+
+alias reload='. ~/.bash_profile'
+
+
+# commands starting with % or $ for pasting from web
+
+alias %=' ' 
+alias \$=' '

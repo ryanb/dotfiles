@@ -1,0 +1,2 @@
+autoload -U compinit
+compinit
