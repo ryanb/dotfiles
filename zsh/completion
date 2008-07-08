@@ -6,36 +6,3 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
-
-# see aliases file for c function definition
-compdef '_files -W ~/code -/' c
-
-function _rake () {
-  if [ -f Rakefile ]; then
-    if [ ! -f .rake_tasks~ ]; then
-      rake --silent --tasks | cut -d " " -f 2 > .rake_tasks~
-    fi
-    compadd `cat .rake_tasks~`
-  fi
-}
-compdef _rake rake
-
-function _cap () {
-  if [ -f Rakefile ]; then
-    if [ ! -f .cap_tasks~ ]; then
-      cap --tasks | grep '#' | cut -d " " -f 2 > .cap_tasks~
-    fi
-    compadd `cat .cap_tasks~`
-  fi
-}
-compdef _cap cap
-
-
-# enables verbose completion
-verbose_completion() {
-  zstyle ':completion:*' verbose yes
-  zstyle ':completion:*:descriptions' format '%B%d%b'
-  zstyle ':completion:*:messages' format '%d'
-  zstyle ':completion:*:warnings' format 'No matches for: %d'
-  zstyle ':completion:*' group-name ''
-}

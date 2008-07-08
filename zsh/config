@@ -4,6 +4,9 @@ PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/b
 MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 
 cdpath=($cdpath ~/code)
+fpath=(~/.zsh/functions $fpath)
+
+autoload -U ~/.zsh/functions/*(:t)
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
@@ -25,7 +28,3 @@ setopt APPEND_HISTORY # adds history
 setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
-
-function git_branch_for_prompt {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
-}
