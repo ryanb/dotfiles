@@ -2,7 +2,8 @@ PS1='%3~$(git_branch_for_prompt)%# '
 EDITOR='mate -w'
 PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
 MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
-cdpath=(. ~/code)
+
+cdpath=($cdpath ~/code)
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
@@ -10,6 +11,7 @@ SAVEHIST=1000
 
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
+setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS # allow functions to have local options
 setopt LOCAL_TRAPS # allow functions to have local traps
 setopt HIST_VERIFY
@@ -17,6 +19,7 @@ setopt SHARE_HISTORY # share history between sessions ???
 setopt EXTENDED_HISTORY # add timestamps to history
 setopt PROMPT_SUBST
 setopt CORRECT
+setopt COMPLETE_IN_WORD
 
 setopt APPEND_HISTORY # adds history
 setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions

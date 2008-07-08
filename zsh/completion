@@ -1,2 +1,20 @@
 autoload -U compinit
 compinit
+
+# matches case insensitive for lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# pasting with tabs doesn't perform completion
+zstyle ':completion:*' insert-tab pending
+
+# see aliases file for c function definition
+compdef '_files -W ~/code -/' c
+
+# enables verbose completion
+verbose_completion() {
+  zstyle ':completion:*' verbose yes
+  zstyle ':completion:*:descriptions' format '%B%d%b'
+  zstyle ':completion:*:messages' format '%d'
+  zstyle ':completion:*:warnings' format 'No matches for: %d'
+  zstyle ':completion:*' group-name ''
+}
