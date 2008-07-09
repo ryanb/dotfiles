@@ -1,3 +1,51 @@
-git clone git://github.com/ryanb/dotfiles ~/.dotfiles
-cd ~/.dotfiles
-rake install
+Ryan Bates Dot Files
+
+These are config files to set up a system the way I like it.
+
+
+Installation
+
+  git clone git://github.com/ryanb/dotfiles ~/.dotfiles
+  cd ~/.dotfiles
+  rake install
+  # edit ~/.gitconfig and personalize it
+
+
+Environment
+
+I am running on Mac OS X, but it will likely work on Linux as well with 
+minor fiddling. I primarily use zsh, but this includes some older bash 
+files as well. If you would like to switch to zsh, you can do so with 
+the following command.
+
+  chsh -s /bin/zsh
+
+
+Features
+
+I normally place all of my coding projects in ~/code, so this directory 
+can easily be accessed (and tab completed) with the "c" command.
+
+  c railsca<tab>
+
+Tab completion is also added to rake and cap commands:
+
+  rake db:mi<tab>
+  cap de<tab>
+
+To speed things up, the results are cached in local .rake_tasks~ and 
+.cap_tasks~. It is smart enough to expire the cache automatically in 
+most cases, but you can simply remove the files to flush the cache.
+
+If you're using git, you'll notice the current branch name shows up in
+the prompt while in a git repository.
+
+If you're using Rails, you'll find some handy aliases (below). You can 
+also use show_log and hide_log in script/console to show the log inline.
+  
+  ss       # script/server
+  sc       # script/console
+  migrate  # rake db:migrate db:test:clone
+  scaffold # script/generate migration nifty_scaffold
+
+See the other aliases in ~/.zsh/aliases
