@@ -28,6 +28,10 @@ can easily be accessed (and tab completed) with the "c" command.
 
   c railsca<tab>
 
+There is also an "h" command which behaves similar, but acts on the home path.
+
+  h doc<tab>
+
 Tab completion is also added to rake and cap commands:
 
   rake db:mi<tab>
