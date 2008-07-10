@@ -25,6 +25,5 @@ alias tlog='tail -f log/development.log'
 alias scaffold='script/generate nifty_scaffold'
 alias migrate='rake db:migrate db:test:clone'
 
-# commands starting with % or $ for pasting from web
-alias %=' ' 
-alias \$=' '
+# commands starting with % for pasting from web
+alias %=' '
