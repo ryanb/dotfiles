@@ -28,7 +28,8 @@ can easily be accessed (and tab completed) with the "c" command.
 
   c railsca<tab>
 
-There is also an "h" command which behaves similar, but acts on the home path.
+There is also an "h" command which behaves similar, but acts on the 
+home path.
 
   h doc<tab>
 
@@ -41,6 +42,10 @@ To speed things up, the results are cached in local .rake_tasks~ and
 .cap_tasks~. It is smart enough to expire the cache automatically in 
 most cases, but you can simply remove the files to flush the cache.
 
+There are a few key bindings set. Option-left/right arrow will move 
+cursor by word, and control-left/right will move to beginning and end 
+of line.
+
 If you're using git, you'll notice the current branch name shows up in
 the prompt while in a git repository.
 
@@ -49,7 +54,10 @@ also use show_log and hide_log in script/console to show the log inline.
   
   ss       # script/server
   sc       # script/console
+  sg       # script/generate
+  a        # autotest
+  tlog     # tail -f log/development.log
   migrate  # rake db:migrate db:test:clone
-  scaffold # script/generate migration nifty_scaffold
+  scaffold # script/generate nifty_scaffold
 
 See the other aliases in ~/.zsh/aliases
