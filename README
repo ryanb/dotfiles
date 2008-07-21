@@ -42,9 +42,11 @@ To speed things up, the results are cached in local .rake_tasks~ and
 .cap_tasks~. It is smart enough to expire the cache automatically in 
 most cases, but you can simply remove the files to flush the cache.
 
-There are a few key bindings set. Option-left/right arrow will move 
-cursor by word, and control-left/right will move to beginning and end 
-of line.
+There are a few key bindings set. Many of these require option to be
+set as the meta key. Option-left/right arrow will move cursor by word, 
+and control-left/right will move to beginning and end of line. 
+Control-option-N will open a new tab with the current directory under
+Mac OS X Terminal.
 
 If you're using git, you'll notice the current branch name shows up in
 the prompt while in a git repository.
