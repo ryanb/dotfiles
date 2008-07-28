@@ -1,4 +1,9 @@
-PS1='%3~$(git_branch_for_prompt)%# '
+if [[ -n $SSH_CONNECTION ]]; then
+  PS1='%m:%3~$(git_branch_for_prompt)%# '
+else
+  PS1='%3~$(git_branch_for_prompt)%# '
+fi
+
 EDITOR='mate -w'
 PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
 MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
