@@ -59,6 +59,7 @@ also use show_log and hide_log in script/console to show the log inline.
   sg       # script/generate
   a        # autotest
   tlog     # tail -f log/development.log
+  rst      # touch tmp/restart.txt
   migrate  # rake db:migrate db:test:clone
   scaffold # script/generate nifty_scaffold
 
