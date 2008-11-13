@@ -1,0 +1,69 @@
+#compdef github
+
+_github() {
+  if (( CURRENT > 2 )); then
+    # shift words so _arguments doesn't have to be concerned with second command
+    (( CURRENT-- ))
+    shift words
+    # use _call_function here in case it doesn't exist
+    _call_function 1 _github_${words[1]}
+  else
+    _values "github command" \
+     "fetch[Fetch from a remote to a local branch.]" \
+     "pull-request[Generate the text for a pull request.]" \
+     "browse[Open this repo in a web browser.]" \
+     "home[Open this repo's master branch in a web browser.]" \
+     "pull[Pull from a remote.]" \
+     "network[Project network tools.]" \
+     "clone[Clone a repo.]" \
+     "ignore[Ignore a SHA (from 'github network commits')]" \
+     "track[Track another user's repository.]" \
+     "info[Info about this project.]" \
+     "fetch_all[Fetch all refs from a user]"
+  fi
+}
+
+_github_pull() {
+  _arguments \
+    "--merge[Automatically merge remote's changes into your master.]"
+}
+_github_clone() {
+  _arguments \
+    "--ssh[Clone using the git@github.com style url.]"
+}
+
+_github_track() {
+  _arguments \
+    "--ssh[Equivalent to --private.]" \
+    "--private[Use git@github.com: instead of git://github.com/.]"
+}
+
+_github_network() {
+  if (( CURRENT > 2 )); then
+    # shift words so _arguments doesn't have to be concerned with second command
+    (( CURRENT-- ))
+    shift words
+    # use _call_function here in case it doesn't exist
+    _call_function 1 _github_network_${words[1]}
+  else
+    _values "github network command" \
+     "web[Open network in a web browser.]" \
+     "list[List networked repositories.]" \
+     "fetch[Fetched commits for a given networked repository.]" \
+     "commits[List networked commits not pulled into this repo.]"
+  fi
+}
+
+_github_network_commits() {
+  _arguments \
+    "--author[Filter commits on a email address of author.]" \
+    "--project[Filter commits on a certain project.]" \
+    "--sort[How to sort : date(*), branch, author.]" \
+    "--applies[Filter commits to patches that apply cleanly.]" \
+    "--before[Only show commits before a certain date.]" \
+    "--shas[Only show shas.]" \
+    "--nocache[Do not use the cached network data.]" \
+    "--cache[Use the network data even if it's expired.]" \
+    "--after[Only show commits after a certain date.]" \
+    "--common[Show common branch point.]"
+}
