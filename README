@@ -66,7 +66,7 @@ also use show_log and hide_log in script/console to show the log inline.
 See the other aliases in ~/.zsh/aliases
 
 If there are some shell configuration settings which you want secure or 
-specific to one system, place it into a ~/localrc file. This will be 
+specific to one system, place it into a ~/.localrc file. This will be 
 loaded automatically if it exists.
 
 There are several features enabled in Ruby's irb including history, 
