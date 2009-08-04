@@ -9,6 +9,13 @@ IRB.conf[:PROMPT_MODE] = :SIMPLE
 
 IRB.conf[:AUTO_INDENT] = true
 
+%w[rubygems looksee/shortcuts wirble].each do |gem|
+  begin
+    require gem
+  rescue LoadError
+  end
+end
+
 class Object
   # list methods which aren't in superclass
   def local_methods(obj = self)
