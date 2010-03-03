@@ -8,7 +8,9 @@ task :install do
     next if %w[Rakefile README.rdoc LICENSE].include? file
     
     if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
-      if replace_all
+      if File.identical? file, File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
+        puts "identical ~/.#{file.sub('.erb', '')}"
+      elsif replace_all
         replace_file(file)
       else
         print "overwrite ~/.#{file.sub('.erb', '')}? [ynaq] "
