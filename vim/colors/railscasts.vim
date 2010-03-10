@@ -31,6 +31,7 @@ hi Folded     guifg=#F6F3E8 guibg=#444444  gui=NONE
 hi Directory  guifg=#A5C160 gui=NONE
 hi Error      guifg=#FFFFFF guibg=#990000
 hi MatchParen guifg=NONE    guibg=#131313
+hi Title      guifg=#E6E1DC
 
 hi Comment    guifg=#BC9357 guibg=NONE     gui=italic
 hi! link Todo Comment
