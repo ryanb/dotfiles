@@ -25,9 +25,14 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
 fi
 
+# Add developer tools to path
+export PATH=/Developer/usr/bin:$PATH
+export MANPATH=/Developer/share/man:$MANPATH
+
 # RVM
 if [[ -s /Users/pete/.rvm/scripts/rvm ]] ; then source /Users/pete/.rvm/scripts/rvm ; fi
 
+# Add home directory to path.
 export PATH=$PATH:~/bin
 
 # Make ack ignore sql dumps.
