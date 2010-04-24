@@ -11,5 +11,3 @@ Snippet tr <tr><CR><{}><CR></tr>
 Snippet th <th><{}></th>
 Snippet td <td><{}></td>
 
-Snippet for <% for <{thing}> in @<{thing}>s %><CR><{}><CR><% end %>
-

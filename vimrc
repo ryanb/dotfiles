@@ -48,6 +48,7 @@ autocmd FileType css        setlocal ts=2 sw=2 sts=2
 autocmd FileType javascript setlocal ts=2 sw=2 sts=2
 autocmd FileType cpp        setlocal ts=2 sw=2 sts=2
 autocmd FileType ruby       setlocal ts=2 sw=2 sts=2
+autocmd FileType eruby      setlocal ts=2 sw=2 sts=2
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
