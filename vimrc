@@ -20,8 +20,9 @@ set autoindent nosmartindent nocindent  " go for simple autoindenting
 set dir=/tmp
 set nobackup
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
+map Q gq                                  " Don't use Ex mode, use Q for formatting
+nnoremap <F5> :buffers<CR>:buffer<Space>  " F5 show currently open buffers
+nmap <F1> <nop>                           " Disable the F1 key
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
