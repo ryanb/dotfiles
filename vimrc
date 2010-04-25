@@ -15,6 +15,7 @@ set mouse=a		" enable the mouse
 set expandtab		" always use spaces not tabs
 set ts=8 sw=8 sts=8     " default to 8 space tabs
 set autoindent nosmartindent nocindent  " go for simple autoindenting
+set nofoldenable        " disable code folding
 
 " Put swap files in /tmp, and don't keep backups.
 set dir=/tmp
