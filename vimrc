@@ -20,6 +20,9 @@ set autoindent nosmartindent nocindent  " go for simple autoindenting
 set dir=/tmp
 set nobackup
 
+" Use ack instead of grep for project-wide search.
+set grepprg=ack
+
 map Q gq                                  " Don't use Ex mode, use Q for formatting
 nnoremap <F5> :buffers<CR>:buffer<Space>  " F5 show currently open buffers
 nmap <F1> <nop>                           " Disable the F1 key
