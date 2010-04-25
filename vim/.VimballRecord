@@ -1,1 +1,2 @@
 snippy_plugin.vba: call delete('/Users/pete/.vim/plugin/snippetsEmu.vim')|call delete('/Users/pete/.vim/doc/snippets_emu.txt')
+tComment.vba: call delete('/Users/pete/.vim/doc/tComment.txt')|call delete('/Users/pete/.vim/plugin/tComment.vim')|call delete('/Users/pete/.vim/autoload/tcomment.vim')
