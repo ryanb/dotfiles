@@ -39,5 +39,5 @@ if [[ -s /Users/pete/.rvm/scripts/rvm ]] ; then source /Users/pete/.rvm/scripts/
 # Add home directory to path.
 export PATH=$PATH:~/bin
 
-# Make ack ignore sql dumps.
-export ACK_OPTIONS=--nosql
+# Make ack ignore sql dumps, and search cucumber features.
+export ACK_OPTIONS="--nosql --type-set cucumber=.feature"
