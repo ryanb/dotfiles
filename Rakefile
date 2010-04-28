@@ -3,6 +3,7 @@ require 'erb'
 
 desc "install the dot files into user's home directory"
 task :install do
+  set_macvim_defaults
   replace_all = false
   Dir['*'].each do |file|
     next if %w[Rakefile README.rdoc LICENSE].include? file
@@ -48,3 +49,15 @@ def link_file(file)
     system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
   end
 end
+
+# Set the MacVIM window borders to look like the Terminal.app ones.
+#
+# To restore defaults, use:
+#     defaults delete org.vim.MacVim
+def set_macvim_defaults
+  system "defaults write org.vim.MacVim MMTextInsetTop 2"
+  system "defaults write org.vim.MacVim MMTextInsetBottom 5"
+  system "defaults write org.vim.MacVim MMTextInsetLeft 5"
+  system "defaults write org.vim.MacVim MMTextInsetRight 5"
+end
+
