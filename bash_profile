@@ -17,8 +17,12 @@ PS1="${blue}\w${yellow}\$(parse_git_branch)${default_colour} "
 
 export CLICOLOR=1 # Make ls colour its output.
 export LESS=-R  # Make less support ANSI colour sequences.
-export EDITOR=vi
 export RUBYOPT=rubygems # Make Ruby load rubygems without a require.
+
+# We use the full path here to work around this nasty bug: http://www.tpope.net/node/108
+# In particular, calling "filetype indent off" in my vimrc was causing vim to
+# always exit with a non-zero status. Very annoying for git commit.
+export EDITOR=/usr/bin/vim
 
 # Use fancy bash completion.
 if [ -f `brew --prefix`/etc/bash_completion ]; then
