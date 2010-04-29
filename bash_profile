@@ -15,6 +15,9 @@ default_colour="\[\033[0m\]"
 # PS1="${black_background}${white}\w${yellow}$(parse_git_branch)${default_colour} "
 PS1="${blue}\w${yellow}\$(parse_git_branch)${default_colour} "
 
+# Use vi editing mode.
+set -o vi
+
 export CLICOLOR=1 # Make ls colour its output.
 export LESS=-R  # Make less support ANSI colour sequences.
 export RUBYOPT=rubygems # Make Ruby load rubygems without a require.
