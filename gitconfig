@@ -4,4 +4,4 @@
 [github]
 	user = notahat
 [color]
-	diff = true
+	ui = true
