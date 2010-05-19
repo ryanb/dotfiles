@@ -59,5 +59,6 @@ def set_macvim_defaults
   system "defaults write org.vim.MacVim MMTextInsetBottom 5"
   system "defaults write org.vim.MacVim MMTextInsetLeft 5"
   system "defaults write org.vim.MacVim MMTextInsetRight 5"
+  system "defaults write org.vim.MacVim MMTabOptimumWidth 200"
 end
 
