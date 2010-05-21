@@ -49,6 +49,11 @@
 :NERDTreeFromBookmark	NERD_tree.txt	/*:NERDTreeFromBookmark*
 :NERDTreeMirror	NERD_tree.txt	/*:NERDTreeMirror*
 :NERDTreeToggle	NERD_tree.txt	/*:NERDTreeToggle*
+:TComment	tComment.txt	/*:TComment*
+:TCommentAs	tComment.txt	/*:TCommentAs*
+:TCommentBlock	tComment.txt	/*:TCommentBlock*
+:TCommentInline	tComment.txt	/*:TCommentInline*
+:TCommentRight	tComment.txt	/*:TCommentRight*
 ExtractSnips()	snipMate.txt	/*ExtractSnips()*
 ExtractSnipsFile()	snipMate.txt	/*ExtractSnipsFile()*
 Filename()	snipMate.txt	/*Filename()*
@@ -112,6 +117,7 @@ NERDTreeOptions	NERD_tree.txt	/*NERDTreeOptions*
 NERDTreeRender()	NERD_tree.txt	/*NERDTreeRender()*
 NERD_tree.txt	NERD_tree.txt	/*NERD_tree.txt*
 ResetSnippets()	snipMate.txt	/*ResetSnippets()*
+TCommentDefineType()	tComment.txt	/*TCommentDefineType()*
 abc	fuf.txt	/*abc*
 config/rails.vim	rails.txt	/*config\/rails.vim*
 cs	surround.txt	/*cs*
@@ -252,6 +258,11 @@ g:rails_tabstop	rails.txt	/*g:rails_tabstop*
 g:rails_url	rails.txt	/*g:rails_url*
 g:snippets_dir	snipMate.txt	/*g:snippets_dir*
 g:snips_author	snipMate.txt	/*g:snips_author*
+g:tcommentMapLeader1	tComment.txt	/*g:tcommentMapLeader1*
+g:tcommentMapLeader2	tComment.txt	/*g:tcommentMapLeader2*
+g:tcommentMapLeaderOp1	tComment.txt	/*g:tcommentMapLeaderOp1*
+g:tcommentMapLeaderOp2	tComment.txt	/*g:tcommentMapLeaderOp2*
+g:tcommentOpModeExtra	tComment.txt	/*g:tcommentOpModeExtra*
 i_CTRL-G_S	surround.txt	/*i_CTRL-G_S*
 i_CTRL-G_s	surround.txt	/*i_CTRL-G_s*
 i_CTRL-R_<Tab>	snipMate.txt	/*i_CTRL-R_<Tab>*
@@ -448,6 +459,11 @@ surround-mappings	surround.txt	/*surround-mappings*
 surround-replacements	surround.txt	/*surround-replacements*
 surround-targets	surround.txt	/*surround-targets*
 surround.txt	surround.txt	/*surround.txt*
+tComment-Installation	tComment.txt	/*tComment-Installation*
+tComment-Key-Bindings	tComment.txt	/*tComment-Key-Bindings*
+tComment-Usage	tComment.txt	/*tComment-Usage*
+tComment-commands	tComment.txt	/*tComment-commands*
+tComment.txt	tComment.txt	/*tComment.txt*
 vs	surround.txt	/*vs*
 yS	surround.txt	/*yS*
 ySS	surround.txt	/*ySS*

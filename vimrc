@@ -50,7 +50,7 @@ if has("autocmd")
   au!
 
   " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+  " autocmd FileType text setlocal textwidth=78
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -119,19 +119,20 @@ map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " Move lines up and down
-map <Leader>> :m +1 <CR>
-map <Leader>< :m -2 <CR>
+map <C-J> :m +1 <CR>
+map <C-K> :m -2 <CR>
 
 " Inserts the path of the currently edited file into a command
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
-" Maps autocomplete to tab
-imap <Tab> <C-N>
-
 " Duplicate a selection
 " Visual mode: D
 vmap D y'>p
+
+" Press Shift+P while in visual mode to replace the selection without
+" overwriting the default register
+vmap P p :call setreg('"', getreg('0')) <CR>
 
 " For Haml
 au! BufRead,BufNewFile *.haml         setfiletype haml
@@ -142,16 +143,17 @@ nmap <F1> <Esc>
 " Press ^F from insert mode to insert the current file name
 imap <C-F> <C-R>=expand("%")<CR>
 
-" Press Shift+P while in visual mode to replace the selection without
-" overwriting the default register
-vmap P p :call setreg('"', getreg('0')) <CR>
+" Maps autocomplete to tab
+imap <Tab> <C-N>
+
+imap <C-L> <Space>=><Space>
 
 " Display extra whitespace
 " set list listchars=tab:»·,trail:·
 
 " Edit routes
 command! Rroutes :e config/routes.rb
-command! RTroutes :tabe config/routes.rb
+command! Rschema :e db/schema.rb
 
 " Local config
 if filereadable(".vimrc.local")
@@ -160,7 +162,7 @@ endif
 
 " Use Ack instead of Grep when available
 if executable("ack")
-  set grepprg=ack\ -H\ --nogroup\ --nocolor
+  set grepprg=ack\ -H\ --nogroup\ --nocolor\ --ignore-dir=tmp\ --ignore-dir=coverage
 endif
 
 " Color scheme
@@ -187,6 +189,7 @@ set smartcase
 
 " Tags
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
+set tags=./tags;
 
 let g:fuf_splitPathMatching=1
 
