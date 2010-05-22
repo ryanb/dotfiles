@@ -1,6 +1,10 @@
 'snippets'	snipMate.txt	/*'snippets'*
 .snippet	snipMate.txt	/*.snippet*
 .snippets	snipMate.txt	/*.snippets*
+:Ack	ack.txt	/*:Ack*
+:AckAdd	ack.txt	/*:AckAdd*
+:LAck	ack.txt	/*:LAck*
+:LAckAdd	ack.txt	/*:LAckAdd*
 :TComment	tComment.txt	/*:TComment*
 :TCommentAs	tComment.txt	/*:TCommentAs*
 :TCommentBlock	tComment.txt	/*:TCommentBlock*
@@ -11,6 +15,9 @@ ExtractSnipsFile()	snipMate.txt	/*ExtractSnipsFile()*
 Filename()	snipMate.txt	/*Filename()*
 ResetSnippets()	snipMate.txt	/*ResetSnippets()*
 TCommentDefineType()	tComment.txt	/*TCommentDefineType()*
+ack	ack.txt	/*ack*
+ack-author	ack.txt	/*ack-author*
+ack.txt	ack.txt	/*ack.txt*
 config/rails.vim	rails.txt	/*config\/rails.vim*
 g:loaded_rails	rails.txt	/*g:loaded_rails*
 g:rails_abbreviations	rails.txt	/*g:rails_abbreviations*
