@@ -8,6 +8,7 @@ set backspace=indent,eol,start
 syntax on		" enable syntax highlighting
 set history=50		" keep 50 lines of command line history
 set laststatus=2        " always show the status line
+set ruler               " show cursor position on the status line
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 set hlsearch		" highlight search results
