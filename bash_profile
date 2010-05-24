@@ -33,8 +33,8 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
 fi
 
 # Add developer tools to path
-export PATH=/Developer/usr/bin:$PATH
-export MANPATH=/Developer/share/man:$MANPATH
+export PATH=$PATH:/Developer/usr/bin
+export MANPATH=$MANPATH:/Developer/share/man
 
 # RVM
 if [[ -s /Users/pete/.rvm/scripts/rvm ]] ; then source /Users/pete/.rvm/scripts/rvm ; fi

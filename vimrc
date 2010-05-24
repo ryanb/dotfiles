@@ -17,11 +17,17 @@ set expandtab		" always use spaces not tabs
 set ts=8 sw=8 sts=8     " default to 8 space tabs
 set autoindent nosmartindent nocindent  " go for simple autoindenting
 set nofoldenable        " disable code folding
-set grepprg=ack         " use ack instead of grep for project-wide search
+set hidden              " unload any buffer that's hidden
 
 " Put swap files in /tmp, and don't keep backups.
 set dir=/tmp
 set nobackup
+
+" Load pathogen for managing all those pesky plugins.
+call pathogen#runtime_append_all_bundles() 
+
+" Stop Lusty Juggler complaining when we use the system vim.
+let g:LustyJugglerSuppressRubyWarning = 1
 
 " F5 show currently open buffers
 nnoremap <F5> :buffers<CR>:buffer<Space>
