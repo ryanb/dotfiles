@@ -1,0 +1,154 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'active_support'
+require 'action_view/helpers/date_helper'
+require 'chronic'
+require 'yaml'
+
+class TimeClock
+  include ActionView::Helpers::DateHelper
+  
+  def initialize
+    load
+  end
+  
+  def punch_in(time)
+    if !punched_in?
+      punch_in = add_event(:punch_in, time)
+      puts("Punched in at #{punch_in[:time]} (#{time_ago_in_words(punch_in[:time])} ago)")
+    else
+      puts "Already punched in!"
+    end
+  end
+  
+  def punch_out(time)
+    if punched_in?
+      punch_in  = last_punch_event
+      punch_out = add_event(:punch_out, time)
+      puts("Punched in  at #{punch_in[:time]} (#{time_ago_in_words(punch_in[:time])} ago)")
+      puts("Punched out at #{punch_out[:time]} (#{time_ago_in_words(punch_out[:time])} ago)")
+      puts("Worked for #{distance_of_time_in_words(punch_out[:time] - punch_in[:time])}")
+    else
+      puts "Already punched out!"
+    end
+  end
+  
+  def log(message)
+    add_event(:log, "", :message => message)
+  end
+  
+  def status
+    if punched_in?
+      punch_in = last_punch_event
+      puts("Punched in at #{punch_in[:time]} (#{time_ago_in_words(punch_in[:time])} ago)")
+    else
+      puts("Punched out")
+    end
+  end
+  
+  def total
+    total = 0
+    puts("Start | End | Duration")
+    grouped_events.each do |group|
+      punch_in = group.first
+      punch_out = group.last
+      duration = (punch_out[:time] - punch_in[:time]).round
+      puts("#{punch_in[:time]} | #{punch_out[:time]} | #{format_duration(duration)}")
+      total += duration
+    end
+    puts("Total: #{format_duration(total)}")
+  end
+  
+  def undo
+    @events.shift
+  end
+  
+  def load
+    begin
+      @events = YAML.load_file(project_filename)
+    rescue Errno::ENOENT
+      @events = []
+    end
+  end
+
+  def save
+    File.open(project_filename, "w") {|file| YAML.dump(@events, file) }
+  end
+  
+private
+
+  def add_event(action, time, options = {})
+    @events.unshift(options.merge(:action => action, :time => parse_time(time)))
+    @events.first
+  end
+
+  def punched_in?
+    event = last_punch_event
+    event && event[:action] == :punch_in
+  end
+  
+  def last_punch_event
+    @events.find {|event| [:punch_in, :punch_out].include?(event[:action]) }
+  end
+  
+  
+  def grouped_events
+    groups = [[]]
+    @events.reverse.group_by do |event|
+      case event[:action]
+        when :punch_in
+          groups.push([]) unless groups.last.empty?
+          groups.last.push(event)
+        when :punch_out
+          groups.last.push(event)
+          groups.push([])
+        else
+          groups.last.push(event)
+      end
+    end
+    groups.pop if groups.last.empty?
+    groups
+  end
+
+  
+  def parse_time(time)
+    time.empty? ? Time.now : Chronic.parse(time)
+  end
+  
+  def format_duration(duration)
+    hours = duration / 360
+    duration %= 360
+    minutes = duration / 60
+    seconds = duration % 60
+    sprintf("%i:%02i:%02i", hours, minutes, seconds) 
+  end
+
+  def project_filename
+    Dir.getwd.split("/")[0..4].join("/") + "/time.yaml"
+  end
+  
+end
+
+
+time_clock = TimeClock.new
+command = ARGV.shift
+
+case command
+  when "in"
+    time_clock.punch_in(ARGV.join(" "))
+  when "out"
+    time_clock.punch_out(ARGV.join(" "))
+  when "log"
+    time_clock.log(ARGV.join(" "))
+  when "status", nil
+    time_clock.status
+  when "total"
+    time_clock.total
+  when "undo"
+    time_clock.undo
+  else
+    puts "Unknown action!"
+end
+
+time_clock.save

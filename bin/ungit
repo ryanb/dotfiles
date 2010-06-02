@@ -1,0 +1,4 @@
+#!/bin/sh
+
+find . -name .gitignore | xargs rm
+rm -rf .git

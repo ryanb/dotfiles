@@ -3,16 +3,16 @@
 git init
 
 cat <<EOF > .gitignore
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*
 .DS_Store
 coverage
 .*.swp
 EOF
-echo '*.log'       > log/.gitignore
-echo '!.gitignore' > tmp/.gitignore
-echo '*.sqlite3'   > db/.gitignore
-echo 'app'         > doc/.gitignore
 
-find . -type d -empty -exec touch {}/.gitignore \;
+find . -type d -empty -exec touch {}/.gitkeep \;
 
 git add .
 git commit -a -m "Initial import."

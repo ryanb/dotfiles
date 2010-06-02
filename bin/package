@@ -1,0 +1,412 @@
+#!/usr/bin/perl -w
+#
+# Pete's Package Manager 1.2
+# Copyright (c) 1996-98 Pete Yandell.  All rights reserved.
+#
+# A perl tool to handle installation of packages in a sensible
+# way.  Use it to install packages in (for example)
+# /usr/local/<packageName> and then create soft links from
+# /usr/local/{bin|lib|man} etc.
+#
+# Version 1.2 - 1 Sep 1998
+#	Correctly picks up existing soft linked directories.
+#
+# Version 1.1 - 12 Jan 1997
+#	Added code to correctly handle hard and soft links between
+#	manual pages.  This avoids reformatting the same page
+#	several times and chewing unnecessary disk space.
+#
+# Version 1.0
+#	Initial release - does directory creation, linking and
+#	manual page formatting.
+#
+
+use Cwd;
+
+
+sub Slash {
+	my ($dir) = @_;
+	$dir =~ s|([^/])$|$1/|;
+	$dir;
+}
+
+
+sub NoSlash {
+	(my $dir) = @_;
+	$dir =~ s|/$||;
+	$dir;
+}
+
+
+sub ReadDirName {
+	my ($prompt, $default) = @_;
+	my $dirName;
+	
+	do {
+		print ("${prompt}?  [${default}] > ");
+		$dirName = <STDIN>; chop ($dirName);
+		$dirName = $default unless ($dirName);
+
+		# Complete the path if it doesn't begin with a /
+		$dirName = &Slash ($ENV{PWD}) . $dirName
+			unless ($dirName =~ m|^/|);
+
+		# Make sure the directory exists!
+		unless (-d $dirName) {
+			print ("Directory ${dirName} doesn't exist.\n");
+			print ("Create it?  (y/n)  [n] > ");
+			my $result = <STDIN>;
+			if ($result =~ /^y/i) {
+				mkdir (NoSlash ($dirName), 0755);
+			}
+			else {
+				$dirName = "";
+			}
+		}
+	} until ($dirName);
+
+	&Slash ($dirName);
+}
+
+
+
+sub Warn {
+	my ($warning) = @_;
+
+	print STDERR ("*** Warning: $warning\n");
+	push (@warnings, $warning);
+}
+
+
+@LocalDirs = (
+	"bin", "etc", "include", "info", "lib",
+	"libdata", "libexec", "man", "sbin", "share", "share/doc",
+	"include/X11", "lib/X11",
+	"man/man1", "man/man2", "man/man3", "man/man4", "man/man5",
+	"man/man6", "man/man7", "man/man8", "man/mann", "man/manl",
+	"man/cat1", "man/cat2", "man/cat3", "man/cat4", "man/cat5",
+	"man/cat6", "man/cat7", "man/cat8", "man/catn", "man/catl",
+);
+
+
+sub MakePackageDirs {
+	print ("Creating standard directories in $packageRoot...\n");
+
+	my $name;
+	foreach $name (@LocalDirs) {
+		my $fullName = $packageRoot.$name;
+
+		&Warn ("$name exists and is not a directory.")
+			if (-e $fullName && !-d $fullName);
+
+		unless (-e $fullName) {
+			print ("$name\n");
+			mkdir ($fullName, 0755);
+		}
+	}
+}
+
+
+sub StripPackageDirs {
+	print ("Removing empty directories from $packageRoot...\n");
+
+	my @reverseDirs = reverse (@LocalDirs);
+
+	my $name;
+	foreach $name (@reverseDirs) {
+		my $fullName = $packageRoot.$name;
+		opendir (DIR, $fullName);
+		my @nameList = readdir (DIR);
+		closedir (DIR);
+	
+		if (@nameList == 2) {
+			print ("$name\n");
+			rmdir ($fullName);
+		}
+	}
+}
+	
+
+
+sub FormatManuals {
+	print ("Preformatting manual pages in ${packageRoot}man...\n");
+
+	# Some manual pages use includes from this directory.
+	chdir ("${packageRoot}man");
+
+	my %inodes = ();
+
+	my $i;
+	for $i (1..8, "n", "l") {
+		my $manDir = "${packageRoot}man\/man$i";
+		next unless (-d $manDir);
+
+		opendir (DIR, $manDir);
+		my @manList = readdir (DIR);
+		closedir (DIR);
+		next if (@manList == 2);
+
+		my $catDir = "${packageRoot}man\/cat$i";
+		mkdir ($catDir, 0755) unless (-d $catDir);
+
+		my $manName;
+		for $manName (@manList) {
+			next if ($manName eq "." || $manName eq "..");
+		
+			$inode = (lstat ("$manDir\/$manName")) [1];
+
+			my $catName = $manName;
+			$catName =~ s/.$/0/;
+
+			if (-l $manName) {
+				my $linkManName = readlink ($manName);
+				print ("$manName (soft link to $linkManName)\n");
+				my $linkCatName = $linkManName;
+				$linkCatName =~ s/.$/0/;
+				symlink ("$catDir\/$linkCatName", "$catDir\/$catName");
+			}
+			elsif ($inodes{$inode}) {
+				my $linkManName = $inodes{$inode};
+				print ("$manName (hard link to $linkManName)\n");
+				my $linkCatName = $linkManName;
+				$linkCatName =~ s/.$/0/;
+				link ("$catDir\/$linkCatName", "$catDir\/$catName");
+			}
+			else {
+				print ("$manName\n");
+				`nroff -man $manDir\/$manName > $catDir\/$catName`;
+				$inodes{$inode} = $manName;
+			}
+		}
+	}
+
+	# There can be dependencies between man pages, so we can't
+	# get rid of the unformatted files until we've done all the
+	# formatting.
+	for $i (1..8, "n", "l") {
+		my $manDir = "${packageRoot}man\/man$i";
+		next unless (-d $manDir);
+
+		opendir (DIR, $manDir);
+		my @manList = readdir (DIR);
+		closedir (DIR);
+
+		my $manName;
+		for $manName (@manList) {
+			next if ($manName eq "." || $manName eq "..");
+			unlink ("$manDir\/$manName");
+		}
+		
+		rmdir ($manDir);
+	}
+}
+
+
+
+sub LinkFile {
+	my ($fileName) = @_;
+
+	my $installFileName = $installRoot.$fileName;
+	my $packageFileName = $packageRoot.$fileName;
+
+	if (-l $installFileName) {
+		my $linkName = readlink ($installFileName);
+		unless ($linkName eq $packageFileName) {
+			&Warn ("$installFileName exists and is ".
+			       "linked to the wrong location.");
+		}
+		return;
+	}
+	elsif (-e $installFileName) {
+		&Warn ("$installFileName exists and isn't a soft link.");
+		return;
+	}
+	else {
+		print ("$fileName\n");
+		symlink ($packageFileName, $installFileName);
+	}
+}
+
+
+
+
+sub LinkDir {
+	my ($dirName) = @_;
+
+	print "Creating links from $installRoot to $packageRoot...\n"
+		unless ($dirName);
+
+	$installDirName = $installRoot.$dirName;
+	$packageDirName = $packageRoot.$dirName;
+
+	# With the slash on the end, -l will not show up soft links!
+	if (-l &NoSlash ($installDirName)) {
+		my $linkName = readlink (&NoSlash ($installDirName));
+		unless ($linkName eq &NoSlash ($packageDirName)) {
+			&Warn ("$installDirName exists and is ".
+			       "linked to the wrong location.");
+		}
+		return;
+	}
+	elsif (-e $installDirName && !-d $installDirName) {
+		&Warn ("$installDirName exists and isn't a ".
+		       "soft link or a directory.");
+		return;
+	}
+	elsif (grep ($_ eq &NoSlash ($dirName), @LocalDirs)) {
+		mkdir (&NoSlash ($installDirName), 0755);
+	}
+
+
+	if (-d $installDirName) {
+		opendir (DIR, $packageDirName);
+		my @nameList = readdir (DIR);
+		closedir (DIR);	
+
+		my $name;
+		foreach $name (@nameList) {
+			next if ($name eq "." || $name eq "..");
+
+			my $fullName = $dirName.$name;
+		
+			lstat ($packageRoot.$fullName);
+			if (-d _) {
+				&LinkDir ("${fullName}\/");
+			}
+			else {
+				&LinkFile ($fullName);
+			}
+		}
+	}
+	else {
+		print ("${dirName}\n");
+		symlink (&NoSlash ($packageDirName),
+		         &NoSlash ($installDirName));
+	}
+}
+
+
+
+sub UnlinkDir {
+	my ($dirName) = @_;
+
+	print "Removing links from $installRoot to $packageRoot...\n"
+		unless ($dirName);
+
+	# Don't do any unlinking with within the package root itself.
+	return if ($installRoot.$dirName eq $packageRoot);
+
+	opendir (DIR, $installRoot.$dirName);
+	my @nameList = readdir (DIR);
+	closedir (DIR);
+
+	my $name;
+	foreach $name (@nameList) {
+		next if ($name eq "." || $name eq "..");
+
+		my $fullName = $dirName.$name;
+
+		# For some reason this barfs under new versions of perl if we
+		# don't make the argument a simple variable like this.
+		my $lstat_arg = &NoSlash ($installRoot.$fullName);
+		lstat ($lstat_arg);
+
+		if (-l _) {
+			my $linkName = readlink ($installRoot.$fullName);
+			if ($linkName =~ /^${packageRoot}/) {
+				print ("$fullName\n");
+				unlink ($installRoot.$fullName);
+			}
+		}
+
+		elsif (-d _) {
+			&UnlinkDir ("${fullName}\/");
+		}
+	}
+}
+
+
+
+
+sub Usage {
+	print ("Usage: package [-hlmu]\n");
+	print ("    -h  Display this help screen.\n");
+	print ("    -l  Link an existing package.\n");
+	print ("    -m  Preformat manual pages.\n");
+	print ("    -u  Unlink the selected package.\n");
+	exit (0);
+}
+
+
+
+
+
+print ("Pete's Package Manager 1.2\n");
+print ("Copyright (c) 1996-98 Pete Yandell.  All rights reserved.\n");
+print ("Use 'package -h' to get help.\n\n");
+
+
+$mode = "install";
+
+foreach (@ARGV) {
+	if (/^-/) {
+		if (/l/)	{ $mode = "link"; }
+		elsif (/m/)	{ $mode = "format"; }
+		elsif (/u/)	{ $mode = "unlink"; }
+		else		{ &Usage; }
+	}
+}
+
+
+#$packageRoot = &ReadDirName ("Package root", $ENV{PWD});
+$packageRoot = &ReadDirName ("Package root", cwd());
+
+$default = $packageRoot;
+$default =~ s|/[^/]*/$||;	# Strip the last pathname component
+
+$installRoot = &ReadDirName ("Install root", $default);
+
+print ("\n");
+
+
+if ($mode eq "install") {
+	&MakePackageDirs;
+
+	print ("\nInstall the package in $packageRoot now.\n");
+	print ("Starting shell...\n\n");
+	$shell = (getpwnam ("root"))[8];
+	system ($shell);
+
+	&StripPackageDirs;
+
+	print ("\n");
+
+	&FormatManuals;
+
+	print ("\n");
+
+	&LinkDir ("");
+}
+
+elsif ($mode eq "link") {
+	&LinkDir ("");
+}
+
+elsif ($mode eq "format") {
+	&FormatManuals;
+}
+
+elsif ($mode eq "unlink") {
+	&UnlinkDir ("");
+}
+
+
+print ("\nDone.\n");
+
+if (@warnings) {
+	print STDERR ("\n*** The following warnings were recorded:\n");
+
+	foreach $warning (@warnings) {
+		print STDERR ("$warning\n");
+	}
+}
