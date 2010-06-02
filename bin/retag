@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/local/bin/ctags -f /Users/pete/projects/marketplace/tmp/tags -R --langmap="ruby:+.rake.builder.rjs" --exclude="*.js" --exclude="*.sql" .

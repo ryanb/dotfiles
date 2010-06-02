@@ -40,7 +40,7 @@ export MANPATH=$MANPATH:/Developer/share/man
 if [[ -s /Users/pete/.rvm/scripts/rvm ]] ; then source /Users/pete/.rvm/scripts/rvm ; fi
 
 # Add home directory to path.
-export PATH=$PATH:~/bin
+export PATH=$PATH:~/.bin
 
 # Make ack ignore sql dumps, and search cucumber features.
 export ACK_OPTIONS="--nosql --type-set cucumber=.feature"
