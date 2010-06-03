@@ -41,6 +41,8 @@ inoremap <C-U> <C-G>u<C-U>
 " Use CTRL-H and CTRL-L to skip forward and back through functions.
 map <C-L> ]m
 map <C-H> [m
+" Use CTRL-A to re-align ruby, SQL, and cucumber.
+map <C-A> !align-ruby<CR>
 
 " Enable file type detection, but disable smart indenting.
 filetype plugin on
