@@ -56,12 +56,12 @@ private
     end
   end
 
-  def fix_sql(lines)
+  def self.fix_sql(lines)
     lines.map! do |prefix, suffix|
       matcher = case prefix
         when "INNER", "LEFT", "RIGHT"
           /^(.*JOIN)\s+(.*)$/
-        when "ORDER"
+        when "ORDER", "GROUP"
           /^(BY)\s+(.*)$/
         else
           nil
