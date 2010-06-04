@@ -10,6 +10,7 @@ tmp/**/*
 .DS_Store
 coverage
 .*.swp
+tags
 EOF
 
 find . -type d -empty -exec touch {}/.gitkeep \;
