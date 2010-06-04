@@ -18,14 +18,18 @@ PS1="${blue}\w${yellow}\$(parse_git_branch)${default_colour} "
 # Use vi editing mode.
 set -o vi
 
-export CLICOLOR=1 # Make ls colour its output.
-export LESS=-R  # Make less support ANSI colour sequences.
-export RUBYOPT=rubygems # Make Ruby load rubygems without a require.
+export CLICOLOR=1                                         # Make ls colour its output.
+export LESS=-R                                            # Make less support ANSI colour sequences.
+export RUBYOPT=rubygems                                   # Make Ruby load rubygems without a require.
+export ACK_OPTIONS="--nosql --type-set cucumber=.feature" # Make ack ignore sql dumps, and search cucumber features.
 
 # We use the full path here to work around this nasty bug: http://www.tpope.net/node/108
 # In particular, calling "filetype indent off" in my vimrc was causing vim to
 # always exit with a non-zero status. Very annoying for git commit.
 export EDITOR=/usr/bin/vim
+
+# For vi on the command line, always use MacVim, and open files in the existing window.
+alias vi='mvim --remote-silent'
 
 # Use fancy bash completion.
 if [ -f `brew --prefix`/etc/bash_completion ]; then
@@ -42,5 +46,3 @@ if [[ -s /Users/pete/.rvm/scripts/rvm ]] ; then source /Users/pete/.rvm/scripts/
 # Add home directory to path.
 export PATH=$PATH:~/.bin
 
-# Make ack ignore sql dumps, and search cucumber features.
-export ACK_OPTIONS="--nosql --type-set cucumber=.feature"
