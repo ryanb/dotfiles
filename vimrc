@@ -11,7 +11,7 @@ set backspace=indent,eol,start
 
 syntax on		" enable syntax highlighting
 set history=50		" keep 50 lines of command line history
-set laststatus=1        " only show the status line for multiple windows
+set laststatus=2        " only show the status line for multiple windows
 set ruler               " show cursor position
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
@@ -22,6 +22,7 @@ set ts=8 sw=8 sts=8     " default to 8 space tabs
 set autoindent nosmartindent nocindent  " go for simple autoindenting
 set nofoldenable        " disable code folding
 set hidden              " unload any buffer that's hidden
+set wildmode=list:longest  " list options when completing on the command line
 
 " Put swap files in /tmp, and don't keep backups.
 set dir=/tmp
@@ -35,13 +36,18 @@ let g:bufExplorerShowRelativePath=1
 " Hide the default help in bufexplorer.
 let g:bufExplorerDefaultHelp=0
 
-" Open buffer explorer on F1.
-" (F1 key normally opens help. Killing this is good.)
-map <F1> \be
+" Disable the F1 key (which normally opens help) coz I hit it accidentally.
+nmap <F1> <nop>
+
 " Open lusty explorer on F2.
 map <F2> \lf
 " Open lusty explorer in the current file's directory on F3.
 map <F3> \lr
+" Open the buffer explorer on F4.
+map <F4> \be
+" Open lusty buffer explorer on shift F4.
+map <S-F4> \lb
+
 " Use CTRL-H and CTRL-L to skip forward and back through functions.
 map <C-L> ]m
 map <C-H> [m
