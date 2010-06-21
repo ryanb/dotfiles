@@ -28,8 +28,8 @@ export ACK_OPTIONS="--nosql --type-set cucumber=.feature" # Make ack ignore sql 
 # always exit with a non-zero status. Very annoying for git commit.
 export EDITOR=/usr/bin/vim
 
-# For vi on the command line, always use MacVim, and open files in the existing window.
-alias vi='mvim --remote-silent'
+# Open mvim files in the existing window.
+alias mvim='mvim --remote-silent'
 
 # Use fancy bash completion.
 if [ -f `brew --prefix`/etc/bash_completion ]; then
@@ -41,7 +41,7 @@ export PATH=$PATH:/Developer/usr/bin
 export MANPATH=$MANPATH:/Developer/share/man
 
 # RVM
-if [[ -s /Users/pete/.rvm/scripts/rvm ]] ; then source /Users/pete/.rvm/scripts/rvm ; fi
+[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
 # Add home directory to path.
 export PATH=$PATH:~/.bin

@@ -11,7 +11,7 @@ command! Markdown :ruby MarkdownPreview.preview
 ruby <<EOF
 
 require 'rubygems'
-require 'bluecloth'
+require 'rdiscount'
 require 'pathname'
 
 class VIM::Buffer
@@ -39,7 +39,7 @@ module MarkdownPreview
 
     temp_file_path = "/tmp/#{buffer.basename}.html"
 
-    markdown = BlueCloth.new(buffer.contents)
+    markdown = RDiscount.new(buffer.contents)
     File.open(temp_file_path, "w") do |file|
       file << markdown.to_html
     end
