@@ -53,6 +53,11 @@ map ,r :LustyFilesystemExplorerFromHere<CR>
 " Use CTRL-J and CTRL-K to skip forward and back through functions.
 map <C-K> [m
 map <C-J> ]m
+
+" Use CTRL-N and CTRL-P to skip forward and back through the quickfix list.
+map <C-P> :cp<CR>
+map <C-N> :cn<CR>
+
 " Use CTRL-A to re-align ruby, SQL, and cucumber.
 map <C-A> !align-ruby<CR>
 
@@ -61,6 +66,10 @@ map Q gq
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
+
+" Reselect the visual area when changing indenting in visual mode.
+vnoremap < <gv
+vnoremap > >gv
 
 " Enable file type detection, but disable smart indenting.
 filetype plugin on
