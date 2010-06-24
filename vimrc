@@ -11,7 +11,7 @@ set backspace=indent,eol,start
 
 syntax on		" enable syntax highlighting
 set history=50		" keep 50 lines of command line history
-set laststatus=2        " only show the status line for multiple windows
+set laststatus=2        " always show the status line
 set ruler               " show cursor position
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
@@ -43,26 +43,26 @@ let g:bufExplorerShowRelativePath=1
 let g:bufExplorerDefaultHelp=0
 
 " Disable the F1 key (which normally opens help) coz I hit it accidentally.
-nmap <F1> <nop>
+nnoremap <F1> <nop>
 
-map ,a :BufExplorer<CR>
-map ,q :LustyBufferExplorer<CR>
-map ,e :LustyFilesystemExplorer<CR>
-map ,r :LustyFilesystemExplorerFromHere<CR>
+noremap ,a :BufExplorer<CR>
+noremap ,q :LustyBufferExplorer<CR>
+noremap ,e :LustyFilesystemExplorer<CR>
+noremap ,r :LustyFilesystemExplorerFromHere<CR>
 
 " Use CTRL-J and CTRL-K to skip forward and back through functions.
 map <C-K> [m
 map <C-J> ]m
 
 " Use CTRL-N and CTRL-P to skip forward and back through the quickfix list.
-map <C-P> :cp<CR>
-map <C-N> :cn<CR>
+noremap <C-P> :cp<CR>
+noremap <C-N> :cn<CR>
 
-" Use CTRL-A to re-align ruby, SQL, and cucumber.
-map <C-A> !align-ruby<CR>
+" Use CTRL-A to re-align ruby, SQL, and cucumber in visual mode.
+vnoremap <C-A> !align-ruby<CR>
 
 " Don't use Ex mode, use Q for formatting.
-map Q gq
+noremap Q gq
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
@@ -97,10 +97,10 @@ autocmd FileType cucumber   setlocal ts=2 sw=2 sts=2
 " (happens when dropping a file on gvim).
 " Also don't do it when the mark is in the first line, that is the default
 " position when opening a file.
-autocmd BufReadPost *
-\ if line("'\"") > 1 && line("'\"") <= line("$") |
-\   exe "normal! g`\"" |
-\ endif
+" autocmd BufReadPost *
+" \ if line("'\"") > 1 && line("'\"") <= line("$") |
+" \   exe "normal! g`\"" |
+" \ endif
 
 augroup END
 
