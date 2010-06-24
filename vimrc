@@ -20,13 +20,19 @@ set mouse=a		" enable the mouse
 set expandtab		" always use spaces not tabs
 set ts=8 sw=8 sts=8     " default to 8 space tabs
 set autoindent nosmartindent nocindent  " go for simple autoindenting
-set nofoldenable        " disable code folding
 set hidden              " unload any buffer that's hidden
 set wildmode=list:longest  " list options when completing on the command line
 
 " Put swap files in /tmp, and don't keep backups.
 set dir=/tmp
 set nobackup
+
+" Set up folding.
+set foldenable         " enable code folding
+set foldmethod=syntax  " use syntax for folding
+set foldlevelstart=99  " open all folds by default
+set foldtext=getline(v:foldstart)
+set fillchars=fold:\ 
 
 " Stop Lusty Juggler complaining when we use the system vim.
 let g:LustyJugglerSuppressRubyWarning = 1
@@ -39,18 +45,14 @@ let g:bufExplorerDefaultHelp=0
 " Disable the F1 key (which normally opens help) coz I hit it accidentally.
 nmap <F1> <nop>
 
-" Open lusty explorer on F2.
-map <F2> \lf
-" Open lusty explorer in the current file's directory on F3.
-map <F3> \lr
-" Open the buffer explorer on F4.
-map <F4> \be
-" Open lusty buffer explorer on shift F4.
-map <S-F4> \lb
+map ,a :BufExplorer<CR>
+map ,q :LustyBufferExplorer<CR>
+map ,e :LustyFilesystemExplorer<CR>
+map ,r :LustyFilesystemExplorerFromHere<CR>
 
-" Use CTRL-H and CTRL-L to skip forward and back through functions.
-map <C-L> ]m
-map <C-H> [m
+" Use CTRL-J and CTRL-K to skip forward and back through functions.
+map <C-K> [m
+map <C-J> ]m
 " Use CTRL-A to re-align ruby, SQL, and cucumber.
 map <C-A> !align-ruby<CR>
 
