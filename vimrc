@@ -23,8 +23,7 @@ set wildmode=list:longest  " list options when completing on the command line
 
 " Set up the status line
 set laststatus=2        " Always show it.
-set statusline=%([%M%R%H%W]\ %)%l/%L\ %f%=%{&filetype}\ %c
-" [<options>] <line num>/<file length> <path> [<filetype>]
+set statusline=%([%M%R%H%W]\ \ %)Line:\ %l/%L\ \ %f%=%{&filetype}\ \ Column:\ %c
 
 " Put swap files in /tmp, and don't keep backups.
 set dir=/tmp
@@ -45,8 +44,9 @@ if has("gui_macvim")
   set gfn=Inconsolata:h15         " Inconsolata 15px for the font
   set linespace=0                 " 0 pixels between lines
 
-  " Better colours for folding.
   colorscheme railscasts
+
+  " Better colours for folding.
   highlight Folded guifg=#EEEEEE guibg=#333333
 endif
 
