@@ -1,0 +1,3 @@
+# Rooter
+
+Install into `~/.vim/plugin/rooter.vim`.

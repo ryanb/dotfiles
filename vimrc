@@ -48,6 +48,9 @@ if has("gui_macvim")
 
   " Better colours for folding.
   highlight Folded guifg=#EEEEEE guibg=#333333
+
+  " Command-T opens PeepOpen.
+  map ,t <Plug>PeepOpen
 endif
 
 
@@ -62,6 +65,11 @@ let g:bufExplorerShowRelativePath=1
 " Hide the default help in bufexplorer.
 let g:bufExplorerDefaultHelp=0
 
+" Let single clicks open file and directories.
+let g:NERDTreeMouseMode=3
+" Close NERDTree after opening a file.
+let g:NERDTreeQuitOnOpen=1
+
 
 " Custom Key Mappings
 " -------------------
@@ -73,6 +81,7 @@ noremap ,a :BufExplorer<CR>
 noremap ,q :LustyBufferExplorer<CR>
 noremap ,e :LustyFilesystemExplorer<CR>
 noremap ,r :LustyFilesystemExplorerFromHere<CR>
+" noremap ,t :NERDTreeToggle<CR>
 
 " Use CTRL-J and CTRL-K to skip forward and back through functions.
 map <C-K> [m
