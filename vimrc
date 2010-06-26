@@ -9,19 +9,22 @@ call pathogen#runtime_append_all_bundles()
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-syntax on		" enable syntax highlighting
-set history=50		" keep 50 lines of command line history
-set laststatus=2        " always show the status line
-set ruler               " show cursor position
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-set hlsearch		" highlight search results
-set mouse=a		" enable the mouse
-set expandtab		" always use spaces not tabs
-set ts=8 sw=8 sts=8     " default to 8 space tabs
+syntax on               " enable syntax highlighting
+set history=50          " keep 50 lines of command line history
+set showcmd             " display incomplete commands
+set incsearch           " do incremental searching
+set hlsearch            " highlight search results
+set mouse=a             " enable the mouse
+set expandtab           " always use spaces not tabs
+set ts=2 sw=2 sts=2     " default to 2 space tabs
 set autoindent nosmartindent nocindent  " go for simple autoindenting
 set hidden              " unload any buffer that's hidden
 set wildmode=list:longest  " list options when completing on the command line
+
+" Set up the status line
+set laststatus=2        " Always show it.
+set statusline=%([%M%R%H%W]\ %)%l/%L\ %f%=%{&filetype}\ %c
+" [<options>] <line num>/<file length> <path> [<filetype>]
 
 " Put swap files in /tmp, and don't keep backups.
 set dir=/tmp
@@ -34,6 +37,23 @@ set foldlevelstart=99  " open all folds by default
 set foldtext=getline(v:foldstart)
 set fillchars=fold:\ 
 
+if has("gui_macvim")
+  set mousehide                   " Hide the mouse when typing text.
+  set guioptions=egm              " Show tabs, hide toolbar and scrollbar.
+  set fuoptions=maxvert,maxhorz   " Go to full width and height in full screen mode.
+
+  set gfn=Inconsolata:h15         " Inconsolata 15px for the font
+  set linespace=0                 " 0 pixels between lines
+
+  " Better colours for folding.
+  colorscheme railscasts
+  highlight Folded guifg=#EEEEEE guibg=#333333
+endif
+
+
+" Plugin Configuration
+" --------------------
+
 " Stop Lusty Juggler complaining when we use the system vim.
 let g:LustyJugglerSuppressRubyWarning = 1
 
@@ -41,6 +61,10 @@ let g:LustyJugglerSuppressRubyWarning = 1
 let g:bufExplorerShowRelativePath=1
 " Hide the default help in bufexplorer.
 let g:bufExplorerDefaultHelp=0
+
+
+" Custom Key Mappings
+" -------------------
 
 " Disable the F1 key (which normally opens help) coz I hit it accidentally.
 nnoremap <F1> <nop>
@@ -61,15 +85,19 @@ noremap <C-N> :cn<CR>
 " Use CTRL-A to re-align ruby, SQL, and cucumber in visual mode.
 vnoremap <C-A> !align-ruby<CR>
 
+" Reselect the visual area when changing indenting in visual mode.
+vnoremap < <gv
+vnoremap > >gv
+
 " Don't use Ex mode, use Q for formatting.
 noremap Q gq
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" Reselect the visual area when changing indenting in visual mode.
-vnoremap < <gv
-vnoremap > >gv
+
+" Filetype Handling
+" -----------------
 
 " Enable file type detection, but disable smart indenting.
 filetype plugin on
@@ -91,16 +119,6 @@ autocmd FileType cpp        setlocal ts=2 sw=2 sts=2
 autocmd FileType ruby       setlocal ts=2 sw=2 sts=2
 autocmd FileType eruby      setlocal ts=2 sw=2 sts=2
 autocmd FileType cucumber   setlocal ts=2 sw=2 sts=2
-
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-" (happens when dropping a file on gvim).
-" Also don't do it when the mark is in the first line, that is the default
-" position when opening a file.
-" autocmd BufReadPost *
-" \ if line("'\"") > 1 && line("'\"") <= line("$") |
-" \   exe "normal! g`\"" |
-" \ endif
+autocmd FileType markdown   setlocal ts=4 sw=4 sts=4
 
 augroup END
-

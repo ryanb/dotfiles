@@ -28,9 +28,6 @@ export ACK_OPTIONS="--nosql --type-set cucumber=.feature" # Make ack ignore sql 
 # always exit with a non-zero status. Very annoying for git commit.
 export EDITOR=/usr/bin/vim
 
-# Open mvim files in the existing window.
-alias mvim='mvim --remote-silent'
-
 # Use fancy bash completion.
 if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
