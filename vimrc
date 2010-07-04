@@ -23,7 +23,7 @@ set wildmode=list:longest  " list options when completing on the command line
 
 " Set up the status line
 set laststatus=2        " Always show it.
-set statusline=%([%M%R%H%W]\ \ %)Line:\ %l/%L\ \ %f%=%{&filetype}\ \ Column:\ %c
+set statusline=%([%M%R%H%W]\ \ %)%l/%L\ \ %f%=%{&filetype}\ \ %c
 
 " Put swap files in /tmp, and don't keep backups.
 set dir=/tmp
@@ -51,10 +51,6 @@ if has("gui_macvim")
 
   " Better colours for folding.
   highlight Folded guifg=#EEEEEE guibg=#333333
-
-  " Command-T opens PeepOpen.
-  map ,t <Plug>PeepOpen
-
 endif
 
 
