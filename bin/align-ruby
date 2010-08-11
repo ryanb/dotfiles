@@ -28,7 +28,7 @@ module Aligner
     indent = lines.map {|line| line =~ /^(\s*)/; $1.length }.min
 
     # Split the lines into a prefix and suffix.
-    lines.map! {|line| line.strip.split(separator, 2).map(&:strip) }
+    lines.map! {|line| line.strip.split(separator, 2).map {|part| part.strip } }
 
     # Fix up special cases for particular types.
     fix_sql(lines)      if type == :sql

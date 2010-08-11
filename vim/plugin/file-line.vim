@@ -5,7 +5,7 @@ function! s:gotoline()
 
 	if len(names) != 0 && filereadable(names[1])
 		let l:bufn = bufnr("%")
-		exec ":e " . names[1]
+		exec ":keepalt edit " . names[1]
 		exec ":" . names[2]
 		exec ":bdelete " . l:bufn
 		if foldlevel(names[2]) > 0

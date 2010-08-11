@@ -46,6 +46,9 @@ if has("gui_macvim")
 
   colorscheme railscasts
 
+  " Leave insert mode when vim loses focus. Doesn't work. :(
+  autocmd FocusLost * stopinsert
+
   " Better colours for folding.
   highlight Folded guifg=#EEEEEE guibg=#333333
 
@@ -75,11 +78,11 @@ let g:NERDTreeQuitOnOpen=1
 " -------------------
 
 " Disable the F1 key (which normally opens help) coz I hit it accidentally.
-nnoremap <F1> <nop>
+noremap <F1> <nop>
 
-noremap ,a :BufExplorer<CR>
-noremap ,q :LustyBufferExplorer<CR>
-noremap ,e :LustyFilesystemExplorer<CR>
+" noremap ,a :BufExplorer<CR>
+noremap ,a :LustyBufferExplorer<CR>
+noremap ,f :LustyFilesystemExplorer<CR>
 noremap ,r :LustyFilesystemExplorerFromHere<CR>
 " noremap ,t :NERDTreeToggle<CR>
 
