@@ -1,24 +1,47 @@
-# Path to your oh-my-zsh configuration.
-export ZSH=$HOME/.oh-my-zsh
+autoload colors; colors;
+setopt prompt_subst
 
-# Set to the name theme to load.
-# Look in ~/.oh-my-zsh/themes/
-export ZSH_THEME="notahat"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}%B["
+ZSH_THEME_GIT_PROMPT_SUFFIX="]%b%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="*"              # Text to display if the branch is dirty
+ZSH_THEME_GIT_PROMPT_CLEAN=""               # Text to display if the branch is clean
 
-# Set to this to use case-sensitive completion
-# export CASE_SENSITIVE="true"
+# get the name of the branch we are on
+function git_prompt_info() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+}
 
-# Comment this out to disable weekly auto-update checks
-# export DISABLE_AUTO_UPDATE="true"
+parse_git_dirty () {
+  if [[ -n $(git status -s 2> /dev/null) ]]; then
+    echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
+  else
+    echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
+  fi
+}
 
-# Uncomment following line if you want to disable colors in ls
-# export DISABLE_LS_COLORS="true"
+PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+function rvm_prompt_info() {
+  ruby_version=$(~/.rvm/bin/rvm-prompt 2> /dev/null) || return
+  echo "$ruby_version"
+}
 
-source $ZSH/oh-my-zsh.sh
+RPROMPT='%{$fg[yellow]%}$(rvm_prompt_info)%{$reset_color%}'
+
+# Completion.
+
+autoload -U compinit
+compinit -i
+
+# History.
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_DUPS
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt EXTENDED_HISTORY
 
 # Customize to your needs...
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:~/.bin
