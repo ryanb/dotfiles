@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby -w
+
+class TagVersions
+  def initialize(args)
+    print_help if args.empty?
+    @regexp = nil
+    @preview = false
+    args.each do |argument|
+      case argument
+      when '-a', '--all' then @regexp = ".*"
+      when '-p', '--preview' then @preview = true
+      when '-h', '--help' then print_help
+      else @regexp = argument
+      end
+    end
+  end
+
+  def print_help
+    puts <<-HELP
+Usage: tagversions [OPTIONS] [REGEXP]
+  Look through the git commits for messages with the given regular expression and tag what looks like verisons.
+
+  Options:
+    -a, --all     Search all commits, not just the ones matching the regular expression.
+    -p, --preview Don't do actual branching, instead print out what will be tagged.
+    -h, --help    Display this help page.
+HELP
+    exit
+  end
+
+  def run
+    tags = `git tag`.split("\n")
+    `git log --pretty="%H %s" | grep "#{@regexp}"`.split("\n").each do |line|
+      version = line[/\bv?(\d\.[\d\.]*)\b/, 1]
+      sha = line[/^\w+/]
+      if version && !version.empty? && !tags.include?(version)
+        puts "Tagging #{version} on #{sha}"
+        tags << version
+        `git tag -a "#{version}" -m "version #{version}" "#{sha}"` unless @preview
+      end
+    end
+  end
+end
+
+TagVersions.new($*).run
