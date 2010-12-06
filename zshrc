@@ -60,5 +60,8 @@ export EDITOR=/usr/bin/vim
 export CLICOLOR=1                                         # Make ls colour its output.
 export LESS=-R                                            # Make less support ANSI colour sequences.
 export RUBYOPT=rubygems                                   # Make Ruby load rubygems without a require.
-export ACK_OPTIONS="--nosql --type-set cucumber=.feature" # Make ack ignore sql dumps, and search cucumber features.
+export ACK_OPTIONS="--nosql --type-set cucumber=.feature --type-set sass=.sass" # Make ack ignore sql dumps, and search cucumber features.
+
+# Set Java home, and hope we never use it.
+export JAVA_HOME=`/usr/libexec/java_home`
 

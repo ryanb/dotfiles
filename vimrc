@@ -47,13 +47,14 @@ if has("gui_macvim")
   colorscheme railscasts
 
   " Leave insert mode when vim loses focus. Doesn't work. :(
-  autocmd FocusLost * stopinsert
+  autocmd FocusLost * :stopinsert
 
   " Better colours for folding.
   highlight Folded guifg=#EEEEEE guibg=#333333
 
   " Command-T opens PeepOpen.
   map ,t <Plug>PeepOpen
+
 endif
 
 
