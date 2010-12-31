@@ -1,6 +1,7 @@
 " Vim filetype plugin
 " Language:	Cucumber
 " Maintainer:	Tim Pope <vimNOSPAM@tpope.org>
+" Last Change:	2010 Aug 09
 
 " Only do this when not done yet for this buffer
 if (exists("b:did_ftplugin"))
@@ -21,7 +22,7 @@ if !exists("g:no_plugin_maps") && !exists("g:no_cucumber_maps")
   nmap <silent><buffer> <C-W>]      :<C-U>exe <SID>jump('split',v:count)<CR>
   nmap <silent><buffer> <C-W><C-]>  :<C-U>exe <SID>jump('split',v:count)<CR>
   nmap <silent><buffer> <C-W>}      :<C-U>exe <SID>jump('pedit',v:count)<CR>
-  let b:undo_ftplugin .= "| sil! iunmap! <C-]>| sil! iunmap! <C-W>]| sil! iunmap! <C-W><C-]>| sil! iunmap! <C-W>}"
+  let b:undo_ftplugin .= "| sil! nunmap <buffer> <C-]>| sil! nunmap <buffer> <C-W>]| sil! nunmap <buffer> <C-W><C-]>| sil! nunmap <buffer> <C-W>}"
 endif
 
 function! s:jump(command,count)
@@ -79,7 +80,7 @@ function! s:stepmatch(receiver,target)
     endif
   catch
   endtry
-  if has("ruby")
+  if has("ruby") && pattern !~ '\\\@<!#{'
     ruby VIM.command("return #{if (begin; Kernel.eval('/'+VIM.evaluate('pattern')+'/'); rescue SyntaxError; end) === VIM.evaluate('a:target') then 1 else 0 end}")
   else
     return 0

@@ -1,0 +1,79 @@
+" vim: filetype=vim foldmethod=marker
+runtime! plugin/textobj/*.vim
+
+function s:describe__global_variables()
+  It "Check global variables"
+
+  Should exists('g:loaded_textobj_rubyblock') be true
+endfunction
+
+function s:describe__named_key_mappings()
+  It "Check the existence of the named key mappings in each mode"
+
+  for _ in ['<Plug>(textobj-rubyblock-a)',
+  \         '<Plug>(textobj-rubyblock-i)']
+    execute "Should maparg(".string(_).", 'c') == ''"
+    execute "Should maparg(".string(_).", 'i') == ''"
+    execute "Should maparg(".string(_).", 'n') == ''"
+    execute "Should maparg(".string(_).", 'o') != ''"
+    execute "Should maparg(".string(_).", 'v') != ''"
+  endfor
+endfunction
+
+
+function s:describe__default_key_mappings()
+  It "Check the definitions of the default key mappings in each mode"
+
+  Should maparg('ar', 'c') ==# ''
+  Should maparg('ar', 'i') ==# ''
+  Should maparg('ar', 'n') ==# ''
+  Should maparg('ar', 'o') ==# '<Plug>(textobj-rubyblock-a)'
+  Should maparg('ar', 'v') ==# '<Plug>(textobj-rubyblock-a)'
+  Should maparg('ir', 'c') ==# ''
+  Should maparg('ir', 'i') ==# ''
+  Should maparg('ir', 'n') ==# ''
+  Should maparg('ir', 'o') ==# '<Plug>(textobj-rubyblock-i)'
+  Should maparg('ir', 'v') ==# '<Plug>(textobj-rubyblock-i)'
+endfunction
+
+function s:describe__select_a()
+  It "<Plug>(textobj-rubyblock-a)"
+
+  tabnew
+  tabonly!
+
+  silent put =[
+  \   'class Foo',
+  \   '  include Bar',
+  \   'end',
+  \ ]
+  1 delete _
+  normal! 2G
+
+  execute "normal v\<Plug>(textobj-rubyblock-a)\<Esc>"
+  Should [line("'<"), col("'<")] ==# [1, 1]
+  Should [line("'>"), col("'>")] ==# [3, 4]
+
+endfunction }}}
+
+function s:describe__select_i()
+  It "<Plug>(textobj-rubyblock-i)"
+
+  tabnew
+  tabonly!
+
+  silent put =[
+  \   'class Foo',
+  \   '  include Bar',
+  \   'end',
+  \ ]
+  1 delete _
+  normal! 2G
+
+  execute "normal v\<Plug>(textobj-rubyblock-i)\<Esc>"
+  Should [line("'<"), col("'<")] ==# [2, 1]
+  Should [line("'>"), col("'>")] ==# [2, 14]
+
+endfunction
+
+
