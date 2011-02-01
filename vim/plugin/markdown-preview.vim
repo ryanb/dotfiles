@@ -11,7 +11,11 @@ command! Markdown :ruby MarkdownPreview.preview
 ruby <<EOF
 
 require 'rubygems'
-require 'rdiscount'
+begin
+  require 'rdiscount'
+rescue LoadError
+  # Fail at runtime if RDiscount isn't installed.
+end
 require 'pathname'
 
 class VIM::Buffer
@@ -48,5 +52,6 @@ module MarkdownPreview
   end
 
 end
+
 
 EOF
