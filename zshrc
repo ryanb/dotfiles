@@ -1,7 +1,7 @@
 autoload colors; colors;
 setopt prompt_subst
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}%B["
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]%b%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="*"              # Text to display if the branch is dirty
 ZSH_THEME_GIT_PROMPT_CLEAN=""               # Text to display if the branch is clean
