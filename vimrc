@@ -81,7 +81,7 @@ noremap <F1> <nop>
 noremap ,a :LustyBufferExplorer<CR>
 noremap ,f :LustyFilesystemExplorer<CR>
 noremap ,r :LustyFilesystemExplorerFromHere<CR>
-" noremap ,t :NERDTreeToggle<CR>
+noremap ,t :CommandT<CR>
 
 " Use CTRL-J and CTRL-K to skip forward and back through functions.
 map <C-K> [m
