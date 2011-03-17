@@ -44,7 +44,7 @@ setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
 # Customize to your needs...
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:~/.bin
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.bin
 
 # Vi key bindings.
 bindkey -v
