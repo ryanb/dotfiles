@@ -20,6 +20,7 @@ set ts=2 sw=2 sts=2     " default to 2 space tabs
 set autoindent nosmartindent nocindent  " go for simple autoindenting
 set hidden              " unload any buffer that's hidden
 set wildmode=list:longest  " list options when completing on the command line
+set scrolloff=5         " scroll 5 lines before the cursor hits the edge
 
 " Set up the status line
 set laststatus=2        " Always show it.
