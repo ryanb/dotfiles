@@ -46,9 +46,6 @@ setopt EXTENDED_HISTORY
 # Customize to your needs...
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.bin
 
-# Vi key bindings.
-bindkey -v
-
 # RVM
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
