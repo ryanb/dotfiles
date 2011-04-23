@@ -358,8 +358,10 @@ function! s:readable_controller_name(...) dict abort
     return s:sub(f,'.*<components/(.{-})/\k+\.\k+$','\1')
   elseif f =~ '\<app/models/.*\.rb$' && self.type_name('mailer')
     return s:sub(f,'.*<app/models/(.{-})\.rb$','\1')
-  elseif f =~ '\<public/stylesheets/.*\.css$'
-    return s:sub(f,'.*<public/stylesheets/(.{-})\.css$','\1')
+  elseif f =~ '\<\%(public\|app/assets\)/stylesheets/.*\.css\%(\.\w\+\)\=$'
+    return s:sub(f,'.*<%(public|app/assets)/stylesheets/(.{-})\.css%(\.\w+)=$','\1')
+  elseif f =~ '\<\%(public\|app/assets\)/javascripts/.*\.js\%(\.\w\+\)\=$'
+    return s:sub(f,'.*<%(public|app/assets)/javascripts/(.{-})\.js%(\.\w+)=$','\1')
   elseif a:0 && a:1
     return rails#pluralize(self.model_name())
   endif
@@ -935,10 +937,7 @@ function! s:BufCommands()
   command! -buffer -bar -nargs=0 -bang Rrefresh :if <bang>0|unlet! g:autoloaded_rails|source `=s:file`|endif|call s:Refresh(<bang>0)
   if exists(":NERDTree")
     command! -buffer -bar -nargs=? -complete=customlist,s:Complete_cd Rtree :NERDTree `=rails#app().path(<f-args>)`
-  elseif exists(":Project")
-    command! -buffer -bar -nargs=? Rtree :call s:Project(<bang>0,<q-args>)
   endif
-  command! -buffer -bar -nargs=? Rproject :call s:warn("Warning: :Rproject has been deprecated in favor of :Rtree") | Rtree<bang> <args>
   if exists("g:loaded_dbext")
     command! -buffer -bar -nargs=? -complete=customlist,s:Complete_environments Rdbext  :call s:BufDatabase(2,<q-args>)|let b:dbext_buffer_defaulted = 1
   endif
@@ -1122,6 +1121,7 @@ let s:efm_backtrace='%D(in\ %f),'
       \.'%\\s%#from\ %f:%l:%m,'
       \.'%\\s%#from\ %f:%l:,'
       \.'%\\s#{RAILS_ROOT}/%f:%l:\ %#%m,'
+      \.'%\\s%##\ %f:%l:%m,'
       \.'%\\s%#[%f:%l:\ %#%m,'
       \.'%\\s%#%f:%l:\ %#%m,'
       \.'%\\s%#%f:%l:,'
@@ -1388,6 +1388,10 @@ function! s:readable_preview_urls(lnum) dict abort
     let urls = urls + [s:sub(s:sub(self.name(),'^public/stylesheets/sass/','/stylesheets/'),'\.s[ac]ss$','.css')]
   elseif self.name() =~ '^public/'
     let urls = urls + [s:sub(self.name(),'^public','')]
+  elseif self.name() =~ '^app/assets/stylesheets/'
+    let urls = urls + ['/assets/application.css']
+  elseif self.name() =~ '^app/assets/javascripts/'
+    let urls = urls + ['/assets/application.js']
   elseif self.name() =~ '^app/stylesheets/'
     let urls = urls + [s:sub(s:sub(self.name(),'^app/stylesheets/','/stylesheets/'),'\.less$','.css')]
   elseif self.name() =~ '^app/scripts/'
@@ -1860,7 +1864,7 @@ function! s:findamethod(func,repl)
 endfunction
 
 function! s:findasymbol(sym,repl)
-  return s:findit('\s*:\%('.a:sym.'\)\s*=>\s*(\=\s*[@:'."'".'"]\(\f\+\)\>.\=',a:repl)
+  return s:findit('\s*\%(:\%('.a:sym.'\)\s*=>\|\<'.a:sym.':\)\s*(\=\s*[@:'."'".'"]\(\f\+\)\>.\=',a:repl)
 endfunction
 
 function! s:findfromview(func,repl)
@@ -1915,10 +1919,10 @@ function! s:RailsFind()
   let res = s:findasymbol('to','app/controllers/\1')
   if res =~ '#'|return s:sub(res,'#','_controller.rb#')|endif
 
-  let res = s:findamethod('root\s*:to\s*=>\s*','app/controllers/\1')
+  let res = s:findamethod('root\s*\%(:to\s*=>\|\<to:\)\s*','app/controllers/\1')
   if res =~ '#'|return s:sub(res,'#','_controller.rb#')|endif
 
-  let res = s:findamethod('\%(match\|get\|put\|post\|delete\|redirect\)\s*(\=\s*[:''"][^''"]*[''"]\=\s*\%(,\s*:to\s*\)\==>\s*','app/controllers/\1')
+  let res = s:findamethod('\%(match\|get\|put\|post\|delete\|redirect\)\s*(\=\s*[:''"][^''"]*[''"]\=\s*\%(\%(,\s*:to\s*\)\==>\|,\s*to:\)\s*','app/controllers/\1')
   if res =~ '#'|return s:sub(res,'#','_controller.rb#')|endif
 
   let res = s:findamethod('layout','\=s:findlayout(submatch(1))')
@@ -1939,20 +1943,20 @@ function! s:RailsFind()
   let res = s:findasymbol('template','app/views/\1')
   if res != ""|return res|endif
 
-  let res = s:sub(s:sub(s:findasymbol('partial','\1'),'^/',''),'\k+$','_&')
+  let res = s:sub(s:sub(s:findasymbol('partial','\1'),'^/',''),'[^/]+$','_&')
   if res != ""|return res."\n".s:findview(res)|endif
 
-  let res = s:sub(s:sub(s:findfromview('render\s*(\=\s*:partial\s\+=>\s*','\1'),'^/',''),'\k+$','_&')
+  let res = s:sub(s:sub(s:findfromview('render\s*(\=\s*\%(:partial\s\+=>\|partial:\)\s*','\1'),'^/',''),'[^/]+$','_&')
   if res != ""|return res."\n".s:findview(res)|endif
 
-  let res = s:findamethod('render\s*:\%(template\|action\)\s\+=>\s*','\1.'.format.'\n\1')
+  let res = s:findamethod('render\>\s*\%(:\%(template\|action\)\s\+=>\|template:\|action:\)\s*','\1.'.format.'\n\1')
   if res != ""|return res|endif
 
   let res = s:sub(s:findfromview('render','\1'),'^/','')
   if buffer.type_name('view') | let res = s:sub(res,'[^/]+$','_&') | endif
   if res != ""|return res."\n".s:findview(res)|endif
 
-  let res = s:findamethod('redirect_to\s*(\=\s*:action\s\+=>\s*','\1')
+  let res = s:findamethod('redirect_to\s*(\=\s*\%\(:action\s\+=>\|\<action:\)\s*','\1')
   if res != ""|return res|endif
 
   let res = s:findfromview('stylesheet_link_tag','public/stylesheets/\1')
@@ -2047,7 +2051,7 @@ function! s:RailsIncludefind(str,...)
     " Classes should always be in .rb files
     let str .= '.rb'
   elseif line =~# ':partial\s*=>\s*'
-    let str = s:sub(str,'([^/]+)$','_\1')
+    let str = s:sub(str,'[^/]+$','_&')
     let str = s:findview(str)
   elseif line =~# '\<layout\s*(\=\s*' || line =~# ':layout\s*=>\s*'
     let str = s:findview(s:sub(str,'^/=','layouts/'))
@@ -2243,7 +2247,9 @@ function! s:layoutList(A,L,P)
 endfunction
 
 function! s:stylesheetList(A,L,P)
-  let list = rails#app().relglob('public/stylesheets/','**/*','.css')
+  let list = rails#app().relglob('app/assets/stylesheets/','**/*.css*','')
+  call map(list,'s:sub(v:val,"\\.css\%(\\.\\w+\)\=$","")')
+  let list += rails#app().relglob('public/stylesheets/','**/*','.css')
   if rails#app().has('sass')
     call extend(list,rails#app().relglob('public/stylesheets/sass/','**/*','.s?ss'))
     call s:uniq(list)
@@ -2252,7 +2258,10 @@ function! s:stylesheetList(A,L,P)
 endfunction
 
 function! s:javascriptList(A,L,P)
-  return s:completion_filter(rails#app().relglob("public/javascripts/","**/*",".js"),a:A)
+  let list = rails#app().relglob('app/assets/javascripts/','**/*.js*','')
+  call map(list,'s:sub(v:val,"\\.js\%(\\.\\w+\)\=$","")')
+  let list += rails#app().relglob("public/javascripts/","**/*",".js")
+  return s:completion_filter(list,a:A)
 endfunction
 
 function! s:metalList(A,L,P)
@@ -2490,11 +2499,18 @@ function! s:app_migration(file) dict
   else
     let glob = '*'.rails#underscore(arg).'*rb'
   endif
-  let migr = s:sub(glob(self.path('db/migrate/').glob),'.*\n','')
-  if s:startswith(migr,self.path())
-    let migr = strpart(migr,1+strlen(self.path()))
+  let files = split(glob(self.path('db/migrate/').glob),"\n")
+  if arg == ''
+    return get(files,-1,'')
   endif
-  return migr
+  call map(files,'strpart(v:val,1+strlen(self.path()))')
+  let keep = get(files,0,'')
+  if glob =~# '^\*.*\*rb'
+    let pattern = glob[1:-4]
+    call filter(files,'v:val =~# ''db/migrate/\d\+_''.pattern.''\.rb''')
+    let keep = get(files,0,keep)
+  endif
+  return keep
 endfunction
 
 call s:add_methods('app', ['migration'])
@@ -2671,7 +2687,12 @@ function! s:stylesheetEdit(cmd,...)
   elseif rails#app().has('lesscss') && rails#app().has_file('app/stylesheets/'.name.'.less')
     return s:EditSimpleRb(a:cmd,"stylesheet",name,"app/stylesheets/",".less",1)
   else
-    return s:EditSimpleRb(a:cmd,"stylesheet",name,"public/stylesheets/",".css",1)
+    let types = rails#app().relglob('app/assets/stylesheets/'.name,'.css*','')
+    if !empty(types)
+      return s:EditSimpleRb(a:cmd,'stylesheet',name,'app/assets/stylesheets/',types[0],1)
+    else
+      return s:EditSimpleRb(a:cmd,'stylesheet',name,'public/stylesheets/','.css',1)
+    endif
   endif
 endfunction
 
@@ -2682,7 +2703,12 @@ function! s:javascriptEdit(cmd,...)
   elseif rails#app().has('coffee') && rails#app().has_file('app/scripts/'.name.'.js')
     return s:EditSimpleRb(a:cmd,'javascript',name,'app/scripts/','.js',1)
   else
-    return s:EditSimpleRb(a:cmd,'javascript',name,'public/javascripts/','.js',1)
+    let types = rails#app().relglob('app/assets/javascripts/'.name,'.js*','')
+    if !empty(types)
+      return s:EditSimpleRb(a:cmd,'javascript',name,'app/assets/javascripts/',types[0],1)
+    else
+      return s:EditSimpleRb(a:cmd,'javascript',name,'public/javascripts/','.js',1)
+    endif
   endif
 endfunction
 
@@ -3329,8 +3355,8 @@ function! s:invertrange(beg,end)
       let add .= s:mkeep(line)
     elseif line =~ '\<remove_index\>'
       let add = s:sub(s:sub(line,'<remove_index','add_index'),':column\s*=>\s*','')
-    elseif line =~ '\<rename_\%(table\|column\)\>'
-      let add = s:sub(line,'<rename_%(table\s*\(=\s*|column\s*\(=\s*[^,]*,\s*)\zs([^,]*)(,\s*)([^,]*)','\3\2\1')
+    elseif line =~ '\<rename_\%(table\|column\|index\)\>'
+      let add = s:sub(line,'<rename_%(table\s*\(=\s*|%(column|index)\s*\(=\s*[^,]*,\s*)\zs([^,]*)(,\s*)([^,]*)','\3\2\1')
     elseif line =~ '\<change_column\>'
       let add = s:migspc(line).'change_column'.s:mextargs(line,2).s:mkeep(line)
     elseif line =~ '\<change_column_default\>'
@@ -3561,7 +3587,7 @@ function! s:BufSyntax()
         syn keyword rubyRailsFilterMethod verify
       endif
       if buffer.type_name('db-migration','db-schema')
-        syn keyword rubyRailsMigrationMethod create_table change_table drop_table rename_table add_column rename_column change_column change_column_default remove_column add_index remove_index execute
+        syn keyword rubyRailsMigrationMethod create_table change_table drop_table rename_table add_column rename_column change_column change_column_default remove_column add_index remove_index rename_index execute
       endif
       if buffer.type_name('test')
         if !empty(rails#app().user_assertions())
@@ -3901,111 +3927,6 @@ function! s:BufMappings()
   endif
   " SelectBuf you're a dirty hack
   let v:errmsg = ""
-endfunction
-
-" }}}1
-" Project {{{
-
-function! s:Project(bang,arg)
-  let rr = rails#app().path()
-  exe "Project ".a:arg
-  let line = search('^[^ =]*="'.s:gsub(rr,'[\/]','[\\/]').'"')
-  let projname = s:gsub(fnamemodify(rr,':t'),'\=','-') " .'_on_rails'
-  if line && a:bang
-    let projname = matchstr(getline('.'),'^[^=]*')
-    " Most of this would be unnecessary if the project.vim author had just put
-    " the newlines AFTER each project rather than before.  Ugh.
-    norm zR0"_d%
-    if line('.') > 2
-      delete _
-    endif
-    if line('.') != line('$')
-      .-2
-    endif
-    let line = 0
-  elseif !line
-    $
-  endif
-  if !line
-    if line('.') > 1
-      append
-
-.
-    endif
-    let line = line('.')+1
-    call s:NewProject(projname,rr)
-  endif
-  normal! zMzo
-  if search("^ app=app {","W",line+10)
-    normal! zo
-    exe line
-  endif
-  normal! 0zt
-endfunction
-
-function! s:NewProject(proj,rr)
-    let line = line('.')+1
-    let template = s:NewProjectTemplate(a:proj,a:rr)
-    silent put =template
-    exe line
-    " Ugh. how else can I force detecting folds?
-    setlocal foldmethod=manual
-    norm! $%
-    silent exe "doautocmd User ".s:escarg(a:rr)."/Rproject"
-    let newline = line('.')
-    exe line
-    norm! $%
-    if line('.') != newline
-      call s:warn("Warning: Rproject autocommand failed to leave cursor at end of project")
-    endif
-    exe line
-    setlocal foldmethod=marker
-    setlocal nomodified
-    " FIXME: make undo stop here
-    if !exists("g:maplocalleader")
-      silent! normal \R
-    else " Needs to be tested
-      exe 'silent! normal '.g:maplocalleader.'R'
-    endif
-endfunction
-
-function! s:NewProjectTemplate(proj,rr)
-  let str = a:proj.'="'.a:rr."\" CD=. filter=\"*\" {\n"
-  let str .= " app=app {\n"
-  for dir in ['apis','controllers','helpers','models','views']
-    let str .= s:addprojectdir(a:rr,'app',dir)
-  endfor
-  let str .= " }\n"
-  let str .= " config=config {\n  environments=environments {\n  }\n }\n"
-  let str .= " db=db {\n"
-  let str .= s:addprojectdir(a:rr,'db','migrate')
-  let str .= " }\n"
-  let str .= " lib=lib filter=\"* */**/*.rb \" {\n  tasks=tasks filter=\"**/*.rake\" {\n  }\n }\n"
-  let str .= " public=public {\n  images=images {\n  }\n  javascripts=javascripts {\n  }\n  stylesheets=stylesheets {\n  }\n }\n"
-  if isdirectory(a:rr.'/spec')
-    let str .= " spec=spec {\n"
-    for dir in ['controllers','fixtures','helpers','models','views']
-      let str .= s:addprojectdir(a:rr,'spec',dir)
-    endfor
-    let str .= " }\n"
-  endif
-  if isdirectory(a:rr.'/test')
-    let str .= " test=test {\n"
-    for dir in ['fixtures','functional','integration','mocks','unit']
-      let str .= s:addprojectdir(a:rr,'test',dir)
-    endfor
-    let str .= " }\n"
-  end
-  let str .= "}\n"
-  return str
-endfunction
-
-function! s:addprojectdir(rr,parentdir,dir)
-  if isdirectory(a:rr.'/'.a:parentdir.'/'.a:dir)
-    return '  '.a:dir.'='.a:dir." filter=\"**\" {\n  }\n"
-  else
-    return ''
-  endif
 endfunction
 
 " }}}1
