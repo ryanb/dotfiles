@@ -31,7 +31,7 @@ alias ss='rails server'
 alias sg='rails generate'
 alias a='autotest -rails'
 alias tlog='tail -f log/development.log'
-alias scaffold='generate nifty:scaffold'
+alias scaffold='rails generate nifty:scaffold'
 alias migrate='rake db:migrate db:test:clone'
 alias rst='touch tmp/restart.txt'
 
