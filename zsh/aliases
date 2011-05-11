@@ -8,6 +8,7 @@ alias ll="ls -l"
 alias la='ls -A'
 
 # git
+alias g='git'
 alias gl='git pull'
 alias gp='git push'
 alias gd='git diff'
@@ -19,15 +20,23 @@ alias gs='git status'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG*'
 
+
+# ruby
+alias rb=ruby
+
 # rails
-alias sc='script/console'
-alias ss='script/server'
-alias sg='script/generate'
+alias r='rails'
+alias sc='rails console'
+alias ss='rails server'
+alias sg='rails generate'
 alias a='autotest -rails'
 alias tlog='tail -f log/development.log'
-alias scaffold='script/generate nifty_scaffold'
+alias scaffold='generate nifty:scaffold'
 alias migrate='rake db:migrate db:test:clone'
 alias rst='touch tmp/restart.txt'
+
+# textmate
+alias m=mate
 
 # commands starting with % for pasting from web
 alias %=' '
