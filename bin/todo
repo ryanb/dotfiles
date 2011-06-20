@@ -1,2 +1,2 @@
 #!/bin/sh
-mvim ~/Dropbox/Elements/todo.txt
+mvim ~/Dropbox/to-do.txt
