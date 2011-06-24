@@ -66,11 +66,6 @@ let g:bufExplorerShowRelativePath=1
 " Hide the default help in bufexplorer.
 let g:bufExplorerDefaultHelp=0
 
-" Let single clicks open file and directories.
-let g:NERDTreeMouseMode=3
-" Close NERDTree after opening a file.
-let g:NERDTreeQuitOnOpen=1
-
 
 " Custom Key Mappings
 " -------------------
@@ -78,7 +73,7 @@ let g:NERDTreeQuitOnOpen=1
 " Disable the F1 key (which normally opens help) coz I hit it accidentally.
 noremap <F1> <nop>
 
-" noremap ,a :BufExplorer<CR>
+" Buffer navigation.
 noremap ,a :LustyBufferExplorer<CR>
 noremap ,f :LustyFilesystemExplorer<CR>
 noremap ,r :LustyFilesystemExplorerFromHere<CR>
