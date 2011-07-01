@@ -1,2 +1,2 @@
 export PS1="\w$ "
-export EDITOR="mate_wait"
+export EDITOR="mate -w"
