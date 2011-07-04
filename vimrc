@@ -47,8 +47,9 @@ if has("gui_macvim")
 
   colorscheme railscasts
 
-  " Leave insert mode when vim loses focus. Doesn't work. :(
-  autocmd FocusLost * :stopinsert
+  " Write files on buffer switches and loss of focus.
+  set autowriteall
+  autocmd FocusLost * silent! wa
 
   " Better colours for folding.
   highlight Folded guifg=#EEEEEE guibg=#333333
