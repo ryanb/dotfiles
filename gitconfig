@@ -7,3 +7,15 @@
 	ui = true
 [difftool]
 	prompt = false
+
+# Make git push only push the current branch.
+[push]
+  default = tracking
+
+# Make new branches do a rebase on git pull.
+[branch]
+  autosetuprebase = always
+
+# Disallow all fast-forward merges.
+[merge]
+  ff = false
