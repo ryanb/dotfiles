@@ -19,6 +19,24 @@ the following command.
 
   chsh -s /bin/zsh
 
+== Configurations
+
+=== Additional Aliases
+
+If there are some shell configuration settings which you want secure or 
+specific to one system, place it into a ~/.localrc file. This will be 
+loaded automatically if it exists.
+
+=== RVM
+
+If using RVM, run the following command to place the sourcing script in your .localrc file (see above):
+
+  echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.localrc
+  source .localrc
+  
+To test:
+
+  type rvm | head -1
 
 == Features
 
@@ -63,10 +81,6 @@ also use show_log and hide_log in script/console to show the log inline.
   scaffold # script/generate nifty_scaffold
 
 See the other aliases in ~/.zsh/aliases
-
-If there are some shell configuration settings which you want secure or 
-specific to one system, place it into a ~/.localrc file. This will be 
-loaded automatically if it exists.
 
 There are several features enabled in Ruby's irb including history and 
 completion. Many convenience methods are added as well such as "ri"
