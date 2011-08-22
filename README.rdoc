@@ -32,7 +32,7 @@ loaded automatically if it exists.
 If using RVM, run the following command to place the sourcing script in your .localrc file (see above):
 
   echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.localrc
-  source .localrc
+  source ~/.localrc
   
 To test:
 
