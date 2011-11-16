@@ -1,5 +1,5 @@
 " textobj-user - Support for user-defined text objects
-" Version: @@VERSION@@
+" Version: 0.3.10
 " Copyright (C) 2007-2010 kana <http://whileimautomaton.net/>
 " License: So-called MIT/X license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -538,7 +538,7 @@ function! s:snr_prefix(sfile)
 
   for line in split(result, '\n')
     let _ = matchlist(line, '^\s*\(\d\+\):\s*\(.*\)$')
-    if a:sfile ==# _[2]
+    if fnamemodify(a:sfile, ':p') ==# fnamemodify(_[2], ':p')
       return printf("\<SNR>%d_", _[1])
     endif
   endfor

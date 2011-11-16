@@ -9,6 +9,13 @@ Also requires that the matchit.vim plugin is enabled. Ensure that the following 
 
     runtime macros/matchit.vim
 
+It is also essential that you enable filetype plugins, and disable Vi compatible mode. Placing these lines in your vimrc file will do this:
+
+    set nocompatible
+    if has("autocmd")
+      filetype indent plugin on
+    endif
+
 Usage
 =====
 

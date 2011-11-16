@@ -76,6 +76,15 @@ can be achieved by running (or placing this in your vimrc file):
 
     :runtime macros/matchit.vim
 
+Finally, you need to ensure that Vim is not running in vi-compatiable mode, and
+that filetype plugins are enabled. Placing these lines in your vimrc file will
+set up this configuration for you:
+
+    set nocompatible
+    if has("autocmd")
+      filetype indent plugin on
+    endif
+
 This plugin is distributed as a vimball, so to install it you just need to
 open the file with Vim and run the command:
 
