@@ -1,3 +1,4 @@
-export PS1="\w$ "
+export PS1='\n\u in \w ( \t $(__git_ps1 "|| %s "))\n# '
 export EDITOR="vi"
 set -o vi
+
