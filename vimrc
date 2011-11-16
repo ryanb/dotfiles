@@ -102,8 +102,8 @@ noremap Q gq
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" Map Command-R to run the current spec file in iTerm.
-map <D-r> :Spec<CR>
+" Map Command-R to save and run the current spec file in iTerm.
+noremap <D-r> :w<CR>:Spec<CR>
 
 
 " Filetype Handling

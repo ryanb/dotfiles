@@ -60,5 +60,6 @@ export LESS=-R                                            # Make less support AN
 export ACK_OPTIONS="--nosql --type-set cucumber=.feature --type-set sass=.sass" # Make ack ignore sql dumps, and search cucumber features.
 
 # Set Java home, and hope we never use it.
-export JAVA_HOME=`/usr/libexec/java_home`
+# export JAVA_HOME=`/usr/libexec/java_home`
 
+export RAILS_CACHE_CLASSES=true
