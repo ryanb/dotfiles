@@ -2,7 +2,7 @@
 alias ..='cd ..'
 
 # ls
-alias ls="ls -F"
+alias ls="ls --color"
 alias l="ls -lAh"
 alias ll="ls -l"
 alias la='ls -A'
