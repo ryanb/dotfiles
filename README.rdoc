@@ -51,7 +51,7 @@ also use show_log and hide_log in script/console to show the log inline.
   migrate  # rake db:migrate db:test:clone
   scaffold # script/generate nifty_scaffold
 
-See the other aliases in ~/.zsh/aliases
+See the other aliases in ~/.bash/aliases
 
 If there are some shell configuration settings which you want secure or 
 specific to one system, place it into a ~/.localrc file. This will be 
