@@ -33,6 +33,9 @@ alias rst='touch tmp/restart.txt'
 # dtofiles
 alias dotfiles='cd ~/.dotfiles'
 
+# Misc
+alias oldpwd='cd $OLDPWD'
+
 # commands starting with % for pasting from web
 alias %=' '
 
