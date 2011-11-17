@@ -20,6 +20,9 @@ alias gs='git status'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG*'
 
+# rm
+alias rm='rm -i'
+
 # rails
 alias sc='script/console'
 alias ss='script/server'
