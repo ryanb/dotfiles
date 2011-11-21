@@ -1,2 +1,2 @@
 #!/bin/sh
-mvim ~/Dropbox/to-do.txt
+mvim ~/Dropbox/to-do.markdown
