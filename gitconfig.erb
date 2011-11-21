@@ -1,6 +1,8 @@
-[user]
-	name = <%= print("Your Name: "); STDOUT.flush; STDIN.gets.chomp %>
-	email = <%= print("Your Email: "); STDOUT.flush; STDIN.gets.chomp %>
+<%
+current = proc {|path| %x{git config --global #{path}}.chomp }
+%>[user]
+	name = <%= current_or_prompt("user.name", "Your Name", &current) %>
+	email = <%= current_or_prompt("user.email", "Your Email", &current) %>
 [alias]
 	co = checkout
 [color]
@@ -16,5 +18,5 @@
 [format]
 	pretty = %C(yellow)%h%Creset %s %C(red)(%an, %cr)%Creset
 [github]
-	user = <%= print("GitHub Username: "); STDOUT.flush; STDIN.gets.chomp %>
-	token = <%= print("GitHub API Token: "); STDOUT.flush; STDIN.gets.chomp %>
+	user = <%= current_or_prompt("github.user", "GitHub Username", &current) %>
+	token = <%= current_or_prompt("github.token", "GitHub API Token", &current) %>
