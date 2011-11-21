@@ -9,15 +9,16 @@ task :install do
     dest = File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
     
     if File.exist?(dest)
+      file_to_compare_with = file
       if file =~ /.erb$/
         content = File.read(file)
         if !content.include?('STDIN') and !content.include?('$stdin')
           system %Q{mkdir -p tmp}
-          generate_file(file, File.join('tmp', file.sub('.erb', '')), false)
+          file_to_compare_with = generate_file(file, File.join('tmp', file.sub('.erb', '')), false)
         end
       end
       
-      if File.identical? file, dest
+      if File.identical?(file_to_compare_with, dest) or file_contents_are_identical(file_to_compare_with, dest)
         puts "identical ~/.#{file.sub('.erb', '')}"
       elsif replace_all
         replace_file(file)
@@ -40,6 +41,14 @@ task :install do
       link_file(file)
     end
   end
+end
+
+def file_contents_are_identical(a, b)
+  a_content = File.read(a)
+  b_content = File.read(b)
+  a_content == b_content
+rescue
+  false
 end
 
 def current_or_prompt(path, prompt)
