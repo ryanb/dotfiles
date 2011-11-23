@@ -12,6 +12,7 @@ ruby <<EOF
 module ITerm
   def self.spec
     current_file = VIM::Buffer.current.name
+    exec("clear")
     exec("spec #{current_file}")
   end
 

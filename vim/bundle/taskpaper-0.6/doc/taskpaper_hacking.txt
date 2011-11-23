@@ -1,0 +1,8 @@
+Version Control
+----------------
+
+github (http://github.com) is used for version control. The main
+repository is at <https://github.com/davidoc/taskpaper.vim>.
+
+To start working on the source code you should create an account on github,
+fork taskpaper.vim and checkout your fork.
