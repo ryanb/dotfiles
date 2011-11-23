@@ -4,7 +4,7 @@ set nocompatible
 
 " Load pathogen for managing all those pesky plugins.
 " Load this first so ftdetect in bundles works properly.
-call pathogen#runtime_append_all_bundles() 
+call pathogen#runtime_append_all_bundles()
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -21,6 +21,7 @@ set autoindent nosmartindent nocindent  " go for simple autoindenting
 set hidden              " unload any buffer that's hidden
 set wildmode=list:longest  " list options when completing on the command line
 set scrolloff=5         " scroll 5 lines before the cursor hits the edge
+match Todo /\s\+$/
 
 " Set up the status line
 set laststatus=2        " Always show it.
