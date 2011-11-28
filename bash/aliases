@@ -33,8 +33,11 @@ alias scaffold='script/generate nifty_scaffold'
 alias migrate='rake db:migrate db:test:clone'
 alias rst='touch tmp/restart.txt'
 
-# dtofiles
+# dotfiles
 alias dotfiles='cd ~/.dotfiles'
+
+# Rake
+alias rake='bundle exec rake'
 
 # Misc
 alias oldpwd='cd $OLDPWD'
