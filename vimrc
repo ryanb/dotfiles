@@ -21,6 +21,8 @@ set autoindent nosmartindent nocindent  " go for simple autoindenting
 set hidden              " unload any buffer that's hidden
 set wildmode=list:longest  " list options when completing on the command line
 set scrolloff=5         " scroll 5 lines before the cursor hits the edge
+set number              " show line numbers
+set relativenumber      " show line numbers relative to the current line
 match Todo /\s\+$/
 
 " Set up the status line
