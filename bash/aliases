@@ -18,6 +18,7 @@ alias gpo='git push origin'
 alias gb='git branch'
 alias gs='git status'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
+alias gaa='git ls-files --other --exclude-standard |xargs git add'
 alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG*'
 
 # rm
