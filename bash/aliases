@@ -15,6 +15,7 @@ alias gc='git commit'
 alias gca='git commit -a'
 alias gco='git checkout'
 alias gpo='git push origin'
+alias gph='git push heroku'
 alias gb='git branch'
 alias gs='git status'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
