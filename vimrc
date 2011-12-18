@@ -205,3 +205,4 @@ function! OpenURL()
 endfunction
 map <Leader>w :call OpenURL()<CR>
 
+set pastetoggle=<F2>
