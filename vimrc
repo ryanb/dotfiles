@@ -24,6 +24,7 @@ set scrolloff=5         " scroll 5 lines before the cursor hits the edge
 set relativenumber      " show line numbers relative to the current line
 set autowriteall        " autosave lots of the time
 set autoread            " pick up changed files automatically
+set splitright          " make new splits open to the right
 
 match Todo /\s\+$/
 
