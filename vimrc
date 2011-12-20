@@ -77,10 +77,9 @@ let g:bufExplorerDefaultHelp=0
 noremap <F1> <nop>
 
 " Buffer navigation.
-noremap ,a :LustyBufferExplorer<CR>
-noremap ,f :LustyFilesystemExplorer<CR>
+noremap ,a :LustyJuggler<CR>
 noremap ,r :LustyFilesystemExplorerFromHere<CR>
-noremap ,t :CommandT<CR>
+noremap ,t :CtrlP<CR>
 noremap ,m :set columns=120 lines=40<CR>
 
 " Use CTRL-J and CTRL-K to skip forward and back through functions.
