@@ -77,6 +77,7 @@ let g:bufExplorerDefaultHelp=0
 noremap <F1> <nop>
 
 " Buffer navigation.
+noremap ,w :wincmd w<CR>
 noremap ,a :LustyJuggler<CR>
 noremap ,r :LustyFilesystemExplorerFromHere<CR>
 noremap ,t :CtrlP<CR>
