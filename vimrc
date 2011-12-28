@@ -26,7 +26,11 @@ set autowriteall        " autosave lots of the time
 set autoread            " pick up changed files automatically
 set splitright          " make new splits open to the right
 
+" Highlight whitespace at the end of lines.
+" See http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 match Todo /\s\+$/
+au InsertEnter * match Todo /\s\+\%#\@<!$/
+au InsertLeave * match Todo /\s\+$/
 
 " Set up the status line
 set laststatus=2        " Always show it.
