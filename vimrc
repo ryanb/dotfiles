@@ -26,6 +26,12 @@ set autowriteall        " autosave lots of the time
 set autoread            " pick up changed files automatically
 set splitright          " make new splits open to the right
 
+" Try out Gary Bernhardt's window sizing strategy.
+set winwidth=79
+set winheight=5
+set winminheight=5
+set winheight=999
+
 " Highlight whitespace at the end of lines.
 " See http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 match Todo /\s\+$/
@@ -81,15 +87,25 @@ let g:bufExplorerDefaultHelp=0
 " Custom Key Mappings
 " -------------------
 
+" Use , as the leader key.
+let mapleader=","
+
 " Disable the F1 key (which normally opens help) coz I hit it accidentally.
 noremap <F1> <nop>
 
 " Buffer navigation.
-noremap ,w :wincmd w<CR>
-noremap ,a :LustyBufferExplorer<CR>
-noremap ,r :LustyFilesystemExplorerFromHere<CR>
-noremap ,t :CtrlP<CR>
-noremap ,m :set columns=120 lines=40<CR>
+noremap <Leader>w :wincmd w<CR>
+noremap <Leader>a :LustyBufferExplorer<CR>
+noremap <Leader>r :LustyFilesystemExplorerFromHere<CR>
+noremap <Leader>m :set columns=120 lines=40<CR>
+
+noremap <Leader>t :CtrlP<CR>
+noremap <Leader>gv :CtrlP app/views<cr>
+noremap <Leader>gc :CtrlP app/controllers<cr>
+noremap <Leader>gm :CtrlP app/models<cr>
+noremap <Leader>gh :CtrlP app/helpers<cr>
+noremap <Leader>gs :CtrlP spec<cr>
+noremap <Leader>gf :CtrlP features<cr>
 
 " Use CTRL-J and CTRL-K to skip forward and back through functions.
 map <C-K> [m
