@@ -86,7 +86,7 @@ noremap <F1> <nop>
 
 " Buffer navigation.
 noremap ,w :wincmd w<CR>
-noremap ,a :LustyJuggler<CR>
+noremap ,a :LustyBufferExplorer<CR>
 noremap ,r :LustyFilesystemExplorerFromHere<CR>
 noremap ,t :CtrlP<CR>
 noremap ,m :set columns=120 lines=40<CR>
