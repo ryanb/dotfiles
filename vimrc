@@ -27,6 +27,7 @@ set autoread            " pick up changed files automatically
 set splitright          " make new splits open to the right
 
 " Try out Gary Bernhardt's window sizing strategy.
+set lines=50  " Make sure our window is big enough to start with.
 set winwidth=79
 set winheight=5
 set winminheight=5
