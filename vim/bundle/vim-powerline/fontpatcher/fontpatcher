@@ -1,0 +1,121 @@
+#!/usr/bin/env python
+
+"""Font patcher for Powerline.
+
+Creates dividers and symbols for use with Powerline. Requires FontForge with Python bindings.
+
+Stores glyphs in the 2b60-2bff Unicode range ("Misc symbols and arrows").
+
+[2b60] Branch symbol
+[2b61] LN (line) symbol
+[2b62] FT symbol 1
+[2b63] FT symbol 2
+[2b64] Padlock (closed) symbol
+[2b80] Hard right arrow
+[2b81] Soft right arrow
+[2b82] Hard left arrow
+[2b83] Soft left arrow
+"""
+
+import argparse
+import os
+import sys
+
+import fontforge
+import psMat
+
+# Handle command-line arguments
+parser = argparse.ArgumentParser(description='Font patcher for Powerline. Creates dividers and symbols in FontForge-compatible font files. Requires FontForge with Python bindings. Stores glyphs in the U+2B80-U+2BFF range ("Miscellaneous symbols and arrows"). Stores the patched font as a new, renamed font file by default.')
+
+parser.add_argument('fonts', help='font file to patch', metavar='font', nargs='+')
+parser.add_argument('--no-rename', help='don\'t add " for Powerline" to the font name', default=True, action='store_false', dest='rename')
+parser.add_argument('--symbol-font', help='font file with symbols', metavar='font', dest='symbol_font', default='{0}/PowerlineSymbols.sfd'.format(sys.path[0]))
+
+args = parser.parse_args()
+
+# Open symbol font
+try:
+	symbols = fontforge.open(args.symbol_font)
+except EnvironmentError:
+	sys.exit(1)
+
+# Patch provided fonts
+for font_path in args.fonts:
+	try:
+		font = fontforge.open(font_path)
+	except EnvironmentError:
+		sys.exit(1)
+
+	# Rename font
+	if args.rename:
+		font.familyname += ' for Powerline'
+		font.fullname += ' for Powerline'
+		font.fontname += 'ForPowerline'
+
+	dim = {
+		'xmin': 0,
+		'ymin': 0,
+		'xmax': 0,
+		'ymax': 0,
+	}
+
+	# Find the biggest possible bounding box from the glyphs in 0x00-0xff
+	for glyph in range(0x00, 0xff):
+		try:
+			(xmin, ymin, xmax, ymax) = font[glyph].boundingBox()
+		except TypeError:
+			continue
+
+		if xmin < dim['xmin']: dim['xmin'] = xmin
+		if xmax > dim['xmax']: dim['xmax'] = xmax
+		if ymin < dim['ymin']: dim['ymin'] = ymin
+		if ymax > dim['ymax']: dim['ymax'] = ymax
+
+	# Target bounding box
+	dest_width = dim['xmax'] + (-dim['xmin'])
+	dest_height = dim['ymax'] + (-dim['ymin'])
+
+	# Dimensions from PowerlineSymbols
+	source_width = 1272
+	source_height = 2545
+
+	# Create scale matrix
+	scale_matrix = psMat.scale(dest_width / source_width, dest_height / source_height)
+
+	# Update the font encoding to ensure that the Unicode glyphs are available
+	font.encoding = 'ISO10646'
+
+	# Fetch this property before adding outlines
+	onlybitmaps = font.onlybitmaps
+
+	# Create glyphs from symbol font
+	for glyph in symbols.glyphs():
+		location = glyph.unicode
+
+		# Select and copy symbol
+		symbols.selection.select(location)
+		symbols.copy()
+
+		# Select and paste symbol
+		font.selection.select(location)
+		font.paste()
+
+		# Scale symbol to fit new font
+		font.transform(scale_matrix)
+
+	if font.bitmapSizes and not onlybitmaps:
+		# If this is an outline font with bitmaps, regenerate bitmaps for the changed glyphs
+		font.selection.changed()
+
+		for size in font.bitmapSizes:
+			font.regenBitmaps((size, ))
+
+	output_name = os.path.split(font_path)[1].split('.')[0]
+
+	if onlybitmaps:
+		# Generate BDF font
+		font.generate('{0}-Powerline.bdf'.format(output_name, bitmap_type='bdf'))
+	else:
+		# Generate OTF font
+		font.generate('{0}-Powerline.otf'.format(output_name))
+

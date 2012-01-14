@@ -41,7 +41,7 @@ au InsertLeave * match Todo /\s\+$/
 
 " Set up the status line
 set laststatus=2        " Always show it.
-set statusline=%([%M%R%H%W]\ \ %)%l/%L\ \ %f%=%{&filetype}\ \ %c
+" set statusline=%([%M%R%H%W]\ \ %)%l/%L\ \ %f%=%{&filetype}\ \ %c
 
 " Put swap files in /tmp, and don't keep backups.
 set dir=/tmp
@@ -71,6 +71,9 @@ if has("gui_macvim")
   " Better colours for folding.
   highlight Folded guifg=#EEEEEE guibg=#333333
 endif
+
+" Completion
+set complete=.  " scan only the current file for completions
 
 
 " Plugin Configuration
