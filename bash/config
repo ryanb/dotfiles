@@ -1,2 +1,23 @@
 export PS1="\w$ "
-export EDITOR="mate_wait"
+export EDITOR="vim"
+
+#add brew lovelyness
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+  . `brew --prefix`/etc/bash_completion
+fi
+
+#if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash  ]; then
+#  . `brew --prefix`/etc/bash_completion.d/git-completion.bash 
+#fi
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
+export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
+
+alias mvn=mvn-growl.sh
+
+
+[[ -s "/Users/hnewton/.rvm/scripts/rvm" ]] && source "/Users/hnewton/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+
+
+
