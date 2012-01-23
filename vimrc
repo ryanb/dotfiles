@@ -98,7 +98,6 @@ let mapleader=","
 noremap <F1> <nop>
 
 " Buffer navigation.
-noremap <Leader>w :wincmd w<CR>
 noremap <Leader>a :LustyBufferExplorer<CR>
 noremap <Leader>r :LustyFilesystemExplorerFromHere<CR>
 noremap <Leader>m :set columns=120 lines=40<CR>
