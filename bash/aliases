@@ -9,6 +9,7 @@ alias la='ls -A'
 
 # git
 alias gl='git pull'
+alias gls='git log --pretty=short'
 alias gp='git push'
 alias gd='git diff'
 alias gc='git commit'
