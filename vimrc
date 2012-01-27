@@ -31,6 +31,9 @@ endif
 " Switch wrap off for everything
 set nowrap
 
+" Fire up pathogen to read ~/.vim/bundle
+call pathogen#infect()
+
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
   " Enable file type detection.
