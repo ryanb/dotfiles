@@ -1,6 +1,0 @@
-Makefile
-*.o
-*.log
-ext.*
-!ext.c
-!ext.h
