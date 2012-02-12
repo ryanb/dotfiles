@@ -49,6 +49,9 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.bin
 # RVM
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
+# I use this enough that it's worthwhile:
+alias be="bundle exec"
+
 # We use the full path here to work around this nasty bug: http://www.tpope.net/node/108
 # In particular, calling "filetype indent off" in my vimrc was causing vim to
 # always exit with a non-zero status. Very annoying for git commit.
