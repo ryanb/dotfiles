@@ -22,7 +22,7 @@ call Pl#Statusline(
 			\ Pl#HiInsert(    Pl#FG(196)),
 			\ Pl#HiNonCurrent(Pl#FG( 88))
 			\ ),
-		\ Pl#Segment(" %t ",
+		\ Pl#Segment(" %f ",
 			\ Pl#HiCurrent(   Pl#FG(231), Pl#Attr('bold')),
 			\ Pl#HiInsert(    Pl#FG(231), Pl#Attr('bold')),
 			\ Pl#HiNonCurrent(Pl#FG(245), Pl#Attr('bold'))
