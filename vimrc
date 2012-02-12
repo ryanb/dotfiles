@@ -75,7 +75,7 @@ if has("gui_macvim")
 endif
 
 " Completion
-set complete=.  " scan only the current file for completions
+set complete=.,w,b,u  " Scan all the buffers.
 
 
 " Plugin Configuration
