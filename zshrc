@@ -22,12 +22,11 @@ parse_git_dirty () {
 
 PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
 
-function rvm_prompt_info() {
-  ruby_version=$(~/.rvm/src/rvm/binscripts/rvm-prompt i v g 2> /dev/null) || return
-  echo "$ruby_version"
+function rbenv_prompt_info() {
+  rbenv version | sed "s/^\([^ ]*\).*$/\1/"
 }
 
-RPROMPT='%{$fg[yellow]%}$(rvm_prompt_info)%{$reset_color%}'
+RPROMPT='%{$fg[yellow]%}$(rbenv_prompt_info)%{$reset_color%}'
 
 # Completion.
 
@@ -46,8 +45,9 @@ setopt EXTENDED_HISTORY
 # Customize to your needs...
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.bin
 
-# RVM
-[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+# rbenv
+export PATH=$HOME/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
 
 # I use this enough that it's worthwhile:
 alias be="bundle exec"
