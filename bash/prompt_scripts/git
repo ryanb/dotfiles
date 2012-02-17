@@ -1,14 +1,6 @@
 #!/bin/bash
 
 
-#BRANCH=`git branch 2>/dev/null|grep -e '*'|awk '{print $2}'`
-
-#if [ "$BRANCH" ]
-#then
-#  find_git $PWD
-#else
-#fi
-
 find_git()
 {
   dir=$1
@@ -41,14 +33,20 @@ find_git()
   fi
 }
 
-#BRANCH=$(git branch|egrep '*'|awk '{print $2}')
-#
-#if [ "$BRANCH" ]
-#then
-#  find_git . $PWD
-#fi
+BRANCH=`git branch 2>/dev/null|grep -e '*'|sed -e 's/^* //'`
+
+#This is crap
+here=$(echo $PWD|sed -e "s!^$HOME!~!")
 
 
-find_git . $PWD
-echo repo: $GIT_REPO
-echo dir $GIT_DIR
+if [ "$BRANCH" ]
+then
+  find_git . $PWD
+
+  echo -n "[0;36m$GIT_REPO [0;32m$BRANCH [0m$GIT_DIR"
+else
+  echo -n "$here"
+fi
+
+echo "$ "
+
