@@ -1,0 +1,27 @@
+#!/bin/bash
+
+__h_git_prompt()
+{
+  local branch=`git branch 2>/dev/null|grep -e '*'|sed -e 's/^* //'`
+
+  if [ "$branch" ]
+  then
+    local git_dir=$(git rev-parse --git-dir)
+
+    if [ $git_dir = .git ]
+    then
+      git_dir=$PWD
+    else
+      git_dir=$(dirname $git_dir)
+    fi
+
+    local repo_name=$(basename $git_dir)
+    local repo_dir="${PWD:$((${#git_dir} + 1))}"
+
+    PS1="\\[\\e[0;32m\\]$repo_name \\[\\e[0;36m\\]$branch\\[\\e[0m\\] $repo_dir\\\$ "
+  else
+    PS1='\w$ '
+  fi
+}
+
+PROMPT_COMMAND=__h_git_prompt
