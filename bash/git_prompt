@@ -1,5 +1,7 @@
 #!/bin/bash
 
+__h_old_ps1=$PS1
+
 __h_git_prompt()
 {
   local branch=`git branch 2>/dev/null|grep -e '*'|sed -e 's/^* //'`
@@ -20,7 +22,7 @@ __h_git_prompt()
 
     PS1="\\[\\e[0;32m\\]$repo_name \\[\\e[0;36m\\]$branch\\[\\e[0m\\] $repo_dir\\\$ "
   else
-    PS1='\w$ '
+    PS1="$__h_old_ps1"
   fi
 }
 
