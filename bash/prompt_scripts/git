@@ -1,0 +1,54 @@
+#!/bin/bash
+
+
+#BRANCH=`git branch 2>/dev/null|grep -e '*'|awk '{print $2}'`
+
+#if [ "$BRANCH" ]
+#then
+#  find_git $PWD
+#else
+#fi
+
+find_git()
+{
+  dir=$1
+  left=$2
+  so_far=$3
+
+  if [ $left = "/" ]
+  then
+    echo "Can't find .git"
+    exit 1
+  fi
+
+
+  if [ -d "$dir/.git" ]
+  then
+    GIT_DIR=$so_far
+    GIT_REPO=$(basename "$left")
+  else
+    dir=$dir/..
+
+    if [ "$so_far" ]
+    then
+      so_far=/$so_far
+    fi
+
+    so_far=$(basename "$left")$so_far
+    left=$(dirname "$left")
+
+    find_git $dir $left $so_far
+  fi
+}
+
+#BRANCH=$(git branch|egrep '*'|awk '{print $2}')
+#
+#if [ "$BRANCH" ]
+#then
+#  find_git . $PWD
+#fi
+
+
+find_git . $PWD
+echo repo: $GIT_REPO
+echo dir $GIT_DIR
