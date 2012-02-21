@@ -7,7 +7,7 @@ class ProjectCompletion
   
   def matches
     projects.select do |task|
-      task[0, typed.length] == typed
+      task.match Regexp.new(typed.split('').join('.*'))
     end
   end
   
