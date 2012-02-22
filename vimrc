@@ -35,11 +35,9 @@ set winheight=5
 set winminheight=5
 set winheight=999
 
-" Highlight whitespace at the end of lines.
-" See http://vim.wikia.com/wiki/Highlight_unwanted_spaces
-match Todo /\s\+$/
-au InsertEnter * match Todo /\s\+\%#\@<!$/
-au InsertLeave * match Todo /\s\+$/
+" Remove whitespace at the end of lines on save.
+" See http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
+autocmd BufWritePre * :%s/\s\+$//e
 
 " Set up the status line
 set laststatus=2        " Always show it.
@@ -54,7 +52,7 @@ set foldenable         " enable code folding
 set foldmethod=syntax  " use syntax for folding
 set foldlevelstart=99  " open all folds by default
 set foldtext=getline(v:foldstart)
-set fillchars=fold:\ 
+set fillchars=fold:\   " nicer folding
 
 if has("gui_macvim")
   set mousehide                   " Hide the mouse when typing text.
@@ -95,6 +93,9 @@ let g:bufExplorerDefaultHelp=0
 
 " Use , as the leader key.
 let mapleader=","
+
+" Use jj to get out of insert mode.
+imap jj <esc>
 
 " Disable the F1 key (which normally opens help) coz I hit it accidentally.
 noremap <F1> <nop>

@@ -2,14 +2,6 @@ snippet class class .. end
 	class ${1:class_name}
 		${2}
 	end
-snippet class class .. initialize .. end
-	class ${1:class_name}
-		def initialize(${2:args})
-			${3}
-		end
-
-		${4}
-	end
 snippet module module .. end
 	module ${1:module_name}
 		${2}
@@ -32,6 +24,10 @@ snippet def
 	end
 snippet describe
 	describe ${1:class} do
+		${2}
+	end
+snippet context
+	context "${1:context}" do
 		${2}
 	end
 snippet it
@@ -72,3 +68,11 @@ snippet each
 	each {|${1}| ${2} }
 snippet map
 	map {|${1}| ${2} }
+snippet collect
+	collect {|${1}| ${2} }
+snippet select
+	select {|${1}| ${2} }
+snippet detect
+	detect {|${1}| ${2} }
+snippet reject
+	reject {|${1}| ${2} }
