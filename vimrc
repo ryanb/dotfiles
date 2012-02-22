@@ -9,22 +9,22 @@ call pathogen#infect()
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-syntax on               " enable syntax highlighting
-set history=50          " keep 50 lines of command line history
-set showcmd             " display incomplete commands
-set incsearch           " do incremental searching
-set hlsearch            " highlight search results
-set mouse=a             " enable the mouse
-set expandtab           " always use spaces not tabs
-set ts=2 sw=2 sts=2     " default to 2 space tabs
-set autoindent nosmartindent nocindent  " go for simple autoindenting
-set hidden              " unload any buffer that's hidden
-set wildmode=list:longest  " list options when completing on the command line
-set scrolloff=5         " scroll 5 lines before the cursor hits the edge
-set relativenumber      " show line numbers relative to the current line
-set autowriteall        " autosave lots of the time
-set autoread            " pick up changed files automatically
-set splitright          " make new splits open to the right
+syntax on                              " enable syntax highlighting
+set history=50                         " keep 50 lines of command line history
+set showcmd                            " display incomplete commands
+set incsearch                          " do incremental searching
+set hlsearch                           " highlight search results
+set mouse=a                            " enable the mouse
+set expandtab                          " always use spaces not tabs
+set ts=2 sw=2 sts=2                    " default to 2 space tabs
+set autoindent nosmartindent nocindent " go for simple autoindenting
+set hidden                             " unload any buffer that's hidden
+set wildmode=list:longest              " list options when completing on the command line
+set scrolloff=5                        " scroll 5 lines before the cursor hits the edge
+set relativenumber                     " show line numbers relative to the current line
+set autowriteall                       " autosave lots of the time
+set autoread                           " pick up changed files automatically
+set splitright                         " make new splits open to the right
 
 " Try out Gary Bernhardt's window sizing strategy.
 if has("gui_macvim")
@@ -64,12 +64,18 @@ if has("gui_macvim")
 
   colorscheme railscasts
 
-  " Write files on buffer switches and loss of focus.
-  set autowriteall
-  autocmd FocusLost * silent! wa
-
-  " Better colours for folding.
+  " Colour tweaks.
   highlight Folded guifg=#EEEEEE guibg=#333333
+  highlight LineNr guifg=#333333 ctermfg=159 guibg=#111111
+
+  " Popup menu colours, borrowed from http://www.vim.org/scripts/script.php?script_id=1995
+  highlight Pmenu      guifg=#F6F3E8 guibg=#444444 gui=NONE
+  highlight PmenuSel   guifg=#000000 guibg=#A5C261 gui=NONE
+  highlight PMenuSbar  guibg=#5A647E gui=NONE
+  highlight PMenuThumb guibg=#AAAAAA gui=NONE
+
+  " Write files on loss of focus.
+  autocmd FocusLost * silent! wa
 endif
 
 " Completion
@@ -157,7 +163,8 @@ autocmd FileType html       setlocal ts=2 sw=2 sts=2
 autocmd FileType xhtml      setlocal ts=2 sw=2 sts=2
 autocmd FileType css        setlocal ts=2 sw=2 sts=2
 autocmd FileType javascript setlocal ts=2 sw=2 sts=2
-autocmd FileType cpp        setlocal ts=2 sw=2 sts=2
+autocmd FileType c          setlocal ts=4 sw=4 sts=4
+autocmd FileType cpp        setlocal ts=4 sw=4 sts=4
 autocmd FileType ruby       setlocal ts=2 sw=2 sts=2
 autocmd FileType eruby      setlocal ts=2 sw=2 sts=2
 autocmd FileType cucumber   setlocal ts=2 sw=2 sts=2
