@@ -15,7 +15,3 @@
 # Make new branches do a rebase on git pull.
 [branch]
   autosetuprebase = always
-
-# Disallow all fast-forward merges.
-[merge]
-  ff = false
