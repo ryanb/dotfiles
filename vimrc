@@ -113,6 +113,9 @@ map <Leader>sv :RSview
 map <Leader>su :RSunittest
 map <Leader>sf :RSfunctionaltest
 
+" CommandT
+map <Leader>t :CommandT<CR>
+
 " For conque
 map <Leader>sh :ConqueTerm bash
 map <Leader>ssh :ConqueTermSplit bash
@@ -202,7 +205,7 @@ set tags=./tags;
 let g:fuf_splitPathMatching=1
 
 " Open URL
-command -bar -nargs=1 OpenURL :!open <args>
+"command -bar -nargs=1 OpenURL :!open <args>
 function! OpenURL()
   let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
   echo s:uri
@@ -213,4 +216,3 @@ function! OpenURL()
   endif
 endfunction
 map <Leader>w :call OpenURL()<CR>
-
