@@ -31,3 +31,6 @@ alias rst='touch tmp/restart.txt'
 
 # commands starting with % for pasting from web
 alias %=' '
+
+# for tmux
+alias tmux="TERM=screen-256color-bce tmux"

@@ -34,6 +34,7 @@ set nowrap
 " Fire up pathogen to read ~/.vim/bundle
 call pathogen#infect()
 
+
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
   " Enable file type detection.
@@ -181,6 +182,8 @@ endif
 " highlight NonText guibg=#060606
 " highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
+
+
 " Numbers
 set number
 set numberwidth=5
@@ -216,3 +219,8 @@ function! OpenURL()
   endif
 endfunction
 map <Leader>w :call OpenURL()<CR>
+
+" HIGHLIGHT ACTIVE LINE AND COLUMN
+au WinLeave * set nocursorline nocursorcolumn
+au WinEnter * set cursorline cursorcolumn
+set cursorline cursorcolumn
