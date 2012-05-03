@@ -51,6 +51,9 @@ alias %=' '
 # changing directory to code project
 function c { cd ~/code/$1; }
 
+# changing directory to dropbox folder
+function dropbox { cd ~/Dropbox/$1; }
+
 # alternative to "rails" command to use templates
 function railsapp {
   template=$1
