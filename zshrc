@@ -49,8 +49,11 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.bin
 export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
 
-# I use this enough that it's worthwhile:
+# A few useful aliases:
 alias be="bundle exec"
+alias gco="git checkout"
+alias gm="git merge"
+alias gff="git merge --ff-only"
 
 # We use the full path here to work around this nasty bug: http://www.tpope.net/node/108
 # In particular, calling "filetype indent off" in my vimrc was causing vim to

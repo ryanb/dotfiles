@@ -15,3 +15,5 @@
 # Make new branches do a rebase on git pull.
 [branch]
   autosetuprebase = always
+[merge]
+  defaultToUpstream = true
