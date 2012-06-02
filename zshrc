@@ -7,7 +7,7 @@ plugins=(git bundler brew gem rbenv rbates)
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 
 # use .localrc for settings specific to one system
 [[ -f ~/.localrc ]] && . ~/.localrc
