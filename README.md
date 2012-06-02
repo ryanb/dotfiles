@@ -25,16 +25,22 @@ I am running on Mac OS X, but it will likely work on Linux as well.
 
 I normally place all of my coding projects in ~/code, so this directory can easily be accessed (and tab completed) with the "c" command.
 
-  c railsca<tab>
+```terminal
+c railsca<tab>
+```
 
 There is also an "h" command which behaves similar, but acts on the home path.
 
-  h doc<tab>
+```terminal
+h doc<tab>
+```
 
 Tab completion is also added to rake and cap commands:
 
-  rake db:mi<tab>
-  cap de<tab>
+```
+rake db:mi<tab>
+cap de<tab>
+```
 
 To speed things up, the results are cached in local .rake_tasks~ and .cap_tasks~. It is smart enough to expire the cache automatically in most cases, but you can simply remove the files to flush the cache.
 

@@ -6,9 +6,11 @@ task :install do
   switch_to_zsh
   install_oh_my_zsh
   replace_all = false
-  Dir['*'].each do |file|
-    next if %w[Rakefile README.rdoc LICENSE oh-my-zsh].include? file
-    
+  files = Dir['*'] - %w[Rakefile README.rdoc LICENSE oh-my-zsh]
+  files << "oh-my-zsh/custom/plugins/rbates"
+  files << "oh-my-zsh/custom/rbates.zsh-theme"
+  files.each do |file|
+    system %Q{mkdir -p "$HOME/.#{File.dirname(file)}"} if file =~ /\//
     if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
       if File.identical? file, File.join(ENV['HOME'], ".#{file.sub('.erb', '')}")
         puts "identical ~/.#{file.sub('.erb', '')}"
@@ -81,12 +83,6 @@ def install_oh_my_zsh
       exit
     else
       puts "skipping oh-my-zsh, you will need to change ~/.zshrc"
-    end
-  end
-  if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh")) && !File.exist?(File.join(ENV['HOME'], ".oh-my-zsh", "custom", "plugins", "rbates"))
-    system %Q{mkdir -p "$HOME/.oh-my-zsh/custom/plugins/rbates"}
-    %w[oh-my-zsh/custom/plugins/rbates oh-my-zsh/custom/rbates.zsh-theme].each |file|
-      system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
     end
   end
 end
