@@ -37,7 +37,7 @@ task :install do
 end
 
 def replace_file(file)
-  system %Q{rm -rf "$HOME/.#{file.sub('.erb', '')}"}
+  system %Q{rm -rf "#{ENV['HOME']}/.#{file.sub('.erb', '')}"}
   link_file(file)
 end
 
@@ -52,7 +52,7 @@ def link_file(file)
     system %Q{cp "$PWD/#{file}" "$HOME/.#{file}"}
   else
     puts "linking ~/.#{file}"
-    system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+    system %Q{ln -s "#{ENV['PWD']}/#{file}" "#{ENV['HOME']}/.#{file}"}
   end
 end
 
