@@ -3,8 +3,8 @@ require 'erb'
 
 desc "install the dot files into user's home directory"
 task :install do
-  switch_to_zsh
   install_oh_my_zsh
+  switch_to_zsh
   replace_all = false
   files = Dir['*'] - %w[Rakefile README.rdoc LICENSE oh-my-zsh]
   files << "oh-my-zsh/custom/plugins/rbates"
@@ -47,6 +47,9 @@ def link_file(file)
     File.open(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"), 'w') do |new_file|
       new_file.write ERB.new(File.read(file)).result(binding)
     end
+  elsif file =~ /zshrc$/ # copy zshrc instead of link
+    puts "copying ~/.#{file}"
+    system %Q{cp "$PWD/#{file}" "$HOME/.#{file}"}
   else
     puts "linking ~/.#{file}"
     system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}

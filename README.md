@@ -2,6 +2,8 @@
 
 These are config files to set up a system the way I like it. It now uses [Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh). If you would like to see my old, custom Bash and ZSH config, check out [this branch](https://github.com/ryanb/dotfiles/tree/custom-bash-zsh)
 
+I am running on Mac OS X, but it will likely work on Linux as well.
+
 
 ## Installation
 
@@ -15,13 +17,12 @@ rake install
 
 After installing, open a new terminal window to see the effects.
 
-
-## Environment
-
-I am running on Mac OS X, but it will likely work on Linux as well.
+Feel free to customize the .zshrc file to match your preference.
 
 
 ## Features
+
+Many of the following features are added through the "rbates" Oh My ZSH plugin.
 
 I normally place all of my coding projects in ~/code, so this directory can easily be accessed (and tab completed) with the "c" command.
 
@@ -46,8 +47,6 @@ To speed things up, the results are cached in local .rake_tasks~ and .cap_tasks~
 
 If you're using git, you'll notice the current branch name shows up in the prompt while in a git repository.
 
-If there are some shell configuration settings which you want secure or specific to one system, place it into a ~/.localrc file. This will be loaded automatically if it exists.
-
 There are several features enabled in Ruby's irb including history and completion. Many convenience methods are added as well such as "ri" which can be used to get inline documentation in IRB. See irbrc file for details.
 
 
@@ -63,11 +62,11 @@ unlink ~/.gvimrc
 unlink ~/.irbrc
 unlink ~/.vim
 unlink ~/.vimrc
-unlink ~/.zshrc
-rm ~/.gitconfig # careful here
+rm ~/.zshrc # careful here
+rm ~/.gitconfig
 rm -rf ~/.dotfiles
 rm -rf ~/.oh-my-zsh
-chsh -s `which bash` # change back to Bash if you want
+chsh -s /bin/bash # change back to Bash if you want
 ```
 
 Then open a new terminal window to see the effects.
