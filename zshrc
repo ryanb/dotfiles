@@ -51,8 +51,9 @@ eval "$(rbenv init -)"
 
 # A few useful aliases:
 alias be="bundle exec"
+alias gf="git fetch"
 alias gco="git checkout"
-alias gm="git merge"
+alias gm="git merge --no-ff"
 alias gff="git merge --ff-only"
 
 # We use the full path here to work around this nasty bug: http://www.tpope.net/node/108

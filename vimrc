@@ -41,7 +41,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " Set up the status line
 set laststatus=2        " Always show it.
-" set statusline=%([%M%R%H%W]\ \ %)%l/%L\ \ %f%=%{&filetype}\ \ %c
+set statusline=%([%M%R%H%W]\ \ %)%l/%L\ \ %f%=%{&filetype}\ \ %c
+hi StatusLine guifg=#888888 guibg=black
+hi StatusLineNC guifg=#222222 guibg=white
 
 " Put swap files in /tmp, and don't keep backups.
 set dir=/tmp
