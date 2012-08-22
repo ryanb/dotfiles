@@ -145,6 +145,12 @@ inoremap <C-U> <C-G>u<C-U>
 " Map Command-R to save and run the current spec file in iTerm.
 noremap <D-r> :w<CR>:Spec<CR>
 
+" Map arrow keys to move lines around (relies on vim-unimpaired plugin.)
+" Idea from: http://codingfearlessly.com/2012/08/21/vim-putting-arrows-to-use/
+nmap <Up> [e
+nmap <Down> ]e
+vmap <Up> [egv
+vmap <Down> ]egv
 
 " Filetype Handling
 " -----------------
