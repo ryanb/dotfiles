@@ -14,7 +14,7 @@ These are config files to set up a system the way I like it.  (forked from ryanb
 I normally place all of my coding projects in ~/code, so this directory 
 can easily be accessed (and tab completed) with the "c" command.
 
-  c railsca<tab>
+  c heirloom<tab>
 
 There is also an "h" command which behaves similar, but acts on the 
 home path.
