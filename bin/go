@@ -1,0 +1,16 @@
+tmux has-session -t development
+
+if [ $? != 0 ]; then
+  tmux new-session -s development -n workspace -d
+  tmux split-window -h -t development
+  tmux split-window -v -t development
+
+  tmux new-window -n full -t development
+  tmux send-keys -t development:1.1 'cd ~/code' C-m
+  tmux send-keys -t development:1.2 'cd ~/code' C-m
+  tmux send-keys -t development:2 'cd' C-m
+
+  tmux select-window -t development:1
+fi
+
+tmux attach -t development
