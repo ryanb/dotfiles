@@ -28,8 +28,8 @@ if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   set hlsearch
 endif
 
-" Switch wrap off for everything
-set nowrap
+" Enabling wraping for everything
+set wrap
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -191,18 +191,5 @@ let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 set tags=./tags;
 
 let g:fuf_splitPathMatching=1
-
-" Open URL
-command -bar -nargs=1 OpenURL :!open <args>
-function! OpenURL()
-  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
-  echo s:uri
-  if s:uri != ""
-	  exec "!open \"" . s:uri . "\""
-  else
-	  echo "No URI found in line."
-  endif
-endfunction
-map <Leader>w :call OpenURL()<CR>
 
 set pastetoggle=<F2>

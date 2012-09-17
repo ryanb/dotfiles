@@ -1,3 +1,5 @@
+#!/bin/bash
+
 tmux has-session -t development
 
 if [ $? != 0 ]; then
