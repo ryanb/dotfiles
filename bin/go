@@ -6,8 +6,9 @@ if [ $? != 0 ]; then
   tmux split-window -v -t development
 
   tmux new-window -n full -t development
-  tmux send-keys -t development:1.1 'cd ~/code' C-m
-  tmux send-keys -t development:1.2 'cd ~/code' C-m
+  tmux send-keys -t development:1.1 'cd ~/code ; clear' C-m
+  tmux send-keys -t development:1.2 'cd ~/code ; clear' C-m
+  tmux send-keys -t development:1.3 'cd ~/code ; clear' C-m
   tmux send-keys -t development:2 'cd' C-m
 
   tmux select-window -t development:1
