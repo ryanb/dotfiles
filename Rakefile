@@ -1,6 +1,22 @@
 require 'rake'
 require 'erb'
 
+desc "un-install the dot files from the user's home directory"
+task :uninstall do
+  system %Q{unlink ~/.bin}
+  system %Q{unlink ~/.gitignore}
+  system %Q{unlink ~/.gemrc}
+  system %Q{unlink ~/.gvimrc}
+  system %Q{unlink ~/.irbrc}
+  system %Q{unlink ~/.vim}
+  system %Q{unlink ~/.vimrc}
+  system %Q{rm ~/.zshrc}
+  system %Q{rm ~/.gitconfig}
+  system %Q{rm -rf ~/.oh-my-zsh}
+  system %Q{chsh -s /bin/bash}
+  #system %Q{rm -rf ~/.dotfiles}
+end
+
 desc "install the dot files into user's home directory"
 task :install do
   install_oh_my_zsh
