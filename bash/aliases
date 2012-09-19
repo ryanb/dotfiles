@@ -44,6 +44,7 @@ alias rake='bundle exec rake'
 
 # Misc
 alias oldpwd='cd $OLDPWD'
+alias hgrep='history |grep'
 
 # commands starting with % for pasting from web
 alias %=' '
@@ -64,3 +65,6 @@ function railsapp {
 
 # misc
 alias reload='. ~/.bash_profile'
+
+# copy aliases from tmux buffer to clipboard
+alias tm_cb='tmux show-buffer | pbcopy ; echo "Buffer Copied."'
