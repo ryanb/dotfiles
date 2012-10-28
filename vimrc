@@ -107,30 +107,43 @@ imap jj <esc>
 
 " Disable the F1 key (which normally opens help) coz I hit it accidentally.
 noremap <F1> <nop>
+" Disable looking up the keyword under the cursor. Another one I hit
+" by mistake.
+noremap K k
 
 " Buffer navigation.
 noremap <Leader>a :LustyBufferExplorer<CR>
 noremap <Leader>r :LustyFilesystemExplorerFromHere<CR>
-noremap <Leader>m :set columns=120 lines=40<CR>
+" noremap <Leader>m :set columns=120 lines=40<CR>
 
 noremap <Leader>t :CtrlP<CR>
-noremap <Leader>gv :CtrlP app/views<cr>
-noremap <Leader>gc :CtrlP app/controllers<cr>
-noremap <Leader>gm :CtrlP app/models<cr>
-noremap <Leader>gh :CtrlP app/helpers<cr>
-noremap <Leader>gs :CtrlP spec<cr>
-noremap <Leader>gf :CtrlP features<cr>
+" noremap <Leader>gv :CtrlP app/views<cr>
+" noremap <Leader>gc :CtrlP app/controllers<cr>
+" noremap <Leader>gm :CtrlP app/models<cr>
+" noremap <Leader>gh :CtrlP app/helpers<cr>
+" noremap <Leader>gs :CtrlP spec<cr>
+" noremap <Leader>gf :CtrlP features<cr>
 
 " Use CTRL-J and CTRL-K to skip forward and back through functions.
-map <C-K> [m
-map <C-J> ]m
+" map <C-K> [m
+" map <C-J> ]m
+
+" Use CTRL-direction to navigation windows
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+nnoremap <C-X> <C-W>c
 
 " Use CTRL-N and CTRL-P to skip forward and back through the quickfix list.
 noremap <C-P> :cp<CR>
 noremap <C-N> :cn<CR>
 
 " Use CTRL-A to re-align ruby, SQL, and cucumber in visual mode.
-vnoremap <C-A> !align-ruby<CR>
+"noremap <C-A> !align-ruby<CR>
+
+" Use CTRL-A to open the alternative file in a split
+nnoremap <C-A> :only<CR>:AV<CR>
 
 " Reselect the visual area when changing indenting in visual mode.
 vnoremap < <gv
@@ -178,4 +191,9 @@ autocmd FileType eruby      setlocal ts=2 sw=2 sts=2
 autocmd FileType cucumber   setlocal ts=2 sw=2 sts=2
 autocmd FileType markdown   setlocal ts=4 sw=4 sts=4 foldmethod=marker foldlevel=0
 
+" Source the vimrc file after saving it
+autocmd bufwritepost .vimrc source $MYVIMRC
+
 augroup END
+
+
