@@ -31,8 +31,8 @@ if has("gui_macvim")
   set lines=50  " Make sure our window is big enough to start with.
 endif
 set winwidth=79
-set winheight=5
-set winminheight=5
+set winheight=8
+set winminheight=8
 set winheight=999
 
 " Remove whitespace at the end of lines on save.
