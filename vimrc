@@ -197,3 +197,20 @@ autocmd bufwritepost .vimrc source $MYVIMRC
 augroup END
 
 
+
+function! s:spec_file_for_app_file(filename)
+  return fnamemodify(a:filename, ":s?app?spec?:r") . "_spec.rb"
+endfunction
+
+function! s:edit_spec_file_for_app_file(filename)
+  let spec_file = s:spec_file_for_app_file(a:filename)
+  execute "edit " . fnameescape(spec_file)
+endfunction
+
+function! s:edit_spec_file_for_current_file()
+  let current_file = bufname("%")
+  call s:edit_spec_file_for_app_file(current_file)
+endfunction
+
+command! EditSpec call s:edit_spec_file_for_current_file()
+
