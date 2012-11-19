@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# Create the app:
+
+rails new $* --database=mysql --skip-test-unit --skip-bundle
+cd $1
+
+
+# Extra gitignores:
+
+cat <<"EOF" >> .gitignore
+
+# Ignore stupid OS X files.
+.DS_Store
+EOF
+
+
+# Install RSpec:
+
+cat <<"EOF" >> Gemfile
+
+# Use RSpec for tests
+group :test, :development do
+  gem "rspec-rails", "~> 2.0"
+  gem "capybara"
+end
+EOF
+bundle
+rails generate rspec:install
+
+
+# Fast spec helper:
+
+cat <<"EOF" >> spec/fast_spec_helper.rb
+# encoding: utf-8
+
+$LOAD_PATH << File.dirname(__FILE__) + "/../"
+
+require 'active_support'
+EOF
+
+
+# Remove index.html
+
+rm public/index.html
+
+
+# Git repo:
+
+git init
+git add .
+git commit -a -F - <<EOF
+Created app.
+
+Includes:
+- Rails with MySQL
+- RSpec
+- Capybara
+- Fast spec helper
+EOF
+
