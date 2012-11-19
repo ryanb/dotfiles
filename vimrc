@@ -165,6 +165,10 @@ nmap <Down> ]e
 vmap <Up> [egv
 vmap <Down> ]egv
 
+" Use space to toggle folding.
+nnoremap <Space> za
+vnoremap <Space> za
+
 " Filetype Handling
 " -----------------
 
