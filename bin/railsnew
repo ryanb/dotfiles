@@ -2,7 +2,7 @@
 
 # Create the app:
 
-rails new $* --database=mysql --skip-test-unit --skip-bundle
+rails new $* --skip-test-unit --skip-bundle
 cd $1
 
 
