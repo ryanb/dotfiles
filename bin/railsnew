@@ -15,7 +15,7 @@ cat <<"EOF" >> .gitignore
 EOF
 
 
-# Install RSpec:
+# Install RSpec (with Capybara):
 
 cat <<"EOF" >> Gemfile
 
@@ -23,10 +23,15 @@ cat <<"EOF" >> Gemfile
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
   gem "capybara"
+  gem "launchy"
 end
 EOF
 bundle
 rails generate rspec:install
+cat <<"EOF" >> spec/spec_helper.rb
+
+require 'capybara/rspec'
+EOF
 
 
 # Fast spec helper:
