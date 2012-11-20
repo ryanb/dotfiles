@@ -6,10 +6,8 @@ set nocompatible
 " Load this first so ftdetect in bundles works properly.
 call pathogen#infect()
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
 syntax on                              " enable syntax highlighting
+set backspace=indent,eol,start         " allow backspacing over everything in insert mode
 set history=50                         " keep 50 lines of command line history
 set showcmd                            " display incomplete commands
 set incsearch                          " do incremental searching
@@ -26,7 +24,23 @@ set autowriteall                       " autosave lots of the time
 set autoread                           " pick up changed files automatically
 set splitright                         " make new vertical splits open to the right
 set splitbelow                         " make new horizontal splits open below
-set shortmess=atI
+set shortmess=atI                      " brief command line messages, no 'press enter"
+set dir=/tmp                           " put swap files in /tmp
+set nobackup                           " don't keep backups
+
+" Set up the status line
+set laststatus=2        " Always show it.
+set statusline=%([%M%R%H%W]\ \ %)%l/%L\ \ %f%=%{&filetype}\ \ %c
+
+" Set up folding.
+set foldenable         " enable code folding
+set foldmethod=syntax  " use syntax for folding
+set foldlevelstart=99  " open all folds by default
+set foldtext=getline(v:foldstart)
+set fillchars=fold:\   " nicer folding
+
+" Set up completion.
+set complete=.,w,b,u  " Scan all the buffers.
 
 " Try out Gary Bernhardt's window sizing strategy.
 if has("gui_macvim")
@@ -36,25 +50,6 @@ set winwidth=79
 set winheight=8
 set winminheight=8
 set winheight=999
-
-" Remove whitespace at the end of lines on save.
-" See http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
-autocmd BufWritePre * :%s/\s\+$//e
-
-" Set up the status line
-set laststatus=2        " Always show it.
-set statusline=%([%M%R%H%W]\ \ %)%l/%L\ \ %f%=%{&filetype}\ \ %c
-
-" Put swap files in /tmp, and don't keep backups.
-set dir=/tmp
-set nobackup
-
-" Set up folding.
-set foldenable         " enable code folding
-set foldmethod=syntax  " use syntax for folding
-set foldlevelstart=99  " open all folds by default
-set foldtext=getline(v:foldstart)
-set fillchars=fold:\   " nicer folding
 
 if has("gui_macvim")
   set mousehide                   " Hide the mouse when typing text.
@@ -78,20 +73,11 @@ if has("gui_macvim")
   highlight PmenuSel   guifg=#000000 guibg=#A5C261 gui=NONE
   highlight PMenuSbar  guibg=#5A647E gui=NONE
   highlight PMenuThumb guibg=#AAAAAA gui=NONE
-
-  " Write files on loss of focus.
-  autocmd FocusLost * silent! wa
 endif
-
-" Completion
-set complete=.,w,b,u  " Scan all the buffers.
 
 
 " Plugin Configuration
 " --------------------
-
-" Stop Lusty Juggler complaining when we use the system vim.
-let g:LustyJugglerSuppressRubyWarning = 1
 
 " Show relative paths in bufexplorer.
 let g:bufExplorerShowRelativePath=1
@@ -172,8 +158,8 @@ vnoremap <Space> za
 " nnoremap <C-A> :only<CR>:AV<CR>
 
 
-" Filetype Handling
-" -----------------
+" Autocommand
+" -----------
 
 " Enable file type detection, but disable smart indenting.
 filetype plugin on
@@ -202,8 +188,15 @@ autocmd FileType markdown   setlocal ts=4 sw=4 sts=4 foldmethod=marker foldlevel
 autocmd InsertEnter * hi StatusLine guifg=green
 autocmd InsertLeave * hi StatusLine guifg=white
 
+" Remove whitespace at the end of lines on save.
+" See http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
+autocmd BufWritePre * :%s/\s\+$//e
+
 " Source the vimrc file after saving it
-autocmd bufwritepost .vimrc source $MYVIMRC
+autocmd BufWritePost .vimrc source $MYVIMRC
+
+" Write files on loss of focus.
+autocmd FocusLost * silent! wa
 
 augroup END
 
