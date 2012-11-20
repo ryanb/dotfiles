@@ -24,7 +24,9 @@ set scrolloff=5                        " scroll 5 lines before the cursor hits t
 set relativenumber                     " show line numbers relative to the current line
 set autowriteall                       " autosave lots of the time
 set autoread                           " pick up changed files automatically
-set splitright                         " make new splits open to the right
+set splitright                         " make new vertical splits open to the right
+set splitbelow                         " make new horizontal splits open below
+set shortmess=atI
 
 " Try out Gary Bernhardt's window sizing strategy.
 if has("gui_macvim")
@@ -103,20 +105,18 @@ let g:bufExplorerDefaultHelp=0
 " Use , as the leader key.
 let mapleader=","
 
-" Use jj to get out of insert mode.
-imap jj <esc>
-
-" Disable the F1 key (which normally opens help) coz I hit it accidentally.
+" Disable some keys that are easy to hit accidentally, and are annoying.
 noremap <F1> <nop>
-" Disable looking up the keyword under the cursor. Another one I hit
-" by mistake.
+noremap Q <nop>
 noremap K k
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
 
 " Buffer navigation.
 noremap <Leader>a :LustyBufferExplorer<CR>
 noremap <Leader>r :LustyFilesystemExplorerFromHere<CR>
-" noremap <Leader>m :set columns=120 lines=40<CR>
-
 noremap <Leader>t :CtrlP<CR>
 " noremap <Leader>gv :CtrlP app/views<cr>
 " noremap <Leader>gc :CtrlP app/controllers<cr>
@@ -124,10 +124,6 @@ noremap <Leader>t :CtrlP<CR>
 " noremap <Leader>gh :CtrlP app/helpers<cr>
 " noremap <Leader>gs :CtrlP spec<cr>
 " noremap <Leader>gf :CtrlP features<cr>
-
-" Use CTRL-J and CTRL-K to skip forward and back through functions.
-" map <C-K> [m
-" map <C-J> ]m
 
 " Use CTRL-direction to navigation windows
 nnoremap <C-H> <C-W>h
@@ -140,21 +136,9 @@ nnoremap <C-X> <C-W>c
 noremap <C-P> :cp<CR>
 noremap <C-N> :cn<CR>
 
-" Use CTRL-A to re-align ruby, SQL, and cucumber in visual mode.
-"noremap <C-A> !align-ruby<CR>
-
-" Use CTRL-A to open the alternative file in a split
-nnoremap <C-A> :only<CR>:AV<CR>
-
 " Reselect the visual area when changing indenting in visual mode.
 vnoremap < <gv
 vnoremap > >gv
-
-" Don't use Ex mode, use Q for formatting.
-noremap Q gq
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
 
 " Map Command-R to save and run the current spec file in iTerm.
 noremap <D-r> :w<CR>:Spec<CR>
@@ -170,8 +154,22 @@ vmap <Down> ]egv
 nnoremap <Space> za
 vnoremap <Space> za
 
-" Command for aligning new-style hashes in Ruby.
-command TabHash Tab /^[^:]*:\zs
+
+" Old Key Mappings
+" ----------------
+
+" Use jj to get out of insert mode.
+" imap jj <esc>
+
+" Use CTRL-J and CTRL-K to skip forward and back through functions.
+" map <C-K> [m
+" map <C-J> ]m
+
+" Use CTRL-A to re-align ruby, SQL, and cucumber in visual mode.
+"noremap <C-A> !align-ruby<CR>
+
+" Use CTRL-A to open the alternative file in a split
+" nnoremap <C-A> :only<CR>:AV<CR>
 
 
 " Filetype Handling
