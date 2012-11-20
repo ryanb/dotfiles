@@ -42,8 +42,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Set up the status line
 set laststatus=2        " Always show it.
 set statusline=%([%M%R%H%W]\ \ %)%l/%L\ \ %f%=%{&filetype}\ \ %c
-hi StatusLine guifg=#888888 guibg=black
-hi StatusLineNC guifg=#222222 guibg=white
 
 " Put swap files in /tmp, and don't keep backups.
 set dir=/tmp
@@ -67,6 +65,9 @@ if has("gui_macvim")
   colorscheme railscasts
 
   " Colour tweaks.
+  highlight StatusLine guifg=white guibg=black
+  highlight StatusLineNC guifg=#333333 guibg=white
+  highlight VertSplit guifg=#333333 guibg=white
   highlight Folded guifg=#EEEEEE guibg=#333333
   highlight LineNr guifg=#333333 ctermfg=159 guibg=#111111
 
