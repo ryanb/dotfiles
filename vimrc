@@ -6,6 +6,8 @@ set nocompatible
 " Load this first so ftdetect in bundles works properly.
 call pathogen#infect()
 
+runtime macros/matchit.vim
+
 syntax on                              " enable syntax highlighting
 set backspace=indent,eol,start         " allow backspacing over everything in insert mode
 set history=50                         " keep 50 lines of command line history
