@@ -17,3 +17,13 @@
   autosetuprebase = always
 [merge]
   defaultToUpstream = true
+
+[alias]
+  build = !git push -f origin HEAD:build/notahat/$(openssl rand -hex 3)
+  build-without-master = !git push -f origin HEAD:build/notahat/$(openssl rand -hex 3)-without-master
+  build-specs = !git push -f origin HEAD:build-specs/notahat/$(openssl rand -hex 3)
+  build-specs-without-master = !git push -f origin HEAD:build-specs/notahat/$(openssl rand -hex 3)-without-master
+  build-features = !git push -f origin HEAD:build-features/notahat/$(openssl rand -hex 3)
+  build-features-without-master = !git push -f origin HEAD:build-features/notahat/$(openssl rand -hex 3)-without-master
+  build-js = !git push -f origin HEAD:build-js/notahat/$(openssl rand -hex 3)
+  build-js-without-master = !git push -f origin HEAD:build-js/notahat/$(openssl rand -hex 3)-without-master
