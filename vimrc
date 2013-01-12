@@ -58,8 +58,8 @@ if has("gui_macvim")
   set guioptions=egm              " Show tabs, hide toolbar and scrollbar.
   set fuoptions=maxvert,maxhorz   " Go to full width and height in full screen mode.
 
-  set gfn=Inconsolata:h15         " Inconsolata 15px for the font
-  set linespace=0                 " 0 pixels between lines
+  set gfn=Inconsolata:h14         " Inconsolata 15px for the font
+  set linespace=1                 " 0 pixels between lines
 
   colorscheme railscasts
 
@@ -129,7 +129,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Map Command-R to save and run the current spec file in iTerm.
-noremap <D-r> :w<CR>:Spec<CR>
+noremap <D-r> :w<CR>:RunSpec<CR>
 
 " Map arrow keys to move lines around (relies on vim-unimpaired plugin.)
 " Idea from: http://codingfearlessly.com/2012/08/21/vim-putting-arrows-to-use/
@@ -204,6 +204,7 @@ augroup END
 
 
 
+
 function! s:spec_file_for_app_file(filename)
   return fnamemodify(a:filename, ":s?app?spec?:r") . "_spec.rb"
 endfunction
@@ -219,4 +220,6 @@ function! s:edit_spec_file_for_current_file()
 endfunction
 
 command! EditSpec call s:edit_spec_file_for_current_file()
+
+command! RunSpec execute "ITerm be rspec " . shellescape(bufname("%"))
 
