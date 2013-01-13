@@ -1,4 +1,4 @@
-" Vim plugin to rename the current file.
+" Vim plugin to rename files.
 " Author: Pete Yandell <pete@notahat.com>
 
 let s:save_cpo = &cpo
@@ -19,7 +19,7 @@ function! s:rename_buffer(new_name)
 
     " Change the name of the current buffer.
     execute "silent keepalt file " . fnameescape(a:new_name)
-    write
+    silent write
 
     " Delete the old file.
     call delete(l:existing_name)
@@ -29,10 +29,16 @@ endfunction
 " A smart file rename that that handles renaming any open buffers associated
 " with the file.
 function! s:rename_file(old_name, new_name)
-  let l:buffer_number = bufnr(fnamemodify(a:old_name, ":p"))
+  " Expand the fie names to full paths.
+  let l:old_name = fnamemodify(a:old_name, ":p")
+  let l:new_name = fnamemodify(a:new_name, ":p")
+
+  " See if we've got a buffer for the file.
+  let l:buffer_number = bufnr(l:old_name)
+
   if l:buffer_number == -1
-    " The buffer isn't open, so just move the file
-    call rename(fnamemodify(a:old_name, ":p"), fnamemodify(a:new_name, ":p"))
+    " There's no buffer open for the file, so just move it in the file system.
+    call rename(l:old_name, l:new_name)
   else
     " Switch to the file's buffer, rename it, then switch back.
     let l:old_buffer_number = bufnr("%")
