@@ -51,7 +51,7 @@ endif
 set winwidth=79
 set winheight=8
 set winminheight=8
-set winheight=999
+"set winheight=999
 
 if has("gui_macvim")
   set mousehide                   " Hide the mouse when typing text.
