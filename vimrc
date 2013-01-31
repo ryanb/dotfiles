@@ -185,7 +185,7 @@ autocmd FileType cpp        setlocal ts=4 sw=4 sts=4
 autocmd FileType ruby       setlocal ts=2 sw=2 sts=2
 autocmd FileType eruby      setlocal ts=2 sw=2 sts=2
 autocmd FileType cucumber   setlocal ts=2 sw=2 sts=2
-autocmd FileType markdown   setlocal ts=4 sw=4 sts=4 foldmethod=marker foldlevel=0
+autocmd FileType markdown   setlocal ts=4 sw=4 sts=4 foldmethod=marker foldlevel=0 linebreak
 
 " Highlight the status line when in insert mode.
 autocmd InsertEnter * hi StatusLine guibg=green
