@@ -61,11 +61,12 @@ if has("gui_macvim")
   set gfn=Inconsolata:h14         " Inconsolata 15px for the font
   set linespace=1                 " 0 pixels between lines
 
-  colorscheme railscasts
+  set background=dark
+  colorscheme grb256
 
   " Colour tweaks.
-  highlight StatusLine guifg=white guibg=black
-  highlight StatusLineNC guifg=#333333 guibg=white
+  highlight StatusLine guibg=white guifg=black
+  highlight StatusLineNC guibg=#333333 guifg=white
   highlight VertSplit guifg=#333333 guibg=white
   highlight Folded guifg=#EEEEEE guibg=#333333
   highlight LineNr guifg=#333333 ctermfg=159 guibg=#111111
@@ -187,8 +188,8 @@ autocmd FileType cucumber   setlocal ts=2 sw=2 sts=2
 autocmd FileType markdown   setlocal ts=4 sw=4 sts=4 foldmethod=marker foldlevel=0
 
 " Highlight the status line when in insert mode.
-autocmd InsertEnter * hi StatusLine guifg=green
-autocmd InsertLeave * hi StatusLine guifg=white
+autocmd InsertEnter * hi StatusLine guibg=green
+autocmd InsertLeave * hi StatusLine guibg=white
 
 " Remove whitespace at the end of lines on save.
 " See http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
