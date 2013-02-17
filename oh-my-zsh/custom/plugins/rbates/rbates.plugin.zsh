@@ -6,8 +6,6 @@ h() { cd ~/$1; }
 _h() { _files -W ~/ -/; }
 compdef _h h
 
-export EDITOR='mate -w'
-
 # autocorrect is more annoying than helpful
 unsetopt correct_all
 
