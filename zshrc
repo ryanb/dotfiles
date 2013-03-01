@@ -22,17 +22,17 @@ function parse_git_dirty () {
   fi
 }
 
-# Rbenv prompt magic
+# Ruby prompt magic, using chruby
 
-function rbenv_prompt_info() {
-  rbenv version | sed "s/^\([^ ]*\).*$/\1/"
+function ruby_version() {
+  basename $RUBY_ROOT
 }
 
 # Prompts
 
 setopt prompt_subst
 PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
-RPROMPT='%{$fg[yellow]%}$(rbenv_prompt_info)%{$reset_color%}'
+RPROMPT='%{$fg[yellow]%}$(ruby_version)%{$reset_color%}'
 
 # Completion
 
@@ -53,10 +53,11 @@ setopt EXTENDED_HISTORY
 
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.bin
 
-# Rbenv
+# chruby
 
-export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+chruby '2.0.0-p0'
 
 # Aliases
 
