@@ -77,3 +77,6 @@ export LESS=-R                                            # Make less support AN
 export ACK_OPTIONS="--nosql --type-set cucumber=.feature --type-set sass=.sass" # Make ack ignore sql dumps, and search cucumber features.
 
 export RAILS_CACHE_CLASSES=true
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
