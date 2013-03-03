@@ -66,6 +66,7 @@ alias gf="git fetch"
 alias gco="git checkout"
 alias gm="git merge --no-ff"
 alias gff="git merge --ff-only"
+alias cdr='cd $(git rev-parse --show-cdup)'
 
 # We use the full path here to work around this nasty bug: http://www.tpope.net/node/108
 # In particular, calling "filetype indent off" in my vimrc was causing vim to
