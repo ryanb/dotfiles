@@ -87,6 +87,9 @@ let g:bufExplorerShowRelativePath=1
 " Hide the default help in bufexplorer.
 let g:bufExplorerDefaultHelp=0
 
+" Fix bodgy highlighting for git-gutter plugin.
+highlight clear SignColumn
+
 
 " Custom Key Mappings
 " -------------------
