@@ -1,112 +1,35 @@
 *rails.txt*	Plugin for working with Ruby on Rails applications
 
-Author: Tim Pope <vimNOSPAM@tpope.org>		|rails-plugin-author|
+Author:  Tim Pope <http://tpo.pe/>
 
-|rails-introduction|		Introduction and Feature Summary
-|rails-installation|		Installation and Usage
-|rails-configure-vim|		    Configuring Vim
-|rails-install-plugin|		    Installing and Using the Plugin
-|rails-commands|		General Commands
-|rails-navigation|		Navigation
-|rails-gf|			    File Under Cursor - gf
-|rails-alternate-related|	    Alternate and Related Files
-|rails-type-navigation|		    File Type Commands
-|rails-custom-navigation|	    Custom Navigation Commands
-|rails-rake|			Rake
-|rails-scripts|			Script Wrappers
-|rails-refactoring|		Refactoring Helpers
-|rails-partials|		    Partial Extraction
-|rails-migrations|		    Migration Inversion
-|rails-integration|		Integration
-|rails-vim-integration|		    Integration with the Vim Universe
-|rails-rails-integration|	    Integration with the Rails Universe
-|rails-abbreviations|		Abbreviations
-|rails-syntax|			Syntax Highlighting
-|rails-options|			Managed Vim Options
-|rails-configuration|		Configuration
-|rails-global-settings| 	Global Settings
-|rails-about|			About rails.vim
-|rails-license|			    License
+|rails-introduction|            Introduction and Feature Summary
+|rails-commands|                General Commands
+|rails-navigation|              Navigation
+|rails-gf|                          File Under Cursor - gf
+|rails-alternate-related|           Alternate and Related Files
+|rails-type-navigation|             File Type Commands
+|rails-custom-navigation|           Custom Navigation Commands
+|rails-rake|                    Rake
+|rails-scripts|                 Script Wrappers
+|rails-refactoring|             Refactoring Helpers
+|rails-partials|                    Partial Extraction
+|rails-migrations|                  Migration Inversion
+|rails-integration|             Integration
+|rails-vim-integration|             Integration with the Vim Universe
+|rails-rails-integration|           Integration with the Rails Universe
+|rails-abbreviations|           Abbreviations
+|rails-syntax|                  Syntax Highlighting
+|rails-options|                 Managed Vim Options
+|rails-configuration|           Configuration
+|rails-global-settings|         Global Settings
+|rails-about|                   About rails.vim
+|rails-license|                     License
 
 This plugin is only available if 'compatible' is not set.
 
 {Vi does not have any of this}
 
 INTRODUCTION					*rails-introduction* *rails*
-
-TextMate may be the latest craze for developing Ruby on Rails applications,
-but Vim is forever.  This plugin offers the following features for Ruby on
-Rails application development.
-
-1. Automatically detects buffers containing files from Rails applications,
-   and applies settings to those buffers (and only those buffers).  You can
-   use an autocommand to apply your own custom settings as well.
-   |rails-configuration|
-
-2. Unintrusive.  Only files in a Rails application should be affected; regular
-   Ruby scripts are left untouched.  Even when enabled, the plugin should keep
-   out of your way if you're not using its features.  (If you find a situation
-   where this is not a case, contact the |rails-plugin-author|.)
-
-3. Easy navigation of the Rails directory structure.  |gf| considers context
-   and knows about partials, fixtures, and much more.  There are two commands,
-   :A (alternate) and :R (related) for easy jumping between files, including
-   favorites like model to migration, template to helper, and controller to
-   functional test.  For more advanced usage, :Rmodel, :Rview, :Rcontroller,
-   and several other commands are provided.  |rails-navigation|
-
-4. Enhanced syntax highlighting.  From has_and_belongs_to_many to
-   distance_of_time_in_words, it's here.  For easy completion of these long
-   method names, 'completefunc' is set to enable syntax based completion on
-   |i_CTRL-X_CTRL-U|. |rails-syntax|
-
-5. Interface to rake.  Use :Rake to run the current test, spec, or feature.
-   Use :.Rake to do a focused run of just the method, example, or scenario on
-   the current line.  :Rake can also run arbitrary migrations, load individual
-   fixtures, and more. |rails-rake|
-
-6. Interface to script/*.  Generally, use ":Rscript about" to call
-   "script/about" or "script/rails about".  Most commands have wrappers with
-   additional features: ":Rgenerate controller Blog" generates a blog
-   controller and edits app/controllers/blog_controller.rb.  |rails-scripts|
-
-7. Partial extraction and migration inversion.  |:Rextract| {file} replaces
-   the desired range (ideally selected in visual line mode) with "render
-   :partial => '{file}'", which is automatically created with your content.
-   The @{file} instance variable is replaced with the {file} local variable.
-   |:Rinvert| takes a self.up migration and writes a self.down.
-   |rails-refactoring|
-
-8. Integration with other plugins.  |:Rtree| spawns NERDTree.vim.  If
-   dbext.vim is installed, it will be transparently configured to reflect
-   database.yml.  Cream users get some additional mappings, and all GUI users
-   get a menu. |rails-integration|
-
-INSTALLATION AND USAGE				*rails-installation*
-
-If you are familiar Vim and have the latest version installed, you may skip
-directly to |rails-install-plugin| below.
-
-Configuring Vim ~
-						*rails-configure-vim*
-If you are new to Vim, you need to create a vimrc.  For Windows, this file
-goes in ~\_vimrc (try :e ~\_vimrc if you don't know where this is).  On other
-platforms, use ~/.vimrc.  A very minimal example file is shown below.
->
-	set nocompatible
-	syntax on
-	filetype plugin indent on
->
-Installing and Using the Plugin ~
-						*rails-install-plugin*
-If you have the zip file, extract it to vimfiles (Windows) or ~/.vim
-(everything else).  You should have the following files: >
-	autoload/rails.vim
-	plugin/rails.vim
-	doc/rails.txt
-See |add-local-help| for instructions on enabling the documentation.  In a
-nutshell: >
-	:helptags ~/.vim/doc
 
 Whenever you edit a file in a Rails application, this plugin will be
 automatically activated.  This sets various options and defines a few
@@ -122,10 +45,12 @@ GENERAL COMMANDS				*rails-commands*
 All commands are buffer local, unless otherwise stated.  This means you must
 actually edit a file from a Rails application.
 
-						*rails-:Rails*
-:Rails {directory}	The only global command.  Creates a new Rails
-			application in {directory}, and loads the README.
+						*rails-:Rails-new*
+:Rails new {directory}	The only global command.  Invokes "rails new
+			{directory}" and loads the generated files into the
+			quickfix list.
 
+						*rails-:Rails!*
 :Rails!			Show the version of rails.vim installed.  If rails.vim
 			is active for the current buffer, also show the type
 			of Rails file detected.
@@ -136,21 +61,11 @@ actually edit a file from a Rails application.
 						*rails-:Rlcd*
 :Rlcd [{directory}]	|:lcd| to /path/to/railsapp/{directory}.
 
-						*rails-:Rdoc*
-:Rdoc			Browse to the Rails API, either in doc/api in the
-			current Rails application, gem_server if it is
-			running, or http://api.rubyonrails.org/ .  Requires
-			:OpenURL to be defined (see |rails-:OpenURL|).
-
-						*rails-:Rdoc!*
-:Rdoc!			Make the appropriate |:helptags| call and invoke
-			|:help| rails.
-
 						*rails-:Redit*
-:Redit {file}		Edit {file}, relative to the application root.  Append
-			:line or #method to jump within the file, as in
-			:Redit app/controllers/users_controller.rb:12 or
-			:Redit app/models/user.rb#activate .
+:Redit {file}		Obsolete alias for |:R|.
+
+						*rails-:Rfind*
+:Rfind [{file}]		Obsolete alias for |:find|.
 
 						*rails-:Rlog*
 :Rlog [{logfile}]	Split window and open {logfile} ($RAILS_ENV or
@@ -165,7 +80,8 @@ actually edit a file from a Rails application.
 			might like :Rake log:clear.
 
 						*rails-:Rpreview*
-:Rpreview [{path}]	Creates a URL from http://localhost:3000/ and the
+:Rpreview [{path}]	Creates a URL from http://localhost:3000/ (or
+			the last arguments given to |:Rserver|) and the
 			{path} given.  The not too useful default is to then
 			edit this URL using Vim itself, allowing |netrw| to
 			download it.  More useful is to define a :OpenURL
@@ -183,10 +99,10 @@ actually edit a file from a Rails application.
 :Rpreview! [{path}]	As with :Rpreview, except :OpenURL is never used.
 
 						*rails-:Rtags*
-:Rtags			Calls ctags -R on the current application root and
-			writes the result to tmp/tags.  Exuberant ctags must
-			be installed.  Additional arguments can be passed to
-			ctags with |g:rails_ctags_arguments|.
+:Rtags			Calls ctags -R on the current application root.
+			Exuberant ctags must be installed.  Additional
+			arguments can be passed to ctags with
+			|g:rails_ctags_arguments|.
 
 						*rails-:Rrefresh*
 :Rrefresh		Refreshes certain cached settings.  Most noticeably,
@@ -197,22 +113,11 @@ actually edit a file from a Rails application.
 :Rrefresh!		As above, and also reloads rails.vim.
 
 						*rails-:OpenURL*
-:OpenURL {url}		This is not a command provided by the plugin, but
-			rather provided by user and utilized by other plugin
-			features.  This command should be defined to open the
-			provided {url} in a web browser.  An example command
-			on a Mac might be: >
+:OpenURL {url}		This is a command to open a web browser utilized by
+			other plugin features.  If it doesn't work or opens
+			the wrong web browser, it may be overridden.  For
+			example: >
 		:command -bar -nargs=1 OpenURL :!open <args>
-<			The following appears to work on Windows: >
-		:command -bar -nargs=1 OpenURL :!start cmd /cstart /b <args>
-<			On Debian compatible distributions, the following is
-			the preferred method: >
-		:command -bar -nargs=1 OpenURL :!sensible-browser <args>
-<			If exists("$SECURITYSESSIONID"), has("gui_win32"), or
-			executable("sensible-browser") is true, the
-			corresponding command above will be automatically
-			defined.  Otherwise, you must provide your own (which
-			is recommended, regardless).
 
 NAVIGATION					*rails-navigation*
 
@@ -221,19 +126,13 @@ following features will greatly ease navigating the Rails file structure.
 
 The 'path' has been modified to include all the best places to be.
 >
-	:find blog_controller
-	:find book_test
+	:find application_controller.rb
 <
-						*rails-:Rfind*
-:Rfind [{file}]		Find {file}.  Very similar to :find, but things like
-			BlogController are properly handled, and tab complete
-			works.
-
 File Under Cursor - gf ~
 						*rails-gf*
 The |gf| command, which normally edits the current file under the cursor, has
-been remapped to take context into account. |CTRL-W_f|(open in new window) and
-|CTRL-W_gf| (open in new tab) are also remapped.
+been remapped to take context into account. |CTRL-W_f| (open in new window)
+and |CTRL-W_gf| (open in new tab) are also remapped.
 
 Example uses of |gf|, and where they might lead.
 (* indicates cursor position)
@@ -275,7 +174,7 @@ navigating unfamiliar applications.
 
 Alternate and Related Files ~
 						*rails-alternate-related*
-Two commands, :A and :R, are used quickly jump to an "alternate" and a
+Two commands, :A and :R, are used to quickly jump to an "alternate" and a
 "related" file, defined below.
 
 	*rails-:A* *rails-:AE* *rails-:AS* *rails-:AV* *rails-:AT* *rails-:AD*
@@ -284,15 +183,17 @@ Two commands, :A and :R, are used quickly jump to an "alternate" and a
 :AS			either the same window (:A and :AE), a new split
 :AV			window (:AS), a new vertically split window (:AV), a
 :AT			new tab (:AT), or read it into the current buffer
-:AD                     (:AD).  A mapping for :A is [f .
+:AD			(:AD).
 
 	*rails-:R* *rails-:RE* *rails-:RS* *rails-:RV* *rails-:RT* *rails-:RD*
 :R			These are similar |rails-:A| and friends above, only
 :RE			they jump to the "related" file rather than the
-:RS			"alternate."  A mapping for :R is ]f .
-:RV			
-:RT
-:RD
+:RS			"alternate."  With a file name argument, they edit
+:RV			a file relative to the application root (:R Rakefile),
+:RT			and with a count and a file name argument, they find a
+:RD			file in 'path' (e.g., :1R PostsController.)  You can
+			also append a line number (post.rb:42) or a method
+			(PostsController#index) to both forms.
 
 					*rails-alternate* *rails-related*
 The alternate file is most frequently the test file, though there are
@@ -308,11 +209,9 @@ model			unit test		schema definition
 controller (in method)	functional test		template (view)
 template (view)		functional test  	controller (jump to method)
 migration		previous migration	next migration
-config/database.yml	config/routes.rb	config/environments/*.rb
+database.yml		database.example.yml	environments/*.rb
 
-Suggestions for further contexts to consider for the alternate file, related
-file, and file under the cursor are welcome.  They are subtly tweaked from
-release to release.
+Alternates can be tweaked with |rails-projections|.
 
 File Type Navigation Commands ~
 						*rails-type-navigation*
@@ -331,9 +230,9 @@ opening in a new tab, and reading the file into the current buffer.  For
 :Rmodel, those variants would be :RSmodel, :RVmodel, :RTmodel, and :RDmodel.
 There is also :REmodel which is a synonym for :Rmodel (future versions might
 allow customization of the behavior of :Rmodel).  They also allow for jumping
-to methods or line numbers using the same syntax as |:Redit|, and file
-creation can be forced by adding a ! after the filename (not after the command
-itself!).
+to methods or line numbers using the same syntax as |:R|, and file creation
+(with a bit of boilerplate) can be forced by adding a ! after the filename
+(not after the command itself!).
 
 :Rcontroller					|rails-:Rcontroller|
 :Renvironment					|rails-:Renvironment|
@@ -347,11 +246,10 @@ itself!).
 :Rlib						|rails-:Rlib|
 :Rlocale					|rails-:Rlocale|
 :Rmailer					|rails-:Rmailer|
-:Rmetal						|rails-:Rmetal|
 :Rmigration					|rails-:Rmigration|
 :Rmodel						|rails-:Rmodel|
-:Robserver					|rails-:Robserver|
 :Rplugin					|rails-:Rplugin|
+:Rschema					|rails-:Rschema|
 :Rspec						|rails-:Rspec|
 :Rstylesheet					|rails-:Rstylesheet|
 :Rtask						|rails-:Rtask|
@@ -409,7 +307,7 @@ itself!).
 			specified name.  If the current file is part of a
 			plugin, the libraries from that plugin can be
 			specified as well.  With no argument, defaults to
-			editing db/seeds.rb.
+			editing the application Gemfile.
 
 						*rails-:Rlocale*
 :Rlocale [{name}]	Edit the config/locale file specified, optionally
@@ -422,35 +320,23 @@ itself!).
 			app/mailers for Rails 3 and app/models for older
 			versions of Rails but only tab completes the former.
 
-						*rails-:Rmetal*
-:Rmetal [{name}]	Edit the app/metal file specified.  With no argument,
-			defaults to editing config/boot.rb.
-
 						*rails-:Rmigration*
 :Rmigration [{pattern}]	If {pattern} is a number, find the migration for that
 			particular set of digits, zero-padding if necessary.
 			Otherwise, find the newest migration containing the
 			given pattern.  Omitting the pattern selects the
 			latest migration.  Give a numeric argument of 0 to edit
-			db/schema.rb.
+			db/seeds.rb.
 
 						*rails-:Rmodel*
 :Rmodel [{name}]	Edit the specified or current model.
-
-						*rails-:Robserver*
-:Robserver [{name}]	Find the observer with a name like
-			{model}_observer.rb.  When in an observer, most
-			commands (like :Rmodel) will seek based on the
-			observed model ({model}) and not the actual observer
-			({model}_observer).  However, for the command
-			:Runittest, a file of the form
-			{model}_observer_test.rb will be found.
 
 						*rails-:Rplugin*
 :Rplugin [{plugin}[/{path}]]
 			Edits a file within a plugin.  If the path to the file
 			is omitted, it defaults to init.rb.  If no argument is
 			given, it defaults to editing the application Gemfile.
+			Deprecated.
 
 						*rails-:Rspec*
 :Rspec [{name}]		Edit the given spec.  With no argument, defaults to
@@ -458,6 +344,10 @@ itself!).
 			the spec for the given file, use |:A| instead).  This
 			command is only defined if there is a spec folder in
 			the root of the application.
+
+						*rails-:Rschema*
+:Rschema [{table}]	Edit the schema and optionally jump to the specified
+			table.
 
 						*rails-:Rstylesheet*
 :Rstylesheet [{name}]	Edit the stylesheet for the specified name or current
@@ -485,34 +375,13 @@ itself!).
 Custom Navigation Commands  ~
 						*rails-custom-navigation*
 
-It is also possible to create custom navigation commands.  This is best done
-in an initialization routine of some sort (e.g., an autocommand); see
-|rails-configuration| for details.
+The officially supported way to create custom navigation commands is with
+projections, as described under |rails-projections|.
 
 						*rails-:Rnavcommand*
 :Rnavcommand [options] {name} [{path} ...]
-			Create a navigation command with the supplied
-			name, looking in the supplied paths, using the
-			supplied options.  The -suffix option specifies what
-			suffix to filter on, and strip from the filename, and
-			defaults to -suffix=.rb .  The -glob option specifies
-			a file glob to use to find files, _excluding_ the
-			suffix.  Useful values include -glob=* and -glob=**/*.
-			The -default option specifies a default argument (not
-			a full path).  If it is specified as -default=model(),
-			-default=controller(), or -default=both(), the current
-			model, controller, or both (as with :Rintegrationtest)
-			is used as a default.
-
-						*rails-:Rcommand*
-:Rcommand		Obsolete alias for |:Rnavcommand|.
-
-Examples: >
-	Rnavcommand api      app/apis -glob=**/* -suffix=_api.rb
-	Rnavcommand config   config   -glob=*.*  -suffix= -default=routes.rb
-	Rnavcommand concern  app/concerns -glob=**/*
-	Rnavcommand exemplar test/exemplars spec/exemplars -glob=**/*
-			\ -default=model() -suffix=_exemplar.rb
+			Create a custom navigation command.  Deprecated in
+			favor of |rails-projections|.
 
 Finally, one Vim feature that proves helpful in conjunction with all of the
 above is |CTRL-^|.  This keystroke edits the previous file, and is helpful to
@@ -523,12 +392,13 @@ RAKE						*rails-rake*
 Rake integration happens through the :Rake command.
 
 						*rails-:Rake*
-:[range]Rake {targets}	Calls |:make!| {targets} (with 'makeprg' being rake)
-			and opens the quickfix window if there were any
-			errors.  An argument of "-" reruns the last task.  If
-			{targets} are omitted, :Rake defaults to something
-			sensible as described below.  Giving a line number
-			argument may affect that default.
+:[range]Rake {targets}	Calls |:make!| {targets} (with 'makeprg' being rake,
+			or `bundle exec rake` if bundler.vim is active) and
+			opens the quickfix window if there were any errors.
+			An argument of "-" reruns the last task.  If {targets}
+			are omitted, :Rake defaults to something sensible as
+			described below.  Giving a line number argument may
+			affect that default.
 
 						*rails-:Rake!*
 :[range]Rake! {targets}	Called with a bang, :Rake will forgo opening the
@@ -582,47 +452,57 @@ The following commands are wrappers around the scripts in the script directory
 of the Rails application.  Most have extra features beyond calling the script.
 A limited amount of completion with <Tab> is supported.
 
-						*rails-:Rscript*
-:Rscript {script} {options}
-			Call ruby script/{script} {options}.  Defaults to
-			calling script/console.
 
-						*rails-:Rconsole*
-:Rconsole {options}	Obsolete. Call |:Rscript| instead.
+						*rails-:Rails*
+:Rails {command} [options]
+			Depending on the Rails version, invoke one of
+			"bin/rails {command}", "script/rails {command}", or
+			"script/{command}".
+
+						*rails-:Rscript*
+:Rscript {command} [options]
+			Deprecated alias for |:Rails| {command}.  Defaults to
+			calling |:Rails| console.
 
 						*rails-:Rrunner*
-:[range]Rrunner {code}	Executes {code} with script/runner.  Differs from
-			:Rscript runner {code} in that the code is passed as
-			one argument.  Also, |system()| is used instead of
-			|:!|.  This is to help eliminate annoying "Press
-			ENTER" prompts.  If a line number is given in the
-			range slot, the output is pasted into the buffer after
-			that line.
+:Rrunner {file}		Run the given file or code with rails runner and load
+:Rrunner {code}		the results in to the quickfix list, using the error
+			parser from the "ruby" |:compiler|.
 
 						*rails-:Rp*
-:[range]Rp {code}	Like :Rrunner, but call the Ruby p method on the
-			result. Literally "p begin {code} end".
+:[range]Rp {code}	Use rails runner to execute "p begin {code} end" and
+			echo the result.
 
-						*rails-:Rpp* *rails-:Ry*
-:[range]Rpp {code}	Like :Rp, but with pp (pretty print) or y (YAML
-:[range]Ry  {code}	output).
+						*rails-:Rpp*
+:[range]Rpp {code}	Like :Rp, but with pp (pretty print).
 
 						*rails-:Rgenerate*
-:Rgenerate {options}	Calls script/generate {options}, and then edits the
-			first file generated.
+:Rgenerate {options}	Calls rails generate {options} and loads the
+			generated files into the quickfix list.  Use ! to
+			surpress jumping to the first file.
 
 						*rails-:Rdestroy*
-:Rdestroy {options}	Calls script/destroy {options}.
+:Rdestroy {options}	Calls rails destroy {options} and loads the destroyed
+			files into the quickfix list.
 
 						*rails-:Rserver*
-:Rserver {options}	Launches script/server {options} in the background.
-			On win32, this means |!start|.  On other systems, this
-			uses the --daemon option.
+:Rserver {options}	Launches rails server {options} in the background.
+			On win32, this means |!start|.  If running inside
+			screen or tmux, a new window inside the current
+			session is created.  Otherwise, the --daemon option is
+			used.  Calling this command also sets the base URL for
+			|:Rpreview| based on the provided --binding and --port
+			options, defaulting to localhost and 3000
+			respectively.  This works even if the server failed to
+			start, which one can use to set the URL to an already
+			running server (replacing :Rset root_url).
 
 						*rails-:Rserver!*
 :Rserver! {options}	Same as |:Rserver|, only first attempts to kill any
 			other server using the same port.  On non-Windows
 			systems, lsof must be installed for this to work.
+			Pass - as an argument to kill the server without
+			restarting it.
 
 REFACTORING HELPERS				*rails-refactoring*
 
@@ -631,16 +511,22 @@ A few features are dedicated to helping you refactor your code.
 Partial Extraction ~
 						*rails-partials*
 
-The :Rextract command can be used to extract a partial to a new file.
+The :Rextract command can be used to extract part of a view to a partial, part
+of a helper to another helper, or part of a model or controller to a concern.
 
 						*rails-:Rextract*
-:[range]Rextract [{controller}/]{name}	
+:[range]Rextract [{controller}/]{name}
 			Create a {name} partial from [range] lines (default:
-			current line).
+			current line).  Only available in views.
 
-						*rails-:Rpartial*
-:[range]Rpartial [{controller}/]{name}	
-			Obsolete alias for :Rextract.
+:[range]Rextract {helper}
+			Create a {name} helper from [range] lines (default:
+			current line).  Only available in helpers.
+
+:[range]Rextract {concern}
+			Create a {name} concern from [range] lines (default:
+			current line).  Only available in models and
+			controllers.
 
 If this is your file, in app/views/blog/show.html.erb: >
 
@@ -656,24 +542,13 @@ And you issue this command: >
 Your file will change to this: >
 
   1	<div>
-  2	  <%= render :partial => 'post' %>
+  2	  <%= render 'post' %>
   3	</div>
 
 And app/views/blog/_post.html.erb will now contain: >
 
-  1	<h2><%= post.title %></h2>
-  2	<p><%= post.body %></p>
-
-As a special case, if the file had looked like this: >
-
-  1     <% for object in @posts -%>
-  2	  <h2><%= object.title %></h2>
-  3	  <p><%= object.body %></p>
-  4	<% end -%>
-<
-The end result would have been this: >
-
-  1     <%= render :partial => 'post', :collection => @posts %>
+  1	<h2><%= @post.title %></h2>
+  2	<p><%= @post.body %></p>
 <
 The easiest way to choose what to extract is to use |linewise-visual| mode.
 Then, a simple >
@@ -687,6 +562,8 @@ Migration Inversion ~
 			reversed.  This chokes on more complicated
 			instructions, but works reasonably well for simple
 			calls to create_table, add_column, and the like.
+			Deprecated now that Rails supports reversible
+			migration definitions.
 
 INTEGRATION					*rails-integration*
 
@@ -697,12 +574,7 @@ Integration with the Vim Universe ~
 						*rails-vim-integration*
 
 A handful of Vim plugins are enhanced by rails.vim.  All plugins mentioned can
-be found at http://www.vim.org/.  Cream and GUI menus (for lack of a better
-place) are also covered in this section.
-
-						*rails-:Rtree*
-:Rtree [{arg}]		If |NERDTree| is installed, open a tree for the
-			application root or the given subdirectory.
+be found at http://www.vim.org/.
 
 						*rails-:Rdbext* *rails-dbext*
 :Rdbext [{environment}] This command is only provided when the |dbext| plugin
@@ -749,33 +621,6 @@ inflections: crl for alternating between the singular and plural, and crt for
 altering between tableize and classify.  The latter is useful in changing
 constructs like BlogPost.all to current_user.blog_posts.all and vice versa.
 
-						*rails-cream*
-This plugin provides a few additional key bindings if it is running under
-Cream, the user friendly editor which uses Vim as a back-end.  Ctrl+Enter
-finds the file under the cursor (as in |rails-gf|), and Alt+[ and Alt+] find
-the alternate (|rails-alternate|) and related (|rails-related|) files.
-
-						*rails-menu*
-If the GUI is running, a menu for several commonly used features is provided.
-Also on this menu is a list of recently accessed projects.  This list of
-projects can persist across restarts if a 'viminfo' flag is set to enable
-retaining certain global variables.  If this interests you, add something like
-the following to your vimrc: >
-	set viminfo^=!
-<
-Integration with the Rails Universe ~
-						*rails-rails-integration*
-The general policy of rails.vim is to focus exclusively on the Ruby on Rails
-core.  Supporting plugins and other add-ons to Rails has the potential to
-rapidly get out of hand.  However, a few pragmatic exceptions have been made.
-
-						*rails-template-types*
-Commands like :Rview use a hardwired list of extensions (erb, rjs, etc.)
-when searching for files.  In order to facilitate working with non-standard
-template types, several popular extensions are featured in this list,
-including haml, liquid, and mab (markaby).  These extensions will disappear
-once a related configuration option is added to rails.vim.
-
 						*rails-rspec*
 The presence of a spec directory causes several additional behaviors to
 activate.  :A knows about specs and will jump to them (but Test::Unit files
@@ -784,12 +629,10 @@ detected, so all navigation commands should work as expected inside a spec
 file.  :Rake in a spec runs just that spec, and in a model, controller, or
 helper, runs the associated spec.
 
-|:Runittest| and |:Rfunctionaltest| lead double lives, handling model and
-controller specs respectively.  For helper and view specs, you can use
-|:Rspec| or define your own navigation commands:
+|:Runittest| and |:Rfunctionaltest| lead double lives, handling model/helper
+and controller/mailer specs respectively.  For view specs, you can use
+|:Rspec|, or define your own navigation commands:
 >
-	Rnavcommand spechelper     spec/helpers     -glob=**/*
-		\ -suffix=_helper_spec.rb        -default=controller()
 	Rnavcommand specview spec/views -glob=**/* -suffix=_spec.rb
 <
 ABBREVIATIONS				*rails-abbreviations* *rails-snippets*
@@ -822,7 +665,6 @@ Rabbrev pa[ params		pa[:id]			params[:id]
 Rabbrev pa[ params		pa<C-]>			params
 Rabbrev pa[ params		pa.inspect		params.inspect
 Rabbrev AR:: ActionRecord	AR::Base		ActiveRecord::Base
-Rabbrev :a :action\ =>\		render :a<Tab>		render :action => 
 
 In short, ( expands on (, :: expands on . and :, and [ expands on . and [.
 These trailing punctuation marks are NOT part of the final abbreviation, and
@@ -835,9 +677,7 @@ space).
 
 Many abbreviations are provided by default: use :Rabbrev to list them.  They
 vary depending on the type of file (models have different abbreviations than
-controllers).  There is one "smart" abbreviation, :c, which expands to
-":controller => ", ":collection => ", or ":conditions => " depending on
-context.
+controllers).
 
 SYNTAX HIGHLIGHTING				*rails-syntax*
 
@@ -853,9 +693,6 @@ Rails specific keywords are highlighted in a filetype specific manner.  For
 example, in a model, has_many is highlighted, whereas in a controller,
 before_filter is highlighted.  A wide variety of syntax groups are used but
 they all link by default to railsMethod.
-
-If you feel a method has been wrongfully omitted, submit it to the
-|rails-plugin-author|.
 
 						*rails-syntax-classes*
 Models, helpers, and controllers are given special highlighting.  Depending on
@@ -878,13 +715,9 @@ syntax group is used.  The list of assertions can be refreshed with
 |:Rrefresh|.
 
 						*rails-syntax-strings*
-In the following line of code, the "?" in the conditions clause and the "ASC"
-in the order clause will be highlighted: >
-  Post.find(:all, :conditions => ["body like ?","%e%"], :order => "title ASC")
-<
 A string literal using %Q<> or %<> delimiters will have its contents
 highlighted as HTML.  This is sometimes useful when writing helpers. >
-  link = %<<a href="http://www.vim.org">Vim</a>>
+  link = %<<a href="http://www.vim.org">Vim</a>>.html_safe
 <
 						*rails-syntax-yaml*
 YAML syntax highlighting has been extended to highlight eRuby, which can be
@@ -897,26 +730,17 @@ The following options are set local to buffers where the plugin is active.
 					*rails-'shiftwidth'*	*rails-'sw'*
 					*rails-'softtabstop'*	*rails-'sts'*
 					*rails-'expandtab'*	*rails-'et'*
-A value of 2 is used for 'shiftwidth' (and 'softtabstop'), and 'expandtab' is
-enabled.  This is a strong convention in Rails, so the conventional wisdom
-that this is a user preference has been ignored.
-
+Indent settings are no longer adjusted by default.  Install sleuth.vim, or try
+this in your vimrc instead: >
+	autocmd FileType ruby set sw=2 sts=2 et
+<
 					*rails-'path'*		*rails-'pa'*
 All the relevant directories from your application are added to your 'path'.
 This makes it easy to access a buried file: >
-	:find blog_controller.rb
-<
-					*rails-'suffixesadd'*	*rails-'sua'*
-This is filetype dependent, but typically includes .rb, .rake, and several
-others.  This allows shortening the above example: >
 	:find blog_controller
 <
 					*rails-'includeexpr'*	*rails-'inex'*
 The 'includeexpr' option is set to enable the magic described in |rails-gf|.
-
-					*rails-'statusline'*	*rails-'stl'*
-Useful information is added to the 'statusline', when |g:rails_statusline| is
-enabled.
 
 					*rails-'filetype'*	*rails-'ft'*
 The 'filetype' is sometimes adjusted for Rails files.  Most notably, *.rxml
@@ -958,172 +782,205 @@ can be placed in a "macros/rails.vim" file in the 'runtimepath' (for example,
 "~/.vim/macros/rails.vim").  This file is sourced by rails.vim each time a
 Rails file is loaded.
 
+						*rails-config/editor.json*
+This file provides for application specific configuration and is intended to
+be checked into version control.  Example:
+>
+	{
+	  "abbreviations": {
+	    "FB::": "FooBar"
+	  },
+	  "projections": {
+	    "service": {
+	      "format": "app/services/%s_service.rb",
+	      "template": "class %SService < AbstractService\nend",
+	      "alternate": "test/functional/%s_service_test.rb"
+	    }
+	  }
+	}
+<
+See |g:rails_abbreviations| and |g:rails_projections| for explanations of the
+respective sections.
+
+						*g:rails_default_config*
+If |config/editor.json| is missing, g:rails_default_config is used instead.
+Useful, in particular, for a default set of projections.
+>
+	let g:rails_default_config = {
+	      \ "projections": {...}}
+<
 						*config/rails.vim*
 If you have settings particular to a specific project, they can be put in a
 config/rails.vim file in the root directory of the application.  The file is
-sourced in the |sandbox| for security reasons.
+sourced in the |sandbox| for security reasons, which makes invoking rails.vim
+commands like |:Rnavcommand| or |:Rabbrev| impossible.  Thus, this file is
+deprecated in favor of |config/editor.json|.
 
 						*rails-:Rset*
-:Rset {option}[={value}]
-			Query or set a local option.  This command may be
-			called directly, from an autocommand, or from
-			config/rails.vim.
-
-Options may be set in one of four scopes, which may be indicated by an
-optional prefix.  These scopes determine how broadly an option will apply.
-Generally, the default scope is sufficient.
-
-Scope	Description ~
-a:	All files in one Rails application
-b:	Buffer (file) specific
-g:	Global to all applications
-l:	Local to method (same as b: in non-Ruby files)
-
-Options are shown below with their default scope, which should be omitted.
-While you may override the scope with a prefix, this is rarely necessary and
-oftentimes useless.  (For example, setting g:task is useless because the
-default rake task will apply before considering this option.)
-
-Option		 Meaning ~
-b:alternate	 Custom alternate file for :A, relative to the Rails root
-b:controller	 Default controller for certain commands (e.g., :Rhelper)
-b:model		 Default model for certain commands (e.g., :Rfixtures)
-l:related	 Custom related file for :R, relative to the Rails root
-a:root_url	 Root URL for commands like :Rpreview
-
-Examples: >
-	:Rset root_url=http://localhost:12345
-	:Rset related=app/views/blog/edit.html.erb
-<
-						*rails-modelines*
-If |g:rails_modelines| is enabled, these options can also be set from
-modelines near the beginning or end of the file.  These modelines will always
-set buffer-local options; scope should never be specified.  Examples: >
-	# Rset task=db:schema:load
-	<%# Rset alternate=app/views/layouts/application.html.erb %>
-Modelines can also be local to a method.  Example: >
-	def test_comment
-	  # rset alternate=app/models/comment.rb
-These two forms differ only in case.
-
-Modelines are deprecated.
+:Rset			This command has been superseded by
+			|config/editor.json|.
 
 GLOBAL SETTINGS					*rails-global-settings*
 
-A few global variables control the behavior of this plugin.  In general, they
-can be enabled by setting them to 1 in your vimrc, and disabled by setting
-them to 0. >
-	let g:rails_some_option=1
-	let g:rails_some_option=0
-Most of these seldom need to be used.  So seldom, in fact, that you should
-notify the |rails-plugin-author| if you find any of them useful, as nearly all
-are being considered for removal.
+The following global variables are used to change or add additional behavior
+to rails.vim.  They generally have project specific equivalents in
+|config/editor.json|.
 
 						*g:loaded_rails*  >
-	let g:loaded_rails=1
+	let g:loaded_rails = 1
+
 Set this include guard to prevent the plugin from being loaded.
 
 						*g:rails_abbreviations*
-Enable Rails abbreviations.  See |rails-abbreviations|.  Enabled by default.
+Dictionary of additional |:Rabbrev| abbreviations.  Example:
+>
+  let g:rails_abbreviations = {
+        \ "AE::": "ActiveResource",
+	\ "p[": "params",
+	\ "rj(": ["render", "json: "]}
+<
+This variable was formerly used to globally disable abbreviations.  Use
+g:rails_no_abbreviations if you want to do that.
 
 						*g:rails_ctags_arguments*  >
-	let g:rails_ctags_arguments='--languages=-javascript'
+	let g:rails_ctags_arguments = ['--languages=-javascript']
+
 Additional arguments to pass to ctags from |:Rtags|.  Defaults to ignoring
 JavaScript files, since ctags has a tendency to choke on those.
 
-						*g:rails_default_file*  >
-	let g:rails_default_file='config/database.yml'
-File to load when a new Rails application is created, or when loading an
-existing project from the menu.  Defaults to the README.
+		*rails-projection* *rails-projections* *g:rails_projections*
+Projections define categories of files in your application.  They are the
+spiritual successor to |rails-:Rset| and |rails-:Rnavcommand|.
+>
+	let g:rails_projections = {
+	      \ "uploader": {
+	      \   "format": "app/uploaders/%s_uploader.rb",
+	      \   "template": [
+	      \     "class %SUploader < CarrierWave::Uploader::Base",
+	      \     "end"
+	      \   ],
+	      \   "alternate": "test/unit/%s_uploader_test.rb"
+	      \ },
+	      \ "fabricator": {
+	      \   "format": [
+	      \     "test/fabricators/%s_fabricator.rb",
+	      \     "spec/fabricators/%s_fabricator.rb"
+	      \   ],
+	      \   "affinity": "model",
+	      \   "template": "Fabricator :%s do\nend",
+	      \   "alternate": "app/models/%s.rb",
+	      \   "related": "db/schema.rb#%p"
+	      \ }
 
-					*rails-screen* *g:rails_gnu_screen*  >
-	let g:rails_gnu_screen=1
-Use GNU Screen or Tmux (if it is running) to launch |:Rscript| console and
-|:Rserver| in the background.  Enabled by default.
+The above configuration causes :Ruploader and :Rfabricator navigation commands
+to be created.  You can include spaces in the key ("functional test") for
+friendlier error messages; they will be stripped when creating a navigation command.  Exact definitions of the available options are as follows:
 
-						*g:rails_history_size*  >
-	let g:rails_history_size=5
-Number of projects to remember.  Set to 0 to disable.  See |rails-menu| for
-information on retaining these projects across a restart.
+						*rails-projection-format*
+"format" ~
+	Defines where the file can be found.  This is mandatory, and must
+	contain %s for the "root" of the filename.  This is where the argument
+	to the created navigation command will be plugged in, and also
+	controls several behaviors below.  You can also give a list of
+	multiple formats.  With the global option, if none of the given
+	containing directories in the given formats exist, the command won't
+	be created.  Projections in |config/editor.json| are unaffected by
+	this requirement.
+						*rails-projection-affinity*
+"affinity" ~
+	Provide this if the root of your file name corresponds to either
+	a model or controller.  The root of a helper generally corresponds to
+	a controller, for example, so a "helper" projection would have an
+	"affinity" of "controller".  You can also provide "collection" if it
+	corresponds to a plural model (e.g., fixtures).  Providing this lets
+	you use other affiliated commands without an argument, and determines
+	the default if "default" is not specified.
+						*rails-projection-default*
+"default" ~
+	Controls the default destination of the navigation command if no
+	argument is given.  This can either be a string, which will be plugged
+	in to the given "format" as the root, or a list of one or more files
+	to consider.
+						*rails-projection-template*
+"template" ~
+	If you provide a ! after the argument to the navigation command (that
+	is, :Ruploader foo!, NOT :Ruploader! foo), and a new file is created,
+	this will be used as the body of the file.  You can give either a
+	string or a list of lines.  Provide %s wherever you want the root of
+	the file name and %S wherever you want the camel case version.
+						*rails-projection-alternate*
+"alternate" ~
+	Determines the destination of the |rails-:A| command.  Provide %s
+	wherever you want the root of the file name and %p where you want a
+	pluralized version.  If this is a list, the first readable file will
+	be used.
+						*rails-projection-related*
+"related" ~
+	Determines the destination of the |rails-:R| and :.A commands.  Takes
+	the same placeholders as the "alternate" above, plus %m for the
+	current method, if it exists.
+						*rails-projection-test*
+"test" ~
+	Determines the default test file to run with |rails-:Rake|.  Also
+	serves as a default for "alternate", and accepts the same
+	placeholders.
+						*rails-projection-path*
+"path" ~
+	Provides a list of directories to add to 'path'.  When omitted,
+	defaults to adding each format starting with "app/" and ending with
+	".rb".  A useful value is [] to disable this behavior entirely.
 
-						*g:rails_mappings*  >
-	let g:rails_mappings=1
-Enables a few mappings (mostly for |rails-navigation|). Enabled by default.
+If you have project specific projections (and what projections aren't?), you
+can provide them in |config/editor.json|.
 
-						*g:rails_modelines*  >
-	let g:rails_modelines=1
-Enable modelines like the following: >
-	# Rset task=db:schema:load
-Modelines set buffer-local options using the :Rset command.
-Also enables method specific modelines (note the case difference): >
-	  def show
-	    # rset preview=blog/show/1
-Modelines are deprecated and disabled by default.
+						*g:rails_gem_projections*
+This is a dictionary where the keys are gem names and the values are
+projection dictionaries.  Projections are only used if you have the given
+gem bundled (requires bundler.vim).
+>
+	let g:rails_gem_projections = {
+	      \ "active_model_serializers": {
+	      \   "serializer": {
+	      \     "format": "app/serializers/%s_serializer.rb",
+	      \     "template": [
+	      \       "class %SSerializer < ActiveModel::Serializer",
+	      \       "end"
+	      \     ],
+	      \     "affinity": "model"}},
+	      \ "fabrication": {
+	      \   "fabricator": {
+	      \     "format": "spec/fabricators/%s_fabricator.rb",
+	      \     "affinity": "model",
+	      \     "alternate": "app/models/%s.rb",
+	      \     "related": "db/schema.rb#%p",
+	      \     "template": "Fabricator :%s do\nend"}}}
+<
+The projection dictionaries look identical to |g:rails_projections|, explained
+above.  Generally, you should prefer these gem projections over global
+projections, as that way you won't get a bunch of useless commands in every
+single project.
 
-						*g:rails_menu*  >
-	let g:rails_menu=1
-When 2, a Rails menu is created.  When 1, this menu is a submenu under the
-Plugin menu.  The default is 1 except on MacVim, where reports of weird
-terminal output have led to it being disabled by default.
+Gem maintainers may also provide custom projections by placing them in
+lib/rails/projections.json.
 
-						*g:rails_url*  >
-	let g:rails_url='http://localhost:3000/'
-Used for the |:Rpreview| command.  Default is as shown above.  Overridden by
-b:rails_url.
+						*g:rails_root_url*  >
+	let g:rails_root_url = 'http://localhost:3000/'
 
-						*g:rails_statusline*  >
-	let g:rails_statusline=1
-Give a clue in the statusline when this plugin is enabled.  Enabled by
-default.  This used to be a far more verbose indicator which included the
-type of Rails file.  If you actually liked this, you can add either
-%{rails#statusline(1)} or %{rails#STATUSLINE(1)} to 'statusline' explicitly
-(and let the author know, because this fallback is likely getting the boot).
-
-						*g:rails_syntax*  >
-	let g:rails_syntax=1
-When enabled, this tweaks the syntax highlighting to be more Rails friendly.
-Enabled by default.  See |rails-syntax|.
-
-					*rails-tabs* *g:rails_tabstop*  >
-	let g:rails_tabstop=4
-This option now requires the plugin railstab.vim from vim.org:
-	http://www.vim.org/scripts/script.php?script_id=2253
-
-If your goal is simply just override this plugin's settings and use your own
-custom 'shiftwidth', adjust things manually in an autocommand: >
-	autocmd User Rails set sw=4 sts=4 noet
-This is highly discouraged: don't fight Rails.
+Used for the |:Rpreview| command.  This setting is deprecated in favor of
+using |:Rserver| to customize the URL for a given application.
 
 ABOUT					*rails-about* *rails-plugin-author*
 
-This plugin was written by Tim Pope.  Email him at <vimNOSPAM@tpope.org>.  He
-can also be found on Freenode's IRC network, hanging out in #rubyonrails and
-#vim as tpope.
-
-The official homepage is
-    http://rails.vim.tpope.net
 The latest stable version can be found at
     http://www.vim.org/scripts/script.php?script_id=1567
-You can keep up to date with |GetLatestVimScripts|.
 
-The very latest development versions can be retrieved from Git:
-    http://github.com/tpope/vim-rails
+Bugs can be reported and the very latest development version can be retrieved
+from GitHub:
+    https://github.com/tpope/vim-rails
     git clone git://github.com/tpope/vim-rails.git
 
-The Github repository has Pledgie donations enabled.  All donations made will
-proxied along to ICCF, which goes to help needy children in |Uganda|.
-Donations will be made in through the plugin author's vim.org account through
-http://www.vim.org/sponsor/ .  The voting privileges associated with the
-donation will be used to vote for features that will enable better plugins in
-the future.  If you would rather keep those voting privileges for yourself, or
-you want your donation to be tax deductible, donate directly through vim.org
-instead.  Donations have historically been matched.
-
-Feedback is highly desired on this plugin.  Please send all comments,
-complaints, and compliments to the author.  No bug is too small to report.
-
 						*rails-license*
-This plugin is distributable under the same terms as Vim itself.  See
-|license|.  No warranties, expressed or implied.
+Copyright (c) Tim Pope.  Distributed under the same terms as Vim itself.
+See |license|.
 
  vim:tw=78:ts=8:ft=help:norl:
