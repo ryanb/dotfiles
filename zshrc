@@ -25,7 +25,7 @@ function parse_git_dirty () {
 # Ruby prompt magic, using chruby
 
 function ruby_version() {
-  basename $RUBY_ROOT
+  basename "$RUBY_ROOT"
 }
 
 # Prompts
@@ -57,7 +57,6 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.bin
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-chruby '2.0.0-p0'
 
 # Aliases
 
