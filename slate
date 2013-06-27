@@ -6,7 +6,7 @@ bind up:alt move windowTopLeftX;screenOriginY windowSizeX;screenSizeY
 # Make the window a reasonable size in the middle of the screen:
 bind down:alt move screenOriginX+screenSizeX*0.15;screenOriginY+screenSizeY*0.04 screenSizeX*0.7;screenSizeY*0.9
 
-bind v:space,shift focus 'MacVim'
-bind i:space,shift focus 'iTerm'
-bind s:space,shift focus 'Safari'
+#bind v:space,shift focus 'MacVim'
+#bind i:space,shift focus 'iTerm'
+#bind s:space,shift focus 'Safari'
 
