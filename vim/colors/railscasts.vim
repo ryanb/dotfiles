@@ -7,7 +7,7 @@
 set background=dark
 hi clear
 if exists("syntax_on")
-  syntax reset
+	syntax reset
 endif
 let g:colors_name = "railscasts"
 
@@ -21,48 +21,48 @@ let g:colors_name = "railscasts"
 " Tan          #FFC66D
 " Red          #DA4938 
 
-hi Normal     guifg=#E6E1DC guibg=#232323
-hi Cursor     guibg=#FFFFFF
-hi CursorLine guibg=#333435
-hi LineNr     guifg=#666666
-hi Visual     guibg=#5A647E
-hi Search     guifg=NONE    guibg=#131313  gui=NONE
-hi Folded     guifg=#F6F3E8 guibg=#444444  gui=NONE
-hi Directory  guifg=#A5C160 gui=NONE
-hi Error      guifg=#FFFFFF guibg=#990000
-hi MatchParen guifg=NONE    guibg=#131313
-hi Title      guifg=#E6E1DC
+hi Normal     ctermfg=188 guifg=#E6E1DC ctermbg=16 guibg=#232323
+hi Cursor     ctermbg=231 guibg=#FFFFFF
+hi CursorLine ctermbg=59 guibg=#333435
+hi LineNr     ctermfg=59 guifg=#666666
+hi Visual     ctermbg=60 guibg=#5A647E
+hi Search     ctermfg=NONE    guifg=NONE    ctermbg=16 guibg=#131313  gui=NONE
+hi Folded     ctermfg=230 guifg=#F6F3E8 ctermbg=59 guibg=#444444  gui=NONE
+hi Directory  ctermfg=143 guifg=#A5C160 gui=NONE
+hi Error      ctermfg=255 guifg=#FFFFFF ctermbg=88 guibg=#990000
+hi MatchParen ctermfg=NONE    guifg=NONE    ctermbg=16 guibg=#131313
+hi Title      ctermfg=188 guifg=#E6E1DC
 
-hi Comment    guifg=#BC9357 guibg=NONE     gui=italic
+hi Comment    ctermfg=137 guifg=#BC9357 ctermbg=NONE    guibg=NONE     gui=italic
 hi! link Todo Comment
 
-hi String     guifg=#A5C160
+hi String     ctermfg=143 guifg=#A5C160
 hi! link Number String
 hi! link rubyStringDelimiter String
 
 " nil, self, symbols
-hi Constant guifg=#6D9CBD
+hi Constant ctermfg=73 guifg=#6D9CBD
 
 " def, end, include, load, require, alias, super, yield, lambda, proc
-hi Define guifg=#CC7733 gui=NONE
+hi Define ctermfg=173 guifg=#CC7733 gui=NONE
 hi! link Include Define
 hi! link Keyword Define
 hi! link Macro Define
 
 " #{foo}, <%= bar %>
-hi Delimiter guifg=#509E50
+hi Delimiter ctermfg=71 guifg=#509E50
 " hi erubyDelimiter guifg=NONE
 
 " function name (after def)
-hi Function guifg=#FFC66D gui=NONE
+hi Function ctermfg=221 guifg=#FFC66D gui=NONE
 
 "@var, @@var, $var
-hi Identifier guifg=#CFCFFF gui=NONE
+hi Identifier ctermfg=189 guifg=#CFCFFF gui=NONE
 
 " #if, #else, #endif
 
 " case, begin, do, for, if, unless, while, until, else
-hi Statement guifg=#CC7733 gui=NONE
+hi Statement ctermfg=173 guifg=#CC7733 gui=NONE
 hi! link PreProc Statement
 hi! link PreCondit Statement
 
@@ -70,12 +70,12 @@ hi! link PreCondit Statement
 hi Type guifg=NONE gui=NONE
 
 " has_many, respond_to, params
-hi railsMethod guifg=#DA4938 gui=NONE
+hi railsMethod ctermfg=167 guifg=#DA4938 gui=NONE
 
-hi DiffAdd guifg=#E6E1DC guibg=#144212
-hi DiffDelete guifg=#E6E1DC guibg=#660000
+hi DiffAdd ctermfg=188 guifg=#E6E1DC ctermbg=22 guibg=#144212
+hi DiffDelete ctermfg=188 guifg=#E6E1DC ctermbg=52 guibg=#660000
 
-hi xmlTag guifg=#E8BF6A
+hi xmlTag ctermfg=179 guifg=#E8BF6A
 hi! link xmlTagName  xmlTag
 hi! link xmlEndTag   xmlTag
 hi! link xmlArg      xmlTag
@@ -87,11 +87,12 @@ hi! link htmlArg     xmlArg
 " Popup Menu
 " ----------
 " normal item in popup
-hi Pmenu guifg=#F6F3E8 guibg=#444444 gui=NONE
+hi Pmenu ctermfg=230 guifg=#F6F3E8 ctermbg=59 guibg=#444444 gui=NONE
 " selected item in popup
-hi PmenuSel guifg=#000000 guibg=#A5C160 gui=NONE
+hi PmenuSel ctermfg=0 guifg=#000000 ctermbg=143 guibg=#A5C160 gui=NONE
 " scrollbar in popup
-hi PMenuSbar guibg=#5A647E gui=NONE
+hi PMenuSbar ctermbg=60 guibg=#5A647E gui=NONE
 " thumb of the scrollbar in the popup
-hi PMenuThumb guibg=#AAAAAA gui=NONE
+hi PMenuThumb ctermbg=145 guibg=#AAAAAA gui=NONE
+
 
