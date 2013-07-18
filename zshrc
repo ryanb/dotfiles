@@ -1,3 +1,45 @@
+
+# Completion
+
+autoload -U compinit
+compinit -i
+
+# History
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_DUPS
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt EXTENDED_HISTORY
+
+# Path
+
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.bin
+
+# Boxen
+
+if [[ -f /opt/boxen/env.sh ]]; then
+  source /opt/boxen/env.sh
+fi
+
+# chruby or rbenv
+
+if [[ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
+  source /usr/local/opt/chruby/share/chruby/auto.sh
+
+  function ruby_version() {
+    basename "$RUBY_ROOT"
+  }
+else
+  # If we're using boxen, it'll have set up rbenv for us already.
+  function ruby_version() {
+    rbenv version | sed "s/^\([^ ]*\).*$/\1/"
+  }
+fi
+
 # Colors for the prompt
 
 autoload colors; colors;
@@ -22,42 +64,11 @@ function parse_git_dirty () {
   fi
 }
 
-# Ruby prompt magic, using chruby
-
-function ruby_version() {
-  basename "$RUBY_ROOT"
-}
-
 # Prompts
 
 setopt prompt_subst
 PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
 RPROMPT='%{$fg[yellow]%}$(ruby_version)%{$reset_color%}'
-
-# Completion
-
-autoload -U compinit
-compinit -i
-
-# History
-
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt HIST_IGNORE_DUPS
-setopt APPEND_HISTORY
-setopt INC_APPEND_HISTORY
-setopt EXTENDED_HISTORY
-
-# Path
-
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.bin
-
-# chruby
-
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
-
 # Aliases
 
 alias be="bundle exec"
