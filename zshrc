@@ -16,7 +16,7 @@ setopt EXTENDED_HISTORY
 
 # Path
 
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:~/.bin
 
 # Boxen
 
@@ -69,6 +69,7 @@ function parse_git_dirty () {
 setopt prompt_subst
 PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
 RPROMPT='%{$fg[yellow]%}$(ruby_version)%{$reset_color%}'
+
 # Aliases
 
 alias be="bundle exec"
@@ -78,6 +79,11 @@ alias gm="git merge --no-ff"
 alias gff="git merge --ff-only"
 alias cdr='cd $(git rev-parse --show-cdup)'
 
+# Quick way to rebuild the Launch Services database and get rid
+# of duplicates in the Open With submenu.
+# See http://www.leancrew.com/all-this/2013/02/getting-rid-of-open-with-duplicates/
+alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user; killall Finder'
+
 # We use the full path here to work around this nasty bug: http://www.tpope.net/node/108
 # In particular, calling "filetype indent off" in my vimrc was causing vim to
 # always exit with a non-zero status. Very annoying for git commit.
@@ -85,7 +91,7 @@ export EDITOR=/usr/bin/vim
 
 export CLICOLOR=1                                         # Make ls colour its output.
 export LESS=-R                                            # Make less support ANSI colour sequences.
-export ACK_OPTIONS="--nosql --type-set cucumber=.feature --type-set sass=.sass" # Make ack ignore sql dumps, and search cucumber features.
+export ACK_OPTIONS="--known-types --nosql --type-set cucumber=.feature --type-set sass=.sass" # Make ack ignore sql dumps, and search cucumber features.
 
 export RAILS_CACHE_CLASSES=true
 
