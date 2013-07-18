@@ -3,9 +3,13 @@ require 'erb'
 
 desc "install the dot files into user's home directory"
 task :install do
-  set_macvim_defaults
-  set_git_config
-  replace_all = false
+  install_config_files
+  configure_macvim
+  configure_git
+end
+
+
+def install_config_files
   Dir['*'].each do |file|
     next if %w[Rakefile README.rdoc LICENSE].include? file
 
@@ -55,7 +59,7 @@ end
 #
 # To restore defaults, use:
 #     defaults delete org.vim.MacVim
-def set_macvim_defaults
+def configure_macvim
   system("/bin/sh", "-c", <<-EOF)
     defaults write org.vim.MacVim MMTextInsetTop 2
     defaults write org.vim.MacVim MMTextInsetBottom 5
@@ -65,7 +69,7 @@ def set_macvim_defaults
   EOF
 end
 
-def set_git_config
+def configure_git
   system("/bin/sh", "-c", <<-EOF)
     git config --global user.name "Pete Yandell"
     git config --global user.email "pete@notahat.com"
