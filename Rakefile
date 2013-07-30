@@ -60,12 +60,13 @@ end
 def install_vim_plugins
   dir = File.join(Dir.home, '.janus')
   FileUtils.mkdir_p(dir)
-  Dir.chdir(dir)
 
   puts "installing additional vim plugins"
-  system %Q{git clone https://github.com/vim-scripts/fontzoom.vim}
-  system %Q{git clone https://github.com/dbldots/frett.vim}
-  system %Q{git clone https://github.com/vim-scripts/vcscommand.vim}
-  system %Q{git clone https://github.com/jistr/vim-nerdtree-tabs}
-  system %Q{git clone https://github.com/vim-scripts/vrackets}
+  system %Q{git clone https://github.com/vim-scripts/fontzoom.vim "#{File.join(dir, 'fontzoom.vim')}"}
+  system %Q{git clone https://github.com/dbldots/frett.vim "#{File.join(dir, 'frett.vim')}"}
+  system %Q{git clone https://github.com/vim-scripts/vcscommand.vim "#{File.join(dir, 'vcscommand.vim')}"}
+  system %Q{git clone https://github.com/jistr/vim-nerdtree-tabs "#{File.join(dir, 'vim-nerdtree-tabs')}"}
+  system %Q{git clone https://github.com/vim-scripts/vrackets "#{File.join(dir, 'vrackets')}"}
+  system %Q{git clone https://github.com/vim-scripts/L9.git "#{File.join(dir, 'L9')}"}
+  system %Q{git clone https://github.com/vim-scripts/FuzzyFinder.git "#{File.join(dir, 'FuzzyFinder')}"}
 end
