@@ -44,6 +44,9 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+# Customize to your needs...
+# export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin
+
 alias ll="ls -l"
 alias la="ls -a"
 
@@ -56,3 +59,4 @@ export PAGER=less
 
 # load rvm
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+[ -f /usr/local/rvm/scripts/rvm ] && source "/usr/local/rvm/scripts/rvm"
