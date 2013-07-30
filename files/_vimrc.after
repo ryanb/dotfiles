@@ -1,0 +1,100 @@
+set columns=150
+set wildignore+=downloads,tmp,log,download
+set number
+set encoding=utf-8
+
+" syntastic config
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+
+" ctrlp config
+let g:ctrlp_switch_buffer=0
+let g:ctrlp_open_multi='vr'
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_bottom=0
+let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', 'file', 'coveragefile', 'dir' ]
+
+map <D-'> :NERDTreeToggle<CR>
+map <D-r> :FufBuffer<CR>
+map <D-e> :CtrlPMRUFiles<CR>
+
+" close buffer
+map <D-\> :Kwbd<CR>
+" close buffer and window
+map <D-\|> :bd<CR>
+" close all open buffers
+map <C-\> :bufdo Kwbd<CR>
+
+nmap <silent> ,. :bnext<CR>
+nmap <silent> ,m :bprev<CR>
+nmap <silent> ;' :tabnext<CR>
+nmap <silent> ;l :tabprev<CR>
+
+" to allow changed buffers to be in the background
+set hidden
+
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+set nocompatible
+inoremap jk <ESC>
+nnoremap <leader>w <C-w>v<C-w>l
+
+map <leader>r :NERDTreeFind<CR>
+
+" remove unwanted whitespaces in empty lines
+map <leader>cef :execute "%s/\\s\\+$//"<CR>
+
+" VCSCommand related
+let VCSCommandMapPrefix = "<leader>v"
+map <leader>va :VCSAnnotate<CR>
+map <leader>vl :VCSLog<CR>
+map <leader>vj :call RepoLog()<CR>
+map <leader>vd :call RepoDiff()<CR>
+map <leader>vv :call RepoShow()<CR>
+
+function FindRev()
+  " TODO try to fix this
+  " execute "normal! ^/\\v([a-z0-9]+)((\\d)([a-z])[a-z0-9]+)\<CR>"
+  return expand("<cword>")
+endfunction
+
+function RepoLog()
+  let revision = FindRev()
+  execute "VCSLog -r " . revision
+endfunction
+
+function RepoDiff()
+  let revision = FindRev()
+  execute "normal! ^/\\v([a-z0-9]+)((\\d)([a-z])[a-z0-9]+)\<CR>"
+  " hash~1 is the git parent revision of hash
+  execute "VCSDiff " . expand("<cword>") . "~1 " . expand("<cword>")
+endfunction
+
+function RepoShow()
+  let revision = FindRev()
+  execute "rightbelow new"
+  execute "set buftype=nofile"
+  execute "set bufhidden=hide"
+  execute "setlocal noswapfile"
+  " read 'git show #rev'
+  execute "r !git show " . revision
+  " jump to first line again..
+  execute "1"
+endfunction
+
+let g:loaded_nerdtree_fs_menu=0
+let g:loaded_nerdree_buffer_fs_menu=0
+
+let g:nerdtree_tabs_open_on_gui_startup=0
+let g:nerdtree_tabs_open_on_console_startup=0
+
+" folding
+set foldmethod=indent
+"set foldmethod=syntax
+set nofoldenable
+set foldlevel=1
+
+" use the silver searcher instead of ack
+let g:ackprg='ag --nogroup --nocolor --column'
+
+" fancy symbols
+let g:Powerline_symbols = 'fancy'
