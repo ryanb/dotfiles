@@ -102,7 +102,7 @@ def install_vim_plugins
     system %Q{git clone https://github.com/vim-scripts/vrackets "#{File.join(dir, 'vrackets')}"}
     system %Q{git clone https://github.com/vim-scripts/L9.git "#{File.join(dir, 'L9')}"}
     system %Q{git clone https://github.com/vim-scripts/FuzzyFinder.git "#{File.join(dir, 'FuzzyFinder')}"}
-    system %Q{git clone git clone https://github.com/scrooloose/nerdtree.git "#{File.join(dir, 'nerdtree.git')}"}
+    system %Q{git clone https://github.com/scrooloose/nerdtree.git "#{File.join(dir, 'nerdtree.git')}"}
   when 'q'
     exit
   else
