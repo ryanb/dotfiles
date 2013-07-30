@@ -17,6 +17,12 @@ let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', 'file', 'coveragefile', 'dir' ]
 map <D-'> :NERDTreeToggle<CR>
 map <D-r> :FufBuffer<CR>
 map <D-e> :CtrlPMRUFiles<CR>
+" for linux
+map <C-'> :NERDTreeToggle<CR>
+map <C-r> :FufBuffer<CR>
+map <C-e> :CtrlPMRUFiles<CR>
+map <C-t> :CtrlP<CR>
+
 
 " close buffer
 map <D-\> :Kwbd<CR>
