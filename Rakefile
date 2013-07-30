@@ -30,7 +30,7 @@ def prerequisites
   puts ' - curl'
   puts ' - vim (with ruby support)'
   puts ' - zsh'
-  puts ' - rvm (optional)'
+  puts ' - rvm'
   puts ''
   print "do you want to proceed? [yn] "
   case $stdin.gets.chomp
