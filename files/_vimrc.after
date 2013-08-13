@@ -14,22 +14,21 @@ let g:ctrlp_max_height=15
 let g:ctrlp_match_window_bottom=0
 let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', 'file', 'coveragefile', 'dir' ]
 
-map <D-'> :NERDTreeToggle<CR>
-map <D-r> :FufBuffer<CR>
-map <D-e> :CtrlPMRUFiles<CR>
-" for linux
-map <C-'> :NERDTreeToggle<CR>
-map <C-r> :FufBuffer<CR>
-map <C-e> :CtrlPMRUFiles<CR>
-map <C-t> :CtrlP<CR>
-
+" toggle nerd tree
+map <C-n> :NERDTreeToggle<CR>
+" open buffers
+map <C-d> :FufBuffer<CR>
+" ctrl p for last used files
+map <C-s> :CtrlPMRUFiles<CR>
+" open Ack
+map <C-f> :Ack ""<Left>
 
 " close buffer
-map <D-\> :Kwbd<CR>
+map <leader>x :Kwbd<CR>
 " close buffer and window
-map <D-\|> :bd<CR>
+map <leader>xx :bd<CR>
 " close all open buffers
-map <C-\> :bufdo Kwbd<CR>
+map <leader>X :bufdo Kwbd<CR>
 
 nmap <silent> ,. :bnext<CR>
 nmap <silent> ,m :bprev<CR>
