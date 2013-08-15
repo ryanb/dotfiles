@@ -1,0 +1,80 @@
+*ag.txt*   Plugin that integrates ag with Vim
+
+==============================================================================
+INTRODUCTION                                                             *ag*
+
+This plugin is a front for the_silver_searcher: ag.  Ag can be used as a
+replacement for ack.  This plugin will allow you to run ag from vim, and
+shows the results in a split window.
+
+:Ag[!] [options] {pattern} [{directory}]                               *:Ag*
+
+    Search recursively in {directory} (which defaults to the current
+    directory) for the {pattern}.  Behaves just like the |:grep| command, but
+    will open the |Quickfix| window for you. If [!] is not given the first
+    error is jumped to.
+
+:AgAdd [options] {pattern} [{directory}]                            *:AgAdd*
+
+    Just like |:Ag|, but instead of making a new list, the matches are
+    appended to the current |quickfix| list.
+
+:AgFromSearch [{directory}]                                  *:AgFromSearch*
+
+    Just like |:Ag| but the pattern is from previous search.
+
+:LAg [options] {pattern} [{directory}]                                *:LAg*
+
+    Just like |:Ag| but instead of the |quickfix| list, matches are placed in
+    the current |location-list|.
+
+:LAgAdd [options] {pattern} [{directory}]                          *:LAgAdd*
+
+    Just like |:AgAdd| but instead of the |quickfix| list, matches are added
+    to the current |location-list|
+
+:AgFile [options] {pattern} [{directory}]                          *:AgFile*
+
+    Search recursively in {directory} (which defaults to the current
+    directory) for filenames matching the {pattern}.  Behaves just like the
+    |:grep| command, but will open the |Quickfix| window for you.
+
+:AgHelp[!] [options] {pattern}                                      *:AgHelp*
+
+    Search vim documentation files for the {pattern}.  Behaves just like the
+    |:Ag| command, but searches only vim documentation .txt files
+
+:LAgHelp [options] {pattern}                                        *:LAgHelp*
+
+    Just like |:AgHelp| but instead of the |quickfix| list, matches are placed
+    in the current |location-list|.
+
+Files containing the search term will be listed in the split window, along
+with the line number of the occurrence, once for each occurrence.  <Enter> on
+a line in this window will open the file, and place the cursor on the matching
+line.
+
+See http://betterthangrep.com/ for more information.
+
+==============================================================================
+MAPPINGS                                                        *ag-mappings*
+
+The following keyboard shortcuts are available in the quickfix window:
+
+o                   open file (same as enter).
+
+go                  preview file (open but maintain focus on ag.vim results).
+
+t                   open in a new tab.
+
+T                   open in new tab silently.
+
+h                   open in horizontal split.
+
+H                  open in horizontal split silently.
+
+v                   open in vertical split.
+
+gv                  open in vertical split silently.
+
+q                   close the quickfix window.

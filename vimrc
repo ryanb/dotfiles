@@ -87,9 +87,6 @@ let g:bufExplorerShowRelativePath=1
 " Hide the default help in bufexplorer.
 let g:bufExplorerDefaultHelp=0
 
-" Fix bodgy highlighting for git-gutter plugin.
-highlight clear SignColumn
-
 
 " Custom Key Mappings
 " -------------------
@@ -200,9 +197,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " Source the vimrc file after saving it
 autocmd BufWritePost .vimrc source $MYVIMRC
-
-" Write files on loss of focus.
-autocmd FocusLost * silent! wa
 
 augroup END
 
