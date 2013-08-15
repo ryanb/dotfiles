@@ -1,3 +1,6 @@
+" for US keyboard layout
+let mapleader=" "
+
 call janus#disable_plugin('fugitive', "Poor performance") 
 call janus#disable_plugin('css-color', "Poor performance") 
 call janus#disable_plugin('pep8', "don't need python") 
