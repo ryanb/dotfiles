@@ -1,2 +1,2 @@
 #!/bin/sh
-/usr/local/bin/ctags -R --langmap="ruby:+.rake.builder.rjs" --languages=ruby
+ctags -R --langmap="ruby:+.rake.builder.rjs" --languages=ruby
