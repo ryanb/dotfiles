@@ -53,6 +53,9 @@ alias %=' '
 # changing directory to code project
 function c { cd ~/code/$1; }
 
+# gopath
+function gopath { cd $GOPATH; }
+
 # changing directory to dropbox folder
 function dropbox { cd ~/Dropbox/$1; }
 
