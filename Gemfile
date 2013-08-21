@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'rake'
+gem 'rake', '10.1.0'
