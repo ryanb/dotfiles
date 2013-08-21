@@ -10,7 +10,6 @@ alias la='ls -A'
 # git
 alias gl='git pull'
 alias gls='git log --pretty=short'
-alias gp='git push'
 alias gd='git diff'
 alias gc='git commit'
 alias gca='git commit -a'
@@ -28,14 +27,7 @@ alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG
 alias rm='rm -i'
 
 # rails
-alias sc='script/console'
-alias ss='script/server'
-alias sg='script/generate'
-alias a='autotest -rails'
-alias tlog='tail -f log/development.log'
-alias scaffold='script/generate nifty_scaffold'
 alias migrate='rake db:migrate db:test:clone'
-alias rst='touch tmp/restart.txt'
 
 # dotfiles
 alias dotfiles='cd ~/.dotfiles'
@@ -44,31 +36,14 @@ alias dotfiles='cd ~/.dotfiles'
 alias rake='bundle exec rake'
 
 # Misc
-alias oldpwd='cd $OLDPWD'
 alias hgrep='history |grep'
-
-# commands starting with % for pasting from web
-alias %=' '
-
-# changing directory to code project
-function c { cd ~/code/$1; }
-
-# gopath
-function gopath { cd $GOPATH; }
-
-# changing directory to dropbox folder
-function dropbox { cd ~/Dropbox/$1; }
-
-# alternative to "rails" command to use templates
-function railsapp {
-  template=$1
-  appname=$2
-  shift 2
-  rails $appname -m http://github.com/ryanb/rails-templates/raw/master/$template.rb $@
-}
-
-# misc
+alias oldpwd='cd $OLDPWD'
 alias reload='. ~/.bash_profile'
 
-# copy aliases from tmux buffer to clipboard
+# Changing directories
+function c { cd ~/code/$1; }
+function gopath { cd $GOPATH; }
+fnction dropbox { cd ~/Dropbox/$1; }
+
+# Tmux - Copy aliases from buffer to clipboard
 alias tm_cb='tmux show-buffer | pbcopy ; echo "Buffer Copied."'

@@ -1,7 +1,7 @@
 " Vim color scheme based on http://github.com/jpo/vim-railscasts-theme
 "
 " Name:        railscasts.vim
-" Maintainer:  Ryan Bates
+" Maintainer:  Brett Weaver
 " License:     MIT
 
 set background=dark
