@@ -4,16 +4,27 @@ export LANG=en_US.UTF-8
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="agnoster"
-
 SHELL="<%= `which zsh`.strip %>"
 
-DEFAULT_USER="<%= print("shell user name: "); STDOUT.flush; STDIN.gets.chomp %>"
+# zsh theme
+<%
+  zsh_theme = begin
+       print("zsh theme (pure|kolo|agnoster|...): ")
+       STDOUT.flush
+       STDIN.gets.chomp
+     end
+%>
+ZSH_THEME="<%= zsh_theme %>"
+
+<%
+  default_user = begin
+       print("shell user name: ")
+       STDOUT.flush
+       STDIN.gets.chomp
+     end
+%>
+DEFAULT_USER="<%= default_user %>"
+DEFAULT_USERNAME="<%= default_user %>"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
