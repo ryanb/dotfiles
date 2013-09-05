@@ -35,12 +35,11 @@ set laststatus=2        " Always show it.
 set statusline=%([%M%R%H%W]\ \ %)%l/%L\ \ %f%=%{&filetype}\ \ %c
 
 " Set up folding.
-" Note: Disabled because MacVim seems to be crashing in the folding code. Grr.
-" set foldenable         " enable code folding
-" set foldmethod=syntax  " use syntax for folding
-" set foldlevelstart=99  " open all folds by default
-" set foldtext=getline(v:foldstart)
-" set fillchars=fold:\   " nicer folding
+set foldenable         " enable code folding
+set foldmethod=syntax  " use syntax for folding
+set foldlevelstart=99  " open all folds by default
+set foldtext=getline(v:foldstart)
+set fillchars=fold:\   " nicer folding
 
 " Set up completion.
 set complete=.,w,b,u  " Scan all the buffers.
