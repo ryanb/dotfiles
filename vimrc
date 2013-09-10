@@ -69,7 +69,7 @@ if has("gui_macvim")
   highlight StatusLineNC guibg=#333333 guifg=white
   highlight VertSplit guifg=#333333 guibg=white
   highlight Folded guifg=#EEEEEE guibg=#333333
-  highlight LineNr guifg=#333333 ctermfg=159 guibg=#111111
+  highlight LineNr guifg=#555555 ctermfg=159 guibg=#111111
 
   " Popup menu colours, borrowed from http://www.vim.org/scripts/script.php?script_id=1995
   highlight Pmenu      guifg=#F6F3E8 guibg=#444444 gui=NONE
