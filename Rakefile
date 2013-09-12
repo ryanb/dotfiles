@@ -6,6 +6,7 @@ task :install do
   install_config_files
   configure_macvim
   configure_git
+  configure_osx
 end
 
 
@@ -93,5 +94,12 @@ def configure_git
     git config --global alias.build-features-without-master '!git push -f origin HEAD:build-features/notahat/$(openssl rand -hex 3)-without-master'
     git config --global alias.build-js '!git push -f origin HEAD:build-js/notahat/$(openssl rand -hex 3)'
     git config --global alias.build-js-without-master '!git push -f origin HEAD:build-js/notahat/$(openssl rand -hex 3)-without-master'
+  EOF
+end
+
+def configure_osx
+  system("/bin/sh", "-c", <<-EOF)
+    # Disable the dashboard.
+    defaults write com.apple.dashboard mcx-disabled -boolean YES && killall Dock
   EOF
 end
