@@ -14,6 +14,9 @@ let g:ctrlp_max_height=15
 let g:ctrlp_match_window_bottom=0
 let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', 'file', 'coveragefile', 'dir' ]
 
+" dash lookup
+:nmap <silent> <leader>d <Plug>DashSearch
+
 " toggle nerd tree
 map <C-n> :NERDTreeToggle<CR>
 " open buffers
