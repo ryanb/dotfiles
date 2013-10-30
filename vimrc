@@ -85,6 +85,9 @@ set printfont=courier:h9
 " Plugin Configuration
 " --------------------
 
+" Speed up Ruby syntax highlighting, at the expense of keyword colouring.
+let ruby_no_expensive=1
+
 " Show relative paths in bufexplorer.
 let g:bufExplorerShowRelativePath=1
 " Hide the default help in bufexplorer.
