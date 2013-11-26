@@ -1,0 +1,97 @@
+A custom text object for selecting ruby blocks.
+
+Depends on vimscript #2100, which provides a framework for creating custom
+text objects.
+
+Also requires that matchit.vim vimscript #39 is enabled.
+
+# Usage #
+
+When textobj-rubyblock is installed you will gain two new text objects, which
+are triggered by `ar` and `ir` respectively. These follow Vim convention, so
+that `ar` selects _all_ of a ruby block, and `ir` selects the _inner_ portion
+of a rubyblock.
+
+In ruby, a block is always closed with the `end` keyword. Ruby blocks may be
+opened using one of several keywords, including `module`, `class`, `def` `if`
+and `do`. This example demonstrates a few of these:
+
+    module Foo
+      class Bar
+        def Baz
+          [1,2,3].each do |i|
+            i + 1
+          end
+        end
+      end
+    end
+
+Suppose your cursor was positioned on the word `def`. Typing `var` would
+enable visual mode selecting _all_ of the method definition. Your selection
+would comprise the following lines (also, see screenshot:
+http://vimcasts.org/images/blog/rubyblock-all.png):
+
+    def Baz
+      [1,2,3].each do |i|
+        i + 1
+      end
+    end
+
+Whereas if you typed `vir`, you would select everything _inside_ of the method
+definition, which looks like this (also, see screenshot:
+http://vimcasts.org/images/blog/rubyblock-inner.png):
+
+    [1,2,3].each do |i|
+      i + 1
+    end
+
+Note that the `ar` and `ir` text objects always enable _visual line_ mode,
+even if you were in visual character or block mode before you triggered the
+rubyblock text object.
+
+Note too that the `ar` and `ir` text objects always position your cursor on
+the `end` keyword. If you want to move to the top of the selection, you can do
+so with the `o` key.
+
+# Limitations #
+
+Some text objects in Vim respond to a count. For example, the `a{` text object
+will select _all_ of the current `{}` delimited block, but if you prefix it
+with the number 2 (e.g. `v2i{`) then it will select all of the block that
+contains the current block. The rubyblock text object does not respond in this
+way if you prefix a count. This is due to a limitation in vimscript #2100.
+
+However, you can achieve a similar effect by repeating the rubyblock
+text-object manually. So if you press `var` to select the current ruby block,
+you can expand your selection outwards by repeating `ar`, or contract your
+selection inwards by repeating `ir`.
+
+# Installation #
+
+First of all, ensure that you have installed vimscript #2100, without which
+this plugin will not work.
+
+Then, ensure that you have enabled the matchit.vim vimscript #39 plugin. This
+can be achieved by running (or placing this in your vimrc file):
+
+    :runtime macros/matchit.vim
+
+Finally, you need to ensure that Vim is not running in vi-compatiable mode, and
+that filetype plugins are enabled. Placing these lines in your vimrc file will
+set up this configuration for you:
+
+    set nocompatible
+    if has("autocmd")
+      filetype indent plugin on
+    endif
+
+This plugin is distributed as a vimball, so to install it you just need to
+open the file with Vim and run the command:
+
+    :source %
+
+If you prefer to manage your plugins using pathogen (vimscript #2332), then
+you might prefer to checkout the latest version directly from github:
+
+* https://github.com/nelstrom/vim-textobj-rubyblock
+* https://github.com/kana/vim-textobj-user

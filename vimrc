@@ -7,11 +7,14 @@ execute pathogen#infect()
 
 set autoindent
 set autoread
+set autowriteall
 set dir=/tmp
 set expandtab
 set hidden
 set incsearch
 set wildmode=list:longest
+
+syntax enable
 
 
 " ==============================================================================

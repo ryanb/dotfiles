@@ -1,0 +1,9 @@
+[_] dependencies
+	[_] requres '%' to jump between 'if'/'do'/'def' and 'end'
+	[_] either
+		[_] test for this behaviour
+		or
+		[_] do not require this behaviour
+[_] issues
+	[_] inner/all behaviour differs if you are on 'e' or 'n/d' of 'end'
+	[X] inner/all behaviour differs if you are on 'd' or 'o' of 'do'
