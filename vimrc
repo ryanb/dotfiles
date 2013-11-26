@@ -19,6 +19,9 @@ syntax enable
 " Use ITerm for the vim-rspec plugin.
 let g:rspec_command = "silent !~/.bin/run_in_iterm 'bundle exec rspec {spec}'"
 
+" Patterns for the Tabular plugin.
+AddTabularPattern! ruby_hash /=>
+
 
 " ==============================================================================
 " Key bindings
@@ -30,6 +33,7 @@ noremap <Leader>f :LustyFilesystemExplorer<CR>
 noremap <Leader>r :LustyFilesystemExplorerFromHere<CR>
 noremap <Leader>t :CtrlP<CR>
 noremap <Leader>s :call RunCurrentSpecFile()<CR>
+noremap <Leader>ah :Tab ruby_hash<CR>
 
 " Use CTRL-direction to navigation windows.
 nnoremap <C-H> <C-W>h
