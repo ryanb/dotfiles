@@ -1,0 +1,255 @@
+0.1
+- Initial release
+
+0.2
+- Fixed uncommenting of non-aligned comments
+- improved support for block comments (with middle lines and indentation)
+- using TCommentBlock for file types that don't have block comments creates 
+single line comments
+- removed the TCommentAsBlock command (TCommentAs provides its functionality)
+- removed g:tcommentSetCMS
+- the default key bindings have slightly changed
+
+1.3
+- slightly improved recognition of embedded syntax
+- if no commentstring is defined in whatever way, reconstruct one from 
+&comments
+- The TComment... commands now have bang variants that don't act as toggles 
+but always comment out the selected text
+- fixed problem with commentstrings containing backslashes
+- comment as visual block (allows commenting text to the right of the main 
+text, i.e., this command doesn't work on whole lines but on the text to the 
+right of the cursor)
+- enable multimode for dsl, vim filetypes
+- added explicit support for some other file types I ran into
+
+1.4
+- Fixed problem when &commentstring was invalid (e.g. lua)
+- perl_block by Kyosuke Takayama.
+- <c-_>s mapped to :TCommentAs <c-r>=&ft<cr>
+
+1.5
+- "Inline" visual comments (uses the &filetype_inline style if 
+available; doesn't check if the filetype actually supports this kind of 
+comments); tComment can't currently deduce inline comment styles from 
+&comments or &commentstring (I personally hardly ever use them); default 
+map: <c-_>i or <c-_>I
+- In visual mode: if the selection spans several lines, normal mode is 
+selected; if the selection covers only a part of one line, inline mode 
+is selected
+- Fixed problem with lines containing ^M or ^@ characters.
+- It's no longer necessary to call TCommentCollectFileTypes() after 
+defining a new filetype via TCommentDefineType()
+- Disabled single <c-_> mappings
+- Renamed TCommentVisualBlock to TCommentRight
+- FIX: Forgot 'x' in ExtractCommentsPart() (thanks to Fredrik Acosta)
+
+1.6
+- Ignore sql when guessing the comment string in php files; tComment 
+sometimes chooses the wrong comment string because the use of sql syntax 
+is used too loosely in php files; if you want to comment embedded sql 
+code you have to use TCommentAs
+- Use keepjumps in commands.
+- Map <c-_>p & <L>_p to vip:TComment<cr>
+- Made key maps configurable via g:tcommentMapLeader1 and 
+g:tcommentMapLeader2
+
+1.7
+- gc{motion} (see g:tcommentMapLeaderOp1) functions as a comment toggle 
+operator (i.e., something like gcl... works, mostly); gC{motion} (see 
+g:tcommentMapLeaderOp2) will unconditionally comment the text.
+- TCommentAs takes an optional second argument (the comment level)
+- New "n" map: TCommentAs &filetype [COUNT]
+- Defined mail comments/citations
+- g:tcommentSyntaxMap: Map syntax names to filetypes for buffers with 
+mixed syntax groups that don't match the filetypeEmbeddedsyntax scheme (e.g.  
+'vimRubyRegion', which should be commented as ruby syntax, not as vim 
+syntax)
+- FIX: Comments in vim*Region
+- TComment: The use of the type argument has slightly changed (IG -> i, 
+new: >)
+
+1.8
+- Definitly require vim7
+- Split the plugin into autoload & plugin.
+- g:TCommentFileTypes is a list
+- Fixed some block comment strings
+- Removed extraneous newline in some block comments.
+- Maps for visal mode (thanks Krzysztof Goj)
+
+1.9
+- Fix left offset for inline comments (via operator binding)
+
+1.10
+- tcomment#Operator defines w:tcommentPos if invoked repeatedly
+- s:GuessFileType: use len(getline()) instead of col()
+
+1.11
+- Support for erlang (thanks to Zhang Jinzhu)
+
+1.12
+- Moved the definition of some variables from plugin/tComment.vim to 
+autoload/tcomment.vim
+- Changed comment string for eruby (proposed by Vinicius Baggio)
+- Support for x86conf
+
+2.0
+- Enabled key=value pairs to configure commenting
+- Renamed the file plugin/tComment.vim to plugin/tcomment.vim
+- Renamed certain global functions to tcomment#...
+
+2.1
+- FIX
+
+version: "2.02"
+  - Support for matlab (contributed by D Fong)
+  MD5 checksum: 29a2742dfae32b52a7abcdfb4de553ad
+
+version: "2.03"
+  - s:PrintF(): Silently ignore malformed format strings
+  - Deal with major.minor pseudo-filetypes
+  - go-lang
+  - Remove s:SPrintF() since vim now has printf()
+  MD5 checksum: 4a13ffb1b1d46bbd2dc8dcee77507983
+
+version: "2.04"
+  - Support for fstab
+  - g:tcommentOptions: Other key-value options used by |tcomment#Comment()|.
+  - Support for django (thanks to Jim Tinsky)
+  - g:tcomment#syntax_substitute: Rewrite syntax names
+  - django support: minor correction
+  MD5 checksum: 994e5886d185857848b5472d5457b232
+
+version: "2.05"
+  - Explicit support for python (thanks to brendanarnold)
+  - Support for samba (thanks Dominic)
+  - .gitignore
+  - Define new types: debsources and debcontrol
+  - Removed some whitespace as proposed by blueyed
+  - Add config for typoscript filetype.
+  - EXPERIMENTAL commentstring_rx: Support for using regexps to uncomment code
+  - s:ProcessedLine: Don't substitute(rv, '\n', '\\\n', 'g')
+  - Try to handle char-type text objects (disabled by default)
+  - scss (SASS) filetype
+  - Add config for 'nginx' filetype.
+  MD5 checksum: 0e23f194638256fb4fa4a729df645966
+
+version: "2.06"
+  - tcomment#Comment(): Remove last item in search history (reported by Raimond)
+  - Add config for conkyrc filetype.
+  - Add config for 'robots' filetype.
+  - tcomment#GetCommentDef(name)
+  - g:tcomment_types: override tcomment's default comment styles (fix #12)
+  - Fixed ft-guessing of htmldjango files
+  - Add definitions for dnsmasq, pac, resolv and squid.
+  - Avoid the problem reported in https://github.com/tomtom/tcomment_vim/pull/18
+  - Handle nested comments in c mode (fix #19)
+  MD5 checksum: 0e23f194638256fb4fa4a729df645966
+
+version: "2.07"
+  - Avoid duplicate tag in help file (reported by utkarshkukreti)
+  - add puppet type
+  - Use \r instead of ^M
+  - support for haml and coffeescript
+  - Support for gitignore
+  - Merge branch 'master' of https://github.com/ignovak/tcomment_vim
+  - Enable "filetype guessing" for eruby (fixes #25)
+  - g:tcommentModeExtra: Always modify how commenting works
+  - g:tcommentModeExtra: >> ... Like > but also move the cursor to the next line
+  - adding gnu smalltalk comment style
+  - Add comment definition for "smarty"
+  - Sort definition for "sql"
+  - Merge branch 'master' of https://github.com/clutt0n/tcomment_vim
+  - added support for jasmine.coffee (cf. https://github.com/claco/jasmine.vim)
+  - fixed jasmine (have to use syntax instead of filetype)
+  - Block comments: set &sel = exclusive (fixes #30; bug 1)
+  - Merge branch 'master' of https://github.com/paulwittmann/tcomment_vim
+  - spec files for issue 30
+  - Inline comments: Include the current character if selection == inclusive (fixes #30 bug 2)
+  - gC in visual mode: call :TCommentMaybeInline! (fixes #30 bug 3)
+  - Added Clojure and Clojurescript support. Thou the comment is a single ';' it is a widely adopted convention to comment whole lines with ';;'
+  - command line completion: also offer rx*= arguments
+  - Merge branch 'master' of https://github.com/ssedano/tcomment_vim
+  - clojure: use ";" for inline comments
+  - TCommentRight used wrong column
+  - b:tcommentOptions: buffer-local options
+  - Deal with mode argument (concatenate with commentMode)
+  - Removed visual/selection maps for :TCommentRight
+  - <c-_>cc and <c-_>ca maps to temporary set options (count, as) on the fly
+  - <c-_>1 .. <c-_>9 maps to invoke :TComment count=N (repeat the comment string N times)
+  - clojure: use the "count" property instead of hardcoding the double semicolon (";;")
+  - Enable inline comments for insert & normal mode (create empty comments, which isn't always that useful; fixes #33)
+  - When guessing a filetype, make sure to use custom definitions when no syntax name is found
+  - gc<count>c maps that set the "count" attribute
+  - Make sure to ignore %%s in commentstrings
+  - gc<Count>c{motion} maps work as toggle
+  - Enable <c-_><Count> maps for insert mode
+  - Monkey language comment style
+  MD5 checksum: 0853c50ebdcd4c52a31b2ad2d514d1e0
+
+version: "2.08"
+  - Enable count for gc operator maps (use e.g. 3gc2l instead of gc3c2l; maybe remove gc<count>c maps later on)
+  - <count>gc operator maps: use v:count instead of v:count1
+  - fixed unlet
+  - Merge branch 'master' of https://github.com/grassofhust/tcomment_vim
+  - Added vhdl to tcomment#DefineType
+  - tcomment#GuessCommentType(): Make filetype guessing accessible for other plugins
+  - FIX: didn't guess filetype correctly for lines containing only one character
+  - Guess filetype: Improved handling of empty lines
+  - g:tcommentSyntaxMap: support additional info on how to handle empty lines
+  - g:tcommentSyntaxMap: support filetype key: explicitly map syntax name per filetype (fixes #39)
+  - Fix typo
+  - Add `g:tcommentGuessFileType_smarty = 1`
+  - Define/handle 'ini' file type (e.g. for php.ini)
+  MD5 checksum: 702082a857ddeaf75d3b4fd884363173
+
+  - Adds Scala support
+  - Support for (firefox) chromemanifest filetype
+  - g:tcommentMaps: If true, set maps (fixes #42)
+  - addon-info
+  - Enable replacements for xml/html/... (fixes #44)
+  - Experimental option g:tcomment#mixed_indentation: Deal with inconsistent indentation styles (fixes #43)
+  - Experimental option 'mixedindent': Deal with inconsistent indentation styles (fixes #43)
+  - s:DoReplacements(): Handle an empty list of tokens correctly
+  - mixedindent: Set virtual column to strdisplaywidth(indentStr, cbeg) + 1
+  - mixedindent: mixedindentUndo previous change; use \%>v again
+  - Call :redraw only when tcomment#Complete* was called for the first time if v:version < 703
+  - s:FEscapeCommentString(): Correctly deal comment string that include %
+  - More flexible handling of "dotted" filetypes (fixes #45)
+  - Undo previous changes (s:FEscapeCommentString) (fixes #46)
+  - Map erubyExpression syntax to ruby filetype
+  - s:StartColRx(pos): Use ^ for pos 0-1 (fixes #47)
+  - If mixedindent: use col - 1
+  - Derive g:tcommentLineC from g:tcommentInlineC so that you can set g:tcommentLineC without having to set g:tcommentInlineC
+  - mixedindent: Adjust column only for inline comments
+  - g:tcommentModeExtra: Basic support for preferring block-type comments 'B' uncommenting doesn't work properly when called from operator maps
+  - Support for gcb maps (block comments) and experimental support for '#' mode extra for operator maps (fixes #49)
+  - opextra =~'#*: Adjust for commentstring containing printf placeholders (%) (closes #49)
+  - s:GuessFileType(): If there is no custom definition for the fallback filetype, use the filetype (fixes #45)
+  - g:tcomment#filetype_map now works on filetype parts (when using dotted filetype) & special support for rails-views (fixes #45)
+  - Support for postfix main (thanks to ypid)
+  - strip_whitespace option (closes #54)
+  - Support for cmake.
+  - Support for markdown.
+  - Support for sshdconfig.
+  - Support for sshconfig.
+  - Support for gnuplot (fixes #56)
+  - Support slim template
+  - s:CommentDef(): Uncommenting: correct string for &selection == inclusive (fixes #53)
+  - Support for esmtprc.
+  - "whitespace" option: Define whether to surround commented text with whitespace
+  - Experimental inline comment text object (not functional yet)
+  - tcomment#DefineType(name, commentdef, ?cdef={}, ?anyway=0)
+  - s:SetWhitespaceMode(cdef): Add whitespace if mode = "both" and the commentstring doesn't include whitespace
+  - Support for R6RS scheme block comments (fixes #60)
+  - Support for upstart.
+  - Support for racket filetype (fixes #60)
+  - Added form support
+  - Adding htmljinja support (same as htmldjango).
+  - Adding lua support
+  - Objective C++
+  - Support for salt stacks (closes #66); sort order of filetypes
+  - Support for dustjs (closes #67)
+  MD5 checksum: d507f7e6d171034a45e2d349561d29f1
+version: "2.09"
+

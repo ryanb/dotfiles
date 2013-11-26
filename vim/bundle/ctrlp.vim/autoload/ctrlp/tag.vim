@@ -10,99 +10,128 @@ if exists('g:loaded_ctrlp_tag') && g:loaded_ctrlp_tag
 en
 let g:loaded_ctrlp_tag = 1
 
-let s:tag_var = ['ctrlp#tag#init(s:tagfiles)', 'ctrlp#tag#accept',
-	\ 'tags', 'tag']
-
-let g:ctrlp_ext_vars = exists('g:ctrlp_ext_vars') && !empty(g:ctrlp_ext_vars)
-	\ ? add(g:ctrlp_ext_vars, s:tag_var) : [s:tag_var]
+cal add(g:ctrlp_ext_vars, {
+	\ 'init': 'ctrlp#tag#init()',
+	\ 'accept': 'ctrlp#tag#accept',
+	\ 'lname': 'tags',
+	\ 'sname': 'tag',
+	\ 'enter': 'ctrlp#tag#enter()',
+	\ 'type': 'tabs',
+	\ })
 
 let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
 " Utilities {{{1
-fu! s:nodup(items)
-	let dict = {}
-	for each in a:items
-		cal extend(dict, { each : 0 })
-	endfo
-	retu keys(dict)
-endf
-
 fu! s:findcount(str)
-	let [tg, fname] = split(a:str, '\t\+\ze[^\t]\+$')
-	let [&l:tags, fname] = [s:ltags, expand(fname, 1)]
+	let [tg, ofname] = split(a:str, '\t\+\ze[^\t]\+$')
 	let tgs = taglist('^'.tg.'$')
-	if empty(tgs) | retu [1, 1] | en
-	let [fnd, ct, pos] = [0, 0, 0]
-	for each in tgs
-		let ct += 1
-		let fulname = fnamemodify(each["filename"], ':p')
+	if len(tgs) < 2
+		retu [0, 0, 0, 0]
+	en
+	let bname = fnamemodify(bufname('%'), ':p')
+	let fname = expand(fnamemodify(simplify(ofname), ':s?^[.\/]\+??:p:.'), 1)
+	let [fnd, cnt, pos, ctgs, otgs] = [0, 0, 0, [], []]
+	for tgi in tgs
+		let lst = bname == fnamemodify(tgi["filename"], ':p') ? 'ctgs' : 'otgs'
+		cal call('add', [{lst}, tgi])
+	endfo
+	let ntgs = ctgs + otgs
+	for tgi in ntgs
+		let cnt += 1
+		let fulname = fnamemodify(tgi["filename"], ':p')
 		if stridx(fulname, fname) >= 0
 			\ && strlen(fname) + stridx(fulname, fname) == strlen(fulname)
 			let fnd += 1
-			let pos = ct
+			let pos = cnt
 		en
-		if fnd > 1 | brea | en
 	endfo
-	retu [fnd, pos]
+	let cnt = 0
+	for tgi in ntgs
+		let cnt += 1
+		if tgi["filename"] == ofname
+			let [fnd, pos] = [0, cnt]
+		en
+	endfo
+	retu [1, fnd, pos, len(ctgs)]
 endf
 
 fu! s:filter(tags)
-	let [nr, alltags] = [0, a:tags]
+	let nr = 0
 	wh 0 < 1
-		if alltags[nr] =~ '^!' && alltags[nr] !~ '^!_TAG_'
+		if a:tags == [] | brea | en
+		if a:tags[nr] =~ '^!' && a:tags[nr] !~# '^!_TAG_'
 			let nr += 1
 			con
 		en
-		if alltags[nr] =~ '^!_TAG_' && len(alltags) > nr
-			cal remove(alltags, nr)
+		if a:tags[nr] =~# '^!_TAG_' && len(a:tags) > nr
+			cal remove(a:tags, nr)
 		el
 			brea
 		en
 	endw
-	retu alltags
+	retu a:tags
+endf
+
+fu! s:syntax()
+	if !ctrlp#nosy()
+		cal ctrlp#hicheck('CtrlPTabExtra', 'Comment')
+		sy match CtrlPTabExtra '\zs\t.*\ze$'
+	en
 endf
 " Public {{{1
-fu! ctrlp#tag#init(tagfiles)
-	if empty(a:tagfiles) | retu [] | en
-	let tagfiles = sort(s:nodup(a:tagfiles))
-	let s:ltags  = join(tagfiles, ',')
+fu! ctrlp#tag#init()
+	if empty(s:tagfiles) | retu [] | en
 	let g:ctrlp_alltags = []
+	let tagfiles = sort(filter(s:tagfiles, 'count(s:tagfiles, v:val) == 1'))
 	for each in tagfiles
 		let alltags = s:filter(ctrlp#utils#readfile(each))
 		cal extend(g:ctrlp_alltags, alltags)
 	endfo
-	sy match CtrlPTabExtra '\zs\t.*\ze$'
-	hi link CtrlPTabExtra Comment
+	cal s:syntax()
 	retu g:ctrlp_alltags
 endf
 
 fu! ctrlp#tag#accept(mode, str)
 	cal ctrlp#exit()
 	let str = matchstr(a:str, '^[^\t]\+\t\+[^\t]\+\ze\t')
-	let [md, tg] = [a:mode, split(str, '^[^\t]\+\zs\t')[0]]
-	let fnd = s:findcount(str)
+	let [tg, fdcnt] = [split(str, '^[^\t]\+\zs\t')[0], s:findcount(str)]
 	let cmds = {
-		\ 't': ['tabe', 'tab stj'],
-		\ 'h': ['new', 'stj'],
-		\ 'v': ['vne', 'vert stj'],
-		\ 'e': ['ene', 'tj'],
+		\ 't': ['tab sp', 'tab stj'],
+		\ 'h': ['sp', 'stj'],
+		\ 'v': ['vs', 'vert stj'],
+		\ 'e': ['', 'tj'],
 		\ }
-	let cmd = fnd[0] == 1 ? cmds[md][0] : cmds[md][1]
-	let cmd = cmd =~ 'tj\|ene' && &modified ? 'hid '.cmd : cmd
-	try
-		if fnd[0] == 1
+	let utg = fdcnt[3] < 2 && fdcnt[0] == 1 && fdcnt[1] == 1
+	let cmd = !fdcnt[0] || utg ? cmds[a:mode][0] : cmds[a:mode][1]
+	let cmd = a:mode == 'e' && ctrlp#modfilecond(!&aw)
+		\ ? ( cmd == 'tj' ? 'stj' : 'sp' ) : cmd
+	let cmd = a:mode == 't' ? ctrlp#tabcount().cmd : cmd
+	if !fdcnt[0] || utg
+		if cmd != ''
 			exe cmd
-			let &l:tags = s:ltags
-			exe fnd[1].'ta' tg
-		el
-			exe cmd.' '.tg
 		en
-	cat
-		cal ctrlp#msg("Tag not found.")
-	endt
+		let save_cst = &cst
+		set cst&
+		cal feedkeys(":".( utg ? fdcnt[2] : "" )."ta ".tg."\r", 'nt')
+		let &cst = save_cst
+	el
+		let ext = ""
+		if fdcnt[1] < 2 && fdcnt[2]
+			let [sav_more, &more] = [&more, 0]
+			let ext = fdcnt[2]."\r".":let &more = ".sav_more."\r"
+		en
+		cal feedkeys(":".cmd." ".tg."\r".ext, 'nt')
+	en
+	cal ctrlp#setlcdir()
 endf
 
 fu! ctrlp#tag#id()
 	retu s:id
+endf
+
+fu! ctrlp#tag#enter()
+	let tfs = tagfiles()
+	let s:tagfiles = tfs != [] ? filter(map(tfs, 'fnamemodify(v:val, ":p")'),
+		\ 'filereadable(v:val)') : []
 endf
 "}}}
 

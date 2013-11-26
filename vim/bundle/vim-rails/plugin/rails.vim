@@ -42,13 +42,6 @@ endfunction
 " }}}1
 " Detection {{{1
 
-function! s:escvar(r)
-  let r = fnamemodify(a:r,':~')
-  let r = substitute(r,'\W','\="_".char2nr(submatch(0))."_"','g')
-  let r = substitute(r,'^\d','_&','')
-  return r
-endfunction
-
 function! s:Detect(filename)
   if exists('b:rails_root')
     return s:BufInit(b:rails_root)
@@ -58,36 +51,23 @@ function! s:Detect(filename)
   if sep != ""
     let fn = getcwd().sep.fn
   endif
-  if fn =~ '[\/]config[\/]environment\.rb$'
-    return s:BufInit(strpart(fn,0,strlen(fn)-22))
-  endif
   if isdirectory(fn)
     let fn = fnamemodify(fn,':s?[\/]$??')
   else
     let fn = fnamemodify(fn,':s?\(.*\)[\/][^\/]*$?\1?')
   endif
   let ofn = ""
-  let nfn = fn
-  while nfn != ofn && nfn != ""
-    if exists("s:_".s:escvar(nfn))
-      return s:BufInit(nfn)
-    endif
-    let ofn = nfn
-    let nfn = fnamemodify(nfn,':h')
-  endwhile
-  let ofn = ""
   while fn != ofn
     if filereadable(fn . "/config/environment.rb")
-      return s:BufInit(fn)
+      return s:BufInit(resolve(fn))
     endif
     let ofn = fn
-    let fn = fnamemodify(ofn,':s?\(.*\)[\/]\(app\|config\|db\|doc\|extras\|features\|lib\|log\|public\|script\|spec\|stories\|test\|tmp\|vendor\)\($\|[\/].*$\)?\1?')
+    let fn = fnamemodify(ofn,':h')
   endwhile
   return 0
 endfunction
 
 function! s:BufInit(path)
-  let s:_{s:escvar(a:path)} = 1
   if s:autoload()
     return RailsBufInit(a:path)
   endif

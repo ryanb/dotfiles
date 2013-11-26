@@ -1,0 +1,55 @@
+spawn $env(VIM) -N --noplugin -u ../vimrc
+set timeout 3
+expect {
+  timeout {exit 1}
+  "VIM - Vi IMproved"
+}
+send ":LustyFilesystemExplorer\r"
+expect ">>"
+send "'"
+# Should not have caused a backtrace and "Press ENTER ..." message
+expect {
+  "Press ENTER"  {exit 1}
+  timeout {exit 1}
+  "foo'"  # Success
+}
+
+# ESC
+send \033
+
+send ":LustyFilesystemExplorer\r"
+expect ">>"
+send "foo'\r"
+# Should not have caused a backtrace and "Press ENTER ..." message
+expect {
+  "Error detected"  {exit 1}
+  "E116"  {exit 1}
+  "E15"  {exit 1}
+  "E32"  {exit 1}
+  "Press ENTER"  {exit 1}
+  timeout {exit 1}
+  "opened!"  # Success -- contents of file
+}
+
+send ":LustyBufferExplorer\r"
+expect ">>"
+send "'\r"
+# Should not have caused a backtrace and "Press ENTER ..." message
+expect {
+  "Error detected"  {exit 1}
+  "E116"  {exit 1}
+  "E15"  {exit 1}
+  "E32"  {exit 1}
+  "Press ENTER"  {exit 1}
+  timeout {exit 1}
+  "'"  # Success
+}
+
+send \033
+send ":q\r"
+expect {
+  timeout {exit 1}
+  eof
+}
+exit 0
+

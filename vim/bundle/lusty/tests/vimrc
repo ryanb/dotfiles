@@ -1,0 +1,17 @@
+set nocompatible
+set hidden
+set nobackup
+set noswapfile
+
+source ../../plugin/lusty-explorer.vim
+source ../../plugin/lusty-juggler.vim
+
+" Not too useful because a bug in Vim causes an E15 error
+" whenever a Ruby plugin is called. :-(
+function CheckForError()
+    if empty(v:errmsg)
+        exec writefile([v:errmsg], "success")
+    else
+        exec writefile([v:errmsg], "fail")
+endfunction
+

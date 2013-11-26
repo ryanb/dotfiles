@@ -1,0 +1,69 @@
+spawn $env(VIM) -N --noplugin -u ../vimrc
+set timeout 3
+expect {
+  timeout {exit 1}
+  "VIM - Vi IMproved"
+}
+send ":e abc\r"
+send ":e dir/abc\r"
+send ":e dir/def\r"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "content" # Success
+}
+
+send ":LustyBufferExplorer\r"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  ">>"
+}
+
+send "dir/def\r"
+sleep 1
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "NO MATCHES"  # Success
+}
+
+# ESC
+send \033
+
+send ":LustyBufferExplorer\r"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  ">>"
+}
+
+send "dir/abc\r"
+sleep 1
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  "NO MATCHES"  {exit 1}
+  timeout {exit 1}
+  "switched"  # Success
+}
+
+# ESC
+send \033
+
+send ":qa!\r"
+expect {
+  timeout {exit 1}
+  eof
+}
+exit 0
+

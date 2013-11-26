@@ -1,0 +1,36 @@
+spawn $env(VIM) -N --noplugin -u ../vimrc
+set timeout 3
+expect {
+  timeout {exit 1}
+  "VIM - Vi IMproved"
+}
+send ":LustyFilesystemExplorer\r"
+expect {
+  timeout {exit 1}
+  ">>"
+}
+# Ctrl-U
+send \025
+send "/"
+# Should not have caused a backtrace and "Press ENTER ..." message
+expect {
+  "Press ENTER" {exit 1}
+  timeout {exit 1}
+  "/"
+}
+send "12hlx"
+expect {
+  "Press ENTER" {exit 1}
+  timeout {exit 1}
+  "12hlx"
+}
+
+# ESC
+send \033
+send ":q\r"
+expect {
+  timeout {exit 1}
+  eof
+}
+exit 0
+

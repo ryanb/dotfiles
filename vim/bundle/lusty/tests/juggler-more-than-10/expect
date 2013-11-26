@@ -1,0 +1,85 @@
+spawn $env(VIM) -N --noplugin -u ../vimrc
+set timeout 3
+expect {
+  timeout {exit 1}
+  "VIM - Vi IMproved"
+}
+
+# Open >10 files
+send ":e file-name-abc\r"
+send ":e file-name-def\r"
+send ":e file-name-ghi\r"
+send ":e file-name-jkl\r"
+send ":e file-name-mno\r"
+send ":e file-name-pqr\r"
+send ":e file-name-stu\r"
+send ":e file-name-vwx\r"
+send ":e file-name-yza\r"
+send ":e file-name-bcd\r"
+send ":e file-name-efg\r"
+send ":e file-name-hij\r"
+
+send ":LustyJuggler\r"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "file-name-hij"
+}
+
+# Choose and open last entry
+send ";;"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "\"file-name-ghi\""
+}
+
+send ":LustyJuggler\r"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "file-name-hij"
+}
+
+# Choose and open last entry
+send ";;"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "\"file-name-jkl\""
+}
+
+send ":LustyJuggler\r"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "file-name-hij"
+}
+
+# Choose and open sixth entry
+send "hh"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "\"file-name-yza\""
+}
+
+send ":q\r"
+expect {
+  timeout {exit 1}
+  eof
+}
+exit 0
+

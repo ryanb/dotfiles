@@ -1,0 +1,35 @@
+spawn $env(VIM) -N --noplugin -u ../vimrc
+set timeout 3
+expect {
+  timeout {exit 1}
+  "VIM - Vi IMproved"
+}
+send ":e file-name-abc\r"
+send ":e file-name-def\r"
+send ":LustyJuggler\r"
+# Launching should not have caused a backtrace and "Press ENTER ..." message
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "file-name-abc"
+}
+
+# Choose and open second entry
+send "22"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "inside abc"
+}
+
+send ":q\r"
+expect {
+  timeout {exit 1}
+  eof
+}
+exit 0
+

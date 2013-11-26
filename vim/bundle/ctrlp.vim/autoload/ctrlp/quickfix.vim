@@ -10,11 +10,15 @@ if exists('g:loaded_ctrlp_quickfix') && g:loaded_ctrlp_quickfix
 en
 let g:loaded_ctrlp_quickfix = 1
 
-let s:var_qf = ['ctrlp#quickfix#init()', 'ctrlp#quickfix#accept', 'quickfix',
-	\ 'qfx', [1]]
-
-let g:ctrlp_ext_vars = exists('g:ctrlp_ext_vars') && !empty(g:ctrlp_ext_vars)
-	\ ? add(g:ctrlp_ext_vars, s:var_qf) : [s:var_qf]
+cal add(g:ctrlp_ext_vars, {
+	\ 'init': 'ctrlp#quickfix#init()',
+	\ 'accept': 'ctrlp#quickfix#accept',
+	\ 'lname': 'quickfix',
+	\ 'sname': 'qfx',
+	\ 'type': 'line',
+	\ 'sort': 0,
+	\ 'nolim': 1,
+	\ })
 
 let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
 
@@ -22,29 +26,29 @@ fu! s:lineout(dict)
 	retu printf('%s|%d:%d| %s', bufname(a:dict['bufnr']), a:dict['lnum'],
 		\ a:dict['col'], matchstr(a:dict['text'], '\s*\zs.*\S'))
 endf
+" Utilities {{{1
+fu! s:syntax()
+	if !ctrlp#nosy()
+		cal ctrlp#hicheck('CtrlPqfLineCol', 'Search')
+		sy match CtrlPqfLineCol '|\zs\d\+:\d\+\ze|'
+	en
+endf
 " Public {{{1
 fu! ctrlp#quickfix#init()
-	let g:ctrlp_nolimit = 1
-	sy match CtrlPqfLineCol '|\zs\d\+:\d\+\ze|'
-	hi def link CtrlPqfLineCol Search
+	cal s:syntax()
 	retu map(getqflist(), 's:lineout(v:val)')
 endf
 
 fu! ctrlp#quickfix#accept(mode, str)
-	let items = matchlist(a:str, '^\([^|]\+\ze\)|\(\d\+\):\(\d\+\)|')
-	let [md, filpath] = [a:mode, fnamemodify(items[1], ':p')]
-	if empty(filpath) | retu | en
-	cal ctrlp#exit()
-	let cmd = md == 't' ? 'tabe' : md == 'h' ? 'new' : md == 'v' ? 'vne'
-		\ : ctrlp#normcmd('e')
-	let cmd = cmd == 'e' && &modified ? 'hid e' : cmd
-	try
-		exe cmd.' '.ctrlp#fnesc(filpath)
-	cat
-		cal ctrlp#msg("Invalid command or argument.")
-	fina
-		cal cursor(items[2], items[3]) | sil! norm! zOzz
-	endt
+	let vals = matchlist(a:str, '^\([^|]\+\ze\)|\(\d\+\):\(\d\+\)|')
+	if vals == [] || vals[1] == '' | retu | en
+	cal ctrlp#acceptfile(a:mode, vals[1])
+	let cur_pos = getpos('.')[1:2]
+	if cur_pos != [1, 1] && cur_pos != map(vals[2:3], 'str2nr(v:val)')
+		mark '
+	en
+	cal cursor(vals[2], vals[3])
+	sil! norm! zvzz
 endf
 
 fu! ctrlp#quickfix#id()

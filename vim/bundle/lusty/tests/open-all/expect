@@ -1,0 +1,37 @@
+spawn $env(VIM) -N --noplugin -u ../vimrc
+set timeout 3
+expect {
+  timeout {exit 1}
+  "VIM - Vi IMproved"
+}
+
+send ":LustyFilesystemExplorer\r"
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  ">>"  # Success
+}
+
+
+send "file"
+# Ctrl-A
+send \001
+expect {
+  "Press ENTER"  {exit 1}
+  "Error"  {exit 1}
+  "Warning"  {exit 1}
+  timeout {exit 1}
+  "opened"  # Success
+}
+
+# ESC
+send \033
+send ":qa!\r"
+expect {
+  timeout {exit 1}
+  eof
+}
+exit 0
+

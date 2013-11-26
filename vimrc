@@ -4,7 +4,7 @@ set nocompatible
 
 " Load pathogen for managing all those pesky plugins.
 " Load this first so ftdetect in bundles works properly.
-call pathogen#infect()
+execute pathogen#infect()
 
 runtime macros/matchit.vim
 

@@ -1,6 +1,0 @@
-all_files_in_repos :=          Makefile autoload/textobj/user.vim doc/textobj-user.txt test/plugin.expected test/plugin.input test/script-local.expected test/script-local.input
-current_branch := master
-origin_name := origin
-origin_uri := ../.
-repos_name := vim-textobj-user
-version := 0.3.10

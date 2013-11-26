@@ -1,0 +1,42 @@
+LustyExplorer is a fast and responsive way to manage files and buffers in Vim.  It includes a filesystem explorer, a buffer switcher, and a buffer grep for searching through and switching between files and buffers quickly, all through a mostly common interface.
+
+Short demo videos folks have made:
+
+      http://www.youtube.com/watch?v=dLMKVYqdarY
+      http://www.youtube.com/watch?v=39A-VoPnsI0
+
+      Older stuff (pre v2.0 - we now use fuzzy matching instead of tab completion):
+      http://sjbach.com/lusty-explorer-animated.gif
+      http://sjbach.com/lusty-explorer-annotated.png
+
+Instructions:
+
+      :LustyFilesystemExplorer
+      :LustyFilesystemExplorerFromHere
+      :LustyBufferExplorer
+      :LustyBufferGrep (for searching through all open buffers)
+
+      <Leader>lf  - Opens filesystem explorer.
+      <Leader>lr  - Opens filesystem explorer at the directory of the current file.
+      <Leader>lb  - Opens buffer explorer.
+      <Leader>lg  - Opens buffer grep.
+
+When one of the explorers is launched, a new window appears at bottom presenting a table of files/dirs or buffers, and in the status bar is a prompt:
+
+      >>
+
+As you type a name, the table updates using a fuzzy matching algorithm (or regex matching in the case of grep).  Press enter to open the selected match, <C-n>/<C-p> to select the next/previous match, or press <ESC> or <Ctrl-c> to cancel.
+
+See the "Usage:" section of the script for other tricks and features.
+
+If you like LustyExplorer, you may also like LustyJuggler: vimscript #2050
+
+Development repository: http://github.com/sjbach/lusty
+
+install details
+Copy the script into your $HOME/.vim/plugin directory so that it will be sourced on startup.
+
+NOTE: This plugin requires Vim be compiled with Ruby interpretation.  If you do not currently have this functionality, see the "Install Details:" section of the script for directions to add it.
+
+If adding Ruby is an issue for you, you may want to try LycosaExplorer, a Python port of this plugin: vimscript #3659
+

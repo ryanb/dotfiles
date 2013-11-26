@@ -1,0 +1,13 @@
+These are a set of plugins for Vim.  You can download released versions here:
+
+  lusty-explorer.vim: http://www.vim.org/scripts/script.php?script_id=1890
+  lusty-juggler.vim:  http://www.vim.org/scripts/script.php?script_id=2050
+
+The Emacs version of this plugin used to be here, too, but now it has its own
+repository:
+
+  http://github.com/sjbach/lusty-emacs
+
+NOTE: lusty-explorer.vim and lusty-juggler.vim are generated files; modify
+src/ if you'd like to submit a patch.
+

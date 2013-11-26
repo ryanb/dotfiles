@@ -1,0 +1,25 @@
+spawn $env(VIEW) -N --noplugin -u ../vimrc
+set timeout 3
+expect {
+  timeout {exit 1}
+  "VIM - Vi IMproved"
+}
+send ":LustyBufferExplorer\r"
+# Launching should not have caused a backtrace and "Press ENTER ..." message
+expect {
+  "Changing a readonly file" {exit 1}
+  "Error detected" {exit 1}
+  "Press ENTER"  {exit 1}
+  timeout {exit 1}
+  ">>"
+}
+
+# ESC
+send \033
+send ":q\r"
+expect {
+  timeout {exit 1}
+  eof
+}
+exit 0
+
