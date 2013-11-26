@@ -6,6 +6,7 @@ set nocompatible
 execute pathogen#infect()
 
 set autoindent
+set autoread
 set dir=/tmp
 set expandtab
 set hidden
@@ -18,7 +19,8 @@ set wildmode=list:longest
 
 let mapleader=","
 
-noremap <Leader>a :LustyBufferExplorer<CR>
+noremap <Leader>b :LustyBufferExplorer<CR>
+noremap <Leader>f :LustyFilesystemExplorer<CR>
 noremap <Leader>r :LustyFilesystemExplorerFromHere<CR>
 noremap <Leader>t :CtrlP<CR>
 
@@ -28,11 +30,15 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 
+" Reselect the visual area when changing indenting in visual mode.
+vnoremap < <gv
+vnoremap > >gv
+
 
 " ==============================================================================
 " Filetype settings
 
-filetype on
+filetype plugin on
 
 augroup vimrcCommands
 autocmd!
