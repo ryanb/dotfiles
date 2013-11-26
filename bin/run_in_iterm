@@ -1,3 +1,5 @@
+#!/usr/bin/osascript
+
 on run argv
   tell application "iTerm"
     set myCommand to item 1 of argv
