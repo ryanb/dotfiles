@@ -58,6 +58,9 @@ filetype plugin on
 augroup vimrcCommands
 autocmd!
 
+" Without this, .md files are treated as Modula-2!
+autocmd BufRead,BufNewFile *.md  set filetype=markdown
+
 autocmd FileType ruby  setlocal ts=2 sw=2 sts=2
 autocmd FileType eruby setlocal ts=2 sw=2 sts=2
 autocmd FileType vim   setlocal ts=2 sw=2 sts=2
