@@ -75,6 +75,7 @@ RPROMPT='%{$fg[yellow]%}$(ruby_version)%{$reset_color%}'
 alias be="bundle exec"
 alias gs="git status"
 alias gf="git fetch"
+alias gcl="git clone"
 alias gco="git checkout"
 alias gm="git merge --no-ff"
 alias gff="git merge --ff-only"
