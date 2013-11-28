@@ -1,0 +1,18 @@
+*redub.txt* *redub* *redub.vim*
+
+==============================================================================
+REDUB
+
+Vim plugin for moving and renaming files.
+
+This deals nicely with updating any buffers open on files being moved.
+
+                                                                     *:Redub*
+:Redub {path}
+                  Moves the file in the current buffer to the given path.
+
+:Redub {source-path} {destination-path}
+                  Moves an arbitrary file to a new path.
+
+==============================================================================
+ vim:ft=help:tw=78:et:ts=2:sw=2:sts=2:norl
