@@ -12,6 +12,8 @@ set dir=/tmp
 set expandtab
 set hidden
 set incsearch
+set laststatus=2
+set statusline=%f\ %h%m%r%=%l/%L
 set wildmode=list:longest
 
 syntax enable
