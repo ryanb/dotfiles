@@ -80,6 +80,7 @@ alias gco="git checkout"
 alias gm="git merge --no-ff"
 alias gff="git merge --ff-only"
 alias gp="git push"
+alias gb="hub browse"
 alias cdr='cd $(git rev-parse --show-cdup)'
 
 # Quick way to rebuild the Launch Services database and get rid
