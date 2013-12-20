@@ -20,6 +20,12 @@ Once help tags have been generated, you can view the manual with
 `:help redub`.
 
 
+## Status [![Build Status](https://travis-ci.org/notahat/vim-redub.png)](https://travis-ci.org/notahat/vim-redub)
+
+In active use on Vim 7.4. I'm sure there are loads of entertaining edge cases,
+but it works well for day-to-day use.
+
+
 ## Contributing
 
 1. Fork it

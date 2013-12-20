@@ -14,11 +14,11 @@ command! -nargs=* -complete=file Redub call s:redub(<f-args>)
 function! s:expand_new_name(old_name, new_name)
   if stridx(a:new_name, "/") == -1
     " If the new name isn't a full path, use the old directory.
-    let old_dir = fnamemodify(a:old_name, ":h")
-    let new_name = l:old_dir . "/" . a:new_name
+    let l:old_dir = fnamemodify(a:old_name, ":h")
+    let l:new_name = l:old_dir . "/" . a:new_name
   else
     " If the new name does contain a path, expand the path.
-    let new_name = a:new_name
+    let l:new_name = a:new_name
   endif
 
   return l:new_name
@@ -28,8 +28,8 @@ function! s:redub_buffer(new_name)
   " Make sure errors halt execution.
   try
     " Get the name of the buffer, and figure out the new name.
-    let old_name = bufname("%")
-    let new_name = s:expand_new_name(l:old_name, a:new_name)
+    let l:old_name = bufname("%")
+    let l:new_name = s:expand_new_name(l:old_name, a:new_name)
 
     " Change the name of the current buffer.
     execute "silent keepalt file " . fnameescape(l:new_name)
@@ -44,18 +44,18 @@ endfunction
 " with the file.
 function! s:redub_file(old_name, new_name)
   " Expand the fie names to full paths.
-  let old_name = fnamemodify(a:old_name, ":p")
+  let l:old_name = fnamemodify(a:old_name, ":p")
 
   " See if we've got a buffer for the file.
-  let buffer_number = bufnr(l:old_name)
+  let l:buffer_number = bufnr(l:old_name)
 
   if l:buffer_number == -1
     " There's no buffer open for the file, so just move it in the file system.
-    let new_name = s:expand_new_name(l:old_name, a:new_name)
+    let l:new_name = s:expand_new_name(l:old_name, a:new_name)
     call rename(l:old_name, l:new_name)
   else
     " Switch to the file's buffer, rename it, then switch back.
-    let old_buffer_number = bufnr("%")
+    let l:old_buffer_number = bufnr("%")
     exec "silent keepalt buffer " . l:buffer_number
     call s:redub_buffer(a:new_name)
     exec "silent keepalt buffer " . l:old_buffer_number

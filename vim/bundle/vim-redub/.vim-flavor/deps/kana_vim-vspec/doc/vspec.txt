@@ -1,0 +1,452 @@
+*vspec.txt*	Testing framework for Vim script
+
+Version 1.1.2
+Script ID: 3012
+Copyright (C) 2009-2013 Kana Natsuno <http://whileimautomaton.net/>
+License: MIT license  {{{
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+}}}
+
+CONTENTS					*vspec-contents*
+
+Introduction            |vspec-introduction|
+Interface               |vspec-interface|
+  External Commands       |vspec-external-commands|
+  Commands                |vspec-commands|
+  Functions               |vspec-functions|
+Examples                |vspec-examples|
+Bugs                    |vspec-bugs|
+Changelog               |vspec-changelog|
+
+
+
+
+==============================================================================
+INTRODUCTION					*vspec-introduction*
+
+*vspec* is a Vim library plugin to test Vim script.
+
+
+Requirements:
+- Vim 7.3 or later
+
+Latest version:
+http://github.com/kana/vim-vspec
+
+Document in HTML format:
+http://vim-doc.heroku.com/view?https://raw.github.com/kana/vim-vspec/master/doc/vspec.txt
+
+
+
+
+==============================================================================
+INTERFACE					*vspec-interface*
+
+------------------------------------------------------------------------------
+EXTERNAL COMMANDS				*vspec-external-commands*
+
+						*bin/vspec*
+bin/vspec [{non-standard-runtimepath} ...] {input-script}
+			Utility command to test Vim script with vspec.
+
+			{input-script} is the path to a file which is a test
+			script written with vspec.
+
+			{non-standard-runtimepath} is the path to a directory
+			to use as a part of 'runtimepath' while executing
+			{input-script}.
+
+			Examples:
+>
+				$ ./bin/vspec . test/context.input
+<
+
+------------------------------------------------------------------------------
+COMMANDS					*vspec-commands*
+
+:describe {subject}				*:describe*
+:end
+			Define a set of examples about {subject}.  {subject}
+			is a string to describe the subject of the examples.
+
+:it {example}					*:it*
+:end
+			Define an example.  {example} is a string to describe
+			the example.  An |:it| block must be written in
+			a |:describe| block.
+
+			Examples:
+>
+				describe 'comparison operators'
+				  it 'should match case-sensitively'
+				    Expect 'abc' =~# 'a'
+				    Expect 'abc' !~# 'A'
+				  end
+				end
+<
+:Expect {actual} {matcher} {expected}		*:Expect*
+			Describe an expectation - test whether {actual} value
+			matches with {expected} value, in a sense of
+			{matcher}.
+
+			{actual} and {expected} is an arbitrary Vim script
+			|expression| with the following limitation:
+
+			- Comparing operators, such as ==, !~, etc, cannot be
+			  used in {actual} and {expected}.  See |expr4| for
+			  the list of comparing operators in Vim script.
+
+			{matcher} is a comparing operator, such as ==, !~,
+			etc, which is described in |expr4|.
+
+			You have to insert one or more spaces between
+			{actual}, {matcher} and {expected}.
+
+			Examples:
+>
+				:Expect 'abc' =~# 'A'
+				" ==> good
+				:Expect 'abc' =~? 'A'
+				" ==> bad
+
+				:Expect {} == {}
+				" ==> good
+				:Expect {} isnot {}
+				" ==> bad
+<
+:Expect {actual} {custom-matcher} [{arg}, ...]	*vspec-custom-matcher*
+			If {custom-matcher} starts with "to", :Expect acts in
+			another mode.  {custom-matcher} is treated as an alias
+			of a function which is called "custom matcher".
+
+			The custom matcher will be called with {actual} and
+			{arg}s.  It must return true if {actual} value is
+			valid, otherwise it must return false.
+			See also |vspec-custom-matcher-examples| and
+			|vspec#customize_matcher()|.
+
+					    *vspec-predefined-custom-matchers*
+			The following custom matcheres are predefined:
+
+			"to_be_true"
+				Return true if {actual} value is true.
+			"to_be_false"
+				Return true if {actual} value is false.
+			"toBeTrue"
+				Same as "to_be_true".  Deprecated.
+			"toBeFalse"
+				Same as "to_be_false".  Deprecated.
+
+:Expect {actual} not {matcher} {expected}	*:Expect-not*
+:Expect {actual} not {custom-matcher} [{arg}, ...]
+			Like |:Expect|, but test whether {actual} value does
+			NOT match with {expected} value, in a sense of
+			{matcher} or {custom-matcher}.
+
+:before						*:before*
+:end
+:after						*:after*
+:end
+			Define a code block which is run before/after each
+			example defined by |:it|.
+
+			Note that:
+			- Only one :before/:after block can be written in each
+			  |:describe| block.
+			- :before/:after blocks cannot be defined for
+			  |:describe| blocks.
+			- :before/:after blocks cannot be defined for
+			  a specific |:it| block.
+			These limitations might be resolved later.
+
+:ResetContext					*:ResetContext*
+			Reset the current context of a script with one saved
+			by |:SaveContext|.
+
+			To use this feature, you have to tell "scope" hint to
+			vspec with |vspec#hint()|.
+
+:SaveContext					*:SaveContext*
+			Save the current context of a script, i.e., an
+			snapshot of script-local variables defined in the
+			script.  See also |:ResetContext|.
+
+			:SaveContext is automatically executed whenever
+			|vspec#hint()| is called with "scope" hint.
+
+			To use this feature, you have to tell "scope" hint to
+			vspec with |vspec#hint()|.
+
+:TODO						*:TODO*
+			Represent that the current example is not written yet.
+			The current example will be always failed.
+
+:SKIP						*:SKIP*
+			Skip the current example.
+			The current example will be always succeeded.
+
+
+------------------------------------------------------------------------------
+FUNCTIONS					*vspec-functions*
+
+Call(...)					*Call()*
+			Alias of |vspec#call()|.
+
+Ref(...)					*Ref()*
+			Alias of |vspec#ref()|.
+
+Set(...)					*Set()*
+			Alias of |vspec#set()|.
+
+vspec#call({funcname}, [{arg}, ...])		*vspec#call()*
+			Like |call()|, but vspec#call() can call
+			a script-local function defined in a script to be
+			tested.
+
+			{funcname} is a string which represents the name of
+			a function.  If {funcname} starts with 's:', it calls
+			a script-local function defined in a script to be
+			tested.  To use this feature, you have to tell
+			"sid" hint to vspec with |vspec#hint()|.
+
+
+			{arg} is an arbitrary value which is given to the
+			function corresponding to o{funcname}.
+
+vspec#customize_matcher({alias}, {matcher})	*vspec#customize_matcher()*
+			Register {matcher} as a |vspec-custom-matcher| with
+			a given {alias}.  {alias} should be snake_case.
+			See also |vspec-custom-matcher-examples|.
+
+			{matcher} is a dictionary with the following items:
+
+			"match" (required)
+				A |Funcref| to determine whether {actual}
+				value matches to {expected} value.  It takes
+				1 or more arguments.  The first argument is
+				{actual} value given to |:Expect|, and the
+				rest of arguments are arbitrary {expected}
+				values.  It returns true if {actual} value is
+				matched to {expected} value, or false
+				otherwise.
+
+			"failure_message_for_should" (optional)
+				A |Funcref| to generate user friendly message
+				for failed match with |:Expect|.  It takes
+				arguments the same as "match", and it returns
+				a string or a list of strings to describe
+				a failure.
+
+			"failure_message_for_should_not" (optional)
+				Like "failure_message_for_should", but it is
+				used to generate failure message for
+				|:Expect-not|.
+
+vspec#customize_matcher({alias}, {function})   *vspec#customize_matcher()-old*
+			Deprecated.  Use |vspec#customize_matcher()| instead.
+			This style is remiained for backward compatibility.
+
+vspec#hint({info})				*vspec#hint()*
+			Tell vspec "hint" information to use useful API to
+			test a Vim script.
+
+			{info} is a dictionary.  Each key is a string.  The
+			detail of this dictionary is as follows:
+
+			"sid"		(optional)
+				A string which is evaluated to <SID> of
+				a script to be tested.
+
+				If this value is given, you can use
+				|vspec#call()|.
+
+			"scope"		(optional)
+				A string which is evaluated to the dictionary
+				corresponding to s: (= the scope of
+				script-local variables) for a script.
+
+				If this value is given, you can use
+				|vspec#ref()| and |vspec#set()|.
+
+vspec#ref({varname})				*vspec#ref()*
+			Return the value of a variable.
+
+			{varname} is a string which represents the name of
+			a script-local variable defined in a script to be
+			tested.  The name must start with 's:'.  To use this
+			feature, you have to tell vspec to "scope" hint with
+			|vspec#hint()|.
+
+vspec#set({varname}, {value})			*vspec#set()*
+			Assign {value} to a variable.  See |vspec#ref()| for
+			the details of {varname}.
+
+vspec#test({specfile-path})			*vspec#test()*
+			|:source| {specfile-path}, test examples described in
+			the file, then output results of the exmaples.
+
+			Output format is Test Anything Protocol version 12.
+			See also http://testanything.org/ for the details.
+
+
+
+
+==============================================================================
+EXAMPLES					*vspec-examples*
+
+See also files in the "t" directory in a source tree of this plugin:
+https://github.com/kana/vim-vspec/tree/master/t
+
+
+CUSTOM MATCHERS				       *vspec-custom-matcher-examples*
+
+(a) A simple matcher which checks only an actual value:
+>
+	function! ToBeTrue(actual_value)
+	  return (type(a:actual_value) == type(0)
+	  \       ? a:actual_value
+	  \       : !!0)
+	endfunction
+	call vspec#customize_matcher(
+	\   'to_be_true',
+	\   function('ToBeTrue')
+	\ )
+
+	:Expect 123 to_be_true
+	" ===> good
+	:Expect [123] to_be_true
+	" ===> bad
+<
+
+(b) A matcher which takes arguments about an expected value:
+>
+	function! ToBeBetween(actual, expected_min, expected_max)
+	  return a:expected_min <= a:actual && a:actual <= a:expected_max
+	endfunction
+	call vspec#customize_matcher(
+	\   'to_be_between',
+	\   function('ToBeBetween')
+	\ )
+
+	:Expect 15 to_be_between 10, 20
+	" ===> good
+	:Expect 42 to_be_between 10, 20
+	" ===> bad
+<
+
+
+
+
+==============================================================================
+BUGS						*vspec-bugs*
+
+KNOWN ISSUES ~
+
+- Currently there is no known issue.
+
+
+PLANNED FEATURES ~
+
+- Currently there is no planned feature.
+
+
+ETC ~
+
+- Welcome your feedback at: http://github.com/kana/vim-vspec/issues
+
+
+
+
+==============================================================================
+CHANGELOG					*vspec-changelog*
+
+1.1.2	2013-06-11T22:30:06+09:00		*vspec-changelog-1.1.2*
+	- Fix |bin/vspec| to output lines with LF, not CR LF.
+	- Add |vspec-custom-matcher-examples|.
+
+1.1.1	2013-06-10T22:30:31+09:00		*vspec-changelog-1.1.1*
+	- Fix |bin/vspec| to work properly when
+	  - No {non-standard-runtimepath} is given.
+	  - Any {non-standard-runtimepath} contains spaces.
+
+1.1.0	2012-10-29T22:19:45+09:00		*vspec-changelog-1.1.0*
+	- |:Expect-not|:
+	  - Show proper messages for failed expectations.
+	- |vspec-custom-matcher|:
+	  - Change the naming guideline.
+	    - Use snake_case instead of camelCase.
+	    - Add new aliases for predefined custom matcheres.
+	    - Old aliases are still supported, but deprecated.
+	  - Support custom failure message.
+	    - See |vspec#customize_matcher()| for the details.
+	    - It was not possible to show meaningful messages for failed
+	      expectations using custom mathcers with old versions.
+	    - Change the syntax to register new matcher.
+	    - Old syntax is still supported, but deprecated.
+	  - Fix to properly support custom matchers with 2 or more arguments.
+
+1.0.2	2012-02-12T21:02:50+09:00		*vspec-changelog-1.0.2*
+	- |bin/vspec|:
+	  - Remove user's |after-directory| from 'runtimepath' to avoid
+	    unexpected interference to run tests.
+	  - Remove the output adjustment for the current directory.
+	- |:Expect|: Fix to parse expressions including '"' and '|' correctly.
+	- Add missing syntax highlighting for |:SKIP| and |:TODO|.
+
+1.0.1	2012-02-10T23:00:35+09:00		*vspec-changelog-1.0.1*
+	- Fix not to install test scripts.
+
+1.0.0	2012-01-31T00:32:15+09:00		*vspec-changelog-1.0.0*
+	- Completely rewritten.  No compatibility with old versions.
+	  - Output format is changed to Test Anything Protocol version 12.
+	  - The style to write examples is changed.
+	    See also |vspec-examples| for the details.
+	  - Change the order of arguments to |bin/vspec|.
+	  - Change the syntax for |vspec-custom-matcher| to be extensible and
+	    readable.
+	  - Add |:Expect-not| for counter examples.
+	  - Add |:TODO| for incomplete examples.
+	  - Add |:SKIP| for environment-specific examples.
+	  - Add |:before| blocks and |:after| blocks.
+
+0.0.4	2010-04-04T20:59:35+09:00		*vspec-changelog-0.0.4*
+	- Add additional syntax file for |vspec-commands|.
+	- |:Should|: Provide expression completion for convenience.
+	- Improve minor stuffs.
+
+0.0.3	2010-03-12T21:43:12+09:00		*vspec-changelog-0.0.3*
+	- Add test driver |bin/vspec|.
+
+0.0.2	2010-02-20T23:11:03+09:00		*vspec-changelog-0.0.2*
+	- Add |vspec-custom-matcher|.
+	- Fix typos in the document.
+
+0.0.1	2009-11-18T20:44:13+09:00		*vspec-changelog-0.0.1*
+	- Test driver: Fix not to read/write viminfo file for reproducibility
+	  and to avoid overwrite user's viminfo unexpectedly.
+
+0.0.0	2009-10-12T10:51:26+09:00		*vspec-changelog-0.0.0*
+	- Initial version.
+
+
+
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:fen:fdl=0:fdm=marker:
