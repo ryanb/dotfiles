@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pbpaste | pygmentize -f rtf -O 'fontface=Inconsolata' -l ruby | sed "s/\\\\f0/\\\\f0\\\\fs48/g" | pbcopy
