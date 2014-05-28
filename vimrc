@@ -62,9 +62,12 @@ autocmd!
 " Without this, .md files are treated as Modula-2!
 autocmd BufRead,BufNewFile *.md  set filetype=markdown
 
-autocmd FileType ruby  setlocal ts=2 sw=2 sts=2
-autocmd FileType eruby setlocal ts=2 sw=2 sts=2
-autocmd FileType vim   setlocal ts=2 sw=2 sts=2
+autocmd FileType ruby     setlocal ts=2 sw=2 sts=2
+autocmd FileType eruby    setlocal ts=2 sw=2 sts=2
+autocmd FileType vim      setlocal ts=2 sw=2 sts=2
+autocmd FileType markdown setlocal ts=4 sw=4 sts=4 linebreak
+autocmd FileType puppet   setlocal ts=2 sw=2 sts=2
+autocmd FileType html     setlocal ts=2 sw=2 sts=2
 
 " Remove whitespace at the end of lines on save.
 " See http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
