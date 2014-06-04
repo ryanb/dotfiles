@@ -4,6 +4,7 @@ require 'erb'
 desc "install the dot files into user's home directory"
 task :install do
   install_config_files
+  install_fonts
   configure_macvim
   configure_git
   configure_osx
@@ -54,6 +55,12 @@ def link_file(file)
     puts "linking ~/.#{file}"
     system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
   end
+end
+
+def install_fonts
+  system("/bin/sh", "-c", <<-EOF)
+    cp fonts/Inconsolata.otf $HOME/Library/Fonts
+  EOF
 end
 
 # Set the MacVIM window borders to look like the Terminal.app ones.
