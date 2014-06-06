@@ -116,5 +116,13 @@ def configure_osx
     defaults write com.apple.dock autohide -boolean YES
 
     killall Dock
+
+    # Set up menu bar extras.
+    defaults write com.apple.systemuiserver menuExtras -array \
+      "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+      "/System/Library/CoreServices/Menu Extras/Clock.menu"
+
+    killall SystemUIServer
+
   EOF
 end
