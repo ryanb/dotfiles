@@ -40,11 +40,26 @@ noremap <Leader>sn :call RunNearestSpec()<CR>
 
 noremap <Leader>ah :Tab /=><CR>
 
-" Use CTRL-direction to navigation windows.
-nnoremap <C-H> <C-W>h
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
+" Use CTRL-direction to navigate windows or open splits.
+" Via http://www.reddit.com/r/vim/comments/29rne6/what_are_your_keybinding_for_tabnew_split_and/cinusc5
+
+function! MoveOrCreateWindow(key)
+  let t:curwin = winnr()
+  exec "wincmd " . a:key
+  if (t:curwin == winnr())
+    if (match(a:key, '[jk]'))
+      wincmd v
+    else
+      wincmd s
+    endif
+    exec "wincmd " . a:key
+  endif
+endfunction
+
+nnoremap <silent> <C-h> :call MoveOrCreateWindow('h')<cr>
+nnoremap <silent> <C-j> :call MoveOrCreateWindow('j')<cr>
+nnoremap <silent> <C-k> :call MoveOrCreateWindow('k')<cr>
+nnoremap <silent> <C-l> :call MoveOrCreateWindow('l')<cr>
 
 " Reselect the visual area when changing indenting in visual mode.
 vnoremap < <gv
@@ -86,6 +101,9 @@ if has("gui_macvim")
   colorscheme grb256
   set gfn=Inconsolata:h14
   set linespace=1
+
+  " Make the statusline readable.
+  highlight StatusLineNC guibg=#222222 guifg=#666666
 
   " Hide the scrollbars.
   set guioptions-=L
