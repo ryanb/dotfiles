@@ -68,7 +68,7 @@ function parse_git_dirty () {
 
 setopt prompt_subst
 PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
-RPROMPT='%{$fg[yellow]%}$(ruby_version)%{$reset_color%}'
+# RPROMPT='%{$fg[yellow]%}$(ruby_version)%{$reset_color%}'
 
 # Aliases
 
@@ -80,7 +80,7 @@ alias gco="git checkout"
 alias gm="git merge --no-ff"
 alias gff="git merge --ff-only"
 alias gp="git push"
-alias gb="hub browse"
+alias gb="gh browse"
 alias cdr='cd $(git rev-parse --show-cdup)'
 
 # Quick way to rebuild the Launch Services database and get rid
@@ -95,7 +95,6 @@ export EDITOR=/usr/bin/vim
 
 export CLICOLOR=1                                         # Make ls colour its output.
 export LESS=-R                                            # Make less support ANSI colour sequences.
-export ACK_OPTIONS="--known-types --nosql --type-set cucumber=.feature --type-set sass=.sass" # Make ack ignore sql dumps, and search cucumber features.
 
 export RAILS_CACHE_CLASSES=true
 
