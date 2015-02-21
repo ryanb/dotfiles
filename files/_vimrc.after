@@ -2,6 +2,7 @@ set columns=150
 set wildignore+=downloads,tmp,log,download
 set number
 set encoding=utf-8
+set background=dark
 colorscheme solarized
 "set clipboard=unnamed
 
