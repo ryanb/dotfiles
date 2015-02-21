@@ -103,6 +103,10 @@ def install_vim_plugins
     system %Q{git clone https://github.com/vim-scripts/vrackets "#{File.join(dir, 'vrackets')}"}
     system %Q{git clone https://github.com/vim-scripts/L9.git "#{File.join(dir, 'L9')}"}
     system %Q{git clone https://github.com/vim-scripts/FuzzyFinder.git "#{File.join(dir, 'FuzzyFinder')}"}
+    system %Q{git clone https://github.com/mattn/emmet-vim.git "#{File.join(dir, 'emmet-vim')}"}
+    system %Q{git clone https://github.com/digitaltoad/vim-jade.git "#{File.join(dir, 'vim-jade')}"}
+    system %Q{git clone https://github.com/jeffkreeftmeijer/vim-numbertoggle.git "#{File.join(dir, 'vim-numbertoggle')}"}
+    system %Q{git clone https://github.com/terryma/vim-smooth-scroll.git "#{File.join(dir, 'vim-smooth-scroll')}"}
   when 'q'
     exit
   else
