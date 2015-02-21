@@ -2,6 +2,18 @@ set columns=150
 set wildignore+=downloads,tmp,log,download
 set number
 set encoding=utf-8
+colorscheme solarized
+"set clipboard=unnamed
+
+set nobackup       " no backup files
+set nowritebackup  " only in case you don't want a backup file while editing
+set noswapfile     " no swap files
+
+" vim speedup
+set synmaxcol=300
+set ttyfast
+set ttyscroll=3
+set lazyredraw
 
 " syntastic config
 let g:syntastic_enable_signs=1
@@ -48,8 +60,21 @@ nnoremap <leader>w <C-w>v<C-w>l
 
 map <leader>r :NERDTreeFind<CR>
 
+" next quickfix
+noremap <leader>n :cn<CR>zv
+
 " remove unwanted whitespaces in empty lines
-map <leader>cef :execute "%s/\\s\\+$//"<CR>
+map <leader>cef :execute "%s/\\s\\+$//e"<CR>
+
+" ctrl + h/l in insert mode
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
+" instead of CTRL-D and CTRL-U
+"noremap <C-j> <C-d>
+"noremap <C-k> <C-u>
+noremap <silent> <C-k> :call smooth_scroll#up(&scroll, 0, 3)<CR>
+noremap <silent> <C-j> :call smooth_scroll#down(&scroll, 0, 3)<CR>
 
 " VCSCommand related
 let VCSCommandMapPrefix = "<leader>v"
