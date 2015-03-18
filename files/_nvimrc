@@ -1,0 +1,201 @@
+set nocompatible
+filetype off
+set rtp+=~/.nvim/
+set rtp+=~/.nvim/bundle/vundle/
+call vundle#rc('~/.nvim/bundle')
+
+Plugin 'gmarik/vundle'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+Plugin 'Lokaltog/vim-easymotion'
+"Plugin 'garbas/vim-snipmate'
+"Plugin 'honza/vim-snippets'
+Plugin 'ervandew/supertab'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdtree'
+"Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tomtom/tlib_vim'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'pangloss/vim-javascript'
+Plugin 'slim-template/vim-slim'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-markdown'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
+Plugin 'rgarver/Kwbd.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'majutsushi/tagbar'
+Plugin 'mattn/emmet-vim'
+Plugin 'thinca/vim-fontzoom'
+Plugin 'vim-scripts/vcscommand.vim'
+Plugin 'jeffkreeftmeijer/vim-numbertoggle'
+Plugin 'terryma/vim-smooth-scroll'
+Plugin 'scrooloose/nerdcommenter'
+
+" Themes
+Plugin 'altercation/vim-colors-solarized'
+
+filetype plugin indent on
+syntax on
+
+set hlsearch " Highlight searches
+set incsearch " Do incremental searching
+set expandtab
+set tabstop=2 shiftwidth=2 softtabstop=2
+set autoindent
+set history=200000
+set showcmd
+set wrap
+"set cmdheight=5
+"set scrolloff=10
+set wildignore+=*.png,*.jpg,*.gif,*.ai,*.jpeg,*.psd,*.swp,*.jar,*.zip,*.gem,.DS_Store,log/**,tmp/**,coverage/**,rdoc/**,output_*,*.xpi,doc/**
+set wildignore+=downloads,tmp,log,download,tags
+set wildmode=longest,list:longest
+set completeopt=menu,preview
+
+set nobackup       " no backup files
+set nowritebackup  " only in case you don't want a backup file while editing
+set noswapfile     " no swap files
+set background=dark
+set number
+
+" to allow changed buffers to be in the background
+set hidden
+
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+set nocompatible
+
+colorscheme solarized
+
+" set leader key
+let mapleader=" "
+
+" toggle line numbers absolute/relative
+let g:NumberToggleTrigger="<F9>"
+
+" syntastic config
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+
+" ctrlp config
+let g:ctrlp_switch_buffer=0
+let g:ctrlp_open_multi='vr'
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_bottom=0
+let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', 'file', 'coveragefile', 'dir' ]
+
+" nerdtree config
+let g:loaded_nerdtree_fs_menu=0
+let g:loaded_nerdree_buffer_fs_menu=0
+
+let g:nerdtree_tabs_open_on_gui_startup=0
+let g:nerdtree_tabs_open_on_console_startup=0
+
+" folding
+set foldmethod=indent
+"set foldmethod=syntax
+set nofoldenable
+set foldlevel=1
+
+" use the silver searcher instead of ack
+if executable('ag')
+  let g:ackprg='ag --vimgrep'
+endif
+
+" fancy symbols
+let g:Powerline_symbols = 'fancy'
+
+" jk triggers ESC in insert mode
+inoremap jk <ESC>
+" toggle nerd tree
+map <C-n> :NERDTreeToggle<CR>
+" open buffers
+map <C-d> :FufBuffer<CR>
+" ctrl p for last used files
+map <C-s> :CtrlPMRUFiles<CR>
+" open Ack
+map <C-f> :Ack ""<Left>
+" ctrl + h/l in insert mode
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+" instead of CTRL-D and CTRL-U
+"noremap <C-j> <C-d>
+"noremap <C-k> <C-u>
+noremap <silent> <C-k> :call smooth_scroll#up(&scroll, 0, 3)<CR>
+noremap <silent> <C-j> :call smooth_scroll#down(&scroll, 0, 3)<CR>
+
+" open tagbar
+map <leader>tb :TagbarToggle<CR>
+" toggle line wrapping
+map <leader>tw :set wrap!<cr>
+" split window
+nnoremap <leader>w <C-w>v<C-w>l
+" reveal in nerdtree
+map <leader>r :NERDTreeFind<CR>
+" next quickfix
+noremap <leader>n :cn<CR>zv
+" remove unwanted whitespaces in empty lines
+map <leader>cef :execute "%s/\\s\\+$//e"<CR>
+" close buffer
+map <leader>x :Kwbd<CR>
+" close buffer and window
+map <leader>xx :bd<CR>
+" close all open buffers
+map <leader>X :bufdo Kwbd<CR>
+" VCSCommand related
+let VCSCommandMapPrefix = "<leader>v"
+map <leader>va :VCSAnnotate<CR>
+map <leader>vl :VCSLog<CR>
+map <leader>vj :call RepoLog()<CR>
+map <leader>vd :call RepoDiff()<CR>
+map <leader>vv :call RepoShow()<CR>
+
+" to cycle through buffers and tabs
+"nmap <silent> ,. :bnext<CR>
+"nmap <silent> ,m :bprev<CR>
+"nmap <silent> ;' :tabnext<CR>
+"nmap <silent> ;l :tabprev<CR>
+
+
+function FindRev()
+  " TODO try to fix this
+  " execute "normal! ^/\\v([a-z0-9]+)((\\d)([a-z])[a-z0-9]+)\<CR>"
+  return expand("<cword>")
+endfunction
+
+function RepoLog()
+  let revision = FindRev()
+  execute "VCSLog -r " . revision
+endfunction
+
+function RepoDiff()
+  let revision = FindRev()
+  execute "normal! ^/\\v([a-z0-9]+)((\\d)([a-z])[a-z0-9]+)\<CR>"
+  " hash~1 is the git parent revision of hash
+  execute "VCSDiff " . expand("<cword>") . "~1 " . expand("<cword>")
+endfunction
+
+function RepoShow()
+  let revision = FindRev()
+  execute "rightbelow new"
+  execute "set buftype=nofile"
+  execute "set bufhidden=hide"
+  execute "setlocal noswapfile"
+  " read 'git show #rev'
+  execute "r !git show " . revision
+  " jump to first line again..
+  execute "1"
+endfunction
