@@ -162,6 +162,8 @@ map <leader>vl :VCSLog<CR>
 map <leader>vj :call RepoLog()<CR>
 map <leader>vd :call RepoDiff()<CR>
 map <leader>vv :call RepoShow()<CR>
+" toggle highlight search
+nnoremap <silent><expr> <Leader>hs (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
 " to cycle through buffers and tabs
 "nmap <silent> ,. :bnext<CR>
