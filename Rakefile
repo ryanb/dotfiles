@@ -10,8 +10,7 @@ task :install do
   install_oh_my_zsh
   switch_to_zsh
 
-  install_janus
-  install_vim_plugins
+  install_vundle
 
   Dotfiles.new.install
 end
@@ -22,13 +21,13 @@ end
 
 def prerequisites
   puts '-----------------------------------------------------------------------'
-  puts 'this will install oh-my-zsh, janus, a bunch of vim plugins'
+  puts 'this will install oh-my-zsh and a bunch of (neo)vim plugins'
   puts 'and some dotfiles'
   puts ''
   puts 'please make sure before continuing that the prerequisites are met'
   puts ' - git'
   puts ' - curl'
-  puts ' - vim (with ruby support)'
+  puts ' - neovim'
   puts ' - zsh'
   puts ' - rvm'
   puts ' - ctags'
@@ -76,40 +75,20 @@ def install_oh_my_zsh
   end
 end
 
-def install_janus
-  print "install janus? [ynq] "
-  case $stdin.gets.chomp
-  when 'y'
-    puts "installing janus"
-    system %Q{curl -Lo- https://bit.ly/janus-bootstrap | bash}
-  when 'q'
-    exit
+def install_vundle
+  if File.exist?(File.join(ENV['HOME'], ".nvim/bundle"))
+    puts "found ~/.bundle/vundle"
   else
-    puts "skipping janus"
-  end
-end
-
-def install_vim_plugins
-  print "install additional vim plugins (highly recommended)? [ynq] "
-  case $stdin.gets.chomp
-  when 'y'
-    puts "installing vim plugins"
-    dir = File.join(Dir.home, '.janus')
-    FileUtils.mkdir_p(dir)
-
-    puts "installing additional vim plugins"
-    system %Q{git clone https://github.com/vim-scripts/fontzoom.vim "#{File.join(dir, 'fontzoom.vim')}"}
-    system %Q{git clone https://github.com/vim-scripts/vcscommand.vim "#{File.join(dir, 'vcscommand.vim')}"}
-    system %Q{git clone https://github.com/vim-scripts/vrackets "#{File.join(dir, 'vrackets')}"}
-    system %Q{git clone https://github.com/vim-scripts/L9.git "#{File.join(dir, 'L9')}"}
-    system %Q{git clone https://github.com/vim-scripts/FuzzyFinder.git "#{File.join(dir, 'FuzzyFinder')}"}
-    system %Q{git clone https://github.com/mattn/emmet-vim.git "#{File.join(dir, 'emmet-vim')}"}
-    system %Q{git clone https://github.com/digitaltoad/vim-jade.git "#{File.join(dir, 'vim-jade')}"}
-    system %Q{git clone https://github.com/jeffkreeftmeijer/vim-numbertoggle.git "#{File.join(dir, 'vim-numbertoggle')}"}
-    system %Q{git clone https://github.com/terryma/vim-smooth-scroll.git "#{File.join(dir, 'vim-smooth-scroll')}"}
-  when 'q'
-    exit
-  else
-    puts "skipping vim plugins"
+    print "install vundle? [ynq] "
+    case $stdin.gets.chomp
+    when 'y'
+      puts "installing vundle"
+      system %Q{git clone https://github.com/gmarik/Vundle.vim.git "$HOME/.nvim/bundle/vundle"}
+      puts "Vundle installed! Please run :PluginInstall from inside neovim to install all the plugins."
+    when 'q'
+      exit
+    else
+      puts "skipping vundle"
+    end
   end
 end
