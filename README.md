@@ -17,7 +17,7 @@ after installing, open a new terminal window to see the effects.
 ## Features
 
 * oh-my-zsh
-* janus
+* vundle
 * some more useful vim plugins
 * my favourite vim mappings (mac & linux friendly)
 * additional 'pure' zsh theme from (https://github.com/sindresorhus/pure)
@@ -26,12 +26,4 @@ after installing, open a new terminal window to see the effects.
 
 ```terminal
 rake uninstall
-```
-
-to uninstall janus..
-
-```terminal
-cd ~/.vim
-find . -not -name \*.old -delete
-find . -name \*.old | while read file; do mv "$file" "${file%%.old}"; done
 ```
