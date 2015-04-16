@@ -147,8 +147,8 @@ map <C-s> :CtrlPMRUFiles<CR>
 " open Ack
 map <C-f> :Ack ""<Left>
 " ctrl + h/l in insert mode
-inoremap <C-h> <C-o>h
-inoremap <C-l> <C-o>l
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
 " instead of CTRL-D and CTRL-U
 "noremap <C-j> <C-d>
 "noremap <C-k> <C-u>
