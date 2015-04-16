@@ -7,6 +7,7 @@ desc "install the dot files into user's home directory"
 task :install do
   prerequisites
 
+  fix_terminfo
   install_oh_my_zsh
   switch_to_zsh
 
@@ -55,6 +56,21 @@ def switch_to_zsh
     else
       puts "skipping zsh"
     end
+  end
+end
+
+def fix_terminfo
+  # to learn more about the issue see here https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
+  print "fix terminfo (only mac osx)? [ynq] "
+  case $stdin.gets.chomp
+  when 'y'
+    puts "fixing terminfo"
+    system %Q{infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > ~/$TERM.ti}
+    system %Q{tic ~/$TERM.ti}
+  when 'q'
+    exit
+  else
+    puts "skipping terminfo fix"
   end
 end
 
