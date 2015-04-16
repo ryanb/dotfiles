@@ -1,55 +1,59 @@
 set nocompatible
 filetype off
 set rtp+=~/.nvim/
-set rtp+=~/.nvim/bundle/vundle/
-call vundle#rc('~/.nvim/bundle')
+set rtp+=~/.nvim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.nvim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-Plugin 'gmarik/vundle'
-Plugin 'L9'
-Plugin 'FuzzyFinder'
-Plugin 'Lokaltog/vim-easymotion'
-"Plugin 'garbas/vim-snipmate'
-"Plugin 'honza/vim-snippets'
-Plugin 'ervandew/supertab'
-Plugin 'kien/ctrlp.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'scrooloose/nerdtree'
-"Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tomtom/tlib_vim'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
-Plugin 'Lokaltog/vim-powerline'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'pangloss/vim-javascript'
-Plugin 'slim-template/vim-slim'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-markdown'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-Plugin 'rgarver/Kwbd.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'majutsushi/tagbar'
-Plugin 'mattn/emmet-vim'
-Plugin 'thinca/vim-fontzoom'
-Plugin 'vim-scripts/vcscommand.vim'
-Plugin 'jeffkreeftmeijer/vim-numbertoggle'
-Plugin 'terryma/vim-smooth-scroll'
-Plugin 'scrooloose/nerdcommenter'
+NeoBundle 'gmarik/vundle'
+NeoBundle 'L9'
+NeoBundle 'FuzzyFinder'
+NeoBundle 'Lokaltog/vim-easymotion'
+"NeoBundle 'garbas/vim-snipmate'
+"NeoBundle 'honza/vim-snippets'
+NeoBundle 'ervandew/supertab'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'mileszs/ack.vim'
+"NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'tpope/vim-bundler'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-eunuch'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-sensible'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'cakebaker/scss-syntax.vim'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'slim-template/vim-slim'
+NeoBundle 'tpope/vim-git'
+NeoBundle 'tpope/vim-haml'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'xolox/vim-easytags'
+NeoBundle 'rgarver/Kwbd.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'thinca/vim-fontzoom'
+NeoBundle 'vim-scripts/vcscommand.vim'
+NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
+NeoBundle 'terryma/vim-smooth-scroll'
+NeoBundle 'scrooloose/nerdcommenter'
 
 " Themes
-Plugin 'altercation/vim-colors-solarized'
+NeoBundle 'altercation/vim-colors-solarized'
+
+call neobundle#end()
 
 filetype plugin indent on
 syntax on
+
+NeoBundleCheck
 
 set hlsearch " Highlight searches
 set incsearch " Do incremental searching
@@ -58,7 +62,6 @@ set tabstop=2 shiftwidth=2 softtabstop=2
 set autoindent
 set history=200000
 set showcmd
-set wrap
 "set cmdheight=5
 "set scrolloff=10
 set wildignore+=*.png,*.jpg,*.gif,*.ai,*.jpeg,*.psd,*.swp,*.jar,*.zip,*.gem,.DS_Store,log/**,tmp/**,coverage/**,rdoc/**,output_*,*.xpi,doc/**
@@ -71,12 +74,20 @@ set nowritebackup  " only in case you don't want a backup file while editing
 set noswapfile     " no swap files
 set background=dark
 set number
+set smartcase
 
 " to allow changed buffers to be in the background
 set hidden
 
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim/
 set nocompatible
+set nowrap
+
+" folding
+set foldmethod=indent
+"set foldmethod=syntax
+set nofoldenable
+set foldlevel=1
 
 colorscheme solarized
 
@@ -84,7 +95,7 @@ colorscheme solarized
 let mapleader=" "
 
 " toggle line numbers absolute/relative
-let g:NumberToggleTrigger="<F9>"
+let g:NumberToggleTrigger="<leader>tl"
 
 " syntastic config
 let g:syntastic_enable_signs=1
@@ -97,19 +108,6 @@ let g:ctrlp_max_height=15
 let g:ctrlp_match_window_bottom=0
 let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', 'file', 'coveragefile', 'dir' ]
 
-" nerdtree config
-let g:loaded_nerdtree_fs_menu=0
-let g:loaded_nerdree_buffer_fs_menu=0
-
-let g:nerdtree_tabs_open_on_gui_startup=0
-let g:nerdtree_tabs_open_on_console_startup=0
-
-" folding
-set foldmethod=indent
-"set foldmethod=syntax
-set nofoldenable
-set foldlevel=1
-
 " use the silver searcher instead of ack
 if executable('ag')
   let g:ackprg='ag --vimgrep'
@@ -118,10 +116,30 @@ endif
 " fancy symbols
 let g:Powerline_symbols = 'fancy'
 
+if executable('ctags')
+  let g:tagbar_type_coffee = {
+    \ 'ctagsbin' : 'coffeetags',
+    \ 'ctagsargs' : '',
+    \ 'kinds' : [
+      \ 'f:functions',
+      \ 'o:object',
+    \ ],
+    \ 'sro' : ".",
+    \ 'kind2scope' : {
+      \ 'f' : 'object',
+      \ 'o' : 'object',
+    \ }
+  \ }
+endif
+
+set mouse+=a
+if &term =~ '^screen'
+  " tmux knows the extended mouse mode
+  set ttymouse=xterm2
+endif
+
 " jk triggers ESC in insert mode
 inoremap jk <ESC>
-" toggle nerd tree
-map <C-n> :NERDTreeToggle<CR>
 " open buffers
 map <C-d> :FufBuffer<CR>
 " ctrl p for last used files
@@ -129,8 +147,8 @@ map <C-s> :CtrlPMRUFiles<CR>
 " open Ack
 map <C-f> :Ack ""<Left>
 " ctrl + h/l in insert mode
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
+inoremap <C-h> <C-o>h
+inoremap <C-l> <C-o>l
 " instead of CTRL-D and CTRL-U
 "noremap <C-j> <C-d>
 "noremap <C-k> <C-u>
@@ -143,8 +161,6 @@ map <leader>tb :TagbarToggle<CR>
 map <leader>tw :set wrap!<cr>
 " split window
 nnoremap <leader>w <C-w>v<C-w>l
-" reveal in nerdtree
-map <leader>r :NERDTreeFind<CR>
 " next quickfix
 noremap <leader>n :cn<CR>zv
 " remove unwanted whitespaces in empty lines
@@ -165,12 +181,36 @@ map <leader>vv :call RepoShow()<CR>
 " toggle highlight search
 nnoremap <silent><expr> <Leader>hs (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
+" toggle paste mode
+map <leader>tp :set paste!<CR>
+
 " to cycle through buffers and tabs
 "nmap <silent> ,. :bnext<CR>
 "nmap <silent> ,m :bprev<CR>
 "nmap <silent> ;' :tabnext<CR>
 "nmap <silent> ;l :tabprev<CR>
+"
 
+" open netrw
+map <silent> <C-n> :e.<CR>
+
+"map <silent> <C-n> :Lexplore<CR>
+" netrw config
+" Hit enter in the file browser to open the selected
+" file in previous buffer
+"let g:netrw_browse_split = 4
+"let g:netrw_altv = 1
+"let g:netrw_winsize = 20
+" hide files/directories starting with a dot
+let g:netrw_list_hide= '^\.'
+" hide help header
+"let g:netrw_banner=0
+
+" Default to tree mode
+"let g:netrw_liststyle=3
+
+" Change directory to the current buffer when opening files.
+"set autochdir
 
 function FindRev()
   " TODO try to fix this
