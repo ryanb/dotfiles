@@ -44,6 +44,7 @@ NeoBundle 'vim-scripts/vcscommand.vim'
 NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
 NeoBundle 'terryma/vim-smooth-scroll'
 NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'dbakker/vim-projectroot'
 
 " Themes
 NeoBundle 'altercation/vim-colors-solarized'
@@ -210,7 +211,10 @@ let g:netrw_list_hide= '^\.'
 "let g:netrw_liststyle=3
 
 " Change directory to the current buffer when opening files.
-"set autochdir
+set autochdir
+
+" to cd to project root
+nnoremap <leader>cd :ProjectRootCD<cr>
 
 function FindRev()
   " TODO try to fix this
