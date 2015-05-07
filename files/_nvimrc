@@ -61,7 +61,6 @@ set incsearch " Do incremental searching
 set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set autoindent
-set history=200000
 set showcmd
 "set cmdheight=5
 "set scrolloff=10
@@ -85,7 +84,12 @@ set nocompatible
 set nowrap
 
 " folding
-set foldmethod=indent
+augroup vimrc
+  " fold by default by indendation, but allow manual folding as well
+  au BufReadPre * setlocal foldmethod=indent
+  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+augroup END
+"set foldmethod=indent
 "set foldmethod=syntax
 set nofoldenable
 set foldlevel=1
@@ -162,6 +166,8 @@ map <leader>tb :TagbarToggle<CR>
 map <leader>tw :set wrap!<cr>
 " split window
 nnoremap <leader>w <C-w>v<C-w>l
+" exit with ESC from terminal mode
+tnoremap <Esc> <C-\><C-n>
 " next quickfix
 noremap <leader>n :cn<CR>zv
 " remove unwanted whitespaces in empty lines
