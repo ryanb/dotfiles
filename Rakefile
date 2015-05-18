@@ -11,7 +11,7 @@ task :install do
   install_oh_my_zsh
   switch_to_zsh
 
-  install_vundle
+  install_neobundle
 
   Dotfiles.new.install
 end
@@ -91,20 +91,20 @@ def install_oh_my_zsh
   end
 end
 
-def install_vundle
+def install_neobundle
   if File.exist?(File.join(ENV['HOME'], ".nvim/bundle"))
-    puts "found ~/.bundle/vundle"
+    puts "found ~/.nvim/bundle/neobundle.vim"
   else
-    print "install vundle? [ynq] "
+    print "install neobundle? [ynq] "
     case $stdin.gets.chomp
     when 'y'
-      puts "installing vundle"
-      system %Q{git clone https://github.com/gmarik/Vundle.vim.git "$HOME/.nvim/bundle/vundle"}
-      puts "Vundle installed! Please run :PluginInstall from inside neovim to install all the plugins."
+      puts "installing neobundle"
+      system %Q{git clone https://github.com/Shougo/neobundle.vim "$HOME/.nvim/bundle/neobundle.vim"}
+      puts "Neobundle installed! Please run :NeoBundleInstall from inside neovim to install all the plugins."
     when 'q'
       exit
     else
-      puts "skipping vundle"
+      puts "skipping neobundle"
     end
   end
 end
