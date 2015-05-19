@@ -14,6 +14,12 @@ task :install do
   install_neobundle
 
   Dotfiles.new.install
+
+  puts '-----------------------------------------------------------------------'
+  puts 'done.'
+  puts ''
+  puts "on mac os x run 'sudo mv /etc/{zshenv,zprofile}' to fix"
+  puts 'the proper ruby to be picked inside of nvim.'
 end
 
 task :uninstall do
@@ -30,9 +36,8 @@ def prerequisites
   puts ' - curl'
   puts ' - neovim'
   puts ' - zsh'
-  puts ' - rvm'
+  puts ' - chruby'
   puts ' - ctags'
-  puts ' - ack'
   puts ' - silversearcher-ag'
   puts ''
   print "do you want to proceed? [yn] "

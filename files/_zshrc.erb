@@ -68,6 +68,8 @@ export EDITOR=vim
 export LESS=FaRMSiX
 export PAGER=less
 
-# load rvm
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-[ -f /usr/local/rvm/scripts/rvm ] && source "/usr/local/rvm/scripts/rvm"
+# chruby related..
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+chruby 2.1.6
+set shell=$SHELL
