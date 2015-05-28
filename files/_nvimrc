@@ -74,6 +74,7 @@ set nowritebackup  " only in case you don't want a backup file while editing
 set noswapfile     " no swap files
 set background=dark
 set number
+set ignorecase
 set smartcase
 
 " to allow changed buffers to be in the background
