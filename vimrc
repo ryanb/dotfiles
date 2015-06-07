@@ -30,13 +30,7 @@ let mapleader=","
 noremap <Leader>b :LustyBufferExplorer<CR>
 noremap <Leader>f :LustyFilesystemExplorer<CR>
 noremap <Leader>r :LustyFilesystemExplorerFromHere<CR>
-noremap <Leader>t :CtrlP<CR>
 noremap <Leader>w :wa<CR>
-
-noremap <Leader>sa :call RunAllSpecs()<CR>
-noremap <Leader>sc :call RunCurrentSpecFile()<CR>
-noremap <Leader>sl :call RunLastSpec()<CR>
-noremap <Leader>sn :call RunNearestSpec()<CR>
 
 noremap <Leader>ah :Tab /=><CR>
 

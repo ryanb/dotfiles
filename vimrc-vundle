@@ -13,8 +13,11 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tComment'
 Plugin 'notahat/vim-redub'
 
-Plugin 'thoughtbot/vim-rspec'
-Bundle 'jgdavey/tslime.vim'
+Plugin 'benmills/vimux'
+Plugin 'jgdavey/vim-turbux'
+
+" Plugin 'thoughtbot/vim-rspec'
+" Bundle 'jgdavey/tslime.vim'
 
 Bundle 'quanganhdo/grb256'
 

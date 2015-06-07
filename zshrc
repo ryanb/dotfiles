@@ -67,8 +67,7 @@ function parse_git_dirty () {
 # Prompts
 
 setopt prompt_subst
-PROMPT='
-%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
+PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
 # RPROMPT='%{$fg[yellow]%}$(ruby_version)%{$reset_color%}'
 
 # Aliases
