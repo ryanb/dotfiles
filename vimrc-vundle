@@ -1,0 +1,22 @@
+
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'LustyExplorer'
+Plugin 'ctrlp.vim'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'tComment'
+Plugin 'notahat/vim-redub'
+
+Plugin 'thoughtbot/vim-rspec'
+Bundle 'jgdavey/tslime.vim'
+
+Bundle 'quanganhdo/grb256'
+
+call vundle#end()
+filetype plugin indent on

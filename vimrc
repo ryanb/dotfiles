@@ -1,9 +1,7 @@
 " ==============================================================================
 " Configuration
 
-set nocompatible
-
-execute pathogen#infect()
+source ~/.vimrc-vundle
 
 set autoindent
 set autoread
@@ -15,11 +13,13 @@ set incsearch
 set laststatus=2
 set statusline=%f\ %h%m%r%=%l/%L
 set wildmode=list:longest
+set mouse=a
+set clipboard=unnamed
 
 syntax enable
 
-" Use ITerm for the vim-rspec plugin.
-let g:rspec_command = "silent !~/.bin/run_in_iterm 'bundle exec rspec {spec}'"
+let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec {spec}\n")'
+
 
 
 " ==============================================================================
@@ -56,10 +56,10 @@ function! MoveOrCreateWindow(key)
   endif
 endfunction
 
-nnoremap <silent> <C-h> :call MoveOrCreateWindow('h')<cr>
-nnoremap <silent> <C-j> :call MoveOrCreateWindow('j')<cr>
-nnoremap <silent> <C-k> :call MoveOrCreateWindow('k')<cr>
-nnoremap <silent> <C-l> :call MoveOrCreateWindow('l')<cr>
+" nnoremap <silent> <C-h> :call MoveOrCreateWindow('h')<cr>
+" nnoremap <silent> <C-j> :call MoveOrCreateWindow('j')<cr>
+" nnoremap <silent> <C-k> :call MoveOrCreateWindow('k')<cr>
+" nnoremap <silent> <C-l> :call MoveOrCreateWindow('l')<cr>
 
 " Reselect the visual area when changing indenting in visual mode.
 vnoremap < <gv

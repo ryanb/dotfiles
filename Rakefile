@@ -63,12 +63,19 @@ def install_fonts
   EOF
 end
 
-# Set the MacVIM window borders to look like the Terminal.app ones.
+# Set up Vundle, and set the MacVIM window borders to look like the
+# Terminal.app ones.
 #
 # To restore defaults, use:
 #     defaults delete org.vim.MacVim
 def configure_macvim
   system("/bin/sh", "-c", <<-EOF)
+    mkdir -p ~/.vim/bundle
+    if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
+      git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    fi
+    vim -u ~/.vimrc-vundle +PluginInstall +qall
+
     defaults write org.vim.MacVim MMTextInsetTop 2
     defaults write org.vim.MacVim MMTextInsetBottom 5
     defaults write org.vim.MacVim MMTextInsetLeft 5
@@ -113,7 +120,6 @@ def configure_osx
     defaults write com.apple.dock checked-for-launchpad -boolean YES
     defaults write com.apple.dock persistent-apps "()"
     defaults write com.apple.dock orientation left
-    defaults write com.apple.dock autohide -boolean YES
 
     killall Dock
 

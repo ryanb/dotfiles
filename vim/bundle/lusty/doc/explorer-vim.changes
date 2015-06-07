@@ -1,3 +1,0 @@
-- Fixed some quoting bugs when invoking :LustyFilesystemExplorerStart. (Joel D. Elkins)
-- Handle directory security restrictions in Windows more gracefully. (Joel D. Elkins)
-- Hide "relativenumber" display in the explorer. (Göran Gustafsson)
