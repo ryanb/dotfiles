@@ -1,3 +1,4 @@
+" vim:ft=vim
 
 set nocompatible
 filetype off
@@ -7,19 +8,26 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
+" File navigation
 Plugin 'LustyExplorer'
 Plugin 'ctrlp.vim'
 Plugin 'christoomey/vim-tmux-navigator'
+
+" General editing
 Plugin 'tComment'
+Plugin 'Tabular'
 Plugin 'notahat/vim-redub'
 
+" Languages
+Plugin 'mxw/vim-jsx'
+Plugin 'rails.vim'
 Plugin 'benmills/vimux'
 Plugin 'jgdavey/vim-turbux'
 
-" Plugin 'thoughtbot/vim-rspec'
-" Bundle 'jgdavey/tslime.vim'
-
+" Color schemes
 Bundle 'quanganhdo/grb256'
 
 call vundle#end()
 filetype plugin indent on
+
+set hidden " Just to stop LustyExplorer complaining.

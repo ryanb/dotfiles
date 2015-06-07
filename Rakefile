@@ -74,7 +74,7 @@ def configure_macvim
     if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
       git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     fi
-    vim -u ~/.vimrc-vundle +PluginInstall +qall
+    vim -u ~/.vundle +PluginInstall +qall
 
     defaults write org.vim.MacVim MMTextInsetTop 2
     defaults write org.vim.MacVim MMTextInsetBottom 5

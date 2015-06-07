@@ -1,7 +1,7 @@
 " ==============================================================================
 " Configuration
 
-source ~/.vimrc-vundle
+source ~/.vundle
 
 set autoindent
 set autoread
@@ -18,8 +18,7 @@ set clipboard=unnamed
 
 syntax enable
 
-let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec {spec}\n")'
-
+let g:turbux_command_prefix = 'bundle exec'
 
 
 " ==============================================================================
@@ -62,6 +61,7 @@ autocmd FileType html     setlocal ts=2 sw=2 sts=2
 autocmd BufWritePre * :%s/\s\+$//e
 
 autocmd BufWritePost .vimrc source $MYVIMRC
+autocmd BufWritePost .vundle source $MYVIMRC
 
 augroup END
 
