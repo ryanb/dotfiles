@@ -69,8 +69,13 @@ export LESS=FaRMSiX
 export PAGER=less
 
 # chruby related..
+<% if File.exist?("/usr/local/share/chruby/chruby.sh") %>
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+<% elsif File.exist?("/usr/local/opt/chruby/share/chruby/chruby.sh") %>
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
+<% end %>
 chruby 2.1.6
 set shell=$SHELL
 
