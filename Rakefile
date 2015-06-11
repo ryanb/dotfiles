@@ -14,9 +14,6 @@ task :install do
 
   puts '-----------------------------------------------------------------------'
   puts 'done.'
-  puts ''
-  puts "on mac os x run 'sudo mv /etc/{zshenv,zprofile}' to fix"
-  puts 'the proper ruby to be picked inside of nvim.'
 end
 
 task :uninstall do
