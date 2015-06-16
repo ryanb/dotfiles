@@ -70,6 +70,12 @@ export EDITOR=vim
 export LESS=FaRMSiX
 export PAGER=less
 
+# autojump
+# mac
+[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+# ubuntu
+[[ -s /usr/share/autojump/autojump.zsh ]] && source /usr/share/autojump/autojump.zsh
+
 # chruby related..
 <% if File.exist?("/usr/local/share/chruby/chruby.sh") %>
 source /usr/local/share/chruby/chruby.sh
