@@ -23,6 +23,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'rails.vim'
 Plugin 'benmills/vimux'
 Plugin 'jgdavey/vim-turbux'
+Plugin 'elixir-lang/vim-elixir'
 
 " Color schemes
 Bundle 'quanganhdo/grb256'
