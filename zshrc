@@ -73,15 +73,17 @@ PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
 # Aliases
 
 alias be="bundle exec"
+alias ga="git add"
 alias gs="git status"
 alias gf="git fetch"
-alias gcl="git clone"
 alias gco="git checkout"
 alias gm="git merge --no-ff"
 alias gff="git merge --ff-only"
 alias gp="git push"
 alias gb="gh browse"
 alias cdr='cd $(git rev-parse --show-cdup)'
+
+alias moment=~/src/moment/bin/moment
 
 # Quick way to rebuild the Launch Services database and get rid
 # of duplicates in the Open With submenu.
@@ -98,5 +100,12 @@ export LESS=-R                                            # Make less support AN
 
 export RAILS_CACHE_CLASSES=true
 
+export NODENV_VERSION=v0.12.1
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# Set environment variables for Docker, if it's up.
+if [ `boot2docker status` = running ]; then
+    `boot2docker shellinit 2> /dev/null`
+fi
