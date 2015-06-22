@@ -25,6 +25,11 @@ Plugin 'benmills/vimux'
 Plugin 'jgdavey/vim-turbux'
 Plugin 'elixir-lang/vim-elixir'
 
+" Magic needed for Ruby block selection
+Bundle 'vim-scripts/matchit.zip'
+Bundle 'textobj-user'
+Bundle 'textobj-rubyblock'
+
 " Color schemes
 Bundle 'quanganhdo/grb256'
 
