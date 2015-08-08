@@ -11,12 +11,14 @@ Plugin 'gmarik/Vundle.vim'
 " File navigation
 Plugin 'LustyExplorer'
 Plugin 'ctrlp.vim'
-Plugin 'christoomey/vim-tmux-navigator'
+" Plugin 'christoomey/vim-tmux-navigator'
+Bundle '~/src/vim-tmux-navigator/.git'
 
 " General editing
 Plugin 'tComment'
-Plugin 'Tabular'
+Plugin 'godlygeek/tabular'
 Plugin 'notahat/vim-redub'
+Bundle 'rking/ag.vim'
 
 " Languages
 Plugin 'mxw/vim-jsx'
@@ -24,6 +26,7 @@ Plugin 'rails.vim'
 Plugin 'benmills/vimux'
 Plugin 'jgdavey/vim-turbux'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'plasticboy/vim-markdown'
 
 " Magic needed for Ruby block selection
 Bundle 'vim-scripts/matchit.zip'
@@ -32,6 +35,7 @@ Bundle 'textobj-rubyblock'
 
 " Color schemes
 Bundle 'quanganhdo/grb256'
+Bundle 'xoria256.vim'
 
 call vundle#end()
 filetype plugin indent on
