@@ -11,6 +11,10 @@ Plugin 'gmarik/Vundle.vim'
 " File navigation
 Plugin 'LustyExplorer'
 Plugin 'ctrlp.vim'
+
+" Tmux integration
+Plugin 'benmills/vimux'
+Plugin 'jgdavey/vim-turbux'
 " Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'notahat/vim-tmux-navigator' " Hopefully Chris will merge my PR!
 
@@ -23,10 +27,9 @@ Plugin 'rking/ag.vim'
 " Languages
 Plugin 'mxw/vim-jsx'
 Plugin 'rails.vim'
-Plugin 'benmills/vimux'
-Plugin 'jgdavey/vim-turbux'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'moll/vim-node'
 
 " Magic needed for Ruby block selection
 Plugin 'vim-scripts/matchit.zip'
