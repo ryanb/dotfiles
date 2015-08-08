@@ -12,7 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'LustyExplorer'
 Plugin 'ctrlp.vim'
 " Plugin 'christoomey/vim-tmux-navigator'
-Bundle '~/src/vim-tmux-navigator/.git'
+Plugin 'notahat/vim-tmux-navigator' " Hopefully Chris will merge my PR!
 
 " General editing
 Plugin 'tComment'
