@@ -18,7 +18,7 @@ Plugin 'notahat/vim-tmux-navigator' " Hopefully Chris will merge my PR!
 Plugin 'tComment'
 Plugin 'godlygeek/tabular'
 Plugin 'notahat/vim-redub'
-Bundle 'rking/ag.vim'
+Plugin 'rking/ag.vim'
 
 " Languages
 Plugin 'mxw/vim-jsx'
@@ -29,13 +29,13 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'plasticboy/vim-markdown'
 
 " Magic needed for Ruby block selection
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'textobj-user'
-Bundle 'textobj-rubyblock'
+Plugin 'vim-scripts/matchit.zip'
+Plugin 'textobj-user'
+Plugin 'textobj-rubyblock'
 
 " Color schemes
-Bundle 'quanganhdo/grb256'
-Bundle 'xoria256.vim'
+Plugin 'quanganhdo/grb256'
+Plugin 'xoria256.vim'
 
 call vundle#end()
 filetype plugin indent on
