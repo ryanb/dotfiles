@@ -5,7 +5,7 @@ desc "install the dot files into user's home directory"
 task :install do
   install_config_files
   install_fonts
-  configure_macvim
+  configure_vim
   configure_git
   configure_osx
 end
@@ -63,24 +63,14 @@ def install_fonts
   EOF
 end
 
-# Set up Vundle, and set the MacVIM window borders to look like the
-# Terminal.app ones.
-#
-# To restore defaults, use:
-#     defaults delete org.vim.MacVim
-def configure_macvim
+# Set up Vundle.
+def configure_vim
   system("/bin/sh", "-c", <<-EOF)
     mkdir -p ~/.vim/bundle
     if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
       git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     fi
     vim -u ~/.vundle +PluginInstall +qall
-
-    defaults write org.vim.MacVim MMTextInsetTop 2
-    defaults write org.vim.MacVim MMTextInsetBottom 5
-    defaults write org.vim.MacVim MMTextInsetLeft 5
-    defaults write org.vim.MacVim MMTextInsetRight 5
-    defaults write org.vim.MacVim MMTabOptimumWidth 200
   EOF
 end
 
@@ -130,6 +120,5 @@ def configure_osx
       "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
     killall SystemUIServer
-
   EOF
 end

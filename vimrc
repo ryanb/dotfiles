@@ -87,22 +87,9 @@ augroup END
 
 
 " ==============================================================================
-" GUI settings
+" Colors and stuff
 
 colorscheme grb256
-
-" Make the statusline readable.
-highlight StatusLineNC guibg=#222222 guifg=#666666
-
-if has("gui_macvim")
-  set background=dark
-  set gfn=Inconsolata:h14
-  set linespace=1
-
-  " Hide the scrollbars.
-  set guioptions-=L
-  set guioptions-=r
-end
 
 " Better cursor in insert mode.
 if exists('$TMUX')

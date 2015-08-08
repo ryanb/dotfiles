@@ -38,7 +38,6 @@ Plugin 'textobj-rubyblock'
 
 " Color schemes
 Plugin 'quanganhdo/grb256'
-Plugin 'xoria256.vim'
 
 call vundle#end()
 filetype plugin indent on
