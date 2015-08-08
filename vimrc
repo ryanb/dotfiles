@@ -34,13 +34,12 @@ let mapleader=","
 noremap <Leader>b :LustyBufferExplorer<CR>
 noremap <Leader>f :LustyFilesystemExplorer<CR>
 noremap <Leader>r :LustyFilesystemExplorerFromHere<CR>
-noremap <Leader>w :wa<CR>
 
-noremap <Leader>ah :Tab /=><CR>
-
-" Close all other windows, and open the alternate file for the current window
-" in a vertical split:
-noremap <Leader>o <C-W>o:AV<CR>
+" Better split management
+noremap <Leader>- :sp<CR>
+noremap <Leader>\ :vs<CR>
+noremap <Leader>x <C-W>c
+noremap <Leader>o <C-W>o
 
 " Reselect the visual area when changing indenting in visual mode.
 vnoremap < <gv
