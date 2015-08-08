@@ -75,18 +75,22 @@ PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
 # Aliases
 
 alias be="bundle exec"
-alias ga="git add"
-alias gs="git status"
-alias gf="git fetch"
-alias gco="git checkout"
-alias gm="git merge --no-ff"
-alias gff="git merge --ff-only"
-alias gp="git push"
-alias gb="gh browse"
-alias gpr='git push -u origin `git rev-parse --abbrev-ref HEAD` && gh compare'
+
 alias cdr='cd $(git rev-parse --show-cdup)'
 
-alias moment=~/src/moment/bin/moment
+alias ga="git add"
+alias gb="gh browse"
+alias gc="git commit"
+alias gco="git checkout"
+alias gd="git diff"
+alias gf="git fetch"
+alias gff="git merge --ff-only"
+alias gm="git merge --no-ff"
+alias gp="git push"
+alias gpr='git push -u origin `git rev-parse --abbrev-ref HEAD` && gh compare'
+alias gs="git status"
+
+alias tasks="vim ~/Dropbox/routine/tasks.md"
 
 # Quick way to rebuild the Launch Services database and get rid
 # of duplicates in the Open With submenu.
@@ -115,4 +119,3 @@ if [ `boot2docker status` = running ]; then
 fi
 
 alias fix-docker='boot2docker ssh sudo /etc/init.d/docker restart'
-alias tasks="vim ~/Dropbox/routine/tasks.md"
