@@ -91,6 +91,7 @@ def configure_git
     git config --global github.user notahat
     git config --global difftool.prompt false
     git config --global color.ui true
+    git config --global core.excludesfile '~/.gitignore'
 
     # Make git push only push the current branch.
     git config --global push.default tracking
