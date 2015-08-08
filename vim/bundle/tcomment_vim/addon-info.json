@@ -1,9 +1,0 @@
-{
-    "name" : "tcomment",
-    "version" : "dev",
-    "author" : "Tom Link <micathom at gmail com>",
-    "maintainer" : "Tom Link <micathom at gmail com>",
-    "repository" : {"type": "git", "url": "git://github.com/tomtom/tcomment_vim.git"},
-    "dependencies" : {},
-    "description" : "An easily extensible & universal comment plugin"
-}

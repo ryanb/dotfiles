@@ -52,8 +52,8 @@ ZSH_THEME_GIT_PROMPT_DIRTY="*"              # Text to display if the branch is d
 ZSH_THEME_GIT_PROMPT_CLEAN=""               # Text to display if the branch is clean
 
 function git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null) || return
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${branch}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
 function parse_git_dirty () {
@@ -64,24 +64,29 @@ function parse_git_dirty () {
   fi
 }
 
+
 # Prompts
 
 setopt prompt_subst
 PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
 # RPROMPT='%{$fg[yellow]%}$(ruby_version)%{$reset_color%}'
 
+
 # Aliases
 
 alias be="bundle exec"
+alias ga="git add"
 alias gs="git status"
 alias gf="git fetch"
-alias gcl="git clone"
 alias gco="git checkout"
 alias gm="git merge --no-ff"
 alias gff="git merge --ff-only"
 alias gp="git push"
 alias gb="gh browse"
+alias gpr='git push -u origin `git rev-parse --abbrev-ref HEAD` && gh compare'
 alias cdr='cd $(git rev-parse --show-cdup)'
+
+alias moment=~/src/moment/bin/moment
 
 # Quick way to rebuild the Launch Services database and get rid
 # of duplicates in the Open With submenu.
@@ -100,3 +105,14 @@ export RAILS_CACHE_CLASSES=true
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+export PATH="/opt/vagrant/bin:$PATH"
+
+
+# Set environment variables for Docker, if it's up.
+if [ `boot2docker status` = running ]; then
+    `boot2docker shellinit 2> /dev/null`
+fi
+
+alias fix-docker='boot2docker ssh sudo /etc/init.d/docker restart'
+alias tasks="vim ~/Dropbox/routine/tasks.md"
