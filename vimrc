@@ -22,8 +22,11 @@ set ttimeoutlen=0 " Don't hang around after hitting escape in command mode.
 syntax enable
 
 let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|DS_Store\|git'
-let g:turbux_command_prefix = 'bundle exec'
+
 let g:tmux_navigator_command = $TMUX_COMMAND
+
+let g:turbux_command_rspec = 'bundle exec rspec'
+let g:turbux_command_teaspoon = './node_modules/.bin/jasmine'
 
 
 " ==============================================================================
