@@ -25,6 +25,8 @@ let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|DS_Store\|git'
 
 let g:tmux_navigator_command = $TMUX_COMMAND
 
+let g:VimuxTmuxCommand = $TMUX_COMMAND
+
 let g:turbux_command_rspec = 'bundle exec rspec'
 let g:turbux_command_teaspoon = './node_modules/.bin/jasmine'
 

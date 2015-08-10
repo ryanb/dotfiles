@@ -13,10 +13,11 @@ Plugin 'LustyExplorer'
 Plugin 'ctrlp.vim'
 
 " Tmux integration
-Plugin 'benmills/vimux'
+" Plugin 'benmills/vimux'
+Plugin 'notahat/vimux'
 Plugin 'jgdavey/vim-turbux'
 " Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'notahat/vim-tmux-navigator' " Hopefully Chris will merge my PR!
+Plugin 'notahat/vim-tmux-navigator'
 
 " General editing
 Plugin 'tComment'
