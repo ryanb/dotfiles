@@ -87,7 +87,7 @@ export RAILS_CACHE_CLASSES=true
 
 alias be='bundle exec'
 
-alias cdr='cd $(git rev-parse --show-cdup)'
+alias cdr='cd $(git root)'
 
 alias ga='git add'
 alias gb='gh browse'

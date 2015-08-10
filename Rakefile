@@ -91,6 +91,7 @@ def configure_git
     git config --global merge.defaultToUpstream true
 
     # Helpful aliases.
+    git config --global alias.root '!pwd'
     git config --global alias.build '!git push -f origin HEAD:build/notahat/$(openssl rand -hex 3)'
     git config --global alias.build-without-master '!git push -f origin HEAD:build/notahat/$(openssl rand -hex 3)-without-master'
     git config --global alias.build-specs '!git push -f origin HEAD:build-specs/notahat/$(openssl rand -hex 3)'
