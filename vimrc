@@ -18,6 +18,7 @@ set statusline=%f\ %h%m%r%=%l/%L
 set wildmode=list:longest
 set mouse=a
 set ttimeoutlen=0 " Don't hang around after hitting escape in command mode.
+set ts=2 sw=2 sts=2 " Default to 2 space tabs
 
 syntax enable
 
@@ -66,13 +67,7 @@ autocmd!
 " Without this, .md files are treated as Modula-2!
 autocmd BufRead,BufNewFile *.md  set filetype=markdown
 
-autocmd FileType ruby       setlocal ts=2 sw=2 sts=2
-autocmd FileType eruby      setlocal ts=2 sw=2 sts=2
-autocmd FileType vim        setlocal ts=2 sw=2 sts=2
-autocmd FileType markdown   setlocal ts=4 sw=4 sts=4 linebreak
-autocmd FileType puppet     setlocal ts=2 sw=2 sts=2
-autocmd FileType html       setlocal ts=2 sw=2 sts=2
-autocmd FileType javascript setlocal ts=2 sw=2 sts=2
+autocmd FileType markdown setlocal linebreak
 
 " Helpful task list management in markdown files:
 autocmd FileType markdown noremap <buffer> <Leader>tn o- [ ]<space>
