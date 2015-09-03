@@ -13,8 +13,7 @@ Plugin 'LustyExplorer'
 Plugin 'ctrlp.vim'
 
 " Tmux integration
-" Plugin 'benmills/vimux'
-Plugin 'notahat/vimux'
+Plugin 'benmills/vimux'
 Plugin 'jgdavey/vim-turbux'
 " Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'notahat/vim-tmux-navigator'
@@ -24,6 +23,7 @@ Plugin 'tComment'
 Plugin 'godlygeek/tabular'
 Plugin 'notahat/vim-redub'
 Plugin 'rking/ag.vim'
+Plugin 'rizzatti/dash.vim'
 
 " Languages
 Plugin 'mxw/vim-jsx'
