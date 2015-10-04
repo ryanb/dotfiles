@@ -55,9 +55,11 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+export GOPATH=$HOME/dev/dbldots/go
+
 # Customize to your needs...
 # export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin
-export PATH=$PATH:./bin
+export PATH=$PATH:./bin:$GOPATH/bin
 
 alias ll="ls -l"
 alias la="ls -a"

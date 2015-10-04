@@ -2,7 +2,7 @@
 
 sudo apt-get install -y curl git ctags zsh autojump htop
 sudo apt-get install -y automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev
-sudo apt-get install -y xclip
+sudo apt-get install -y golang
 
 # neovim
 if [ ! -d "$HOME/the_silver_searcher" ]; then
