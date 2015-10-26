@@ -67,7 +67,8 @@ def install_neobundle
     case $stdin.gets.chomp
     when 'y'
       puts "installing neobundle"
-      system %Q{git clone https://github.com/Shougo/neobundle.vim "$HOME/.nvim/bundle/neobundle.vim"}
+      system %Q{mkdir -p "$HOME/.config"}
+      system %Q{git clone https://github.com/Shougo/neobundle.vim "$HOME/.config/nvim/bundle/neobundle.vim"}
       puts "Neobundle installed! Please run :NeoBundleInstall from inside neovim to install all the plugins."
     when 'q'
       exit
