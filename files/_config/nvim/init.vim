@@ -1,8 +1,8 @@
 set nocompatible
 filetype off
-set rtp+=~/.nvim/
-set rtp+=~/.nvim/bundle/neobundle.vim/
-call neobundle#begin(expand('~/.nvim/bundle/'))
+" set rtp+=~/.config/vim/
+set rtp+=~/.config/nvim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.config/nvim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'gmarik/vundle'
