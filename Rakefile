@@ -60,8 +60,8 @@ def install_oh_my_zsh
 end
 
 def install_neobundle
-  if File.exist?(File.join(ENV['HOME'], ".nvim/bundle"))
-    puts "found ~/.nvim/bundle/neobundle.vim"
+  if File.exist?(File.join(ENV['HOME'], ".config/nvim/bundle"))
+    puts "found ~/.config/nvim/bundle/neobundle.vim"
   else
     print "install neobundle? [ynq] "
     case $stdin.gets.chomp
