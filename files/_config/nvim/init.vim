@@ -168,7 +168,7 @@ noremap <silent> <C-k> :call smooth_scroll#up(&scroll, 0, 3)<CR>
 noremap <silent> <C-j> :call smooth_scroll#down(&scroll, 0, 3)<CR>
 
 " ag.nvim
-map <C-f> :Ag ""<Left>
+map <C-f> :Ag 
 
 " to cd to project root
 nnoremap <leader>cd :ProjectRootCD<cr>
