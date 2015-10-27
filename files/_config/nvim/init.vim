@@ -45,7 +45,7 @@ NeoBundle 'terryma/vim-smooth-scroll'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'dbakker/vim-projectroot'
 NeoBundle 'digitaltoad/vim-jade'
-NeoBundle 'mhinz/vim-grepper'
+NeoBundle 'numkil/ag.nvim'
 
 " Themes
 NeoBundle 'altercation/vim-colors-solarized'
@@ -167,9 +167,8 @@ inoremap <C-l> <Right>
 noremap <silent> <C-k> :call smooth_scroll#up(&scroll, 0, 3)<CR>
 noremap <silent> <C-j> :call smooth_scroll#down(&scroll, 0, 3)<CR>
 
-" vim-grepper
-nnoremap <leader>ag  :Grepper! -tool ag  -open -switch<CR>
-map <C-f> :call AgRoot()<CR>
+" ag.nvim
+map <C-f> :Ag ""<Left>
 
 " to cd to project root
 nnoremap <leader>cd :ProjectRootCD<cr>
