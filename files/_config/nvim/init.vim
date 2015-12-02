@@ -45,7 +45,7 @@ NeoBundle 'terryma/vim-smooth-scroll'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'dbakker/vim-projectroot'
 NeoBundle 'digitaltoad/vim-jade'
-NeoBundle 'numkil/ag.nvim'
+NeoBundle 'mileszs/ack.vim'
 NeoBundle 'leafgarland/typescript-vim'
 
 " Themes
@@ -173,7 +173,12 @@ noremap <silent> <C-k> :call smooth_scroll#up(&scroll, 0, 3)<CR>
 noremap <silent> <C-j> :call smooth_scroll#down(&scroll, 0, 3)<CR>
 
 " ag.nvim
-map <C-f> :Ag 
+" use the silver searcher instead of ack
+if executable('ag')
+  let g:ackprg='ag --vimgrep'
+endif
+
+map <C-f> :Ack ""<Left>
 
 " to cd to project root
 nnoremap <leader>cd :ProjectRootCD<cr>
@@ -237,11 +242,6 @@ let g:netrw_list_hide= '^\.'
 
 " Change directory to the current buffer when opening files.
 set autochdir
-
-function AgRoot()
-  :ProjectRootCD
-  :Grepper! -tool ag -open -switch
-endfunction
 
 function FindRev()
   " TODO try to fix this
