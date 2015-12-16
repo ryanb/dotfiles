@@ -8,6 +8,9 @@ sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt-get update
 sudo apt-get install neovim
 
+go get github.com/dbldots/goclip
+sudo ln -s $GOPATH/bin/goclip /usr/local/bin/xsel<Paste>
+
 # neovim
 if [ ! -d "$HOME/the_silver_searcher" ]; then
   cd
