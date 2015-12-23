@@ -4,12 +4,13 @@ sudo apt-get install -y curl git ctags zsh autojump htop
 sudo apt-get install -y automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev
 sudo apt-get install -y golang
 
-sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo add-apt-repository -y ppa:neovim-ppa/unstable
 sudo apt-get update
 sudo apt-get install neovim
 
+export GOPATH=$HOME/dev/dbldots/go
 go get github.com/dbldots/goclip
-sudo ln -s $GOPATH/bin/goclip /usr/local/bin/xsel<Paste>
+sudo ln -s $GOPATH/bin/goclip /usr/local/bin/xsel
 
 # neovim
 if [ ! -d "$HOME/the_silver_searcher" ]; then
