@@ -110,8 +110,8 @@ let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 
 " typescript config
-let g:typescript_compiler_options='--target ES5'
-let g:syntastic_typescript_tsc_args='--target ES5'
+let g:typescript_compiler_options='--target ES5 --emitDecoratorMetadata --experimentalDecorators'
+let g:syntastic_typescript_tsc_args='--target ES5 --emitDecoratorMetadata --experimentalDecorators'
 
 " ctrlp config
 let g:ctrlp_switch_buffer=0
