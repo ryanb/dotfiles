@@ -84,7 +84,7 @@ def configure_git
     git config --global core.excludesfile '~/.gitignore'
 
     # Make git push only push the current branch.
-    git config --global push.default tracking
+    git config --global push.default current
 
     # Make new branches do a rebase on git pull.
     git config --global branch.autosetuprebase always
