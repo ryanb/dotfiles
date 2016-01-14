@@ -11,6 +11,7 @@ Plugin 'gmarik/Vundle.vim'
 " File navigation
 Plugin 'LustyExplorer'
 Plugin 'ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
 
 " Tmux integration
 Plugin 'benmills/vimux'
