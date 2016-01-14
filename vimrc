@@ -19,6 +19,7 @@ set wildmode=list:longest
 set mouse=a
 set ttimeoutlen=0 " Don't hang around after hitting escape in command mode.
 set ts=2 sw=2 sts=2 " Default to 2 space tabs
+set foldlevelstart=20
 
 syntax enable
 
@@ -87,12 +88,3 @@ augroup END
 " Colors and stuff
 
 colorscheme grb256
-
-" Better cursor in insert mode.
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif

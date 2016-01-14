@@ -17,6 +17,7 @@ Plugin 'benmills/vimux'
 Plugin 'jgdavey/vim-turbux'
 " Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'notahat/vim-tmux-navigator'
+Plugin 'sjl/vitality.vim'
 
 " General editing
 Plugin 'tComment'
@@ -24,6 +25,8 @@ Plugin 'godlygeek/tabular'
 Plugin 'notahat/vim-redub'
 Plugin 'rking/ag.vim'
 Plugin 'rizzatti/dash.vim'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-abolish'
 
 " Languages
 Plugin 'mxw/vim-jsx'
@@ -31,6 +34,7 @@ Plugin 'rails.vim'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'moll/vim-node'
+Plugin 'mustache/vim-mustache-handlebars'
 
 " Magic needed for Ruby block selection
 Plugin 'vim-scripts/matchit.zip'

@@ -36,6 +36,8 @@ else
   }
 fi
 
+if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
+
 if [ `boot2docker status` = running ]; then
     `boot2docker shellinit 2> /dev/null`
 fi
@@ -100,8 +102,6 @@ alias gm='git merge --no-ff'
 alias gp='git push'
 alias gpr='git push -u origin `git rev-parse --abbrev-ref HEAD` && gh compare'
 alias gs='git status'
-
-alias tasks='vim ~/Dropbox/routine/tasks.md'
 
 # Quick way to rebuild the Launch Services database and get rid
 # of duplicates in the Open With submenu.
