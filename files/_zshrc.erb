@@ -92,3 +92,7 @@ set shell=$SHELL
 a() {
   cd `git rev-parse --show-toplevel`
 }
+
+fixssh() {
+  eval $(tmux show-env | sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
+}
