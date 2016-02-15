@@ -240,6 +240,9 @@ let g:netrw_list_hide= '^\.'
 " Default to tree mode
 "let g:netrw_liststyle=3
 
+" Allow netrw to remove non-empty local directories
+let g:netrw_localrmdir='rm -r'
+
 " Change directory to the current buffer when opening files.
 set autochdir
 
