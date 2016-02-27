@@ -12,3 +12,8 @@ tic ~/$TERM.ti
 
 # to fix the proper ruby to be picked inside of nvim
 sudo mv /etc/{zshenv,zprofile}
+
+# emacs
+brew tap railwaycat/homebrew-emacsmacport
+brew install emacs-mac --with-spacemacs-icon  # OR, brew cask install emacs-mac
+brew linkapps

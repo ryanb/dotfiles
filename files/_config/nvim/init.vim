@@ -216,11 +216,10 @@ nnoremap <silent><expr> <Leader>hs (&hls && v:hlsearch ? ':nohls' : ':set hls').
 map <leader>tp :set paste!<CR>
 
 " to cycle through buffers and tabs
-"nmap <silent> ,. :bnext<CR>
-"nmap <silent> ,m :bprev<CR>
-"nmap <silent> ;' :tabnext<CR>
-"nmap <silent> ;l :tabprev<CR>
-"
+nmap <silent> ,. :bnext<CR>
+nmap <silent> ,m :bprev<CR>
+nmap <silent> ;' :tabnext<CR>
+nmap <silent> ;l :tabprev<CR>
 
 " open netrw
 map <silent> <C-n> :e.<CR>
