@@ -88,7 +88,7 @@ def install_spacemacs
     case $stdin.gets.chomp
     when 'y'
       puts "installing spacemacs"
-      system %Q{git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d "$HOME/.emacs.d"}
+      system %Q{git clone https://github.com/syl20bnr/spacemacs "$HOME/.emacs.d"}
       puts "Spacemacs installed!"
     when 'q'
       exit
