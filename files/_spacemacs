@@ -33,6 +33,7 @@ values."
      javascript
      markdown
      ruby
+     ruby-ext
      typescript
      ;; org
      osx
@@ -207,8 +208,50 @@ user code."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  ;; (global-linum-mode) ; Show line numbers by default
-  (add-hook 'hack-local-variables-hook (lambda () (setq truncate-lines t)))
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+  ;; use line numbers
+  (global-linum-mode 1)
+  (linum-relative-toggle)
+
+  ;; Do not wrap lines
+  (setq-default truncate-lines 1)
+
+  ;; Turn off the tildes in the fringe
+  (global-vi-tilde-fringe-mode -1)
+
+  (setq powerline-default-separator 'bar)
+  (global-company-mode)
+
+  ;; indentation fixes
+  ;; (setq-default indent-tabs-mode nil)
+  (setq-default web-mode-markup-indent-offset tab-width)
+  (setq-default web-mode-css-indent-offset tab-width)
+  (setq-default web-mode-code-indent-offset tab-width)
+  (setq-default web-mode-sql-indent-offset tab-width)
+  (setq-default web-mode-style-padding tab-width)
+  (setq-default web-mode-script-padding tab-width)
+
+  ;; Don't insert ruby magic encoding strings
+  (setq-default ruby-insert-encoding-magic-comment nil)
+  (setq-default enh-ruby-add-encoding-comment-on-save nil)
+
+  ;; Fix pasting from other apps to replace a visual selection
+  (fset 'evil-visual-update-x-selection 'ignore)
+
+  ;; column indicator
+  (setq-default fill-column 120)
+
+  (setq rspec-use-rake-when-possible nil)
+
+  (setq compilation-window-height 20)
+  (defun my-compilation-mode-hook ()
+    (setq truncate-lines nil))
+  (add-hook 'compilation-mode-hook 'my-compilation-mode-hook)
+
+  (setq split-width-threshold nil)
+
+  (setq css-indent-offset 2)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
