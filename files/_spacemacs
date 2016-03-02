@@ -33,7 +33,6 @@ values."
      javascript
      markdown
      ruby
-     ruby-ext
      typescript
      ;; org
      osx
@@ -252,6 +251,10 @@ layers configuration. You are free to put any user code."
   (setq split-width-threshold nil)
 
   (setq css-indent-offset 2)
+
+  ;; C-h and C-l to move left/right in evil insert mode
+  (define-key evil-insert-state-map (kbd "C-h") 'backward-char)
+  (define-key evil-insert-state-map (kbd "C-l") 'forward-char)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
