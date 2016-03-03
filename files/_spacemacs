@@ -85,14 +85,14 @@ values."
    ;; (default '(recents projects))
    dotspacemacs-startup-lists '(recents projects)
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(sanityinc-tomorrow-eighties
+   dotspacemacs-themes '(spacemacs-dark
                          niflheim
                          leuven
                          tao-yang
                          tao-yin
                          tsdh-dark
                          spacemacs-light
-                         spacemacs-dark
+                         sanityinc-tomorrow-eighties
                          zenburn)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
