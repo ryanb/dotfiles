@@ -8,6 +8,11 @@ sudo add-apt-repository -y ppa:neovim-ppa/unstable
 sudo apt-get update
 sudo apt-get install neovim
 
+sudo apt-get install -y software-properties-common && \
+sudo add-apt-repository -y ppa:tmate.io/archive    && \
+sudo apt-get update                             && \
+sudo apt-get -y install tmate
+
 export GOPATH=$HOME/dev/dbldots/go
 go get github.com/dbldots/goclip
 sudo ln -s $GOPATH/bin/goclip /usr/local/bin/xsel
