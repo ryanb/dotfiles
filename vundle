@@ -32,6 +32,7 @@ Plugin 'rizzatti/dash.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-abolish'
 Plugin 'wellle/targets.vim'
+Plugin 'airblade/vim-gitgutter'
 
 " Syntax checking
 Plugin 'scrooloose/syntastic'
