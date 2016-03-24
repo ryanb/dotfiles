@@ -83,6 +83,8 @@ export LESS=-R     # Make less support ANSI colour sequences.
 
 export RAILS_CACHE_CLASSES=true
 
+export GOPATH=$HOME/src/go
+export PATH=$GOPATH/bin:$PATH
 
 # ==============================================================================
 # Aliases
