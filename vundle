@@ -54,6 +54,7 @@ Plugin 'textobj-rubyblock'
 " Color schemes
 Plugin 'quanganhdo/grb256'
 Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'guns/xterm-color-table.vim'
 
 
 call vundle#end()
