@@ -19,8 +19,7 @@ Plugin 'sjl/vitality.vim'
 " Tmux integration
 Plugin 'benmills/vimux'
 Plugin 'jgdavey/vim-turbux'
-" Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'notahat/vim-tmux-navigator'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 
 " General editing
