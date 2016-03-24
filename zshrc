@@ -112,3 +112,6 @@ alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/
 
 # Boot2docker plays up for me sometimes. This fixes it.
 alias fix-docker='boot2docker ssh sudo /etc/init.d/docker restart'
+
+alias fs='bundle exec foreman start'
+alias afs='aws-vault exec readwrite -- bundle exec foreman start'
