@@ -20,6 +20,9 @@ set mouse=a
 set ttimeoutlen=0 " Don't hang around after hitting escape in command mode.
 set ts=2 sw=2 sts=2 " Default to 2 space tabs
 set foldlevelstart=20
+set number
+set relativenumber
+set cursorline
 
 syntax enable
 
