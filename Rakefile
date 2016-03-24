@@ -5,6 +5,7 @@ desc "install the dot files into user's home directory"
 task :install do
   install_config_files
   install_fonts
+  install_packages
   configure_vim
   configure_git
   configure_osx
@@ -60,6 +61,51 @@ end
 def install_fonts
   system("/bin/sh", "-c", <<-EOF)
     cp fonts/Inconsolata.otf $HOME/Library/Fonts
+  EOF
+end
+
+def install_packages
+  system("/bin/sh", "-c", <<-EOF)
+    brew_install () {
+      if brew list | grep $1 > /dev/null; then
+        echo "$1 is already installed."
+      else
+        echo "Installing $1..."
+        brew install $1
+      fi
+    }
+
+    brew_install git
+    brew_install gh
+
+    brew_install tmux
+
+    brew_install chruby
+    brew_install ruby-install
+    ruby_version=`cat ~/.ruby-version`
+    if [ ! -d ~/.rubies/ruby-$ruby_version ]; then
+      ruby-install ruby $ruby-version
+      gem install bundler
+    else
+      echo 'Ruby 2.3.0 is already installed.'
+    fi
+
+    brew_install vim
+    brew_install ctags
+
+    brew_install nodenv
+    node_version=`cat ~/.node-version`
+    if [ ! -d ~/.nodenv/versions/$node_version ]; then
+      nodenv install $node_version
+      npm install npm -g
+      npm install standard -g
+      npm install babel-eslint -g
+      nodenv rehash
+    else
+      echo 'Node 4.2.6 is already installed.'
+    fi
+
+    brew_install the_silver_searcher
   EOF
 end
 
