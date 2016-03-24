@@ -14,7 +14,7 @@ set expandtab
 set hidden
 set incsearch
 set laststatus=2
-set statusline=%f\ %h%m%r%=%l/%L
+set statusline=%f\ %h%m%r%=%#warningmsg#%{SyntasticStatuslineFlag()}%*\ %l/%L
 set wildmode=list:longest
 set mouse=a
 set ttimeoutlen=0 " Don't hang around after hitting escape in command mode.
@@ -36,6 +36,8 @@ let g:turbux_command_rspec = 'bundle exec rspec'
 let g:turbux_command_teaspoon = './node_modules/.bin/jasmine'
 
 let g:jsx_ext_required = 0
+
+let g:syntastic_javascript_checkers = ['standard']
 
 
 " ==============================================================================

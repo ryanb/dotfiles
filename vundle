@@ -29,6 +29,9 @@ Plugin 'rizzatti/dash.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-abolish'
 
+" Syntax checking
+Plugin 'scrooloose/syntastic'
+
 " Languages
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
