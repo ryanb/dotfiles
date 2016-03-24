@@ -35,6 +35,8 @@ let g:VimuxTmuxCommand = $TMUX_COMMAND
 let g:turbux_command_rspec = 'bundle exec rspec'
 let g:turbux_command_teaspoon = './node_modules/.bin/jasmine'
 
+let g:jsx_ext_required = 0
+
 
 " ==============================================================================
 " Key bindings
