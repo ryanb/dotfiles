@@ -109,6 +109,8 @@ alias gp='git push'
 alias gpr='git push && gh compare'
 alias gs='git status'
 
+alias tw='tmux rename-window'
+
 # Quick way to rebuild the Launch Services database and get rid
 # of duplicates in the Open With submenu.
 # See http://www.leancrew.com/all-this/2013/02/getting-rid-of-open-with-duplicates/
