@@ -90,6 +90,9 @@ autocmd BufWritePost .vundle source $MYVIMRC
 autocmd FocusGained * highlight StatusLine ctermfg=35
 autocmd FocusLost * highlight StatusLine ctermfg=59
 
+autocmd InsertEnter * highlight StatusLine ctermfg=117
+autocmd InsertLeave * highlight StatusLine ctermfg=35
+
 augroup END
 
 
