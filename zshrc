@@ -84,6 +84,7 @@ export CLICOLOR=1  # Make ls colour its output.
 export LESS=-R     # Make less support ANSI colour sequences.
 
 export RAILS_CACHE_CLASSES=true
+export DISABLE_SPRING=true
 
 export GOPATH=$HOME/src/go
 export PATH=$GOPATH/bin:$PATH
