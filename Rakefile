@@ -5,6 +5,7 @@ desc "install the dot files into user's home directory"
 task :install do
   install_config_files
   install_fonts
+  install_homebrew
   install_packages
   configure_vim
   configure_git
@@ -13,6 +14,8 @@ end
 
 
 def install_config_files
+  puts '*** Config files ***'
+
   Dir['*'].each do |file|
     next if %w[Rakefile README.rdoc LICENSE fonts].include? file
 
@@ -59,12 +62,32 @@ def link_file(file)
 end
 
 def install_fonts
+  puts
+  puts '*** Fonts ***'
+
   system("/bin/sh", "-c", <<-EOF)
     cp fonts/Inconsolata.otf $HOME/Library/Fonts
   EOF
 end
 
+def install_homebrew
+  puts
+  puts '*** Homebrew *** '
+
+  system("/bin/sh", "-c", <<-EOF)
+    if which brew > /dev/null; then
+      echo 'brew is already installed.'
+    else
+      echo 'Installing brew...'
+      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+  EOF
+end
+
 def install_packages
+  puts
+  puts '*** Packages *** '
+
   system("/bin/sh", "-c", <<-EOF)
     brew_install () {
       if brew list | grep $1 > /dev/null; then
@@ -111,6 +134,9 @@ end
 
 # Set up Vundle.
 def configure_vim
+  puts
+  puts '*** Vim config *** '
+
   system("/bin/sh", "-c", <<-EOF)
     mkdir -p ~/.vim/bundle
     if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
@@ -121,6 +147,9 @@ def configure_vim
 end
 
 def configure_git
+  puts
+  puts '*** Git config *** '
+
   system("/bin/sh", "-c", <<-EOF)
     git config --global user.name "Pete Yandell"
     git config --global user.email "pete@notahat.com"
@@ -150,6 +179,9 @@ def configure_git
 end
 
 def configure_osx
+  puts
+  puts '*** OS X config *** '
+
   system("/bin/sh", "-c", <<-EOF)
     # Disable the dashboard.
     defaults write com.apple.dashboard mcx-disabled -boolean YES
