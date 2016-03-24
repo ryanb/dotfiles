@@ -17,6 +17,9 @@ set laststatus=2
 set statusline=%f\ %h%m%r%=%#warningmsg#%{SyntasticStatuslineFlag()}%*\ %l/%L
 set wildmode=list:longest
 set mouse=a
+if has("mouse_sgr")
+  set ttymouse=sgr " Make the mouse play nice under tmux.
+end
 set ttimeoutlen=0 " Don't hang around after hitting escape in command mode.
 set ts=2 sw=2 sts=2 " Default to 2 space tabs
 set foldlevelstart=20
