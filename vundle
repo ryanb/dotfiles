@@ -31,6 +31,7 @@ Plugin 'rking/ag.vim'
 Plugin 'rizzatti/dash.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-abolish'
+Plugin 'wellle/targets.vim'
 
 " Syntax checking
 Plugin 'scrooloose/syntastic'
