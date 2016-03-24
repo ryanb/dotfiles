@@ -13,6 +13,9 @@ Plugin 'LustyExplorer'
 Plugin 'ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 
+" Make vim play nicely with iTerm and tmux
+Plugin 'sjl/vitality.vim'
+
 " Tmux integration
 Plugin 'benmills/vimux'
 Plugin 'jgdavey/vim-turbux'
