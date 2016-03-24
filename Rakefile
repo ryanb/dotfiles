@@ -16,6 +16,8 @@ end
 def install_config_files
   puts '*** Config files ***'
 
+  replace_all = false
+
   Dir['*'].each do |file|
     next if %w[Rakefile README.rdoc LICENSE fonts].include? file
 
