@@ -103,9 +103,10 @@ alias gco='git checkout'
 alias gd='git diff'
 alias gf='git fetch'
 alias gff='git merge --ff-only'
+alias gl='git log'
 alias gm='git merge --no-ff'
 alias gp='git push'
-alias gpr='git push -u origin `git rev-parse --abbrev-ref HEAD` && gh compare'
+alias gpr='git push && gh compare'
 alias gs='git status'
 
 # Quick way to rebuild the Launch Services database and get rid
