@@ -80,10 +80,6 @@ autocmd BufRead,BufNewFile *.md  set filetype=markdown
 
 autocmd FileType markdown setlocal linebreak
 
-" Helpful task list management in markdown files:
-autocmd FileType markdown noremap <buffer> <Leader>tn o- [ ]<space>
-autocmd FileType markdown noremap <buffer> <Leader>td :.s/\[ \]/\[x\]/<CR>
-
 " Remove whitespace at the end of lines on save.
 " See http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
 autocmd BufWritePre * :%s/\s\+$//e
