@@ -58,6 +58,9 @@ noremap <Leader>o <C-W>o
 " Handy binding to go with <Leader>t from turbux
 noremap <Leader>v :VimuxCloseRunner<CR>
 
+" Shortcut for saving
+noremap <Leader>s :wa<CR>
+
 " Reselect the visual area when changing indenting in visual mode.
 vnoremap < <gv
 vnoremap > >gv
