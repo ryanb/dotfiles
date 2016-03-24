@@ -45,6 +45,8 @@ Plugin 'textobj-rubyblock'
 
 " Color schemes
 Plugin 'quanganhdo/grb256'
+Plugin 'chriskempson/vim-tomorrow-theme'
+
 
 call vundle#end()
 filetype plugin indent on

@@ -86,10 +86,17 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePost .vimrc source $MYVIMRC
 autocmd BufWritePost .vundle source $MYVIMRC
 
+autocmd FocusGained * highlight StatusLine ctermfg=35
+autocmd FocusLost * highlight StatusLine ctermfg=59
+
 augroup END
 
 
 " ==============================================================================
 " Colors and stuff
 
-colorscheme grb256
+colorscheme Tomorrow-Night-Bright
+
+" Highlight the active window more brightly:
+highlight StatusLine ctermfg=35
+
