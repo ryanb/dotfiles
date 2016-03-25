@@ -13,19 +13,16 @@ Plugin 'LustyExplorer'
 Plugin 'ctrlp.vim'
 
 " Tmux and iTerm integration
-Plugin 'sjl/vitality.vim'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tmux-plugins/vim-tmux-focus-events'
-Plugin 'benmills/vimux'
-Plugin 'jgdavey/vim-turbux'
+Plugin 'sjl/vitality.vim'                    " Make Focus(Lost|Gained) work in iTerm & have a bar cursor
+Plugin 'christoomey/vim-tmux-navigator'      " Navigate between vim and tmux windows
+Plugin 'tmux-plugins/vim-tmux-focus-events'  " Make Focus(Lost|Gained) work in tmux
+Plugin 'benmills/vimux'                      " Interact with tmux from vim
 
 " Fancier text object handling
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'vim-scripts/matchit.zip'
-Plugin 'wellle/targets.vim'
-Plugin 'textobj-user'
-Plugin 'textobj-rubyblock'
+Plugin 'tpope/vim-repeat'         " Makes . repeat lots of plugin commands
+Plugin 'tpope/vim-surround'       " Change surrounding characters
+Plugin 'vim-scripts/matchit.zip'  " Extend % to work with HTML tags
+Plugin 'wellle/targets.vim'       " Add a bunch of useful text objects
 
 " General editing
 Plugin 'tComment'
@@ -36,20 +33,24 @@ Plugin 'airblade/vim-gitgutter'
 " Syntax checking
 Plugin 'scrooloose/syntastic'
 
-" Languages
+" Ruby/Rails support
+Plugin 'textobj-user'        " Needed for textobj-rubyblock
+Plugin 'textobj-rubyblock'
+Plugin 'jgdavey/vim-turbux'
+Plugin 'rails.vim'
+
+" Other languages
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
-Plugin 'rails.vim'
+Plugin 'moll/vim-node'                     " Make gf work on require statements
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'moll/vim-node'
 Plugin 'mustache/vim-mustache-handlebars'
 
 " Color schemes
 Plugin 'quanganhdo/grb256'
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'guns/xterm-color-table.vim'
-
 
 call vundle#end()
 filetype plugin indent on
