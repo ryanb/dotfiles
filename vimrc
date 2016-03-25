@@ -104,6 +104,9 @@ augroup END
 
 colorscheme Tomorrow-Night-Bright
 
+" Stop LustyExplorer highlighting getting lost:
+highlight LustySelected ctermfg=40
+
 " Highlight the active window more brightly:
 highlight StatusLine ctermfg=35
 
