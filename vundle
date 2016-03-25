@@ -11,26 +11,26 @@ Plugin 'gmarik/Vundle.vim'
 " File navigation
 Plugin 'LustyExplorer'
 Plugin 'ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
 
-" Make vim play nicely with iTerm and tmux
+" Tmux and iTerm integration
 Plugin 'sjl/vitality.vim'
-
-" Tmux integration
-Plugin 'benmills/vimux'
-Plugin 'jgdavey/vim-turbux'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
+Plugin 'benmills/vimux'
+Plugin 'jgdavey/vim-turbux'
+
+" Fancier text object handling
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/matchit.zip'
+Plugin 'wellle/targets.vim'
+Plugin 'textobj-user'
+Plugin 'textobj-rubyblock'
 
 " General editing
 Plugin 'tComment'
-Plugin 'godlygeek/tabular'
 Plugin 'notahat/vim-redub'
 Plugin 'rking/ag.vim'
-Plugin 'rizzatti/dash.vim'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-abolish'
-Plugin 'wellle/targets.vim'
 Plugin 'airblade/vim-gitgutter'
 
 " Syntax checking
@@ -44,11 +44,6 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'moll/vim-node'
 Plugin 'mustache/vim-mustache-handlebars'
-
-" Magic needed for Ruby block selection
-Plugin 'vim-scripts/matchit.zip'
-Plugin 'textobj-user'
-Plugin 'textobj-rubyblock'
 
 " Color schemes
 Plugin 'quanganhdo/grb256'
