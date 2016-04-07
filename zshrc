@@ -40,9 +40,9 @@ fi
 
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
 
-if [ `boot2docker status` = running ]; then
-    `boot2docker shellinit 2> /dev/null`
-fi
+# if [ `boot2docker status` = running ]; then
+#     `boot2docker shellinit 2> /dev/null`
+# fi
 
 
 # ==============================================================================
