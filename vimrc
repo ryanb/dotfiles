@@ -41,6 +41,7 @@ let g:turbux_command_teaspoon = './node_modules/.bin/jasmine'
 let g:jsx_ext_required = 0
 
 let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_ruby_checkers = ['rubylint']
 
 
 " ==============================================================================
