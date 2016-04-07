@@ -105,7 +105,9 @@ def install_packages
 
     brew_install tmux
 
+    brew_install libyaml
     brew_install chruby
+    source /usr/local/opt/chruby/share/chruby/chruby.sh
     brew_install ruby-install
     ruby_version=`cat ~/.ruby-version`
     if [ ! -d ~/.rubies/ruby-$ruby_version ]; then
@@ -197,6 +199,7 @@ def configure_osx
 
     # Set up menu bar extras.
     defaults write com.apple.systemuiserver menuExtras -array \
+      "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
       "/System/Library/CoreServices/Menu Extras/Battery.menu" \
       "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
