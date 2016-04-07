@@ -52,6 +52,8 @@ Plugin 'quanganhdo/grb256'
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'guns/xterm-color-table.vim'
 
+Plugin 'vim-airline/vim-airline'
+
 call vundle#end()
 filetype plugin indent on
 
