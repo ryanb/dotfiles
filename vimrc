@@ -69,6 +69,8 @@ noremap <Leader>s :wa<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+" This is so gf will find files in the Sites app properly.
+set path+=ui,.
 
 " ==============================================================================
 " Filetype settings
