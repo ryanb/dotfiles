@@ -190,6 +190,11 @@ map <leader>tb :TagbarToggle<CR>
 map <leader>tw :set wrap!<cr>
 " split window
 nnoremap <leader>w <C-w>v<C-w>l
+" inspired by spacemacs
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wl <C-w>l
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wk <C-w>k
 " exit with ESC from terminal mode
 tnoremap <Esc> <C-\><C-n>
 " next quickfix
