@@ -37,7 +37,8 @@ call dein#add('jeffkreeftmeijer/vim-numbertoggle')
 call dein#add('terryma/vim-smooth-scroll')
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('dbakker/vim-projectroot')
-call dein#add('albfan/ag.vim')
+"call dein#add('albfan/ag.vim')
+call dein#add('Numkil/ag.nvim')
 
 " syntax & languages
 call dein#add('cakebaker/scss-syntax.vim')
