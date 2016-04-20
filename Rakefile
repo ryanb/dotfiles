@@ -8,7 +8,7 @@ task :install do
   prerequisites
 
   install_oh_my_zsh
-  install_neobundle
+  install_dein
   install_spacemacs
 
   Dotfiles.new.install
@@ -61,21 +61,20 @@ def install_oh_my_zsh
   end
 end
 
-def install_neobundle
+def install_dein
   if File.exist?(File.join(ENV['HOME'], ".config/nvim/bundle"))
-    puts "found ~/.config/nvim/bundle/neobundle.vim"
+    puts "found ~/.config/nvim/bundle/dein.vim"
   else
-    print "install neobundle? [ynq] "
+    print "install 'dein'? [ynq] "
     case $stdin.gets.chomp
     when 'y'
-      puts "installing neobundle"
+      puts "installing dein"
       system %Q{mkdir -p "$HOME/.config"}
-      system %Q{git clone https://github.com/Shougo/neobundle.vim "$HOME/.config/nvim/bundle/neobundle.vim"}
-      puts "Neobundle installed! Please run :NeoBundleInstall from inside neovim to install all the plugins."
+      system %Q{git clone https://github.com/Shougo/dein.vim.git "$HOME/.config/nvim/bundle/dein.vim"}
     when 'q'
       exit
     else
-      puts "skipping neobundle"
+      puts "skipping dein"
     end
   end
 end
