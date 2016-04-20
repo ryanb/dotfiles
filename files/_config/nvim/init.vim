@@ -324,6 +324,6 @@ endfunction
 function SearchDirectory()
   execute "ProjectRootCD"
   let dir = input("Choose Directory: ", "", "file")
-  let search = input("Search Project: ")
+  let search = input("Search Directory: ")
   execute "Ag ".search." ".dir
 endfunction
