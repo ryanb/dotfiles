@@ -1,62 +1,76 @@
-set nocompatible
-filetype off
-" set rtp+=~/.config/vim/
-set rtp+=~/.config/nvim/bundle/neobundle.vim/
-call neobundle#begin(expand('~/.config/nvim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
-NeoBundle 'gmarik/vundle'
-NeoBundle 'L9'
-NeoBundle 'FuzzyFinder'
-NeoBundle 'Lokaltog/vim-easymotion'
-"NeoBundle 'garbas/vim-snipmate'
-"NeoBundle 'honza/vim-snippets'
-NeoBundle 'ervandew/supertab'
-NeoBundle 'kien/ctrlp.vim'
-"NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'tomtom/tlib_vim'
-NeoBundle 'tpope/vim-bundler'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tpope/vim-eunuch'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-sensible'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'powerline/powerline'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'cakebaker/scss-syntax.vim'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'slim-template/vim-slim'
-NeoBundle 'tpope/vim-git'
-NeoBundle 'tpope/vim-haml'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'xolox/vim-easytags'
-NeoBundle 'rgarver/Kwbd.vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'thinca/vim-fontzoom'
-NeoBundle 'vim-scripts/vcscommand.vim'
-NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
-NeoBundle 'terryma/vim-smooth-scroll'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'dbakker/vim-projectroot'
-NeoBundle 'digitaltoad/vim-jade'
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'leafgarland/typescript-vim'
+" Required:
+set runtimepath^=~/.config/nvim/bundle/dein.vim
+
+" Required:
+call dein#begin(expand('~/.config/nvim/bundle/dein.vim'))
+
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
+call dein#add('L9')
+call dein#add('FuzzyFinder')
+call dein#add('Lokaltog/vim-easymotion')
+call dein#add('ervandew/supertab')
+call dein#add('kien/ctrlp.vim')
+call dein#add('powerline/powerline')
+call dein#add('tomtom/tlib_vim')
+call dein#add('tpope/vim-endwise')
+call dein#add('tpope/vim-repeat')
+call dein#add('tpope/vim-sensible')
+call dein#add('tpope/vim-surround')
+call dein#add('airblade/vim-gitgutter')
+call dein#add('tpope/vim-git')
+call dein#add('xolox/vim-misc')
+call dein#add('xolox/vim-easytags')
+call dein#add('scrooloose/syntastic')
+call dein#add('majutsushi/tagbar')
+call dein#add('rgarver/Kwbd.vim')
+call dein#add('thinca/vim-fontzoom')
+call dein#add('vim-scripts/vcscommand.vim')
+call dein#add('tpope/vim-fugitive')
+call dein#add('jeffkreeftmeijer/vim-numbertoggle')
+call dein#add('terryma/vim-smooth-scroll')
+call dein#add('scrooloose/nerdcommenter')
+call dein#add('dbakker/vim-projectroot')
+call dein#add('albfan/ag.vim')
+
+" syntax & languages
+call dein#add('cakebaker/scss-syntax.vim')
+call dein#add('kchmck/vim-coffee-script')
+call dein#add('pangloss/vim-javascript')
+call dein#add('slim-template/vim-slim')
+call dein#add('tpope/vim-haml')
+call dein#add('tpope/vim-markdown')
+call dein#add('vim-ruby/vim-ruby')
+call dein#add('mattn/emmet-vim')
+call dein#add('digitaltoad/vim-jade')
+call dein#add('leafgarland/typescript-vim')
 
 " Themes
-NeoBundle 'altercation/vim-colors-solarized'
+call dein#add('altercation/vim-colors-solarized')
 
-call neobundle#end()
+" You can specify revision/branch/tag.
+"call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
+" Required:
+call dein#end()
+
+" Required:
 filetype plugin indent on
-syntax on
 
-NeoBundleCheck
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+"End dein Scripts-------------------------
+
+syntax on
 
 set hlsearch " Highlight searches
 set incsearch " Do incremental searching
@@ -132,9 +146,6 @@ else
     \ }
 endif
 
-" fancy symbols
-let g:Powerline_symbols = 'fancy'
-
 if executable('ctags')
   let g:tagbar_type_coffee = {
     \ 'ctagsbin' : 'coffeetags',
@@ -159,30 +170,47 @@ endif
 
 " jk triggers ESC in insert mode
 inoremap jk <ESC>
+
 " open buffers
-map <C-d> :FufBuffer<CR>
+nnoremap <leader>bl :FufBuffer<CR>
 " ctrl p for last used files
-map <C-s> :CtrlPMRUFiles<CR>
+nnoremap <leader>fr :CtrlPMRUFiles<CR>
+
 " ctrl + h/l in insert mode
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
-" instead of CTRL-D and CTRL-U
-"noremap <C-j> <C-d>
-"noremap <C-k> <C-u>
+
+" smooth scrolling
 noremap <silent> <C-k> :call smooth_scroll#up(&scroll, 0, 3)<CR>
 noremap <silent> <C-j> :call smooth_scroll#down(&scroll, 0, 3)<CR>
 
-" ag.nvim
-" use the silver searcher instead of ack
-if executable('ag')
-  let g:ackprg='ag --vimgrep'
-endif
+" trigger search
+map <C-f> :Ag ""<Left>
+map <leader>sp :call SearchProject()<CR>
+map <leader>sd :call SearchDirectory()<CR>
 
-map <C-f> :Ack ""<Left>
+" fugitive git bindings
+nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>gt :Gcommit -v -q %:p<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gw :Gwrite<CR><CR>
+nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <leader>gp :Ggrep<Space>
+nnoremap <leader>gm :Gmove<Space>
+nnoremap <leader>gb :Git branch<Space>
+nnoremap <leader>go :Git checkout<Space>
+nnoremap <leader>gps :Dispatch! git push<CR>
+nnoremap <leader>gpl :Dispatch! git pull<CR>
+" same bindings for merging diffs as in normal mode
+xnoremap dp :diffput<cr>
+xnoremap do :diffget<cr>
 
 " to cd to project root
 nnoremap <leader>cd :ProjectRootCD<cr>
-
 
 " open tagbar
 map <leader>tb :TagbarToggle<CR>
@@ -190,23 +218,30 @@ map <leader>tb :TagbarToggle<CR>
 map <leader>tw :set wrap!<cr>
 " split window
 nnoremap <leader>w <C-w>v<C-w>l
-" inspired by spacemacs
+
+" cycle through panes (in addition to C-w...)
 nnoremap <leader>wh <C-w>h
 nnoremap <leader>wl <C-w>l
 nnoremap <leader>wj <C-w>j
 nnoremap <leader>wk <C-w>k
+
 " exit with ESC from terminal mode
 tnoremap <Esc> <C-\><C-n>
+
 " next quickfix
 noremap <leader>n :cn<CR>zv
-" remove unwanted whitespaces in empty lines
-map <leader>cef :execute "%s/\\s\\+$//e"<CR>
+
+" remove unwanted whitespaces
+"map <leader>cef :execute "%s/\\s\\+$//e"<CR>
+autocmd BufWritePre * :execute "%s/\\s\\+$//e"
+
 " close buffer
 map <leader>x :Kwbd<CR>
-" close buffer and window
-map <leader>xx :bd<CR>
 " close all open buffers
 map <leader>X :bufdo Kwbd<CR>
+" close buffer and window
+map <leader>q :bd<CR>
+
 " VCSCommand related
 let VCSCommandMapPrefix = "<leader>v"
 map <leader>va :VCSAnnotate<CR>
@@ -221,10 +256,10 @@ nnoremap <silent><expr> <Leader>hs (&hls && v:hlsearch ? ':nohls' : ':set hls').
 map <leader>tp :set paste!<CR>
 
 " to cycle through buffers and tabs
-nmap <silent> ,. :bnext<CR>
-nmap <silent> ,m :bprev<CR>
-nmap <silent> ;' :tabnext<CR>
-nmap <silent> ;l :tabprev<CR>
+"nmap <silent> ;' :tabnext<CR>
+"nmap <silent> ;l :tabprev<CR>
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprev<CR>
 
 " open netrw
 map <silent> <C-n> :e.<CR>
@@ -278,4 +313,17 @@ function RepoShow()
   execute "r !git show " . revision
   " jump to first line again..
   execute "1"
+endfunction
+
+function SearchProject()
+  execute "ProjectRootCD"
+  let search = input("Search Project: ")
+  execute "Ag ".search
+endfunction
+
+function SearchDirectory()
+  execute "ProjectRootCD"
+  let dir = input("Choose Directory: ", "", "file")
+  let search = input("Search Project: ")
+  execute "Ag ".search." ".dir
 endfunction

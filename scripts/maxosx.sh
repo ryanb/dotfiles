@@ -16,6 +16,6 @@ tic ~/$TERM.ti
 sudo mv /etc/{zshenv,zprofile}
 
 # emacs
-brew tap railwaycat/homebrew-emacsmacport
-brew install emacs-mac --with-spacemacs-icon  # OR, brew cask install emacs-mac
-brew linkapps
+# brew tap railwaycat/homebrew-emacsmacport
+# brew install emacs-mac --with-spacemacs-icon  # OR, brew cask install emacs-mac
+# brew linkapps
