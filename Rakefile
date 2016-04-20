@@ -62,7 +62,7 @@ def install_oh_my_zsh
 end
 
 def install_dein
-  if File.exist?(File.join(ENV['HOME'], ".config/nvim/bundle"))
+  if File.exist?(File.join(ENV['HOME'], ".config/nvim/bundle/dein.vim"))
     puts "found ~/.config/nvim/bundle/dein.vim"
   else
     print "install 'dein'? [ynq] "
