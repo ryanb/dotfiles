@@ -206,8 +206,8 @@ nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gps :Dispatch! git push<CR>
 nnoremap <leader>gpl :Dispatch! git pull<CR>
 " same bindings for merging diffs as in normal mode
-xnoremap dp :diffput<cr>
-xnoremap do :diffget<cr>
+xnoremap <leader>dp :diffput<cr>
+xnoremap <leader>do :diffget<cr>
 
 " to cd to project root
 nnoremap <leader>cd :ProjectRootCD<cr>
