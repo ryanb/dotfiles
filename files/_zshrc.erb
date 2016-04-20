@@ -72,6 +72,10 @@ export EDITOR=vim
 export LESS=FaRMSiX
 export PAGER=less
 
+if [ -z "$DISPLAY" ]; then
+  export DISPLAY="none"
+fi
+
 # autojump
 # mac
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
