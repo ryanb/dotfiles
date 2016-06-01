@@ -106,7 +106,7 @@ alias gff='git merge --ff-only'
 alias gl='git log'
 alias gm='git merge --no-ff'
 alias gp='git push'
-alias gpr='git push && gh compare'
+alias gpr='git push -u && gh compare'
 alias gs='git status'
 
 alias tw='tmux rename-window'
