@@ -33,7 +33,6 @@ call dein#add('rgarver/Kwbd.vim')
 call dein#add('thinca/vim-fontzoom')
 call dein#add('vim-scripts/vcscommand.vim')
 call dein#add('tpope/vim-fugitive')
-call dein#add('jeffkreeftmeijer/vim-numbertoggle')
 call dein#add('terryma/vim-smooth-scroll')
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('dbakker/vim-projectroot')
@@ -117,9 +116,6 @@ colorscheme solarized
 " set leader key
 let mapleader=" "
 
-" toggle line numbers absolute/relative
-let g:NumberToggleTrigger="<leader>tl"
-
 " syntastic config
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
@@ -168,6 +164,9 @@ if &term =~ '^screen'
   " tmux knows the extended mouse mode
   set ttymouse=xterm2
 endif
+
+" toggle relative/absolute line numbers
+nnoremap <leader>tl :call NumberToggle()<CR>
 
 " jk triggers ESC in insert mode
 inoremap jk <ESC>
@@ -328,3 +327,11 @@ function SearchDirectory()
   let search = input("Search Directory: ")
   execute "Ag ".search." ".dir
 endfunction
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunc
