@@ -2,62 +2,56 @@
 
 set -o errexit
 
-echo '*** Config files ***'
-
-function link {
-  if [[ ! -e ~/.$1 ]]; then
-    ln -s ~/.$1 ~/.dotfiles/$1
-    echo "Linked .$1"
-  else
-    echo "Skipped .$1"
-  fi
+function link_config_files {
+  for filename in $*; do
+    if [ ! -e ~/.$filename ]; then
+      ln -s ~/.$filename ~/.dotfiles/$filename
+      echo "Linked .$filename"
+    else
+      echo ".$filename is already linked, skipping."
+    fi
+  done
 }
 
-link agignore
-link bin
-link Brewfile
-link gitignore
-link node-version
-link ruby-version
-link tmate.conf
-link tmux.conf
-link vimrc
-link vundle
-link zshrc
+
+echo '*** Config files ***'
+
+link_config_files agignore bin gitignore tmate.conf tmux.conf zshrc
 
 
 echo
 echo '*** Homebrew *** '
 
 if which brew > /dev/null; then
-  echo 'brew is already installed.'
+  echo 'brew is already installed, skipping.'
 else
   echo 'Installing brew...'
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-
-echo
-echo '*** Packages *** '
-
+link_config_files Brewfile
 brew bundle --global
 
 
 echo
 echo '*** Ruby *** '
 
-source /usr/local/opt/chruby/share/chruby/chruby.sh
+link_config_files ruby-version
+
 ruby_version=`cat ~/.ruby-version`
 if [ ! -d ~/.rubies/ruby-$ruby_version ]; then
-  ruby-install ruby $ruby-version
+  ruby-install ruby $ruby_version
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
   gem install bundler
 else
-  echo "Ruby $ruby_version is already installed."
+  echo "Ruby $ruby_version is already installed, skipping."
 fi
 
 
 echo
 echo '*** Node *** '
+
+link_config_files node-version
 
 node_version=`cat ~/.node-version`
 if [ ! -d ~/.nodenv/versions/$node_version ]; then
@@ -67,12 +61,14 @@ if [ ! -d ~/.nodenv/versions/$node_version ]; then
   npm install babel-eslint -g
   nodenv rehash
 else
-  echo "Node $node_version is already installed."
+  echo "Node $node_version is already installed, skipping."
 fi
 
 
 echo
 echo '*** Vim config *** '
+
+link_config_files vimrc vundle
 
 mkdir -p ~/.vim/bundle
 if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
@@ -102,14 +98,6 @@ git config --global merge.defaultToUpstream true
 
 # Helpful aliases.
 git config --global alias.root '!pwd'
-git config --global alias.build '!git push -f origin HEAD:build/notahat/$(openssl rand -hex 3)'
-git config --global alias.build-without-master '!git push -f origin HEAD:build/notahat/$(openssl rand -hex 3)-without-master'
-git config --global alias.build-specs '!git push -f origin HEAD:build-specs/notahat/$(openssl rand -hex 3)'
-git config --global alias.build-specs-without-master '!git push -f origin HEAD:build-specs/notahat/$(openssl rand -hex 3)-without-master'
-git config --global alias.build-features '!git push -f origin HEAD:build-features/notahat/$(openssl rand -hex 3)'
-git config --global alias.build-features-without-master '!git push -f origin HEAD:build-features/notahat/$(openssl rand -hex 3)-without-master'
-git config --global alias.build-js '!git push -f origin HEAD:build-js/notahat/$(openssl rand -hex 3)'
-git config --global alias.build-js-without-master '!git push -f origin HEAD:build-js/notahat/$(openssl rand -hex 3)-without-master'
 
 echo Installed.
 
