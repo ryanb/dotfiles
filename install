@@ -20,6 +20,13 @@ link_config_files agignore bin gitignore tmate.conf tmux.conf zshrc
 
 
 echo
+echo '*** Fonts ***'
+
+cp ~/.dotfiles/fonts/Inconsolata.otf $HOME/Library/Fonts
+echo Installed.
+
+
+echo
 echo '*** Homebrew *** '
 
 if which brew > /dev/null; then
