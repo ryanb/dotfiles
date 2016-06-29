@@ -91,36 +91,17 @@ def install_packages
   puts '*** Packages *** '
 
   system("/bin/sh", "-c", <<-EOF)
-    brew_install () {
-      if brew list | grep $1 > /dev/null; then
-        echo "$1 is already installed."
-      else
-        echo "Installing $1..."
-        brew install $1
-      fi
-    }
+    brew bundle --global
 
-    brew_install git
-    brew_install gh
-
-    brew_install tmux
-
-    brew_install libyaml
-    brew_install chruby
     source /usr/local/opt/chruby/share/chruby/chruby.sh
-    brew_install ruby-install
     ruby_version=`cat ~/.ruby-version`
     if [ ! -d ~/.rubies/ruby-$ruby_version ]; then
       ruby-install ruby $ruby-version
       gem install bundler
     else
-      echo 'Ruby 2.3.0 is already installed.'
+      echo "Ruby $ruby_version is already installed."
     fi
 
-    brew_install vim
-    brew_install ctags
-
-    brew_install nodenv
     node_version=`cat ~/.node-version`
     if [ ! -d ~/.nodenv/versions/$node_version ]; then
       nodenv install $node_version
@@ -129,10 +110,8 @@ def install_packages
       npm install babel-eslint -g
       nodenv rehash
     else
-      echo 'Node 4.2.6 is already installed.'
+      echo "Node $node_version is already installed."
     fi
-
-    brew_install the_silver_searcher
   EOF
 end
 
