@@ -16,7 +16,7 @@ function link_config_files {
 
 echo '*** Config files ***'
 
-link_config_files agignore bin gitignore tmate.conf tmux.conf zshrc
+link_config_files agignore gitignore tmate.conf tmux.conf zshrc
 
 
 echo
