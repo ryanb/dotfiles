@@ -56,7 +56,7 @@ fi
 
 
 echo
-echo '*** Node *** '
+echo '*** Node ***'
 
 link_config_files node-version
 
@@ -69,6 +69,16 @@ if [ ! -d ~/.nodenv/versions/$node_version ]; then
   nodenv rehash
 else
   echo "Node $node_version is already installed, skipping."
+fi
+
+
+echo
+echo '*** Pow ***'
+
+if [ ! -d ~/Library/Application\ Support/Pow ]; then
+  curl get.pow.cx | sh
+else
+  echo 'Pow is already installed, skipping.'
 fi
 
 
