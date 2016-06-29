@@ -20,29 +20,14 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:~/.dotf
 # ==============================================================================
 # Tools
 
-if [[ -f /opt/boxen/env.sh ]]; then
-  source /opt/boxen/env.sh
-fi
-
-if [[ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
+if [ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]; then
   source /usr/local/opt/chruby/share/chruby/chruby.sh
   source /usr/local/opt/chruby/share/chruby/auto.sh
-
-  function ruby_version() {
-    basename "$RUBY_ROOT"
-  }
-else
-  # If we're using boxen, it'll have set up rbenv for us already.
-  function ruby_version() {
-    rbenv version | sed "s/^\([^ ]*\).*$/\1/"
-  }
 fi
 
-if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
-
-# if [ `boot2docker status` = running ]; then
-#     `boot2docker shellinit 2> /dev/null`
-# fi
+if which nodenv > /dev/null; then
+  eval "$(nodenv init -)"
+fi
 
 
 # ==============================================================================
@@ -108,16 +93,6 @@ alias gm='git merge --no-ff'
 alias gp='git push'
 alias gpr='git push -u && gh compare'
 alias gs='git status'
-
-alias tw='tmux rename-window'
-
-# Quick way to rebuild the Launch Services database and get rid
-# of duplicates in the Open With submenu.
-# See http://www.leancrew.com/all-this/2013/02/getting-rid-of-open-with-duplicates/
-alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user; killall Finder'
-
-# Boot2docker plays up for me sometimes. This fixes it.
-alias fix-docker='boot2docker ssh sudo /etc/init.d/docker restart'
 
 alias fs='bundle exec foreman start'
 alias afs='aws-vault exec readwrite -- bundle exec foreman start'
