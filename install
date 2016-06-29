@@ -1,0 +1,138 @@
+#!/bin/bash
+
+set -o errexit
+
+echo '*** Config files ***'
+
+function link {
+  if [[ ! -e ~/.$1 ]]; then
+    ln -s ~/.$1 ~/.dotfiles/$1
+    echo "Linked .$1"
+  else
+    echo "Skipped .$1"
+  fi
+}
+
+link agignore
+link bin
+link Brewfile
+link gitignore
+link node-version
+link ruby-version
+link tmate.conf
+link tmux.conf
+link vimrc
+link vundle
+link zshrc
+
+
+echo
+echo '*** Homebrew *** '
+
+if which brew > /dev/null; then
+  echo 'brew is already installed.'
+else
+  echo 'Installing brew...'
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+
+echo
+echo '*** Packages *** '
+
+brew bundle --global
+
+
+echo
+echo '*** Ruby *** '
+
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+ruby_version=`cat ~/.ruby-version`
+if [ ! -d ~/.rubies/ruby-$ruby_version ]; then
+  ruby-install ruby $ruby-version
+  gem install bundler
+else
+  echo "Ruby $ruby_version is already installed."
+fi
+
+
+echo
+echo '*** Node *** '
+
+node_version=`cat ~/.node-version`
+if [ ! -d ~/.nodenv/versions/$node_version ]; then
+  nodenv install $node_version
+  npm install npm -g
+  npm install standard -g
+  npm install babel-eslint -g
+  nodenv rehash
+else
+  echo "Node $node_version is already installed."
+fi
+
+
+echo
+echo '*** Vim config *** '
+
+mkdir -p ~/.vim/bundle
+if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
+  git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
+vim -u ~/.vundle +PluginInstall +qall
+
+echo Installed.
+
+
+echo
+echo '*** Git config *** '
+
+git config --global user.name "Pete Yandell"
+git config --global user.email "pete@notahat.com"
+git config --global github.user notahat
+git config --global difftool.prompt false
+git config --global color.ui true
+git config --global core.excludesfile '~/.gitignore'
+
+# Make git push only push the current branch.
+git config --global push.default current
+
+# Make new branches do a rebase on git pull.
+git config --global branch.autosetuprebase always
+git config --global merge.defaultToUpstream true
+
+# Helpful aliases.
+git config --global alias.root '!pwd'
+git config --global alias.build '!git push -f origin HEAD:build/notahat/$(openssl rand -hex 3)'
+git config --global alias.build-without-master '!git push -f origin HEAD:build/notahat/$(openssl rand -hex 3)-without-master'
+git config --global alias.build-specs '!git push -f origin HEAD:build-specs/notahat/$(openssl rand -hex 3)'
+git config --global alias.build-specs-without-master '!git push -f origin HEAD:build-specs/notahat/$(openssl rand -hex 3)-without-master'
+git config --global alias.build-features '!git push -f origin HEAD:build-features/notahat/$(openssl rand -hex 3)'
+git config --global alias.build-features-without-master '!git push -f origin HEAD:build-features/notahat/$(openssl rand -hex 3)-without-master'
+git config --global alias.build-js '!git push -f origin HEAD:build-js/notahat/$(openssl rand -hex 3)'
+git config --global alias.build-js-without-master '!git push -f origin HEAD:build-js/notahat/$(openssl rand -hex 3)-without-master'
+
+echo Installed.
+
+
+echo
+echo '*** OS X config *** '
+
+# Disable the dashboard.
+defaults write com.apple.dashboard mcx-disabled -boolean YES
+
+# Clear out the dock.
+defaults write com.apple.dock checked-for-launchpad -boolean YES
+defaults write com.apple.dock persistent-apps "()"
+defaults write com.apple.dock orientation left
+
+killall Dock
+
+# Set up menu bar extras.
+defaults write com.apple.systemuiserver menuExtras -array \
+  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+  "/System/Library/CoreServices/Menu Extras/Clock.menu"
+
+killall SystemUIServer
+
+echo Installed.
