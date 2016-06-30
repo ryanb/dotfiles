@@ -2,6 +2,13 @@
 
 set -o errexit
 
+green=`tput setaf 2`
+reset=`tput sgr0`
+
+function echo_green {
+  echo -e "${green}${1}${reset}"
+}
+
 function link_config_files {
   for filename in $*; do
     if [ ! -e ~/.$filename ]; then
@@ -14,34 +21,33 @@ function link_config_files {
 }
 
 
-echo '*** Config files ***'
+echo_green '*** Config files ***'
 
 link_config_files agignore gitignore tmate.conf tmux.conf zshrc
 
 
 echo
-echo '*** Fonts ***'
+echo_green '*** Fonts ***'
 
-cp ~/.dotfiles/fonts/Inconsolata.otf $HOME/Library/Fonts
+cp ~/.dotfiles/fonts/*.otf $HOME/Library/Fonts
 echo Installed.
 
 
 echo
-echo '*** Homebrew *** '
+echo_green '*** Homebrew ***'
 
-if which brew > /dev/null; then
-  echo 'brew is already installed, skipping.'
-else
-  echo 'Installing brew...'
+if [ ! -f /usr/local/bin/brew ]; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+  echo 'brew is already installed, skipping.'
 fi
 
 link_config_files Brewfile
-brew bundle --global --verbose
+brew bundle --global
 
 
 echo
-echo '*** Ruby *** '
+echo_green '*** Ruby ***'
 
 link_config_files ruby-version
 
@@ -56,7 +62,7 @@ fi
 
 
 echo
-echo '*** Node ***'
+echo_green '*** Node ***'
 
 link_config_files node-version
 
@@ -73,7 +79,7 @@ fi
 
 
 echo
-echo '*** Pow ***'
+echo_green '*** Pow ***'
 
 if [ ! -d ~/Library/Application\ Support/Pow ]; then
   curl get.pow.cx | sh
@@ -83,7 +89,7 @@ fi
 
 
 echo
-echo '*** Vim config *** '
+echo_green '*** Vim config ***'
 
 link_config_files vimrc vundle
 
@@ -93,11 +99,9 @@ if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
 fi
 vim -u ~/.vundle +PluginInstall +qall
 
-echo Installed.
-
 
 echo
-echo '*** Git config *** '
+echo_green '*** Git config ***'
 
 git config --global user.name "Pete Yandell"
 git config --global user.email "pete@notahat.com"
@@ -120,7 +124,7 @@ echo Installed.
 
 
 echo
-echo '*** OS X config *** '
+echo_green '*** OS X config ***'
 
 # Disable the dashboard.
 defaults write com.apple.dashboard mcx-disabled -boolean YES
