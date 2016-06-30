@@ -1,6 +1,8 @@
 tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'homebrew/services'
+tap 'caskroom/cask'
+
 brew 'awscli'
 brew 'chruby'
 brew 'ctags'
@@ -22,3 +24,14 @@ brew 'tmux'
 brew 'tree'
 brew 'vim', args: ['without-perl', 'without-python']
 brew 'wget'
+
+# Mac apps, installed with https://caskroom.github.io/
+cask 'google-chrome'
+cask 'the-unarchiver'
+cask 'spotify'
+cask 'screenhero'
+cask 'dropbox'
+
+# App store apps, installed with https://github.com/argon/mas
+mas '1Password', id: 443987910
+mas 'Slack', id: 803453959

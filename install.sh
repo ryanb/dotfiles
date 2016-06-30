@@ -37,7 +37,7 @@ else
 fi
 
 link_config_files Brewfile
-brew bundle --global
+brew bundle --global --verbose
 
 
 echo
