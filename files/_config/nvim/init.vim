@@ -36,8 +36,7 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('terryma/vim-smooth-scroll')
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('dbakker/vim-projectroot')
-"call dein#add('albfan/ag.vim')
-call dein#add('Numkil/ag.nvim')
+call dein#add('mileszs/ack.vim')
 
 " syntax & languages
 call dein#add('cakebaker/scss-syntax.vim')
@@ -53,9 +52,6 @@ call dein#add('leafgarland/typescript-vim')
 
 " Themes
 call dein#add('altercation/vim-colors-solarized')
-
-" You can specify revision/branch/tag.
-"call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
 " Required:
 call dein#end()
@@ -99,6 +95,11 @@ set hidden
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim/
 set nocompatible
 set nowrap
+
+" ack config
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " folding
 augroup vimrc
@@ -318,14 +319,14 @@ endfunction
 function SearchProject()
   execute "ProjectRootCD"
   let search = input("Search Project: ")
-  execute "Ag ".search
+  execute "Ack! ".search
 endfunction
 
 function SearchDirectory()
   execute "ProjectRootCD"
   let dir = input("Choose Directory: ", "", "file")
   let search = input("Search Directory: ")
-  execute "Ag ".search." ".dir
+  execute "Ack! ".search." ".dir
 endfunction
 
 function! NumberToggle()
