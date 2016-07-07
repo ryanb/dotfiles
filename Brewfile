@@ -35,3 +35,4 @@ cask 'dropbox'
 # App store apps, installed with https://github.com/argon/mas
 mas '1Password', id: 443987910
 mas 'Slack', id: 803453959
+mas 'Quiver', id: 866773894
