@@ -12,11 +12,12 @@ call dein#begin(expand('~/.config/nvim/bundle/dein.vim'))
 " Let dein manage dein
 " Required:
 call dein#add('Shougo/dein.vim')
-call dein#add('L9')
-call dein#add('FuzzyFinder')
+
+"call dein#add('L9')
+"call dein#add('FuzzyFinder')
 call dein#add('Lokaltog/vim-easymotion')
-call dein#add('ervandew/supertab')
-call dein#add('kien/ctrlp.vim')
+"call dein#add('ervandew/supertab')
+"call dein#add('kien/ctrlp.vim')
 call dein#add('powerline/powerline')
 call dein#add('tomtom/tlib_vim')
 call dein#add('tpope/vim-endwise')
@@ -28,6 +29,7 @@ call dein#add('tpope/vim-git')
 call dein#add('xolox/vim-misc')
 call dein#add('xolox/vim-easytags')
 call dein#add('scrooloose/syntastic')
+"call dein#add('neomake/neomake')
 call dein#add('majutsushi/tagbar')
 call dein#add('rgarver/Kwbd.vim')
 call dein#add('thinca/vim-fontzoom')
@@ -37,6 +39,9 @@ call dein#add('terryma/vim-smooth-scroll')
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('dbakker/vim-projectroot')
 call dein#add('mileszs/ack.vim')
+call dein#add('Shougo/unite.vim')
+"call dein#add('Shougo/unite-outline')
+"call dein#add('Shougo/neomru.vim')
 
 " syntax & languages
 call dein#add('cakebaker/scss-syntax.vim')
@@ -49,6 +54,9 @@ call dein#add('vim-ruby/vim-ruby')
 call dein#add('mattn/emmet-vim')
 call dein#add('digitaltoad/vim-jade')
 call dein#add('leafgarland/typescript-vim')
+
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+call dein#add('Quramy/tsuquyomi.git')
 
 " Themes
 call dein#add('altercation/vim-colors-solarized')
@@ -96,6 +104,12 @@ set hidden
 set nocompatible
 set nowrap
 
+" Neomake
+"autocmd! BufWritePost * Neomake
+
+" disable async gitgutter, since it conflicts with
+let g:gitgutter_async = 0
+
 " ack config
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
@@ -122,27 +136,30 @@ let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 
 " typescript config
-let g:typescript_compiler_options='--target ES5 --emitDecoratorMetadata --experimentalDecorators'
-let g:syntastic_typescript_tsc_args='--target ES5 --emitDecoratorMetadata --experimentalDecorators'
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+let g:syntastic_typescript_tsc_fname = ''
+"let g:typescript_compiler_options='--target ES5 --emitDecoratorMetadata --experimentalDecorators'
+"let g:syntastic_typescript_tsc_args='--target ES5 --emitDecoratorMetadata --experimentalDecorators'
 
 " ctrlp config
-let g:ctrlp_switch_buffer=0
-let g:ctrlp_open_multi='vr'
-let g:ctrlp_max_height=15
-let g:ctrlp_match_window_bottom=0
-let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', 'file', 'coveragefile', 'dir' ]
+"let g:ctrlp_switch_buffer=0
+"let g:ctrlp_open_multi='vr'
+"let g:ctrlp_max_height=15
+"let g:ctrlp_match_window_bottom=0
+"let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', 'file', 'coveragefile', 'dir' ]
 
 " use ag or git for ctrlP
-let g:ctrlp_use_caching = 0
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-else
-  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-  let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-    \ }
-endif
+"let g:ctrlp_use_caching = 0
+"if executable('ag')
+  "set grepprg=ag\ --nogroup\ --nocolor
+  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"else
+  "let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+  "let g:ctrlp_prompt_mappings = {
+    "\ 'AcceptSelection("e")': ['<space>', '<cr>', '<3-LeftMouse>'],
+    "\ }
+"endif
 
 if executable('ctags')
   let g:tagbar_type_coffee = {
@@ -172,10 +189,12 @@ nnoremap <leader>tl :call NumberToggle()<CR>
 " jk triggers ESC in insert mode
 inoremap jk <ESC>
 
-" open buffers
-nnoremap <leader>bl :FufBuffer<CR>
-" ctrl p for last used files
-nnoremap <leader>fr :CtrlPMRUFiles<CR>
+" find files
+nnoremap <leader>uu :Unite -start-insert<CR>
+nnoremap <leader>ub :Unite -buffer-name=buffers -start-insert buffer<CR>
+"nnoremap <leader>ur :Unite -buffer-name=mru -start-insert file_mru<CR>
+nnoremap <leader>ug :call FindGitFiles()<CR>
+"nnoremap <leader>uf :Unite -buffer-name=files -start-insert file<CR>
 
 " ctrl + h/l in insert mode
 inoremap <C-h> <Left>
@@ -327,6 +346,11 @@ function SearchDirectory()
   let dir = input("Choose Directory: ", "", "file")
   let search = input("Search Directory: ")
   execute "Ack! ".search." ".dir
+endfunction
+
+function FindGitFiles()
+  execute "ProjectRootCD"
+	execute "Unite -buffer-name=gitfiles -start-insert file_rec/git"
 endfunction
 
 function! NumberToggle()
