@@ -1,78 +1,50 @@
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
+call plug#begin('~/.vim/plugged')
 
-" Required:
-set runtimepath^=~/.config/nvim/bundle/dein.vim
+Plug 'altercation/vim-colors-solarized'
 
-" Required:
-call dein#begin(expand('~/.config/nvim/bundle/dein.vim'))
+Plug 'ervandew/supertab'
+Plug 'sjl/gundo.vim'
+Plug 'majutsushi/tagbar'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Quramy/vison'
+Plug 'scrooloose/nerdcommenter'
+Plug 'docunext/closetag.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'scrooloose/syntastic'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'tomtom/tlib_vim'
+Plug 'tpope/vim-surround'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-git'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'rgarver/Kwbd.vim'
+Plug 'thinca/vim-fontzoom'
+Plug 'vim-scripts/vcscommand.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'terryma/vim-smooth-scroll'
+Plug 'dbakker/vim-projectroot'
+Plug 'mileszs/ack.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-outline'
+Plug 'Shougo/neomru.vim'
 
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
+Plug 'kchmck/vim-coffee-script'
+Plug 'leafgarland/typescript-vim'
+Plug 'othree/yajs.vim'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'tpope/vim-markdown'
+Plug 'vim-ruby/vim-ruby'
 
-"call dein#add('L9')
-"call dein#add('FuzzyFinder')
-call dein#add('Lokaltog/vim-easymotion')
-"call dein#add('ervandew/supertab')
-"call dein#add('kien/ctrlp.vim')
-call dein#add('powerline/powerline')
-call dein#add('tomtom/tlib_vim')
-call dein#add('tpope/vim-endwise')
-call dein#add('tpope/vim-repeat')
-call dein#add('tpope/vim-sensible')
-call dein#add('tpope/vim-surround')
-call dein#add('airblade/vim-gitgutter')
-call dein#add('tpope/vim-git')
-call dein#add('xolox/vim-misc')
-call dein#add('xolox/vim-easytags')
-call dein#add('scrooloose/syntastic')
-"call dein#add('neomake/neomake')
-call dein#add('majutsushi/tagbar')
-call dein#add('rgarver/Kwbd.vim')
-call dein#add('thinca/vim-fontzoom')
-call dein#add('vim-scripts/vcscommand.vim')
-call dein#add('tpope/vim-fugitive')
-call dein#add('terryma/vim-smooth-scroll')
-call dein#add('scrooloose/nerdcommenter')
-call dein#add('dbakker/vim-projectroot')
-call dein#add('mileszs/ack.vim')
-call dein#add('Shougo/unite.vim')
-"call dein#add('Shougo/unite-outline')
-"call dein#add('Shougo/neomru.vim')
+Plug 'Quramy/tsuquyomi'
+Plug 'mattn/emmet-vim'
 
-" syntax & languages
-call dein#add('cakebaker/scss-syntax.vim')
-call dein#add('kchmck/vim-coffee-script')
-call dein#add('pangloss/vim-javascript')
-call dein#add('slim-template/vim-slim')
-call dein#add('tpope/vim-haml')
-call dein#add('tpope/vim-markdown')
-call dein#add('vim-ruby/vim-ruby')
-call dein#add('mattn/emmet-vim')
-call dein#add('digitaltoad/vim-jade')
-call dein#add('leafgarland/typescript-vim')
-
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('Quramy/tsuquyomi.git')
-
-" Themes
-call dein#add('altercation/vim-colors-solarized')
-
-" Required:
-call dein#end()
+call plug#end()
 
 " Required:
 filetype plugin indent on
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-"End dein Scripts-------------------------
 
 syntax on
 
@@ -104,11 +76,10 @@ set hidden
 set nocompatible
 set nowrap
 
-" Neomake
-"autocmd! BufWritePost * Neomake
+let g:airline_powerline_fonts=1
 
 " disable async gitgutter, since it conflicts with
-let g:gitgutter_async = 0
+"let g:gitgutter_async = 0
 
 " ack config
 if executable('ag')
@@ -192,9 +163,9 @@ inoremap jk <ESC>
 " find files
 nnoremap <leader>uu :Unite -start-insert<CR>
 nnoremap <leader>ub :Unite -buffer-name=buffers -start-insert buffer<CR>
-"nnoremap <leader>ur :Unite -buffer-name=mru -start-insert file_mru<CR>
+nnoremap <leader>ur :Unite -buffer-name=mru -start-insert file_mru<CR>
 nnoremap <leader>ug :call FindGitFiles()<CR>
-"nnoremap <leader>uf :Unite -buffer-name=files -start-insert file<CR>
+nnoremap <leader>uf :Unite -buffer-name=files -start-insert file<CR>
 
 " ctrl + h/l in insert mode
 inoremap <C-h> <Left>

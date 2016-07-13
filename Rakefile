@@ -8,7 +8,7 @@ task :install do
   prerequisites
 
   install_oh_my_zsh
-  install_dein
+  install_vim_plug
   install_spacemacs
 
   Dotfiles.new.install
@@ -61,20 +61,20 @@ def install_oh_my_zsh
   end
 end
 
-def install_dein
-  if File.exist?(File.join(ENV['HOME'], ".config/nvim/bundle/dein.vim"))
-    puts "found ~/.config/nvim/bundle/dein.vim"
+def install_vim_plug
+  if File.exist?(File.join(ENV['HOME'], ".config/nvim/autoload/plug.vim"))
+    puts "found ~/.config/nvim/autoload/plug.vim"
   else
-    print "install 'dein'? [ynq] "
+    print "install 'vim-plug'? [ynq] "
     case $stdin.gets.chomp
     when 'y'
-      puts "installing dein"
+      puts "installing vim-plug"
       system %Q{mkdir -p "$HOME/.config"}
-      system %Q{git clone https://github.com/Shougo/dein.vim.git "$HOME/.config/nvim/bundle/dein.vim"}
+      system %Q{curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim}
     when 'q'
       exit
     else
-      puts "skipping dein"
+      puts "skipping vim-plug"
     end
   end
 end
