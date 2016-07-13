@@ -9,7 +9,6 @@ task :install do
 
   install_oh_my_zsh
   install_vim_plug
-  install_spacemacs
 
   Dotfiles.new.install
 
@@ -23,7 +22,7 @@ end
 
 def prerequisites
   puts '-----------------------------------------------------------------------'
-  puts 'this will install oh-my-zsh, install and configure neovim and spacemacs,'
+  puts 'this will install oh-my-zsh, install and configure neovim'
   puts 'and some more dotfiles'
   puts ''
   puts 'please make sure before continuing that the prerequisites are met'
@@ -75,24 +74,6 @@ def install_vim_plug
       exit
     else
       puts "skipping vim-plug"
-    end
-  end
-end
-
-def install_spacemacs
-  if File.exist?(File.join(ENV['HOME'], ".emacs.d"))
-    puts "found ~/.emacs.d"
-  else
-    print "install spacemacs? [ynq] "
-    case $stdin.gets.chomp
-    when 'y'
-      puts "installing spacemacs"
-      system %Q{git clone https://github.com/syl20bnr/spacemacs "$HOME/.emacs.d"}
-      puts "Spacemacs installed!"
-    when 'q'
-      exit
-    else
-      puts "skipping spacemacs"
     end
   end
 end

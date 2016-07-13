@@ -28,13 +28,3 @@ fi
 
 # set shell to zsh
 sudo chsh -s `which zsh` $USER
-
-# emacs
-# sudo apt-get -y build-dep emacs24
-# mkdir ~/emacs-install
-# cd ~/emacs-install
-# wget http://ftp.gnu.org/gnu/emacs/emacs-24.5.tar.gz
-# tar -xf emacs-24.5.tar.* && cd emacs-24.5
-# ./configure
-# make
-# sudo make install
