@@ -154,6 +154,9 @@ if &term =~ '^screen'
   set ttymouse=xterm2
 endif
 
+" toggle color scheme
+call togglebg#map("<leader>tc")
+
 " toggle relative/absolute line numbers
 nnoremap <leader>tl :call NumberToggle()<CR>
 
