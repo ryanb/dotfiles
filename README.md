@@ -14,6 +14,12 @@ rake install
 ```
 after installing, open a new terminal window to see the effects.
 
+## Quick File Usage
+
+```
+curl https://raw.githubusercontent.com/dbldots/dotfiles/master/files/_tmux.conf > ~/.tmux.conf
+```
+
 ## Features
 
 * oh-my-zsh
