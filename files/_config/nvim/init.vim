@@ -27,9 +27,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'dbakker/vim-projectroot'
 Plug 'mileszs/ack.vim'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
-Plug 'Shougo/neomru.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
@@ -113,25 +111,6 @@ let g:syntastic_typescript_tsc_fname = ''
 "let g:typescript_compiler_options='--target ES5 --emitDecoratorMetadata --experimentalDecorators'
 "let g:syntastic_typescript_tsc_args='--target ES5 --emitDecoratorMetadata --experimentalDecorators'
 
-" ctrlp config
-"let g:ctrlp_switch_buffer=0
-"let g:ctrlp_open_multi='vr'
-"let g:ctrlp_max_height=15
-"let g:ctrlp_match_window_bottom=0
-"let g:fuf_modesDisable = [ 'mrufile', 'mrucmd', 'file', 'coveragefile', 'dir' ]
-
-" use ag or git for ctrlP
-"let g:ctrlp_use_caching = 0
-"if executable('ag')
-  "set grepprg=ag\ --nogroup\ --nocolor
-  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-"else
-  "let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-  "let g:ctrlp_prompt_mappings = {
-    "\ 'AcceptSelection("e")': ['<space>', '<cr>', '<3-LeftMouse>'],
-    "\ }
-"endif
-
 if executable('ctags')
   let g:tagbar_type_coffee = {
     \ 'ctagsbin' : 'coffeetags',
@@ -163,13 +142,6 @@ nnoremap <leader>tl :call NumberToggle()<CR>
 " jk triggers ESC in insert mode
 inoremap jk <ESC>
 
-" find files
-nnoremap <leader>uu :Unite -start-insert<CR>
-nnoremap <leader>ub :Unite -buffer-name=buffers -start-insert buffer<CR>
-nnoremap <leader>ur :Unite -buffer-name=mru -start-insert file_mru<CR>
-nnoremap <leader>ug :call FindGitFiles()<CR>
-nnoremap <leader>uf :Unite -buffer-name=files -start-insert file<CR>
-
 " ctrl + h/l in insert mode
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
@@ -182,6 +154,31 @@ noremap <silent> <C-j> :call smooth_scroll#down(&scroll, 0, 3)<CR>
 map <C-f> :Ag ""<Left>
 map <leader>sp :call SearchProject()<CR>
 map <leader>sd :call SearchDirectory()<CR>
+
+" ctrl p for last used files
+nnoremap <leader>fr :CtrlPMRUFiles<CR>
+" ctrl p for buffers
+nnoremap <leader>fb :CtrlPBuffer<CR>
+" ctrl p mapping
+nnoremap <leader>fl :CtrlP<CR>
+
+" ctrlp config
+let g:ctrlp_switch_buffer=0
+let g:ctrlp_open_multi='vr'
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_bottom=0
+
+" use ag or git for ctrlP
+let g:ctrlp_use_caching = 0
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+else
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+  let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+    \ }
+endif
 
 " fugitive git bindings
 nnoremap <leader>ga :Git add %:p<CR><CR>
@@ -320,11 +317,6 @@ function SearchDirectory()
   let dir = input("Choose Directory: ", "", "file")
   let search = input("Search Directory: ")
   execute "Ack! ".search." ".dir
-endfunction
-
-function FindGitFiles()
-  execute "ProjectRootCD"
-	execute "Unite -buffer-name=gitfiles -start-insert file_rec/git"
 endfunction
 
 function! NumberToggle()
