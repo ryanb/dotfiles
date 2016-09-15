@@ -26,6 +26,8 @@ set foldlevelstart=20
 set number
 set relativenumber
 set cursorline
+set breakindent
+set belloff=esc
 
 syntax enable
 
