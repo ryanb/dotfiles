@@ -97,8 +97,3 @@ alias gs='git status'
 alias fs='bundle exec foreman start'
 alias afs='aws-vault exec readwrite -- bundle exec foreman start'
 
-
-# ==============================================================================
-# iTerm2 integration
-
-test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
