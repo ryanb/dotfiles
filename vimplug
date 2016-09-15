@@ -1,0 +1,53 @@
+" vim:ft=vim
+
+" LustyExplorer complains if these aren't set.
+set nocompatible
+set hidden
+
+call plug#begin('~/.vim/plugged')
+
+" File navigation
+Plug 'LustyExplorer'
+Plug 'ctrlp.vim'
+
+" Tmux and iTerm integration
+Plug 'sjl/vitality.vim'                    " Make Focus(Lost|Gained) work in iTerm & have a bar cursor
+Plug 'christoomey/vim-tmux-navigator'      " Navigate between vim and tmux windows
+Plug 'tmux-plugins/vim-tmux-focus-events'  " Make Focus(Lost|Gained) work in tmux
+Plug 'benmills/vimux'                      " Interact with tmux from vim
+
+" Fancier text object handling
+Plug 'tpope/vim-repeat'         " Makes . repeat lots of plugin commands
+Plug 'tpope/vim-surround'       " Change surrounding characters
+Plug 'vim-scripts/matchit.zip'  " Extend % to work with HTML tags
+Plug 'wellle/targets.vim'       " Add a bunch of useful text objects
+
+" General editing
+Plug 'tComment'
+Plug 'notahat/vim-redub'
+Plug 'rking/ag.vim'
+Plug 'airblade/vim-gitgutter'
+
+" Syntax checking
+Plug 'scrooloose/syntastic'
+
+" Ruby/Rails support
+Plug 'textobj-user'        " Needed for textobj-rubyblock
+Plug 'textobj-rubyblock'
+Plug 'jgdavey/vim-turbux'
+Plug 'rails.vim'
+
+" Other languages
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'moll/vim-node'                     " Make gf work on require statements
+Plug 'elixir-lang/vim-elixir'
+Plug 'plasticboy/vim-markdown'
+Plug 'mustache/vim-mustache-handlebars'
+
+" Color schemes
+Plug 'quanganhdo/grb256'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'guns/xterm-color-table.vim'
+
+call plug#end()

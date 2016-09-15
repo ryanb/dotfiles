@@ -106,13 +106,12 @@ fi
 echo
 echo_green '*** Vim config ***'
 
-link_config_files vimrc vundle
+link_config_files vimrc vimplug
 
-mkdir -p ~/.vim/bundle
-if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
-  git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if [ ! -f ~/.vim/autoload/plug.vim ]; then
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
-vim -u ~/.vundle +PluginInstall +qall
+vim -u ~/.vimplug +PlugInstall +qall
 
 
 echo

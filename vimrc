@@ -1,8 +1,10 @@
 " ==============================================================================
 " Configuration
 
-source ~/.vundle
+source ~/.vimplug
 
+set nocompatible
+set hidden
 set autoindent
 set nosmartindent
 set nocindent
