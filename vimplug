@@ -46,8 +46,6 @@ Plug 'plasticboy/vim-markdown'
 Plug 'mustache/vim-mustache-handlebars'
 
 " Color schemes
-Plug 'quanganhdo/grb256'
 Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'guns/xterm-color-table.vim'
 
 call plug#end()
