@@ -12,7 +12,7 @@ function echo_green {
 function link_config_files {
   for filename in $*; do
     if [ ! -e ~/.$filename ]; then
-      ln -s ~/.$filename ~/.dotfiles/$filename
+      ln -s ~/.dotfiles/$filename ~/.$filename
       echo "Linked .$filename"
     else
       echo ".$filename is already linked, skipping."
