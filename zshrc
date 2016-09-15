@@ -94,6 +94,6 @@ alias gp='git push'
 alias gpr='git push -u && gh compare'
 alias gs='git status'
 
-alias fs='bundle exec foreman start'
-alias afs='aws-vault exec readwrite -- bundle exec foreman start'
+alias fs='bundle exec foreman start -m all=1,styleguide=0'
+alias afs='aws-vault exec sites-prod-rw -- bundle exec foreman start -m all=1,styleguide=0'
 
