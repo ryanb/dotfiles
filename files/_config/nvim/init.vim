@@ -161,6 +161,7 @@ nnoremap <leader>fr :CtrlPMRUFiles<CR>
 nnoremap <leader>fb :CtrlPBuffer<CR>
 " ctrl p mapping
 nnoremap <leader>fl :CtrlP<CR>
+nnoremap <leader>fp :CtrlP<CR>
 
 " ctrlp config
 let g:ctrlp_switch_buffer=0
