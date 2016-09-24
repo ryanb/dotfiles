@@ -20,7 +20,7 @@ sudo ln -s $GOPATH/bin/goclip /usr/local/bin/xsel
 # neovim
 if [ ! -d "$HOME/the_silver_searcher" ]; then
   cd
-  git clone git@github.com:ggreer/the_silver_searcher.git
+  git clone https://github.com/ggreer/the_silver_searcher.git
   cd the_silver_searcher
   ./build.sh
   sudo make install
