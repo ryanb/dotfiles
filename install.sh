@@ -9,14 +9,18 @@ function echo_green {
   echo -e "${green}${1}${reset}"
 }
 
+function link_file {
+  if [ ! -e $2 ]; then
+    ln -s $1 $2
+    echo "Linked $2"
+  else
+    echo "$2 is already linked, skipping."
+  fi
+}
+
 function link_config_files {
   for filename in $*; do
-    if [ ! -e ~/.$filename ]; then
-      ln -s ~/.dotfiles/$filename ~/.$filename
-      echo "Linked .$filename"
-    else
-      echo ".$filename is already linked, skipping."
-    fi
+    link_file ~/.dotfiles/$filename ~/.$filename
   done
 }
 
@@ -112,6 +116,22 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 vim -u ~/.vimplug +PlugInstall +qall
+
+
+echo
+echo_green '*** NeoVim config ***'
+
+mkdir -p ~/.config/nvim
+link_file ~/.dotfiles/nvim/init.vim ~/.config/nvim/init.vim
+link_file ~/.dotfiles/nvim/vimplug.vim ~/.config/nvim/vimplug.vim
+
+if [ ! -f ~/.config/nvim/autoload/plug.vim ]; then
+  curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
+# This won't work, because neovim exits before the install finishes:
+#   nvim -u ~/.config/nvim/vimplug.vim +PlugInstall +qall
+# I'll have to do it by hand for now.
 
 
 echo

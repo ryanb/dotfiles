@@ -23,6 +23,7 @@ brew 'tmate'
 brew 'tmux'
 brew 'tree'
 brew 'vim', args: ['without-perl', 'without-python']
+brew 'neovim/neovim/neovim'
 brew 'wget'
 
 # Mac apps, installed with https://caskroom.github.io/
