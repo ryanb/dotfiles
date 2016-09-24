@@ -17,6 +17,9 @@ set wildmode=list:longest
 
 set incsearch
 
+set showcmd
+set belloff=esc
+
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
@@ -29,6 +32,8 @@ set path+=ui,.
 " Key bindings
 
 let mapleader=","
+
+nnoremap <Leader>s :wa<CR>
 
 " Better split management
 nnoremap <Leader>- :sp<CR>
@@ -48,6 +53,7 @@ vnoremap > >gv
 let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|DS_Store\|git'
 let g:ctrlp_working_path_mode = 'c'
 let g:ctrlp_cmd = 'CtrlPRoot'
+let g:ctrlp_by_filename = 0
 
 nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
 nnoremap <silent> <Leader>r :CtrlP<CR>
