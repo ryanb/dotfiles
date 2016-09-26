@@ -1,17 +1,17 @@
 #!/bin/bash -x
-
-sudo apt-get install -y curl git ctags zsh autojump htop
-sudo apt-get install -y automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev
-sudo apt-get install -y golang
-
 sudo add-apt-repository -y ppa:neovim-ppa/unstable
-sudo apt-get update
-sudo apt-get install neovim
+sudo add-apt-repository -y ppa:tmate.io/archive
+sudo add-apt-repository -y ppa:cpick/hub
 
-sudo apt-get install -y software-properties-common && \
-sudo add-apt-repository -y ppa:tmate.io/archive    && \
-sudo apt-get update                             && \
-sudo apt-get -y install tmate
+sudo apt-get update
+
+sudo apt-get install -y automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev software-properties-common
+sudo apt-get install -y curl git ctags zsh autojump htop
+
+sudo apt-get install -y neovim
+sudo apt-get install -y tmate
+sudo apt-get install -y hub
+sudo apt-get install -y golang
 
 export GOPATH=$HOME/dev/dbldots/go
 go get github.com/dbldots/goclip

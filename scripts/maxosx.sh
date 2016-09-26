@@ -6,6 +6,7 @@ brew tap neovim/neovim
 brew install --HEAD neovim
 
 brew install tmate
+brew install hub
 
 # fix terminfo
 # https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
