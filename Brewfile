@@ -33,6 +33,7 @@ cask 'the-unarchiver'
 cask 'spotify'
 cask 'screenhero'
 cask 'dropbox'
+cask 'aws-vault'
 
 # App store apps, installed with https://github.com/argon/mas
 mas '1Password', id: 443987910
