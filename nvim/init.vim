@@ -53,7 +53,7 @@ vnoremap > >gv
 let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|DS_Store\|git'
 let g:ctrlp_working_path_mode = 'c'
 let g:ctrlp_cmd = 'CtrlPRoot'
-let g:ctrlp_by_filename = 0
+let g:ctrlp_by_filename = 1
 
 nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
 nnoremap <silent> <Leader>r :CtrlP<CR>
