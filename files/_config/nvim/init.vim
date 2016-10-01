@@ -275,7 +275,7 @@ let g:netrw_list_hide= '^\.'
 let g:netrw_localrmdir='rm -r'
 
 " Change directory to the current buffer when opening files.
-set autochdir
+autocmd BufEnter * silent! lcd %:p:h
 
 function FindRev()
   " TODO try to fix this
