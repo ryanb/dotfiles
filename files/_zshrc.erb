@@ -65,6 +65,9 @@ alias ll="ls -l"
 alias la="ls -a"
 alias be="bundle exec"
 
+# to run npm packages installed in current node_modules
+alias npm-exec='PATH=$(npm bin):$PATH'
+
 # adding hub wrapper..
 # eval "$(hub alias -s)"
 
@@ -97,6 +100,7 @@ a() {
   cd `git rev-parse --show-toplevel`
 }
 
+# to fix ssh key in re-attached tmux session after reconnect
 fixssh() {
   eval $(tmux show-env | sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
 }
