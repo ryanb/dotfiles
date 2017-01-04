@@ -14,10 +14,10 @@ rake install
 ```
 after installing, open a new terminal window to see the effects.
 
-## Quick File Usage
+## Quick Tmux Usage
 
 ```
-curl https://raw.githubusercontent.com/dbldots/dotfiles/master/files/_tmux.conf > ~/.tmux.conf
+bash <(curl -s https://raw.githubusercontent.com/dbldots/dotfiles/master/scripts/tmux.sh)
 ```
 
 ## Features
