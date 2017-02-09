@@ -98,7 +98,7 @@ set foldlevel=1
 colorscheme solarized
 
 " set leader key
-let mapleader=" "
+let mapleader="\<SPACE>"
 
 " syntastic config
 let g:syntastic_enable_signs=1
@@ -140,7 +140,7 @@ call togglebg#map("<leader>tc")
 nnoremap <leader>tl :call NumberToggle()<CR>
 
 " jk triggers ESC in insert mode
-inoremap jk <ESC>
+"inoremap jk <ESC>
 
 " ctrl + h/l in insert mode
 inoremap <C-h> <Left>
@@ -151,9 +151,9 @@ noremap <silent> <C-k> :call smooth_scroll#up(&scroll, 0, 3)<CR>
 noremap <silent> <C-j> :call smooth_scroll#down(&scroll, 0, 3)<CR>
 
 " trigger search
-map <C-f> :Ag ""<Left>
-map <leader>sp :call SearchProject()<CR>
-map <leader>sd :call SearchDirectory()<CR>
+nnoremap <C-f> :Ag ""<Left>
+nnoremap <leader>sp :call SearchProject()<CR>
+nnoremap <leader>sd :call SearchDirectory()<CR>
 
 " ctrl p for last used files
 nnoremap <leader>fr :CtrlPMRUFiles<CR>
@@ -205,9 +205,9 @@ xnoremap <leader>do :diffget<cr>
 nnoremap <leader>cd :ProjectRootCD<cr>
 
 " open tagbar
-map <leader>tb :TagbarToggle<CR>
+nnoremap <leader>tb :TagbarToggle<CR>
 " toggle line wrapping
-map <leader>tw :set wrap!<cr>
+nnoremap <leader>tw :set wrap!<cr>
 " split window
 nnoremap <leader>w <C-w>v<C-w>l
 
@@ -221,31 +221,31 @@ nnoremap <leader>wk <C-w>k
 tnoremap <Esc> <C-\><C-n>
 
 " next quickfix
-noremap <leader>n :cn<CR>zv
+nnoremap <leader>n :cn<CR>zv
 
 " remove unwanted whitespaces
 "map <leader>cef :execute "%s/\\s\\+$//e"<CR>
 autocmd BufWritePre * :execute "%s/\\s\\+$//e"
 
 " close buffer
-map <leader>x :Kwbd<CR>
+nnoremap <leader>x :Kwbd<CR>
 " close all open buffers
-map <leader>X :bufdo Kwbd<CR>
+nnoremap <leader>X :bufdo Kwbd<CR>
 " close buffer and window
-map <leader>q :bd<CR>
+nnoremap <leader>q :bd<CR>
 
 " VCSCommand related
-let VCSCommandMapPrefix = "<leader>v"
-map <leader>va :VCSAnnotate<CR>
-map <leader>vl :VCSLog<CR>
-map <leader>vj :call RepoLog()<CR>
-map <leader>vd :call RepoDiff()<CR>
-map <leader>vv :call RepoShow()<CR>
+"let VCSCommandMapPrefix = "<leader>v"
+nnoremap <leader>va :VCSAnnotate<CR>
+nnoremap <leader>vl :VCSLog<CR>
+nnoremap <leader>vj :call RepoLog()<CR>
+nnoremap <leader>vd :call RepoDiff()<CR>
+nnoremap <leader>vv :call RepoShow()<CR>
 " toggle highlight search
-nnoremap <silent><expr> <Leader>hs (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+nnoremap <silent><expr> <leader>hs (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
 " toggle paste mode
-map <leader>tp :set paste!<CR>
+nnoremap <leader>tp :set paste!<CR>
 
 " to cycle through buffers and tabs
 "nmap <silent> ;' :tabnext<CR>
@@ -254,7 +254,7 @@ nnoremap <leader>bn :bnext<CR>
 nnoremap <leader>bp :bprev<CR>
 
 " open netrw
-map <silent> <C-n> :e.<CR>
+nnoremap <silent> <C-n> :e.<CR>
 
 "map <silent> <C-n> :Lexplore<CR>
 " netrw config
