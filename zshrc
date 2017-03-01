@@ -63,7 +63,7 @@ PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
 # We use the full path here to work around this nasty bug: http://www.tpope.net/node/108
 # In particular, calling "filetype indent off" in my vimrc was causing vim to
 # always exit with a non-zero status. Very annoying for git commit.
-export EDITOR=/usr/local/bin/vim
+export EDITOR=/usr/local/bin/nvim
 
 export CLICOLOR=1  # Make ls colour its output.
 export LESS=-R     # Make less support ANSI colour sequences.

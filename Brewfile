@@ -2,6 +2,7 @@ tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'homebrew/services'
 tap 'caskroom/cask'
+tap 'neovim/neovim'
 
 brew 'awscli'
 brew 'chruby'
@@ -12,6 +13,7 @@ brew 'go'
 brew 'gh'
 brew 'heroku'
 brew 'mtr'
+brew 'mysql'
 brew 'node-build'
 brew 'nodenv'
 brew 'postgresql'
@@ -23,7 +25,6 @@ brew 'the_silver_searcher'
 brew 'tmate'
 brew 'tmux'
 brew 'tree'
-brew 'vim', args: ['without-perl', 'without-python']
 brew 'neovim/neovim/neovim'
 brew 'wget'
 
@@ -34,6 +35,7 @@ cask 'spotify'
 cask 'screenhero'
 cask 'dropbox'
 cask 'aws-vault'
+cask 'iterm2'
 
 # App store apps, installed with https://github.com/argon/mas
 mas '1Password', id: 443987910
