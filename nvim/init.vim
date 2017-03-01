@@ -10,6 +10,8 @@ filetype indent off
 set expandtab
 set breakindent
 
+set nofoldenable
+
 set relativenumber
 set cursorline
 
