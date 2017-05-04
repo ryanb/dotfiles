@@ -148,9 +148,7 @@ inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
 " fixes C-h
-if has('nvim')
-  nmap <BS> :TmuxNavigateLeft<cr>
- endif
+nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 
 " smooth scrolling
 noremap <silent> <C-k> :call smooth_scroll#up(&scroll, 0, 3)<CR>
