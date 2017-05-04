@@ -1,7 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " File Navigation
-Plug 'ctrlp.vim'
+Plug 'vim-scripts/ctrlp.vim'
 Plug 'rking/ag.vim'
 
 " Tmux and iTerm integration
@@ -20,7 +20,7 @@ Plug 'vim-scripts/matchit.zip'  " Extend % to work with HTML tags
 Plug 'wellle/targets.vim'       " Add a bunch of useful text objects
 
 " General editing
-Plug 'tComment'
+Plug 'vim-scripts/tComment'
 Plug 'notahat/vim-redub'
 Plug 'airblade/vim-gitgutter'
 
@@ -28,8 +28,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'neomake/neomake'
 
 " Languages
-Plug 'textobj-user' | Plug 'textobj-rubyblock'
-Plug 'rails.vim'
+Plug 'vim-scripts/textobj-user' | Plug 'vim-scripts/textobj-rubyblock'
+Plug 'vim-scripts/rails.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'moll/vim-node'                     " Make gf work on require statements
 Plug 'elixir-lang/vim-elixir'
