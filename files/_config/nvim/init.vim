@@ -38,6 +38,7 @@ Plug 'vim-ruby/vim-ruby'
 
 Plug 'Quramy/tsuquyomi'
 Plug 'mattn/emmet-vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
@@ -145,6 +146,11 @@ nnoremap <leader>tl :call NumberToggle()<CR>
 " ctrl + h/l in insert mode
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+
+" fixes C-h
+if has('nvim')
+  nmap <BS> :TmuxNavigateLeft<cr>
+ endif
 
 " smooth scrolling
 noremap <silent> <C-k> :call smooth_scroll#up(&scroll, 0, 3)<CR>
