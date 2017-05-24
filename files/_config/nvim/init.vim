@@ -28,6 +28,7 @@ Plug 'terryma/vim-smooth-scroll'
 Plug 'dbakker/vim-projectroot'
 Plug 'mileszs/ack.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'diepm/vim-rest-console'
 
 Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
