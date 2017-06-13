@@ -136,7 +136,7 @@ if &term =~ '^screen'
 endif
 
 " toggle color scheme
-call togglebg#map("<leader>tc")
+nnoremap <leader>tc :call BackgroundToggle()<CR>
 
 " toggle relative/absolute line numbers
 nnoremap <leader>tl :call NumberToggle()<CR>
@@ -325,4 +325,11 @@ function! NumberToggle()
   else
     set relativenumber
   endif
+endfunc
+
+function! BackgroundToggle()
+	let &background = ( &background == "dark"? "light" : "dark" )
+	if exists("g:colors_name")
+		exe "colorscheme " . g:colors_name
+	endif
 endfunc
