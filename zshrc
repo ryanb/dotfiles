@@ -74,6 +74,7 @@ export DISABLE_SPRING=true
 export GOPATH=$HOME/src/go
 export PATH=$GOPATH/bin:$PATH
 
+
 # ==============================================================================
 # Aliases
 
@@ -96,4 +97,3 @@ alias gs='git status'
 
 alias fs='bundle exec foreman start -m all=1,styleguide=0'
 alias afs='aws-vault exec sites-dev-rw -- bundle exec foreman start -m all=1,styleguide=0'
-
