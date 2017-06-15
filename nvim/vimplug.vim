@@ -36,6 +36,7 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'plasticboy/vim-markdown'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
+Plug 'hashivim/vim-terraform'
 
 " Color schemes
 Plug 'chriskempson/vim-tomorrow-theme'
