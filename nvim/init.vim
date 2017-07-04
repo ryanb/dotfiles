@@ -18,6 +18,7 @@ set cursorline
 set wildmode=list:longest
 
 set incsearch
+set inccommand=split
 
 set showcmd
 set belloff=esc
