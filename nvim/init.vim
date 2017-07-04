@@ -26,10 +26,6 @@ set mouse=a
 
 set hidden
 
-if has('nvim')
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-endif
-
 " This is so gf will find files in the Sites app properly.
 set path+=ui,.
 
