@@ -72,10 +72,6 @@ let test#strategy = "neoterm"
 
 nnoremap <Leader>t :wa<CR>:TestFile<CR>
 
-" neomake
-let g:neomake_javascript_enabled_makers = ['standard']
-let g:neomake_jsx_enabled_makers = ['standard']
-
 " vim-jsx
 let g:jsx_ext_required = 0  " Treat .js files as JSX
 
@@ -89,8 +85,6 @@ autocmd!
 " Remove whitespace at the end of lines on save.
 " See http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
 autocmd BufWritePre * :%s/\s\+$//e
-
-autocmd BufWritePost *.js Neomake
 
 autocmd FocusGained * highlight StatusLine ctermfg=35
 autocmd FocusLost * highlight StatusLine ctermfg=59

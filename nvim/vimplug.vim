@@ -25,7 +25,7 @@ Plug 'notahat/vim-redub'
 Plug 'airblade/vim-gitgutter'
 
 " Syntax checking
-Plug 'neomake/neomake'
+Plug 'w0rp/ale'
 
 " Languages
 Plug 'vim-scripts/textobj-user' | Plug 'vim-scripts/textobj-rubyblock'
