@@ -2,7 +2,6 @@ tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'homebrew/services'
 tap 'caskroom/cask'
-tap 'neovim/neovim'
 
 brew 'awscli'
 brew 'chruby'
@@ -25,7 +24,7 @@ brew 'the_silver_searcher'
 brew 'tmate'
 brew 'tmux'
 brew 'tree'
-brew 'neovim/neovim/neovim'
+brew 'neovim'
 brew 'wget'
 
 # Mac apps, installed with https://caskroom.github.io/
