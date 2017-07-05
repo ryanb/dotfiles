@@ -76,6 +76,9 @@ nnoremap <Leader>t :wa<CR>:TestFile<CR>
 " vim-jsx
 let g:jsx_ext_required = 0  " Treat .js files as JSX
 
+let g:ale_linters = {
+\   'javascript': ['standard', 'flow'],
+\}
 
 " ==============================================================================
 " Autocmds
@@ -90,8 +93,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd FocusGained * highlight StatusLine ctermfg=35
 autocmd FocusLost * highlight StatusLine ctermfg=59
 
-autocmd InsertEnter * highlight StatusLine ctermfg=117
-autocmd InsertLeave * highlight StatusLine ctermfg=35
+autocmd InsertEnter * highlight StatusLine ctermfg=111
+autocmd InsertLeave * highlight StatusLine ctermfg=29
 
 augroup END
 
@@ -102,4 +105,5 @@ augroup END
 colorscheme Tomorrow-Night-Bright
 
 " Highlight the active window more brightly:
-highlight StatusLine ctermfg=35
+highlight StatusLine ctermfg=29
+highlight StatusLine ctermbg=white
