@@ -14,7 +14,7 @@ setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:~/.dotfiles/bin:/opt/vagrant/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/vagrant/bin
 
 
 # ==============================================================================
@@ -97,3 +97,5 @@ alias gs='git status'
 
 alias fs='bundle exec foreman start -m all=1,styleguide=0'
 alias afs='aws-vault exec sites-dev-rw -- bundle exec foreman start -m all=1,styleguide=0'
+
+alias retag='ctags -R --langmap="ruby:+.rake.builder.rjs" --languages=ruby'

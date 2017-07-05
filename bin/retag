@@ -1,2 +1,0 @@
-#!/bin/sh
-ctags -R --langmap="ruby:+.rake.builder.rjs" --languages=ruby
