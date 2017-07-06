@@ -76,9 +76,10 @@ nnoremap <Leader>t :wa<CR>:TestFile<CR>
 " vim-jsx
 let g:jsx_ext_required = 0  " Treat .js files as JSX
 
-let g:ale_linters = {
-\   'javascript': ['standard', 'flow'],
-\}
+" ale
+let g:ale_linters = { 'javascript': ['standard'] }
+" Use the globally installed version of standard, not the one in node_modules.
+let g:ale_javascript_standard_use_global=1
 
 " ==============================================================================
 " Autocmds
