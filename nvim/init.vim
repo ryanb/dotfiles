@@ -77,9 +77,13 @@ nnoremap <Leader>t :wa<CR>:TestFile<CR>
 let g:jsx_ext_required = 0  " Treat .js files as JSX
 
 " ale
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
 let g:ale_linters = { 'javascript': ['standard'] }
-" Use the globally installed version of standard, not the one in node_modules.
-let g:ale_javascript_standard_use_global=1
+let g:ale_javascript_standard_use_global = 1
+let g:ale_warn_about_trailing_whitespace = 0
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '?'
 
 " ==============================================================================
 " Autocmds
