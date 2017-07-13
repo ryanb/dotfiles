@@ -40,6 +40,10 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'Quramy/tsuquyomi'
 Plug 'mattn/emmet-vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'davidoc/taskpaper.vim'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'Alok/notational-fzf-vim'
 
 call plug#end()
 
@@ -213,6 +217,8 @@ nnoremap <leader>cd :ProjectRootCD<cr>
 nnoremap <leader>tb :TagbarToggle<CR>
 " toggle line wrapping
 nnoremap <leader>tw :set wrap!<cr>
+" toggle Notational FZF
+nnoremap <leader>tn :NV<CR>
 " split window
 nnoremap <leader>w <C-w>v<C-w>l
 
@@ -220,7 +226,7 @@ nnoremap <leader>w <C-w>v<C-w>l
 tnoremap <Esc> <C-\><C-n>
 
 " next quickfix
-nnoremap <leader>n :cn<CR>zv
+nnoremap <leader>n :cn<CR>
 
 " remove unwanted whitespaces
 "map <leader>cef :execute "%s/\\s\\+$//e"<CR>
@@ -272,6 +278,8 @@ let g:netrw_list_hide= '^\.'
 
 " Allow netrw to remove non-empty local directories
 let g:netrw_localrmdir='rm -r'
+
+let g:nv_directories = ['~/Nextcloud/mpx/notes', '~/Nextcloud/mpx/tasks.taskpaper', '~/Nextcloud/private/notes', '~/Nextcloud/private/tasks.taskpaper']
 
 " Change directory to the current buffer when opening files.
 autocmd BufEnter * silent! lcd %:p:h
