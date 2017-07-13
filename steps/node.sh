@@ -15,8 +15,12 @@ if [ ! -d ~/.nodenv/versions/$node_version ]; then
     brew install yarn --ignore-dependencies
   fi
 
-  yarn global add standard
-  yarn global add create-react-app
+  # I'd love to use yarn for these, but yarn global installs don't play nice
+  # with nodenv.
+  npm install standard -g
+  npm install babel-eslint -g
+  npm install create-react-app -g
+
   nodenv rehash
 else
   echo "Node $node_version is already installed, skipping."
