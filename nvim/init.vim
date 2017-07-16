@@ -3,6 +3,8 @@
 
 source ~/.config/nvim/vimplug.vim
 
+set termguicolors
+
 set statusline=%f\ %h%m%r%=%l/%L
 
 set tabstop=2 shiftwidth=2 softtabstop=2
@@ -95,11 +97,11 @@ autocmd!
 " See http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 
-autocmd FocusGained * highlight StatusLine ctermfg=35
-autocmd FocusLost * highlight StatusLine ctermfg=59
+autocmd FocusGained * highlight StatusLine guifg=#22aa33
+autocmd FocusLost * highlight StatusLine guifg=#555555
 
-autocmd InsertEnter * highlight StatusLine ctermfg=111
-autocmd InsertLeave * highlight StatusLine ctermfg=29
+autocmd InsertEnter * highlight StatusLine guifg=#2233aa
+autocmd InsertLeave * highlight StatusLine guifg=#22aa33
 
 augroup END
 
@@ -110,5 +112,5 @@ augroup END
 colorscheme Tomorrow-Night-Bright
 
 " Highlight the active window more brightly:
-highlight StatusLine ctermfg=29
-highlight StatusLine ctermbg=white
+highlight StatusLine guifg=#2233aa guibg=white
+set fillchars+=vert:\  " That space after the \ is significant.
