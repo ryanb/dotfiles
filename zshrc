@@ -35,6 +35,8 @@ fi
 
 autoload colors; colors;
 
+PATH_PROMPT_INFO="%{$fg[blue]%}%~%{$reset_color%}"
+
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]%b%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="*"  # Text to display if the branch is dirty
@@ -45,7 +47,7 @@ function git_prompt_info() {
   echo "$ZSH_THEME_GIT_PROMPT_PREFIX${branch}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
-function parse_git_dirty () {
+function parse_git_dirty() {
   if [[ -n $(git status -s 2> /dev/null) ]]; then
     echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
   else
@@ -53,8 +55,10 @@ function parse_git_dirty () {
   fi
 }
 
+JOB_PROMPT_INFO="%{$fg[red]%}%(1j.&.)%{$reset_color%}"
+
 setopt prompt_subst
-PROMPT='%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info) '
+PROMPT='${PATH_PROMPT_INFO}$(git_prompt_info)${JOB_PROMPT_INFO} '
 
 
 # ==============================================================================
