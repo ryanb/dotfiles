@@ -12,7 +12,7 @@
 [core]
   excludesfile = ~/.gitignore
 [alias]
-	cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|presentation\\|production' | xargs -n 1 git branch -d"
+	cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|presentation\\|production\\|stable' | xargs -n 1 git branch -d"
 	pr = pull-request
 	st = status
 	ci = commit
