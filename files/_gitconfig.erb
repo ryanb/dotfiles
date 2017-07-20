@@ -11,3 +11,12 @@
 	default = current
 [core]
   excludesfile = ~/.gitignore
+[alias]
+	cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|presentation\\|production' | xargs -n 1 git branch -d"
+	pr = pull-request
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	lg = log -p
+	cp = cherry-pick
