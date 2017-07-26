@@ -20,6 +20,14 @@ after installing, open a new terminal window to see the effects.
 bash <(curl -s https://raw.githubusercontent.com/dbldots/dotfiles/master/scripts/tmux.sh)
 ```
 
+## Quick Neovim Usage
+
+```
+bash <(curl -s https://raw.githubusercontent.com/dbldots/dotfiles/master/scripts/nvim.sh)
+```
+
+Mind to execute `:PlugInstall` when first started neovim
+
 ## Features
 
 * oh-my-zsh
