@@ -34,8 +34,10 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
 Plug 'othree/yajs.vim'
 Plug 'cakebaker/scss-syntax.vim'
-Plug 'tpope/vim-markdown'
 Plug 'vim-ruby/vim-ruby'
+
+Plug 'tpope/vim-markdown'
+Plug 'suan/vim-instant-markdown'
 
 Plug 'Quramy/tsuquyomi'
 Plug 'mattn/emmet-vim'
