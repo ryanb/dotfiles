@@ -12,6 +12,7 @@ sudo apt-get install -y neovim
 sudo apt-get install -y tmate
 sudo apt-get install -y hub
 sudo apt-get install -y golang
+sudo apt-get install -y tmux
 
 export GOPATH=$HOME/dev/dbldots/go
 go get github.com/dbldots/goclip

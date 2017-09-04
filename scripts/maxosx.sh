@@ -6,7 +6,11 @@ brew tap neovim/neovim
 brew install --HEAD neovim
 
 brew install tmate
+brew install tmux
+brew install autojump
 brew install hub
+brew install ctags
+brew install the_silver_searcher
 
 # fix terminfo
 # https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
