@@ -9,7 +9,7 @@ SHELL="<%= `which zsh`.strip %>"
 # zsh theme
 <%
   zsh_theme = begin
-       print("zsh theme (pure|kolo|agnoster|...): ")
+       print("zsh theme (refined|kolo|agnoster|...): ")
        STDOUT.flush
        STDIN.gets.chomp
      end
