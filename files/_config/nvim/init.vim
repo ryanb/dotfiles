@@ -35,6 +35,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'othree/yajs.vim'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'vim-ruby/vim-ruby'
+Plug 'fatih/vim-go'
 
 Plug 'tpope/vim-markdown'
 Plug 'suan/vim-instant-markdown'
