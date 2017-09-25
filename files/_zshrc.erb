@@ -6,15 +6,7 @@ ZSH=$HOME/.oh-my-zsh
 
 SHELL="<%= `which zsh`.strip %>"
 
-# zsh theme
-<%
-  zsh_theme = begin
-       print("zsh theme (refined|kolo|agnoster|...): ")
-       STDOUT.flush
-       STDIN.gets.chomp
-     end
-%>
-ZSH_THEME="<%= zsh_theme %>"
+<% home = `echo $HOME`.strip %>
 
 <%
   default_user = begin
@@ -52,8 +44,25 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git)
+fpath=( "$HOME/.zfunctions" $fpath )
 
+<%
+  zsh_theme = begin
+       print("zsh theme (refined|kolo|agnoster|...): ")
+       STDOUT.flush
+       STDIN.gets.chomp
+     end
+%>
+
+<% if zsh_theme == 'pure' %>
+ZSH_THEME=""
 source $ZSH/oh-my-zsh.sh
+autoload -U promptinit; promptinit
+prompt pure
+<% else %>
+ZSH_THEME="<%= zsh_theme %>"
+source $ZSH/oh-my-zsh.sh
+<% end %>
 
 export GOPATH=$HOME/dev/dbldots/go
 
@@ -67,9 +76,6 @@ export PATH="$PATH:$HOME/.config/yarn/global/node_modules/.bin"
 alias ll="ls -l"
 alias la="ls -a"
 alias be="bundle exec"
-
-# to run npm packages installed in current node_modules
-alias npm-exec='PATH=$(npm bin):$PATH'
 
 # adding hub wrapper..
 # eval "$(hub alias -s)"
@@ -98,6 +104,12 @@ source /usr/local/opt/chruby/share/chruby/auto.sh
 <% end %>
 set shell=$SHELL
 
+<% if File.exist?(File.join(home, '.nvm/nvm.sh')) %>
+# nvm related
+export NVM_DIR="<%= File.join(home, '.nvm/nvm.sh') %>"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+<% end %>
+
 # cd to the top level git dir
 a() {
   cd `git rev-parse --show-toplevel`
@@ -107,3 +119,11 @@ a() {
 fixssh() {
   eval $(tmux show-env | sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
 }
+
+# to fix nfs issues on mac host
+fixperms() {
+  ls -alR > /dev/null
+}
+
+# junegunn/fzf, installed by vim plug
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
