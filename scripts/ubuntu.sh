@@ -2,6 +2,7 @@
 sudo add-apt-repository -y ppa:neovim-ppa/unstable
 sudo add-apt-repository -y ppa:tmate.io/archive
 sudo add-apt-repository -y ppa:cpick/hub
+sudo apt-add-repository -y ppa:git-core/ppa
 
 sudo apt-get update
 
