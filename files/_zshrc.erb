@@ -104,7 +104,7 @@ source /usr/local/opt/chruby/share/chruby/auto.sh
 <% end %>
 set shell=$SHELL
 
-<% if File.exist?(File.join(home, '.nvm/nvm.sh')) %>
+<% if File.exist?(File.join(home, '.nvm')) %>
 # nvm related
 export NVM_DIR="<%= File.join(home, '.nvm/nvm.sh') %>"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
