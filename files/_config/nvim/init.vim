@@ -1,3 +1,17 @@
+function! BuildTsuquyomi(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    if system('uname')=~'Darwin'
+      !./make -f make_mac.mak
+    else
+      !./make
+    endif
+  endif
+endfunction
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'altercation/vim-colors-solarized'
@@ -40,7 +54,7 @@ Plug 'fatih/vim-go'
 Plug 'tpope/vim-markdown'
 Plug 'suan/vim-instant-markdown'
 
-Plug 'Quramy/tsuquyomi'
+Plug 'Quramy/tsuquyomi', { 'do' : function('BuildTsuquyomi') }
 Plug 'mattn/emmet-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'davidoc/taskpaper.vim'
