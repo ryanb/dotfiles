@@ -31,7 +31,6 @@ brew 'wget'
 # Mac apps, installed with https://caskroom.github.io/
 cask 'google-chrome'
 cask 'the-unarchiver'
-cask 'spotify'
 cask 'screenhero'
 cask 'dropbox'
 cask 'aws-vault'
