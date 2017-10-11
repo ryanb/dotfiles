@@ -102,6 +102,4 @@ alias gs='git status'
 alias fs='bundle exec forego start'
 alias afs='aws-vault exec sites-dev-rw -- bundle exec forego start'
 
-alias vs='open -a "Visual Studio Code"'
-
 alias retag='ctags -R --langmap="ruby:+.rake.builder.rjs" --languages=ruby'
