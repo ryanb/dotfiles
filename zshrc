@@ -99,7 +99,7 @@ alias gp='git push'
 alias gpr='git push -u && hub compare'
 alias gs='git status'
 
-alias fs='bundle exec forego start'
-alias afs='aws-vault exec sites-dev-rw -- bundle exec forego start'
+alias fs='bundle exec forego start -f Procfile.dev'
+alias afs='aws-vault exec sites-dev-rw -- bundle exec forego start -f Procfile.dev'
 
 alias retag='ctags -R --langmap="ruby:+.rake.builder.rjs" --languages=ruby'
