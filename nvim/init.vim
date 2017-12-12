@@ -32,6 +32,9 @@ set hidden
 " This is so gf will find files in the Sites app properly.
 set path+=ui,.
 
+" Stop neovim saving things like registers between restarts.
+set shada=
+
 
 " ==============================================================================
 " Key bindings
