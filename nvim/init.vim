@@ -106,6 +106,8 @@ autocmd FocusLost * highlight StatusLine guifg=#555555
 autocmd InsertEnter * highlight StatusLine guifg=#2233aa
 autocmd InsertLeave * highlight StatusLine guifg=#22aa33
 
+autocmd FileType go setlocal ts=8 sw=8 noexpandtab
+
 augroup END
 
 

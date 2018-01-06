@@ -37,6 +37,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
 Plug 'hashivim/vim-terraform'
+Plug 'fatih/vim-go'
 
 " Color schemes
 Plug 'chriskempson/vim-tomorrow-theme'
