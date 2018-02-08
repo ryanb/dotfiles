@@ -57,8 +57,12 @@ function parse_git_dirty() {
 
 JOB_PROMPT_INFO="%{$fg[red]%}%(1j.&.)%{$reset_color%}"
 
+function set_tab_title() {
+  echo "\033];${PWD##*/}\007"
+}
+
 setopt prompt_subst
-PROMPT='${PATH_PROMPT_INFO}$(git_prompt_info)${JOB_PROMPT_INFO} '
+PROMPT='$(set_tab_title)${PATH_PROMPT_INFO}$(git_prompt_info)${JOB_PROMPT_INFO} '
 
 
 # ==============================================================================
