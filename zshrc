@@ -57,12 +57,21 @@ function parse_git_dirty() {
 
 JOB_PROMPT_INFO="%{$fg[red]%}%(1j.&.)%{$reset_color%}"
 
+setopt prompt_subst
+PROMPT='${PATH_PROMPT_INFO}$(git_prompt_info)${JOB_PROMPT_INFO} '
+
+
+# ==============================================================================
+# Tab title
+
+autoload add-zsh-hook
+
 function set_tab_title() {
-  echo "\033];${PWD##*/}\007"
+  echo -n "\033];${PWD##*/}\007"
 }
 
-setopt prompt_subst
-PROMPT='$(set_tab_title)${PATH_PROMPT_INFO}$(git_prompt_info)${JOB_PROMPT_INFO} '
+# Set the tab title before each prompt
+add-zsh-hook precmd set_tab_title
 
 
 # ==============================================================================
