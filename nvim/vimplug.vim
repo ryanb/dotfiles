@@ -3,6 +3,7 @@ call plug#begin('~/.config/nvim/plugged')
 " File Navigation
 Plug 'vim-scripts/ctrlp.vim'
 Plug 'rking/ag.vim'
+Plug 'tpope/vim-vinegar'
 
 " Tmux and iTerm integration
 Plug 'sjl/vitality.vim'                    " Make Focus(Lost|Gained) work in iTerm & have a bar cursor
@@ -23,6 +24,7 @@ Plug 'wellle/targets.vim'       " Add a bunch of useful text objects
 Plug 'vim-scripts/tComment'
 Plug 'notahat/vim-redub'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " Syntax checking
 Plug 'w0rp/ale'

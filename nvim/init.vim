@@ -30,7 +30,7 @@ set mouse=a
 set hidden
 
 " This is so gf will find files in the Sites app properly.
-set path+=ui,.
+set path+=ui,src,zucchini/src,.
 
 " Stop neovim saving things like registers between restarts.
 set shada=
@@ -59,12 +59,11 @@ vnoremap > >gv
 
 " ctrlp
 let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|DS_Store\|git'
-let g:ctrlp_working_path_mode = 'c'
-let g:ctrlp_cmd = 'CtrlPRoot'
+let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_by_filename = 1
 
 nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
-nnoremap <silent> <Leader>r :CtrlP<CR>
+nnoremap <silent> <Leader>r :Ex<CR>
 
 " vim-tmux-navigator
 let g:tmux_navigator_command = $TMUX_COMMAND
