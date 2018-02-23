@@ -3,16 +3,17 @@ call plug#begin('~/.config/nvim/plugged')
 " File Navigation
 Plug 'vim-scripts/ctrlp.vim'
 Plug 'rking/ag.vim'
-Plug 'tpope/vim-vinegar'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Tmux and iTerm integration
 Plug 'sjl/vitality.vim'                    " Make Focus(Lost|Gained) work in iTerm & have a bar cursor
-Plug 'tmux-plugins/vim-tmux-focus-events'  " Make Focus(Lost|Gained) work in tmux
-Plug 'christoomey/vim-tmux-navigator'      " Navigate between vim and tmux windows
+" Plug 'tmux-plugins/vim-tmux-focus-events'  " Make Focus(Lost|Gained) work in tmux
+" Plug 'christoomey/vim-tmux-navigator'      " Navigate between vim and tmux windows
 
 " Testing
-Plug 'kassio/neoterm'
-Plug 'janko-m/vim-test'
+" Plug 'kassio/neoterm'
+" Plug 'janko-m/vim-test'
 
 " Fancier text object handling
 Plug 'tpope/vim-repeat'         " Makes . repeat lots of plugin commands
@@ -34,12 +35,12 @@ Plug 'vim-scripts/textobj-user' | Plug 'vim-scripts/textobj-rubyblock'
 Plug 'vim-scripts/rails.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'moll/vim-node'                     " Make gf work on require statements
-Plug 'elixir-lang/vim-elixir'
+" Plug 'elixir-lang/vim-elixir'
 Plug 'plasticboy/vim-markdown'
-Plug 'mustache/vim-mustache-handlebars'
+" Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
 Plug 'hashivim/vim-terraform'
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
 Plug 'fgsch/vim-varnish'
 
 " Color schemes

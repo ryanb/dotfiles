@@ -63,19 +63,19 @@ let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_by_filename = 1
 
 nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
-nnoremap <silent> <Leader>r :Ex<CR>
+nnoremap <silent> <Leader>n :NERDTreeFocus<CR>
+nnoremap <silent> <Leader>r :NERDTreeFind<CR>
 
 " vim-tmux-navigator
-let g:tmux_navigator_command = $TMUX_COMMAND
+" let g:tmux_navigator_command = $TMUX_COMMAND
 
-if has('nvim')
-  nnoremap <silent> <BS> :TmuxNavigateLeft<CR>
-endif
+" if has('nvim')
+"   nnoremap <silent> <BS> :TmuxNavigateLeft<CR>
+" endif
 
 " vim-test
-let test#strategy = "neoterm"
-
-nnoremap <Leader>t :wa<CR>:TestFile<CR>
+" let test#strategy = "neoterm"
+" nnoremap <Leader>t :wa<CR>:TestFile<CR>
 
 " vim-jsx
 let g:jsx_ext_required = 0  " Treat .js files as JSX
@@ -88,6 +88,11 @@ let g:ale_javascript_standard_use_global = 1
 let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '?'
+
+" NERDTree
+let NERDTreeMinimalUI=1
+let NERDTreeShowLineNumbers=1
+let NERDTreeWinSize=48
 
 " ==============================================================================
 " Autocmds
