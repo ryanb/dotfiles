@@ -1,11 +1,8 @@
-tap 'homebrew/bundle'
-tap 'homebrew/core'
-tap 'homebrew/services'
 tap 'caskroom/cask'
+tap 'homebrew/services'
 
 brew 'awscli'
 brew 'chruby'
-brew 'ctags'
 brew 'entr'
 brew 'forego'
 brew 'git'
@@ -13,32 +10,36 @@ brew 'go'
 brew 'heroku'
 brew 'hub'
 brew 'libyaml'
-brew 'mtr'
-brew 'mysql'
+brew 'mas'
 brew 'neovim'
 brew 'node-build'
 brew 'nodenv'
 brew 'postgresql'
-brew 'reattach-to-user-namespace'
 brew 'redis'
 brew 'ruby-install'
-brew 'terraform'
 brew 'the_silver_searcher'
-brew 'tmate'
-brew 'tmux'
-brew 'tree'
 brew 'watchman'
-brew 'wget'
 
 # Mac apps, installed with https://caskroom.github.io/
-cask 'google-chrome'
-cask 'the-unarchiver'
-cask 'screenhero'
-cask 'dropbox'
+cask 'appcleaner'
 cask 'aws-vault'
+cask 'caffeine'
+cask 'dropbox'
+cask 'firefox'
+cask 'google-chrome'
 cask 'iterm2'
+cask 'licecap'
+cask 'muzzle'
+cask 'omnigraffle'
+cask 'the-unarchiver'
+cask 'tripmode'
+cask 'virtualbox'
+cask 'visual-studio-code'
 
 # App store apps, installed with https://github.com/argon/mas
 mas '1Password', id: 443987910
-mas 'Slack', id: 803453959
+mas 'Monosnap', id: 540348655
 mas 'Quiver', id: 866773894
+mas 'Slack', id: 803453959
+mas 'Things3', id: 904280696
+mas 'Tomato One', id: 907364780
