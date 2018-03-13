@@ -43,12 +43,6 @@ let mapleader=","
 
 nnoremap <Leader>s :wa<CR>
 
-" Better split management
-nnoremap <Leader>- :sp<CR>
-nnoremap <Leader>\ :vs<CR>
-nnoremap <Leader>x <C-W>c
-nnoremap <Leader>o <C-W>o
-
 " Reselect the visual area when changing indenting in visual mode.
 vnoremap < <gv
 vnoremap > >gv
@@ -67,11 +61,11 @@ nnoremap <silent> <Leader>n :NERDTreeFocus<CR>
 nnoremap <silent> <Leader>r :NERDTreeFind<CR>
 
 " vim-tmux-navigator
-" let g:tmux_navigator_command = $TMUX_COMMAND
+let g:tmux_navigator_command = $TMUX_COMMAND
 
-" if has('nvim')
-"   nnoremap <silent> <BS> :TmuxNavigateLeft<CR>
-" endif
+if has('nvim')
+  nnoremap <silent> <BS> :TmuxNavigateLeft<CR>
+endif
 
 " vim-test
 " let test#strategy = "neoterm"
