@@ -14,7 +14,7 @@ setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/vagrant/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 
 # ==============================================================================
@@ -77,9 +77,6 @@ add-zsh-hook precmd set_tab_title
 # ==============================================================================
 # Environment
 
-# We use the full path here to work around this nasty bug: http://www.tpope.net/node/108
-# In particular, calling "filetype indent off" in my vimrc was causing vim to
-# always exit with a non-zero status. Very annoying for git commit.
 export EDITOR=/usr/local/bin/nvim
 
 export CLICOLOR=1  # Make ls colour its output.
@@ -114,5 +111,3 @@ alias gs='git status'
 
 alias fs='bundle exec forego start -f Procfile.dev'
 alias afs='aws-vault exec sites-dev-rw -- bundle exec forego start -f Procfile.dev'
-
-alias retag='ctags -R --langmap="ruby:+.rake.builder.rjs" --languages=ruby'
