@@ -10,7 +10,7 @@ brew install tmux
 brew install autojump
 brew install hub
 brew install ctags
-brew install the_silver_searcher
+brew install ripgrep
 
 # fix terminfo
 # https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
