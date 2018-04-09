@@ -2,7 +2,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'altercation/vim-colors-solarized'
 
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 Plug 'sjl/gundo.vim'
 Plug 'majutsushi/tagbar'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
@@ -29,6 +29,13 @@ Plug 'dbakker/vim-projectroot'
 Plug 'mileszs/ack.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'diepm/vim-rest-console'
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'fishbullet/deoplete-ruby'
+Plug 'zchee/deoplete-go'
+Plug 'mhartington/nvim-typescript'
+Plug 'Shougo/echodoc.vim'
+
 
 Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
@@ -57,8 +64,7 @@ syntax on
 
 set hlsearch " Highlight searches
 set incsearch " Do incremental searching
-set expandtab
-set tabstop=2 shiftwidth=2 softtabstop=2
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set autoindent
 set showcmd
 "set cmdheight=5
@@ -92,6 +98,32 @@ let g:airline_powerline_fonts=1
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+if executable('rg')
+  let g:ackprg = 'rg --vimgrep'
+endif
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#disable_auto_complete = 1
+
+" trigger deoplete with TAB
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ deoplete#mappings#manual_complete()
+
+function! s:check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+
+set completeopt-=preview
+
+set noshowmode    " DOES WORK
+let g:echodoc_enable_at_startup = 1
+
+" vim-go
+let g:go_fmt_command = "goimports"
 
 " folding
 augroup vimrc
@@ -164,8 +196,10 @@ noremap <silent> <C-j> :call smooth_scroll#down(&scroll, 0, 3)<CR>
 
 " trigger search
 nnoremap <C-f> :Ag ""<Left>
-nnoremap <leader>sp :call SearchProject()<CR>
-nnoremap <leader>sd :call SearchDirectory()<CR>
+nnoremap <leader>sp :call SearchProject("-i")<CR>
+nnoremap <leader>sP :call SearchProject()<CR>
+nnoremap <leader>sd :call SearchDirectory("-i")<CR>
+nnoremap <leader>sD :call SearchDirectory()<CR>
 
 " ctrl p for last used files
 nnoremap <leader>fr :CtrlPMRUFiles<CR>
@@ -317,17 +351,19 @@ function RepoShow()
   execute "1"
 endfunction
 
-function SearchProject()
+function SearchProject(...)
+  let args = a:0 >= 1 ? a:1 : ""
   execute "ProjectRootCD"
   let search = input("Search Project: ")
-  execute "Ack! ".search
+  execute "Ack! ".args." ".search
 endfunction
 
-function SearchDirectory()
+function SearchDirectory(...)
+  let args = a:0 >= 1 ? a:1 : ""
   execute "ProjectRootCD"
   let dir = input("Choose Directory: ", "", "file")
   let search = input("Search Directory: ")
-  execute "Ack! ".search." ".dir
+  execute "Ack! ".args." ".search." ".dir
 endfunction
 
 function! NumberToggle()
