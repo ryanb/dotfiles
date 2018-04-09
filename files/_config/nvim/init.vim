@@ -316,7 +316,7 @@ let g:netrw_list_hide= '^\.'
 " Allow netrw to remove non-empty local directories
 let g:netrw_localrmdir='rm -r'
 
-let g:nv_directories = ['~/Nextcloud/mpx/notes', '~/Nextcloud/mpx/tasks.taskpaper', '~/Nextcloud/private/notes', '~/Nextcloud/private/tasks.taskpaper']
+let g:nv_search_paths = ['~/Nextcloud/mpx/notes', '~/Nextcloud/mpx/tasks.taskpaper', '~/Nextcloud/private/notes', '~/Nextcloud/private/tasks.taskpaper']
 
 " Change directory to the current buffer when opening files.
 autocmd BufEnter * silent! lcd %:p:h
