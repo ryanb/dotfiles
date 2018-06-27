@@ -39,7 +39,7 @@ cask 'virtualbox'
 cask 'visual-studio-code'
 
 # App store apps, installed with https://github.com/argon/mas
-mas '1Password', id: 443987910
+mas '1Password 7', id: 1333542190
 mas 'Monosnap', id: 540348655
 mas 'Quiver', id: 866773894
 mas 'Slack', id: 803453959
