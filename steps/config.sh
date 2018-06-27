@@ -17,5 +17,5 @@ defaults write com.apple.systemuiserver menuExtras -array \
 killall SystemUIServer
 
 # Hide the desktop.
-defaults write com.apple.finder CreateDesktop false
-killall Finder
+# defaults write com.apple.finder CreateDesktop false
+# killall Finder
