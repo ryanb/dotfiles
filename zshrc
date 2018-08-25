@@ -1,6 +1,10 @@
 # ==============================================================================
 # Shell basics
 
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
 autoload -U compinit
 compinit -i
 
@@ -93,6 +97,7 @@ export PATH=$GOPATH/bin:$PATH
 # Aliases
 
 alias be='bundle exec'
+alias br='./bin/rails'
 
 alias cdr='cd $(git root)'
 

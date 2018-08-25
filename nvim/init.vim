@@ -47,6 +47,12 @@ nnoremap <Leader>s :wa<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+" Control the Quickfix window.
+nnoremap <C-Q>o :botright copen<CR>
+nnoremap <C-Q><C-O> :botright copen<CR>
+nnoremap <C-Q>c :cclose<CR>
+nnoremap <C-Q><C-C> :cclose<CR>
+
 
 " ==============================================================================
 " Plugin Config
@@ -87,6 +93,7 @@ let g:ale_sign_warning = '?'
 let NERDTreeMinimalUI=1
 let NERDTreeShowLineNumbers=1
 let NERDTreeWinSize=48
+let NERDTreeSortOrder=[]
 
 " ==============================================================================
 " Autocmds

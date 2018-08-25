@@ -42,6 +42,7 @@ Plug 'mxw/vim-jsx'
 Plug 'hashivim/vim-terraform'
 " Plug 'fatih/vim-go'
 Plug 'fgsch/vim-varnish'
+Plug 'leafgarland/typescript-vim'
 
 " Color schemes
 Plug 'chriskempson/vim-tomorrow-theme'
