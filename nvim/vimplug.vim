@@ -2,7 +2,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " File Navigation
 Plug 'vim-scripts/ctrlp.vim'
-Plug 'rking/ag.vim'
+Plug 'jremmen/vim-ripgrep'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
@@ -43,6 +43,7 @@ Plug 'hashivim/vim-terraform'
 " Plug 'fatih/vim-go'
 Plug 'fgsch/vim-varnish'
 Plug 'leafgarland/typescript-vim'
+Plug 'keith/swift.vim'
 
 " Color schemes
 Plug 'chriskempson/vim-tomorrow-theme'
