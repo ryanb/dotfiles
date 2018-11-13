@@ -12,6 +12,8 @@
 	<integer>1</integer>
 	<key>AppleWindowTabbingMode</key>
 	<string>manual</string>
+	<key>CGFontRenderingFontSmoothingDisabled</key>
+	<false/>
 	<key>CopySelection</key>
 	<false/>
 	<key>Custom Color Presets</key>
@@ -240,7 +242,7 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.dotfiles/iterm2_config</string>
+	<string>~/.dotfiles</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -282,13 +284,19 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>915 110 445 103 0 0 1440 877 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>370 363 620 392 0 0 1440 877 </string>
+	<string>930 768 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>17 369 1018 447 0 0 1440 877 </string>
+	<string>390 391 770 429 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>481 63 850 667 0 0 1440 877 </string>
+	<string>363 36 850 667 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>1598 705 850 707 0 0 2560 1417 </string>
+	<string>943 256 850 667 0 0 2560 1417 </string>
+	<key>NSWindow Frame iTerm Window 2</key>
+	<string>147 115 850 667 0 0 2560 1417 </string>
+	<key>NeverWarnAboutShortLivedSessions_30535CDF-F8ED-44C6-93BD-CF908DA67AD2</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_30535CDF-F8ED-44C6-93BD-CF908DA67AD2_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -928,6 +936,8 @@
 			<string>/Users/notahat</string>
 		</dict>
 	</array>
+	<key>NoSyncHaveRequestedFullDiskAccess</key>
+	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
@@ -974,7 +984,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/notahat/.dotfiles/iterm2_config</string>
+	<string>/Users/notahat/.dotfiles</string>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -984,12 +994,14 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-10-10T13:34:32Z</date>
+	<date>2018-11-08T12:19:30Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>StretchTabsToFillBar</key>
 	<true/>
 	<key>TabStyle</key>
+	<integer>1</integer>
+	<key>TabStyleWithAutomaticOption</key>
 	<integer>1</integer>
 	<key>UseBorder</key>
 	<false/>
@@ -1002,6 +1014,6 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.2.3</string>
+	<string>3.2.5</string>
 </dict>
 </plist>
