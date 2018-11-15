@@ -19,6 +19,7 @@ brew 'postgresql'
 brew 'redis'
 brew 'ripgrep'
 brew 'ruby-install'
+brew 'svgo'
 brew 'watchman'
 
 # Mac apps, installed with https://caskroom.github.io/
