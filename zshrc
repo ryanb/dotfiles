@@ -18,7 +18,7 @@ setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
-export PATH=/usr/local/bin:/usr/local/opt/mysql@5.6/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 
 # ==============================================================================
