@@ -1,5 +1,6 @@
 tap 'caskroom/cask'
 tap 'homebrew/services'
+tap 'homebrew/cask-fonts'
 
 brew 'awscli'
 brew 'chruby'
@@ -40,6 +41,9 @@ cask 'the-unarchiver'
 cask 'tripmode'
 # cask 'virtualbox'
 # cask 'visual-studio-code'
+
+# Fonts
+cask 'font-inconsolata'
 
 # App store apps, installed with https://github.com/argon/mas
 mas '1Password 7', id: 1333542190

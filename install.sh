@@ -30,7 +30,7 @@ function run_step {
   source ~/.dotfiles/steps/$1.sh
 }
 
-steps=(firewall filevault ssh config fonts homebrew iterm2 ruby node pow neovim git)
+steps=(firewall filevault ssh config homebrew iterm2 ruby node pow neovim git)
 
 if [ -z $1 ]; then
   for step in ${steps[@]}; do
