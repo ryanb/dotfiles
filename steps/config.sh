@@ -1,4 +1,4 @@
-link_config_files agignore gitignore tmate.conf tmux.conf zshrc
+link_config_files gitignore zshrc
 
 # Disable the dashboard.
 defaults write com.apple.dashboard mcx-disabled -boolean YES

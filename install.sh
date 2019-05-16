@@ -10,11 +10,13 @@ function echo_green {
 }
 
 function link_file {
-  if [ ! -e "$2" ]; then
+  if [ -L "$2" ]; then
+    echo "$2 is already linked, skipping."
+  elif [ -e "$2" ]; then
+    echo "$2 already exists, skipping. (You might not want this, so check the file.)"
+  else
     ln -s "$1" "$2"
     echo "Linked $2"
-  else
-    echo "$2 is already linked, skipping."
   fi
 }
 
