@@ -1,0 +1,21 @@
+{
+    "editor.fontFamily": "Inconsolata",
+    "editor.fontSize": 14,
+    "editor.formatOnSave": true,
+    "jest.pathToJest": "",
+    "editor.fontWeight": "bold",
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "files.autoSave": "onFocusChange",
+    "editor.multiCursorModifier": "alt",
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "none",
+    "editor.renderControlCharacters": false,
+    "breadcrumbs.enabled": false,
+    "workbench.sideBar.location": "left",
+    "window.clickThroughInactive": false
+}

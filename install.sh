@@ -10,8 +10,8 @@ function echo_green {
 }
 
 function link_file {
-  if [ ! -e $2 ]; then
-    ln -s $1 $2
+  if [ ! -e "$2" ]; then
+    ln -s "$1" "$2"
     echo "Linked $2"
   else
     echo "$2 is already linked, skipping."
@@ -30,7 +30,7 @@ function run_step {
   source ~/.dotfiles/steps/$1.sh
 }
 
-steps=(firewall filevault ssh config homebrew iterm2 ruby node pow neovim git)
+steps=(firewall filevault ssh config homebrew iterm2 ruby node pow neovim vscode git)
 
 if [ -z $1 ]; then
   for step in ${steps[@]}; do
