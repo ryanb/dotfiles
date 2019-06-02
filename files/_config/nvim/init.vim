@@ -2,11 +2,9 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'altercation/vim-colors-solarized'
 
-"Plug 'ervandew/supertab'
 Plug 'sjl/gundo.vim'
 Plug 'majutsushi/tagbar'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Quramy/vison'
 Plug 'scrooloose/nerdcommenter'
 Plug 'docunext/closetag.vim'
 Plug 'Raimondi/delimitMate'
@@ -15,6 +13,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'tomtom/tlib_vim'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-git'
@@ -22,9 +21,8 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
 Plug 'rgarver/Kwbd.vim'
 Plug 'thinca/vim-fontzoom'
-Plug 'vim-scripts/vcscommand.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'terryma/vim-smooth-scroll'
+Plug 'vim-scripts/vcscommand.vim'
 Plug 'dbakker/vim-projectroot'
 Plug 'mileszs/ack.vim'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -37,18 +35,18 @@ Plug 'mhartington/nvim-typescript'
 Plug 'Shougo/echodoc.vim'
 
 
+Plug 'Quramy/vison'
+Plug 'keith/swift.vim'
 Plug 'kchmck/vim-coffee-script'
-Plug 'leafgarland/typescript-vim'
-Plug 'othree/yajs.vim'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'fatih/vim-go'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'Quramy/tsuquyomi'
 
 Plug 'tpope/vim-markdown'
 Plug 'suan/vim-instant-markdown'
 
-Plug 'Quramy/tsuquyomi'
-Plug 'mattn/emmet-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'davidoc/taskpaper.vim'
 
@@ -147,10 +145,8 @@ let g:syntastic_auto_loc_list=1
 
 " typescript config
 let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint'] " You shouldn't use 'tsc' checker.
 let g:syntastic_typescript_tsc_fname = ''
-"let g:typescript_compiler_options='--target ES5 --emitDecoratorMetadata --experimentalDecorators'
-"let g:syntastic_typescript_tsc_args='--target ES5 --emitDecoratorMetadata --experimentalDecorators'
 
 if executable('ctags')
   let g:tagbar_type_coffee = {
@@ -179,9 +175,6 @@ nnoremap <leader>tc :call BackgroundToggle()<CR>
 
 " toggle relative/absolute line numbers
 nnoremap <leader>tl :call NumberToggle()<CR>
-
-" jk triggers ESC in insert mode
-"inoremap jk <ESC>
 
 " ctrl + h/l in insert mode
 inoremap <C-h> <Left>
@@ -258,6 +251,8 @@ nnoremap <leader>tw :set wrap!<cr>
 nnoremap <leader>tn :NV<CR>
 " split window
 nnoremap <leader>w <C-w>v<C-w>l
+" 'zoom' file -> opens current file in new tab
+nnoremap <leader>z :tabnew %<cr>
 
 " exit with ESC from terminal mode
 tnoremap <Esc> <C-\><C-n>
@@ -316,7 +311,7 @@ let g:netrw_list_hide= '^\.'
 " Allow netrw to remove non-empty local directories
 let g:netrw_localrmdir='rm -r'
 
-let g:nv_search_paths = ['~/Nextcloud/mpx/notes', '~/Nextcloud/mpx/tasks.taskpaper', '~/Nextcloud/private/notes', '~/Nextcloud/private/tasks.taskpaper']
+let g:nv_search_paths = ['~/Nextcloud/private', '~/Nextcloud/mpx/notes', '~/Nextcloud/mpx/ES', '~/Nextcloud/mpx/tasks.taskpaper']
 
 " Change directory to the current buffer when opening files.
 autocmd BufEnter * silent! lcd %:p:h
