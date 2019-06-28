@@ -68,7 +68,7 @@ cask 'muzzle'
 cask 'omnigraffle'
 cask 'the-unarchiver'
 cask 'tripmode'
-cask 'vanilla'
+# cask 'vanilla'
 # cask 'vlc'
 # cask 'virtualbox'
 
