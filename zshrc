@@ -18,7 +18,7 @@ setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 
 # ==============================================================================
@@ -114,5 +114,4 @@ alias gp='git push'
 alias gpr='git push -u && hub compare'
 alias gs='git status'
 
-alias fs='bundle exec forego start -f Procfile.dev'
-alias afs='aws-vault exec sites-dev-rw -- bundle exec forego start -f Procfile.dev'
+source .zshrc-envato
