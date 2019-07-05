@@ -272,10 +272,17 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>802 607 770 429 0 0 2560 1417 </string>
+	<string>293 308 1018 447 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>185 517 850 627 0 0 2560 1417 </string>
+	<string>1426 199 850 627 0 0 2560 1417 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>131 171 850 627 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_30535CDF-F8ED-44C6-93BD-CF908DA67AD2</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_30535CDF-F8ED-44C6-93BD-CF908DA67AD2_selection</key>
@@ -925,6 +932,8 @@
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>0FAAD559-F584-49C6-BECD-F5C51EA64E3C</string>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>583379794.33515203</real>
 	<key>PointerActions</key>
@@ -962,13 +971,21 @@
 	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>~/.dotfiles</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
 	<string>https://iterm2.com/appcasts/final.xml?shard=6</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
+	<key>SULastCheckTime</key>
+	<date>2019-06-30T10:58:49Z</date>
+	<key>SUSendProfileInfo</key>
+	<false/>
 	<key>StretchTabsToFillBar</key>
+	<true/>
+	<key>SuppressRestartAnnouncement</key>
 	<true/>
 	<key>TabStyle</key>
 	<integer>1</integer>
