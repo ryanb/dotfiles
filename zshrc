@@ -114,4 +114,4 @@ alias gp='git push'
 alias gpr='git push -u && hub compare'
 alias gs='git status'
 
-source .zshrc-envato
+source ~/.zshrc-envato
