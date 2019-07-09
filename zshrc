@@ -1,5 +1,5 @@
 # ==============================================================================
-# Shell basics
+# Basics
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
@@ -9,6 +9,13 @@ autoload -U compinit
 compinit -i
 
 bindkey -v
+KEYTIMEOUT=1
+
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+
+
+# ==============================================================================
+# History
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
@@ -18,20 +25,49 @@ setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+# Make arrows and command mode j and k search the history.
+
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+bindkey -M vicmd "k" up-line-or-beginning-search
+bindkey -M vicmd "j" down-line-or-beginning-search
 
 
 # ==============================================================================
-# Tools
+# Cursor
 
-if [ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]; then
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  source /usr/local/opt/chruby/share/chruby/auto.sh
-fi
+bar_cursor() { echo -ne "\e[6 q" }
+block_cursor() { echo -ne "\e[2 q" }
 
-if which nodenv > /dev/null; then
-  eval "$(nodenv init -)"
-fi
+zle -N zle-line-init bar_cursor
+
+zle-keymap-select () {
+  if [ $KEYMAP = vicmd ]; then
+    block_cursor
+  else
+    bar_cursor
+  fi
+}
+zle -N zle-keymap-select
+
+
+# ==============================================================================
+# Tab title
+
+autoload add-zsh-hook
+
+function set_tab_title() {
+  echo -n "\033];${PWD##*/}\007"
+}
+
+# Set the tab title before each prompt
+add-zsh-hook precmd set_tab_title
 
 
 # ==============================================================================
@@ -66,16 +102,16 @@ PROMPT='${PATH_PROMPT_INFO}$(git_prompt_info)${JOB_PROMPT_INFO} '
 
 
 # ==============================================================================
-# Tab title
+# Tools
 
-autoload add-zsh-hook
+if [ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]; then
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
+  source /usr/local/opt/chruby/share/chruby/auto.sh
+fi
 
-function set_tab_title() {
-  echo -n "\033];${PWD##*/}\007"
-}
-
-# Set the tab title before each prompt
-add-zsh-hook precmd set_tab_title
+if which nodenv > /dev/null; then
+  eval "$(nodenv init -)"
+fi
 
 
 # ==============================================================================
