@@ -8,6 +8,7 @@ cask 'visual-studio-code'
 brew 'entr'
 brew 'ripgrep'
 brew 'jq'
+brew 'zsh'
 
 # ----------------------------------------------------------------------
 # Languages
