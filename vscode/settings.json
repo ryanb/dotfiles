@@ -15,7 +15,7 @@
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "none",
     "editor.renderControlCharacters": false,
-    "breadcrumbs.enabled": false,
+    "breadcrumbs.enabled": true,
     "workbench.sideBar.location": "left",
     "window.clickThroughInactive": false
 }
