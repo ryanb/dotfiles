@@ -335,7 +335,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>454 284 770 429 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>579 24 850 642 0 0 1440 877 </string>
+	<string>124 161 860 646 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>535 57 850 663 0 0 1440 877 </string>
 	<key>NeverWarnAboutShortLivedSessions_30535CDF-F8ED-44C6-93BD-CF908DA67AD2</key>
@@ -1053,7 +1053,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Thin Strokes</key>
-			<integer>4</integer>
+			<integer>0</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Unicode Version</key>
@@ -1088,14 +1088,14 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{437, 710}</string>
+		<string>{492, 613}</string>
 	</dict>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>0FAAD559-F584-49C6-BECD-F5C51EA64E3C</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>1</integer>
+	<integer>6</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1834,7 +1834,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-08-02T00:07:52Z</date>
+	<date>2019-08-04T22:22:41Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SeparateStatusBarsPerPane</key>
@@ -1853,6 +1853,10 @@
 	<integer>1</integer>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>5</integer>
+	<key>TerminalMargin</key>
+	<integer>10</integer>
+	<key>TerminalVMargin</key>
+	<integer>4</integer>
 	<key>ToolbeltTools</key>
 	<array>
 		<string>Profiles</string>
