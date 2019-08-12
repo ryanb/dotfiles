@@ -17,5 +17,6 @@
     "editor.renderControlCharacters": false,
     "breadcrumbs.enabled": true,
     "workbench.sideBar.location": "left",
-    "window.clickThroughInactive": false
+    "window.clickThroughInactive": false,
+    "editor.tabSize": 2
 }
