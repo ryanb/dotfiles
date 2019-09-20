@@ -13,12 +13,21 @@ brew 'zsh'
 # ----------------------------------------------------------------------
 # Languages
 
-brew 'chruby'
-brew 'libyaml'
-brew 'ruby-install'
+brew 'asdf'
 
-brew 'nodenv'
-brew 'node-build'
+# These are all the things asdf recommends installing.
+brew 'coreutils'
+brew 'automake'
+brew 'autoconf'
+brew 'openssl'
+brew 'libyaml'
+brew 'readline'
+brew 'libxslt'
+brew 'libtool'
+brew 'unixodbc'
+brew 'unzip'
+brew 'curl'
+brew 'gnupg'  # Need for the nodejs asdf plugin.
 
 # ----------------------------------------------------------------------
 # Work stuff
@@ -32,7 +41,7 @@ brew 'forego'
 tap 'heroku/brew'
 brew 'heroku/brew/heroku'
 brew 'iamy'
-brew 'postgresql'
+brew 'postgresql@9.6'
 cask 'react-native-debugger'
 brew 'redis'
 tap 'getsentry/tools'

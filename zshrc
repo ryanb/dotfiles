@@ -102,15 +102,11 @@ PROMPT='${PATH_PROMPT_INFO}$(git_prompt_info)${JOB_PROMPT_INFO} '
 
 
 # ==============================================================================
-# Tools
+# asdf
 
-if [ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]; then
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  source /usr/local/opt/chruby/share/chruby/auto.sh
-fi
-
-if which nodenv > /dev/null; then
-  eval "$(nodenv init -)"
+if [ -f /usr/local/opt/asdf/asdf.sh ]; then
+  source /usr/local/opt/asdf/asdf.sh
+  source /usr/local/opt/asdf/etc/bash_completion.d/asdf.bash
 fi
 
 
