@@ -60,14 +60,14 @@ cask 'appcleaner'
 cask 'caffeine'
 # cask 'dropbox'
 cask 'firefox'
-cask 'free-ruler'
+# cask 'free-ruler'
 cask 'google-chrome'
 cask 'imageoptim'
 cask 'iterm2'
 # cask 'licecap'
 cask 'muzzle'
 cask 'omnigraffle'
-cask 'pock'
+# cask 'pock'
 cask 'the-unarchiver'
 cask 'tripmode'
 # cask 'vanilla'
@@ -79,8 +79,8 @@ cask 'tripmode'
 
 brew 'mas'
 mas '1Password 7', id: 1333542190
-mas 'HazeOver', id: 430798174
-mas 'Monosnap', id: 540348655
+# mas 'HazeOver', id: 430798174
+# mas 'Monosnap', id: 540348655
 mas 'Quiver', id: 866773894
 mas 'Slack', id: 803453959
 mas 'Things3', id: 904280696
