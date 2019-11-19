@@ -4,11 +4,9 @@ Plug 'altercation/vim-colors-solarized'
 
 Plug 'sjl/gundo.vim'
 Plug 'majutsushi/tagbar'
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'docunext/closetag.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'scrooloose/syntastic'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Lokaltog/vim-easymotion'
@@ -28,12 +26,11 @@ Plug 'mileszs/ack.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'diepm/vim-rest-console'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'fishbullet/deoplete-ruby'
-Plug 'zchee/deoplete-go'
-Plug 'mhartington/nvim-typescript'
-Plug 'Shougo/echodoc.vim'
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'} " ruby
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
 
 Plug 'Quramy/vison'
 Plug 'keith/swift.vim'
@@ -42,7 +39,6 @@ Plug 'cakebaker/scss-syntax.vim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'fatih/vim-go'
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'Quramy/tsuquyomi'
 
 Plug 'tpope/vim-markdown'
 Plug 'suan/vim-instant-markdown'
@@ -100,23 +96,6 @@ if executable('rg')
   let g:ackprg = 'rg --vimgrep'
 endif
 
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#disable_auto_complete = 1
-
-" trigger deoplete with TAB
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ deoplete#mappings#manual_complete()
-
-function! s:check_back_space() abort "{{{
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
-
-set completeopt-=preview
-
 set noshowmode    " DOES WORK
 let g:echodoc_enable_at_startup = 1
 
@@ -140,13 +119,13 @@ colorscheme solarized
 let mapleader="\<SPACE>"
 
 " syntastic config
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=1
+"let g:syntastic_enable_signs=1
+"let g:syntastic_auto_loc_list=1
 
 " typescript config
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint'] " You shouldn't use 'tsc' checker.
-let g:syntastic_typescript_tsc_fname = ''
+"let g:tsuquyomi_disable_quickfix = 1
+"let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint'] " You shouldn't use 'tsc' checker.
+"let g:syntastic_typescript_tsc_fname = ''
 
 if executable('ctags')
   let g:tagbar_type_coffee = {
