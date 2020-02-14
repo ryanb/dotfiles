@@ -60,19 +60,15 @@ cask 'font-inconsolata'
 
 cask 'appcleaner'
 cask 'caffeine'
-# cask 'dropbox'
 cask 'firefox'
-# cask 'free-ruler'
 cask 'google-chrome'
 cask 'imageoptim'
 cask 'iterm2'
 # cask 'licecap'
 cask 'muzzle'
 cask 'omnigraffle'
-# cask 'pock'
 cask 'the-unarchiver'
 cask 'tripmode'
-# cask 'vanilla'
 # cask 'vlc'
 # cask 'virtualbox'
 
@@ -81,11 +77,11 @@ cask 'tripmode'
 
 brew 'mas'
 mas '1Password 7', id: 1333542190
-# mas 'HazeOver', id: 430798174
-# mas 'Monosnap', id: 540348655
+mas 'Bear', id: 1091189122
+mas 'Hidden Bar', id: 1452453066
 mas 'Quiver', id: 866773894
 mas 'Slack', id: 803453959
-mas 'Things3', id: 904280696
+mas 'Things', id: 904280696
 mas 'Tomato One', id: 907364780
 mas 'Unsplash Wallpapers', id: 1284863847
 mas 'Xcode', id: 497799835
