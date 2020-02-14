@@ -14,7 +14,7 @@
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "none",
     "editor.renderControlCharacters": false,
-    "breadcrumbs.enabled": true,
+    "breadcrumbs.enabled": false,
     "workbench.sideBar.location": "left",
     "window.clickThroughInactive": false,
     "editor.tabSize": 2,
@@ -25,4 +25,7 @@
     "files.associations": {
         "*.css": "postcss"
     },
+    "prettier.packageManager": "yarn",
+    "prettier.requireConfig": true,
+    "workbench.activityBar.visible": true,
 }
