@@ -1,6 +1,8 @@
 # ----------------------------------------------------------------------
 # Tools
 
+tap 'github/gh'
+brew 'github/gh/gh'
 brew 'git'
 brew 'hub'
 brew 'neovim'
