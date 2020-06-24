@@ -67,6 +67,7 @@ cask 'iterm2'
 # cask 'licecap'
 cask 'muzzle'
 cask 'omnigraffle'
+cask 'splice'
 cask 'the-unarchiver'
 cask 'tripmode'
 # cask 'vlc'
@@ -79,9 +80,11 @@ brew 'mas'
 mas '1Password 7', id: 1333542190
 mas 'Bear', id: 1091189122
 mas 'Hidden Bar', id: 1452453066
+mas 'Logic Pro X', id: 634148309
 mas 'Quiver', id: 866773894
 mas 'Slack', id: 803453959
 mas 'Things', id: 904280696
 mas 'Tomato One', id: 907364780
 mas 'Unsplash Wallpapers', id: 1284863847
 mas 'Xcode', id: 497799835
+
