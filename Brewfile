@@ -1,8 +1,7 @@
 # ----------------------------------------------------------------------
 # Tools
 
-tap 'github/gh'
-brew 'github/gh/gh'
+brew 'gh'
 brew 'git'
 brew 'hub'
 brew 'neovim'
@@ -62,14 +61,15 @@ cask 'appcleaner'
 cask 'caffeine'
 cask 'firefox'
 cask 'google-chrome'
-cask 'imageoptim'
+# cask 'imageoptim'
 cask 'iterm2'
 # cask 'licecap'
 cask 'muzzle'
 cask 'omnigraffle'
+cask 'signal'
 cask 'splice'
 cask 'the-unarchiver'
-cask 'tripmode'
+# cask 'tripmode'
 # cask 'vlc'
 # cask 'virtualbox'
 
