@@ -138,7 +138,6 @@ alias br='./bin/rails'
 alias cdr='cd $(git root)'
 
 alias ga='git add'
-alias gb='hub browse'
 alias gc='git commit'
 alias gco='git checkout'
 alias gd='git diff'
@@ -147,7 +146,7 @@ alias gff='git merge --ff-only'
 alias gl='git log'
 alias gm='git merge --no-ff'
 alias gp='git push'
-alias gpr='git push -u && hub compare'
+alias gpr='git push -u && gh pr create --web'
 alias gs='git status'
 
 source ~/.zshrc-envato

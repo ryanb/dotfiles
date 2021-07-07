@@ -3,7 +3,6 @@
 
 brew 'gh'
 brew 'git'
-brew 'hub'
 brew 'neovim'
 cask 'visual-studio-code'
 brew 'entr'
