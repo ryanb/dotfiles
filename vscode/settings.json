@@ -20,7 +20,6 @@
     "editor.tabSize": 2,
     "workbench.editor.showTabs": false,
     "files.trimTrailingWhitespace": true,
-    "window.zoomLevel": 0,
     "javascript.validate.enable": false,
     "files.associations": {
         "*.css": "postcss"
@@ -28,4 +27,5 @@
     "prettier.packageManager": "yarn",
     "prettier.requireConfig": true,
     "workbench.activityBar.visible": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
 }

@@ -1,4 +1,4 @@
-link_config_files gitignore zshrc
+link_config_files gitignore tool-versions zshrc
 
 # Clear out the dock.
 defaults write com.apple.dock persistent-apps "()"
