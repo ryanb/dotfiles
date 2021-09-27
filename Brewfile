@@ -13,22 +13,21 @@ brew 'zsh'
 # ----------------------------------------------------------------------
 # Languages
 
-brew 'chruby'
-brew 'libyaml'
-brew 'ruby-install'
+brew 'asdf'
 
-brew 'nodenv'
-brew 'node-build'
+# Needed for the asdf-nodejs plugin
+brew 'gpg'
+brew 'gawk'
 
 # ----------------------------------------------------------------------
 # Work stuff
 
-cask 'aws-vault'
-brew 'awscli'
-tap 'heroku/brew'
-brew 'heroku/brew/heroku'
-brew 'postgresql@9.6'
-brew 'redis'
+# cask 'aws-vault'
+# brew 'awscli'
+# tap 'heroku/brew'
+# brew 'heroku/brew/heroku'
+# brew 'postgresql@12'
+# brew 'redis'
 
 # ----------------------------------------------------------------------
 # Fonts
@@ -45,12 +44,12 @@ cask 'caffeine'
 cask 'firefox'
 cask 'google-chrome'
 cask 'iterm2'
-cask 'midi-monitor'
+# cask 'midi-monitor'
 cask 'muzzle'
-cask 'omnigraffle'
+# cask 'omnigraffle'
 cask 'signal'
 cask 'splice'
-cask 'sysex-librarian'
+# cask 'sysex-librarian'
 cask 'the-unarchiver'
 cask 'tripmode'
 
