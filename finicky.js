@@ -1,15 +1,19 @@
 module.exports = {
-  defaultBrowser: "Safari",
+  defaultBrowser: 'Safari',
   handlers: [
     {
       match: [
-        "mail.google.com", "mail.google.com/*",
-        "docs.google.com", "docs.google.com/*",
-        "calendar.google.com", "calendar.google.com/*",
-        "meet.google.com", "meet.google.com/*",
-        "github.com", "github.com/*"
+        'buildkite.com/*',
+        'kanbanize.com/*', '*.kanbanize.com/*',
+        'github.com/*',
+        'heroku.com/*',
+
+        'calendar.google.com/*',
+        'docs.google.com/*',
+        'mail.google.com/*',
+        'meet.google.com/*'
       ],
-      browser: "Brave Browser"
+      browser: 'Brave Browser'
     }
   ]
-};
+}
