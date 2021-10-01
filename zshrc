@@ -104,6 +104,8 @@ alias gco="git checkout"
 alias vimclean="find . -iname '*.swp' | xargs rm"
 alias weather="curl http://v2.wttr.in"
 
+export FZF_DEFAULT_COMMAND="rg --files -g '"\!"sorbet' -g '"\!"*.graphql'"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
