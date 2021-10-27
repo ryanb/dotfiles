@@ -29,9 +29,6 @@ set mouse=a
 
 set hidden
 
-" This is so gf will find files in the Sites app properly.
-set path+=ui,src,zucchini/src,.
-
 " Stop neovim saving things like registers between restarts.
 set shada=
 
@@ -66,28 +63,9 @@ nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
 nnoremap <silent> <Leader>n :NERDTreeFocus<CR>
 nnoremap <silent> <Leader>r :NERDTreeFind<CR>
 
-" vim-tmux-navigator
-let g:tmux_navigator_command = $TMUX_COMMAND
-
 if has('nvim')
   nnoremap <silent> <BS> :TmuxNavigateLeft<CR>
 endif
-
-" vim-test
-" let test#strategy = "neoterm"
-" nnoremap <Leader>t :wa<CR>:TestFile<CR>
-
-" vim-jsx
-let g:jsx_ext_required = 0  " Treat .js files as JSX
-
-" ale
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_linters = { 'javascript': ['standard'] }
-let g:ale_javascript_standard_use_global = 1
-let g:ale_warn_about_trailing_whitespace = 0
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '?'
 
 " NERDTree
 let NERDTreeMinimalUI=1

@@ -9,7 +9,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " Tmux and iTerm integration
 Plug 'sjl/vitality.vim'                    " Make Focus(Lost|Gained) work in iTerm & have a bar cursor
 " Plug 'tmux-plugins/vim-tmux-focus-events'  " Make Focus(Lost|Gained) work in tmux
-Plug 'christoomey/vim-tmux-navigator'      " Navigate between vim and tmux windows
+" Plug 'christoomey/vim-tmux-navigator'      " Navigate between vim and tmux windows
 
 " Testing
 " Plug 'kassio/neoterm'
@@ -28,22 +28,28 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " Syntax checking
-Plug 'w0rp/ale'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" let g:coc_global_extensions = [
+"   \ 'coc-tsserver'
+"   \ ]
 
 " Languages
 Plug 'vim-scripts/textobj-user' | Plug 'vim-scripts/textobj-rubyblock'
 Plug 'vim-scripts/rails.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'moll/vim-node'                     " Make gf work on require statements
-" Plug 'elixir-lang/vim-elixir'
 Plug 'plasticboy/vim-markdown'
+" Plug 'moll/vim-node'                     " Make gf work on require statements
+" Plug 'elixir-lang/vim-elixir'
 " Plug 'mustache/vim-mustache-handlebars'
-Plug 'mxw/vim-jsx'
-Plug 'hashivim/vim-terraform'
+" Plug 'mxw/vim-jsx'
+" Plug 'hashivim/vim-terraform'
 " Plug 'fatih/vim-go'
-Plug 'fgsch/vim-varnish'
-Plug 'leafgarland/typescript-vim'
-Plug 'keith/swift.vim'
+" Plug 'fgsch/vim-varnish'
+" Plug 'keith/swift.vim'
+" Plug 'pangloss/vim-javascript'
+" Plug 'leafgarland/typescript-vim'
+" Plug 'pangloss/vim-javascript'
+" Plug 'peitalin/vim-jsx-typescript'
+
 
 " Color schemes
 Plug 'chriskempson/vim-tomorrow-theme'
