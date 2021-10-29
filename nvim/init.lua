@@ -64,6 +64,11 @@ lsp.tsserver.setup({
   on_attach = on_attach
 })
 
+lsp.solargraph.setup({
+  capabilities = cmp_capabilities,
+  on_attach = on_attach
+})
+
 
 ----------------------------------------------------------------------
 -- Dev icons to make Telescope better
