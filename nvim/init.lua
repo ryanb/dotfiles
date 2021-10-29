@@ -27,7 +27,7 @@ end)
 --
 local treesitter = require('nvim-treesitter.configs')
 treesitter.setup({
-  ensure_installed = { 'lua', 'javascript', 'typescript', 'tsx' },
+  ensure_installed = { 'lua', 'javascript', 'typescript', 'tsx', 'css', 'scss', 'ruby' },
   highlight = { enable = true }
 })
 
@@ -107,7 +107,5 @@ opt.breakindent = true
 opt.relativenumber = true
 
 opt.mouse = 'a'
-
-opt.hidden = true
 
 opt.completeopt = {'menu', 'menuone', 'noselect'}
