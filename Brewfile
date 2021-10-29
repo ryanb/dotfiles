@@ -33,7 +33,7 @@ brew 'gawk'
 # Fonts
 
 tap 'homebrew/cask-fonts'
-cask 'font-inconsolata'
+cask 'font-inconsolata-nerd-font'
 
 # ----------------------------------------------------------------------
 # Mac apps
