@@ -1,5 +1,9 @@
 mkdir -p ~/.config/nvim
 link_file ~/.dotfiles/nvim/init.lua ~/.config/nvim/init.lua
 
+if [ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]; then
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+fi
+
 echo
-echo "I've still gotta figure out how to bootstrap Packer automatically"
+echo "You'll need to do a manual :PackerSync to finish the job."
