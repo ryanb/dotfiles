@@ -6,6 +6,12 @@ packer.startup(function(use)
   -- Use packer to manage itself
   use 'wbthomason/packer.nvim'
 
+  -- Library used by gitsigns and telescope
+  use 'nvim-lua/plenary.nvim'
+
+  -- Fancy icons (for telescope, nvim-tree, and lualine)
+  use 'kyazdani42/nvim-web-devicons'
+
   -- Syntax highlighting
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
@@ -17,7 +23,6 @@ packer.startup(function(use)
   use 'neovim/nvim-lspconfig'
 
   -- Fancy fuzzy finder
-  use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
 
   -- File navigation
@@ -32,9 +37,6 @@ packer.startup(function(use)
   -- Color scheme
   use 'rktjmp/lush.nvim'
   use 'metalelf0/jellybeans-nvim'
-
-  -- Fancy icons (for telescope, nvim-tree, and lualine)
-  use 'kyazdani42/nvim-web-devicons'
 
   -- Fancy status line
   use 'nvim-lualine/lualine.nvim'
@@ -83,6 +85,13 @@ set_keymap('n', '<c-h>', '<c-w>h', opts)
 set_keymap('n', '<c-j>', '<c-w>j', opts)
 set_keymap('n', '<c-k>', '<c-w>k', opts)
 set_keymap('n', '<c-l>', '<c-w>l', opts)
+
+
+----------------------------------------------------------------------
+-- Fancy icons (for telescope, nvim-tree, and lualine)
+--
+local devicons = require 'nvim-web-devicons'
+devicons.setup({ default = true })
 
 
 ----------------------------------------------------------------------
@@ -154,13 +163,6 @@ gitsigns.setup()
 --
 opt.termguicolors = true
 cmd 'colorscheme jellybeans-nvim'
-
-
-----------------------------------------------------------------------
--- Fancy icons (for telescope, nvim-tree, and lualine)
---
-local devicons = require 'nvim-web-devicons'
-devicons.setup({ default = true })
 
 
 ----------------------------------------------------------------------
