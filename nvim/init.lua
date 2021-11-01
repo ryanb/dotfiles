@@ -1,46 +1,45 @@
 ----------------------------------------------------------------------
 -- Packages
 --
-local packer = require 'packer'
-packer.startup(function(use)
-  -- Use packer to manage itself
-  use 'wbthomason/packer.nvim'
+require 'paq' {
+  -- Use paq to manage itself
+  'savq/paq-nvim';
 
   -- Library used by gitsigns and telescope
-  use 'nvim-lua/plenary.nvim'
+  'nvim-lua/plenary.nvim';
 
   -- Fancy icons (for telescope, nvim-tree, and lualine)
-  use 'kyazdani42/nvim-web-devicons'
+  'kyazdani42/nvim-web-devicons';
 
   -- Syntax highlighting
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  'nvim-treesitter/nvim-treesitter';
 
   -- Completion
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
+  'hrsh7th/nvim-cmp';
+  'hrsh7th/cmp-nvim-lsp';
 
   -- Language server
-  use 'neovim/nvim-lspconfig'
+  'neovim/nvim-lspconfig';
 
   -- Fancy fuzzy finder
-  use 'nvim-telescope/telescope.nvim'
+  'nvim-telescope/telescope.nvim';
 
   -- File navigation
-  use 'kyazdani42/nvim-tree.lua'
+  'kyazdani42/nvim-tree.lua';
 
   -- Git diffs in the sign column
-  use 'lewis6991/gitsigns.nvim'
+  'lewis6991/gitsigns.nvim';
 
   -- Commenting
-  use 'tpope/vim-commentary'
+  'tpope/vim-commentary';
 
   -- Color scheme
-  use 'rktjmp/lush.nvim'
-  use 'metalelf0/jellybeans-nvim'
+  'rktjmp/lush.nvim';
+  'metalelf0/jellybeans-nvim';
 
   -- Fancy status line
-  use 'nvim-lualine/lualine.nvim'
-end)
+  'nvim-lualine/lualine.nvim';
+}
 
 
 ----------------------------------------------------------------------
