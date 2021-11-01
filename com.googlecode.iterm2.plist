@@ -225,6 +225,8 @@
 	<string>Elements run</string>
 	<key>Default Bookmark Guid</key>
 	<string>30535CDF-F8ED-44C6-93BD-CF908DA67AD2</string>
+	<key>DimOnlyText</key>
+	<true/>
 	<key>EnableDivisionView</key>
 	<true/>
 	<key>EnableProxyIcon</key>
@@ -957,6 +959,8 @@
 			<string>xterm-256color</string>
 			<key>Thin Strokes</key>
 			<integer>4</integer>
+			<key>Title Components</key>
+			<integer>3</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Unicode Version</key>
@@ -1026,6 +1030,8 @@
 	<true/>
 	<key>SoundForEsc</key>
 	<false/>
+	<key>SplitPaneDimmingAmount</key>
+	<real>0.20319186312481036</real>
 	<key>StretchTabsToFillBar</key>
 	<true/>
 	<key>SuppressRestartAnnouncement</key>
@@ -1034,6 +1040,8 @@
 	<integer>1</integer>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>4</integer>
+	<key>TabViewType</key>
+	<integer>0</integer>
 	<key>TabsHaveCloseButton</key>
 	<true/>
 	<key>TerminalMargin</key>
