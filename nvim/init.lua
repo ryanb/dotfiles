@@ -117,6 +117,7 @@ gitsigns.setup()
 -- Colors
 --
 opt.termguicolors = true
+cmd 'packadd! jellybeans-nvim'
 cmd 'colorscheme jellybeans-nvim'
 
 

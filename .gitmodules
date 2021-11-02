@@ -8,7 +8,7 @@
 	path = nvim/plugins/start/lush.nvim
 	url = https://github.com/rktjmp/lush.nvim.git
 [submodule "nvim/plugins/start/jellybeans-nvim"]
-	path = nvim/plugins/start/jellybeans-nvim
+	path = nvim/plugins/opt/jellybeans-nvim
 	url = https://github.com/metalelf0/jellybeans-nvim.git
 [submodule "nvim/plugins/start/vim-commentary"]
 	path = nvim/plugins/start/vim-commentary
