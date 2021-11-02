@@ -30,6 +30,7 @@ set_keymap('n', '<leader>f', '<cmd>Telescope find_files<CR>', opts)
 set_keymap('n', '<leader>b', '<cmd>Telescope buffers<CR>', opts)
 set_keymap('n', '<leader>a', '<cmd>Telescope lsp_code_actions<CR>', opts)
 set_keymap('n', '<leader>t', '<cmd>NvimTreeToggle<CR>', opts)
+set_keymap('n', '<leader>p', '<cmd>Neoformat<CR>', opts)
 
 -- Reselect the visual area when changing indenting in visual mode.
 set_keymap('v', '<', '<gv', opts)
@@ -140,13 +141,6 @@ augroup END
 
 
 ----------------------------------------------------------------------
--- Use Neoformat on save
+-- Neoformat
 --
-cmd [[
-let g:neoformat_try_node_exe = 1
-
-augroup formatOnSave
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
-]]
+vim.g.neoformat_try_node_exe = true
