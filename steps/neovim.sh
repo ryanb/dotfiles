@@ -1,9 +1,10 @@
 mkdir -p ~/.config/nvim
 link_file ~/.dotfiles/nvim/init.lua ~/.config/nvim/init.lua
 
-if [ ! -d ~/.local/share/nvim/site/pack/paqs/start/paq-nvim ]; then
-git clone --depth=1 https://github.com/savq/paq-nvim.git ~/.local/share/nvim/site/pack/paqs/start/paq-nvim
-fi
+# Our neovim plugins are in submodules, so make sure we've got them.
+git submodule update --init
 
-echo
-echo "You'll need to do a manual :PaqSync to finish the job."
+mkdir -p ~/.local/share/nvim/site/pack
+link_file ~/.dotfiles/nvim/plugins ~/.local/share/nvim/site/pack/plugins
+
+echo Installed.
