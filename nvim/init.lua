@@ -126,3 +126,14 @@ cmd 'colorscheme jellybeans-nvim'
 --
 local lualine = require('lualine')
 lualine.setup({ options = { theme = 'jellybeans' } })
+
+
+----------------------------------------------------------------------
+-- Remove whitespace at the end of lines on save
+--
+cmd [[
+augroup vimrcCommands
+  autocmd!
+  autocmd BufWritePre * :%s/\s\+$//e
+augroup END
+]]
