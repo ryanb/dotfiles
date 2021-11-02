@@ -137,3 +137,16 @@ augroup vimrcCommands
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
 ]]
+
+
+----------------------------------------------------------------------
+-- Use Neoformat on save
+--
+cmd [[
+let g:neoformat_try_node_exe = 1
+
+augroup formatOnSave
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
+]]

@@ -37,3 +37,6 @@
 [submodule "nvim/plugins/start/nvim-web-devicons"]
 	path = nvim/plugins/start/nvim-web-devicons
 	url = https://github.com/kyazdani42/nvim-web-devicons.git
+[submodule "nvim/plugins/start/neoformat"]
+	path = nvim/plugins/start/neoformat
+	url = https://github.com/sbdchd/neoformat.git
