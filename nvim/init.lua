@@ -13,6 +13,8 @@ opt.linebreak = true
 
 opt.relativenumber = true
 
+opt.showmatch = true  -- show matching brackets when typing
+
 opt.mouse = 'a'
 
 opt.completeopt = { 'menu', 'menuone', 'noselect' }
@@ -26,12 +28,6 @@ vim.g.mapleader = ','
 local set_keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true }
 
-set_keymap('n', '<leader>f', '<cmd>Telescope find_files<CR>', opts)
-set_keymap('n', '<leader>b', '<cmd>Telescope buffers<CR>', opts)
-set_keymap('n', '<leader>a', '<cmd>Telescope lsp_code_actions<CR>', opts)
-set_keymap('n', '<leader>t', '<cmd>NvimTreeToggle<CR>', opts)
-set_keymap('n', '<leader>p', '<cmd>Neoformat<CR>', opts)
-
 -- Reselect the visual area when changing indenting in visual mode.
 set_keymap('v', '<', '<gv', opts)
 set_keymap('v', '>', '>gv', opts)
@@ -44,10 +40,38 @@ set_keymap('n', '<c-l>', '<c-w>l', opts)
 
 
 ----------------------------------------------------------------------
+-- Remove whitespace at the end of lines on save
+--
+cmd [[
+augroup vimrcCommands
+  autocmd!
+  autocmd BufWritePre * :%s/\s\+$//e
+augroup END
+]]
+
+
+----------------------------------------------------------------------
+-- Colors
+--
+opt.termguicolors = true
+cmd 'packadd! jellybeans-nvim'
+cmd 'colorscheme jellybeans-nvim'
+
+
+----------------------------------------------------------------------
 -- Fancy icons (for telescope, nvim-tree, and lualine)
 --
 local devicons = require 'nvim-web-devicons'
 devicons.setup({ default = true })
+
+
+----------------------------------------------------------------------
+-- Fancy status line
+--
+local lualine = require('lualine')
+lualine.setup({ options = { theme = 'jellybeans' } })
+
+opt.showmode = false  -- lualine shows the mode for us
 
 
 ----------------------------------------------------------------------
@@ -111,41 +135,27 @@ lsp.solargraph.setup({
 local nvim_tree = require 'nvim-tree'
 nvim_tree.setup({ filters = { dotfiles = true } })
 
+set_keymap('n', '<leader>t', '<cmd>NvimTreeToggle<CR>', { noremap = true })
+
+
+----------------------------------------------------------------------
+-- Fuzzy finding
+--
+set_keymap('n', '<leader>f', '<cmd>Telescope find_files<CR>', { noremap = true })
+set_keymap('n', '<leader>b', '<cmd>Telescope buffers<CR>', { noremap = true })
+set_keymap('n', '<leader>a', '<cmd>Telescope lsp_code_actions<CR>', { noremap = true })
+
+
+----------------------------------------------------------------------
+-- Automatic formatting
+--
+vim.g.neoformat_try_node_exe = true
+
+set_keymap('n', '<leader>p', '<cmd>Neoformat<CR>', { noremap = true })
+
 
 ----------------------------------------------------------------------
 -- Git diffs in the sign column
 --
 local gitsigns = require 'gitsigns'
 gitsigns.setup()
-
-
-----------------------------------------------------------------------
--- Colors
---
-opt.termguicolors = true
-cmd 'packadd! jellybeans-nvim'
-cmd 'colorscheme jellybeans-nvim'
-
-
-----------------------------------------------------------------------
--- Fancy status line
---
-local lualine = require('lualine')
-lualine.setup({ options = { theme = 'jellybeans' } })
-
-
-----------------------------------------------------------------------
--- Remove whitespace at the end of lines on save
---
-cmd [[
-augroup vimrcCommands
-  autocmd!
-  autocmd BufWritePre * :%s/\s\+$//e
-augroup END
-]]
-
-
-----------------------------------------------------------------------
--- Neoformat
---
-vim.g.neoformat_try_node_exe = true
