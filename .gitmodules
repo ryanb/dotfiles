@@ -40,3 +40,6 @@
 [submodule "nvim/plugins/start/neoformat"]
 	path = nvim/plugins/start/neoformat
 	url = https://github.com/sbdchd/neoformat.git
+[submodule "nvim/plugins/start/vim-vsnip"]
+	path = nvim/plugins/start/vim-vsnip
+	url = https://github.com/hrsh7th/vim-vsnip.git
