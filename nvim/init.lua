@@ -17,8 +17,6 @@ opt.showmatch = true  -- show matching brackets when typing
 
 opt.mouse = 'a'
 
-opt.completeopt = { 'menu', 'menuone', 'noselect' }
-
 
 ----------------------------------------------------------------------
 -- Key bindings
@@ -28,7 +26,7 @@ vim.g.mapleader = ','
 local set_keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true }
 
--- Reselect the visual area when changing indenting in visual mode.
+-- Reselect the visual area when changing indenting in visual mode
 set_keymap('v', '<', '<gv', opts)
 set_keymap('v', '>', '>gv', opts)
 
@@ -37,6 +35,17 @@ set_keymap('n', '<c-h>', '<c-w>h', opts)
 set_keymap('n', '<c-j>', '<c-w>j', opts)
 set_keymap('n', '<c-k>', '<c-w>k', opts)
 set_keymap('n', '<c-l>', '<c-w>l', opts)
+
+-- Leader mappings
+set_keymap('n', '<leader>a', '<cmd>Telescope lsp_code_actions<CR>', opts)
+set_keymap('n', '<leader>b', '<cmd>Telescope buffers<CR>', opts)
+set_keymap('n', '<leader>d', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
+set_keymap('n', '<leader>f', '<cmd>Telescope find_files<CR>', opts)
+set_keymap('n', '<leader>h', '<cmd>Telescope git_bcommits<CR>', opts)
+set_keymap('n', '<leader>p', '<cmd>Neoformat<CR>', opts)
+set_keymap('n', '<leader>r', "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+set_keymap('n', '<leader>s', '<cmd>Telescope lsp_document_symbols<CR>', opts)
+set_keymap('n', '<leader>t', '<cmd>NvimTreeToggle<CR>', opts)
 
 
 ----------------------------------------------------------------------
@@ -79,7 +88,9 @@ opt.showmode = false  -- lualine shows the mode for us
 --
 local treesitter = require 'nvim-treesitter.configs'
 treesitter.setup({
-  ensure_installed = { 'lua', 'javascript', 'typescript', 'tsx', 'css', 'scss', 'ruby' },
+  ensure_installed = {
+    'lua', 'javascript', 'typescript', 'tsx', 'css', 'scss', 'ruby'
+  },
   highlight = { enable = true }
 })
 
@@ -98,6 +109,8 @@ cmp.setup({
     { name = 'nvim_lsp' }
   })
 })
+
+opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 
 ----------------------------------------------------------------------
@@ -135,23 +148,11 @@ lsp.solargraph.setup({
 local nvim_tree = require 'nvim-tree'
 nvim_tree.setup({ filters = { dotfiles = true } })
 
-set_keymap('n', '<leader>t', '<cmd>NvimTreeToggle<CR>', { noremap = true })
-
-
-----------------------------------------------------------------------
--- Fuzzy finding
---
-set_keymap('n', '<leader>f', '<cmd>Telescope find_files<CR>', { noremap = true })
-set_keymap('n', '<leader>b', '<cmd>Telescope buffers<CR>', { noremap = true })
-set_keymap('n', '<leader>a', '<cmd>Telescope lsp_code_actions<CR>', { noremap = true })
-
 
 ----------------------------------------------------------------------
 -- Automatic formatting
 --
 vim.g.neoformat_try_node_exe = true
-
-set_keymap('n', '<leader>p', '<cmd>Neoformat<CR>', { noremap = true })
 
 
 ----------------------------------------------------------------------
