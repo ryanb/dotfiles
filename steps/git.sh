@@ -1,3 +1,5 @@
+link_config_files gitignore
+
 git config --global user.name "Pete Yandell"
 git config --global user.email "pete@notahat.com"
 git config --global github.user notahat
@@ -15,5 +17,3 @@ git config --global merge.defaultToUpstream true
 
 # Helpful aliases.
 git config --global alias.root '!pwd'
-
-echo Installed.

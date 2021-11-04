@@ -9,5 +9,3 @@ link_file ~/.dotfiles/nvim/plugins ~/.config/nvim/pack/plugins
 
 # Rebuild the help index for all the plugins.
 nvim --headless -c "helptags ALL" -c "quitall"
-
-echo Installed.
