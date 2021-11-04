@@ -64,26 +64,28 @@ augroup END
 ----------------------------------------------------------------------
 -- Random packages
 --
-vim.cmd [[
-  packadd! plenary.nvim
-  packadd! vim-commentary
-  packadd! telescope.nvim
-]]
+function packadd(package)
+  cmd('packadd! '..package)
+end
+
+packadd 'plenary.nvim'
+packadd 'vim-commentary'
+packadd 'telescope.nvim'
 
 
 ----------------------------------------------------------------------
 -- Colors
 --
 opt.termguicolors = true
-cmd 'packadd! lush.nvim'
-cmd 'packadd! jellybeans-nvim'
+packadd 'lush.nvim'
+packadd 'jellybeans-nvim'
 cmd 'colorscheme jellybeans-nvim'
 
 
 ----------------------------------------------------------------------
 -- Fancy icons (for telescope, nvim-tree, and lualine)
 --
-cmd 'packadd! nvim-web-devicons'
+packadd 'nvim-web-devicons'
 local devicons = require 'nvim-web-devicons'
 devicons.setup({ default = true })
 
@@ -91,7 +93,7 @@ devicons.setup({ default = true })
 ----------------------------------------------------------------------
 -- Fancy status line
 --
-cmd 'packadd! lualine.nvim'
+packadd 'lualine.nvim'
 local lualine = require('lualine')
 lualine.setup({ options = { theme = 'jellybeans' } })
 
@@ -101,7 +103,7 @@ opt.showmode = false  -- lualine shows the mode for us
 ----------------------------------------------------------------------
 -- Syntax highlighting
 --
-cmd 'packadd! nvim-treesitter'
+packadd 'nvim-treesitter'
 local treesitter = require 'nvim-treesitter.configs'
 treesitter.setup({
   ensure_installed = {
@@ -114,8 +116,8 @@ treesitter.setup({
 ----------------------------------------------------------------------
 -- Completion
 --
-cmd 'packadd! nvim-cmp'
-cmd 'packadd! vim-vsnip' -- cmp doesn't work without a snipper plugin
+packadd 'nvim-cmp'
+packadd 'vim-vsnip' -- cmp doesn't work without a snipper plugin
 local cmp = require 'cmp'
 cmp.setup({
   snippet = {
@@ -134,8 +136,8 @@ opt.completeopt = { 'menu', 'menuone', 'noselect' }
 ----------------------------------------------------------------------
 -- Language server
 --
-cmd 'packadd! nvim-lspconfig'
-cmd 'packadd! cmp-nvim-lsp'
+packadd 'nvim-lspconfig'
+packadd 'cmp-nvim-lsp'
 local lsp = require 'lspconfig'
 local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 
@@ -165,7 +167,7 @@ lsp.solargraph.setup({
 ----------------------------------------------------------------------
 -- File navigation
 --
-cmd 'packadd! nvim-tree.lua'
+packadd 'nvim-tree.lua'
 local nvim_tree = require 'nvim-tree'
 nvim_tree.setup({ filters = { dotfiles = true } })
 
@@ -173,13 +175,13 @@ nvim_tree.setup({ filters = { dotfiles = true } })
 ----------------------------------------------------------------------
 -- Automatic formatting
 --
-cmd 'packadd! neoformat'
+packadd 'neoformat'
 vim.g.neoformat_try_node_exe = true
 
 
 ----------------------------------------------------------------------
 -- Git diffs in the sign column
 --
-cmd 'packadd! gitsigns.nvim'
+packadd 'gitsigns.nvim'
 local gitsigns = require 'gitsigns'
 gitsigns.setup()

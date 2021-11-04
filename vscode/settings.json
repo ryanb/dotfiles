@@ -20,5 +20,6 @@
 "editor.lineHeight": 1.25,
 "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
 "editor.lineNumbers": "relative",
-"vscode-neovim.neovimInitVimPaths.darwin": "/Users/notahat/.config/nvim/vscode.lua"
+"vscode-neovim.neovimInitVimPaths.darwin": "/Users/notahat/.config/nvim/vscode.vim",
+"editor.scrollBeyondLastLine": false
 }
