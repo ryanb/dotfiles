@@ -1,31 +1,32 @@
 {
-    "editor.fontFamily": "Inconsolata",
-    "editor.fontSize": 14,
-    "editor.formatOnSave": true,
-    "editor.fontWeight": "bold",
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "files.autoSave": "onFocusChange",
-    "editor.multiCursorModifier": "alt",
-    "editor.minimap.enabled": false,
-    "editor.renderWhitespace": "none",
-    "editor.renderControlCharacters": false,
-    "breadcrumbs.enabled": false,
-    "workbench.sideBar.location": "left",
-    "window.clickThroughInactive": false,
-    "editor.tabSize": 2,
-    "workbench.editor.showTabs": false,
-    "files.trimTrailingWhitespace": true,
-    "javascript.validate.enable": false,
-    "files.associations": {
-        "*.css": "postcss"
-    },
-    "prettier.packageManager": "yarn",
-    "prettier.requireConfig": true,
-    "workbench.activityBar.visible": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontFamily": "Inconsolata Nerd Font",
+  "editor.fontSize": 15,
+  "editor.formatOnSave": true,
+  "editor.fontWeight": "normal",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.autoSave": "onFocusChange",
+  "editor.multiCursorModifier": "alt",
+  "editor.minimap.enabled": false,
+  "editor.renderWhitespace": "none",
+  "editor.renderControlCharacters": false,
+  "breadcrumbs.enabled": false,
+  "workbench.sideBar.location": "left",
+  "window.clickThroughInactive": false,
+  "editor.tabSize": 2,
+  "workbench.editor.showTabs": false,
+  "files.trimTrailingWhitespace": true,
+  "javascript.validate.enable": false,
+  "files.associations": {
+    "*.css": "postcss"
+  },
+  "prettier.packageManager": "yarn",
+  "prettier.requireConfig": true,
+  "workbench.activityBar.visible": true,
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.lineHeight": 1.25
 }

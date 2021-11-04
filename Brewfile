@@ -6,6 +6,7 @@ brew 'git'
 brew 'neovim'
 cask 'visual-studio-code'
 brew 'entr'
+brew 'fd'
 brew 'ripgrep'
 brew 'jq'
 brew 'zsh'
@@ -33,7 +34,7 @@ brew 'gawk'
 # Fonts
 
 tap 'homebrew/cask-fonts'
-cask 'font-inconsolata'
+cask 'font-inconsolata-nerd-font'
 
 # ----------------------------------------------------------------------
 # Mac apps

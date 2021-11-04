@@ -1,10 +1,13 @@
 mkdir -p ~/.config/nvim
-link_file ~/.dotfiles/nvim/init.vim ~/.config/nvim/init.vim
-link_file ~/.dotfiles/nvim/vimplug.vim ~/.config/nvim/vimplug.vim
+link_file ~/.dotfiles/nvim/init.lua ~/.config/nvim/init.lua
 
-if [ ! -f ~/.config/nvim/autoload/plug.vim ]; then
-  curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
+# Our neovim plugins are in submodules, so make sure we've got them.
+git submodule update --init --depth 1
 
-echo
-echo "You'll need to do a manual :PlugInstall to finish the job."
+mkdir -p ~/.config/nvim/pack
+link_file ~/.dotfiles/nvim/plugins ~/.config/nvim/pack/plugins
+
+# Rebuild the help index for all the plugins.
+nvim --headless -c "helptags ALL" -c "quitall"
+
+echo Installed.

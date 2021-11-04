@@ -1,3 +1,5 @@
 standard
 babel-eslint
 create-react-app
+typescript
+typescript-language-server
