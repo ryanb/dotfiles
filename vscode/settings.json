@@ -9,24 +9,16 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "files.autoSave": "onFocusChange",
-  "editor.multiCursorModifier": "alt",
   "editor.minimap.enabled": false,
-  "editor.renderWhitespace": "none",
-  "editor.renderControlCharacters": false,
-  "breadcrumbs.enabled": false,
-  "workbench.sideBar.location": "left",
-  "window.clickThroughInactive": false,
   "editor.tabSize": 2,
-  "workbench.editor.showTabs": false,
   "files.trimTrailingWhitespace": true,
-  "javascript.validate.enable": false,
   "files.associations": {
     "*.css": "postcss"
   },
-  "prettier.packageManager": "yarn",
   "prettier.requireConfig": true,
-  "workbench.activityBar.visible": true,
 "editor.defaultFormatter": "esbenp.prettier-vscode",
-"editor.lineHeight": 1.25
+"editor.lineHeight": 1.25,
+"vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+"editor.lineNumbers": "relative",
+"vscode-neovim.neovimInitVimPaths.darwin": "/Users/notahat/.config/nvim/vscode.lua"
 }
