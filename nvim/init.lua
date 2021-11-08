@@ -114,11 +114,15 @@ treesitter.setup({
 
 
 ----------------------------------------------------------------------
--- Auto-close brackets and stuff
+-- Auto-close brackets and tags and stuff
 --
 packadd 'nvim-autopairs'
 local autopairs = require 'nvim-autopairs'
 autopairs.setup{}
+
+packadd 'nvim-ts-autotag'
+local autotag = require 'nvim-ts-autotag'
+autotag.setup()
 
 
 ----------------------------------------------------------------------

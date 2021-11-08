@@ -46,3 +46,6 @@
 [submodule "nvim/plugins/opt/nvim-autopairs"]
 	path = nvim/plugins/opt/nvim-autopairs
 	url = https://github.com/windwp/nvim-autopairs.git
+[submodule "nvim/plugins/opt/nvim-ts-autotag"]
+	path = nvim/plugins/opt/nvim-ts-autotag
+	url = https://github.com/windwp/nvim-ts-autotag.git
