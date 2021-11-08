@@ -114,6 +114,14 @@ treesitter.setup({
 
 
 ----------------------------------------------------------------------
+-- Auto-close brackets and stuff
+--
+packadd 'nvim-autopairs'
+local autopairs = require 'nvim-autopairs'
+autopairs.setup{}
+
+
+----------------------------------------------------------------------
 -- Completion
 --
 packadd 'nvim-cmp'
