@@ -23,12 +23,8 @@ brew 'gawk'
 # ----------------------------------------------------------------------
 # Work stuff
 
-# cask 'aws-vault'
-# brew 'awscli'
-# tap 'heroku/brew'
-# brew 'heroku/brew/heroku'
-# brew 'postgresql@12'
-# brew 'redis'
+brew 'postgresql@12'
+brew 'redis'
 
 # ----------------------------------------------------------------------
 # Fonts
