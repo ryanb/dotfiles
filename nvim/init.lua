@@ -23,31 +23,40 @@ opt.mouse = 'a'
 ----------------------------------------------------------------------
 -- Key bindings
 --
+local keymaps = require 'keymaps'
+
 vim.g.mapleader = ','
 
-local set_keymap = vim.api.nvim_set_keymap
-local opts = { noremap = true }
+keymaps.set({
+  -- Shortcuts for navigation between windows
+  ['<c-h>'] = { keys = '<c-w>h' },
+  ['<c-j>'] = { keys = '<c-w>j' },
+  ['<c-k>'] = { keys = '<c-w>k' },
+  ['<c-l>'] = { keys = '<c-w>l' },
 
--- Reselect the visual area when changing indenting in visual mode
-set_keymap('v', '<', '<gv', opts)
-set_keymap('v', '>', '>gv', opts)
+  -- Reselect the visual area when changing indenting in visual mode
+  ['<'] = { mode = 'v', keys = '<gv' },
+  ['>'] = { mode = 'v', keys = '>gv' },
 
--- Shortcuts for navigation between windows
-set_keymap('n', '<c-h>', '<c-w>h', opts)
-set_keymap('n', '<c-j>', '<c-w>j', opts)
-set_keymap('n', '<c-k>', '<c-w>k', opts)
-set_keymap('n', '<c-l>', '<c-w>l', opts)
+  -- Leader mappings
+  ['<leader>b'] = { cmd = 'Telescope buffers' },
+  ['<leader>f'] = { cmd = 'Telescope find_files' },
+  ['<leader>p'] = { cmd = 'Neoformat' },
+  ['<leader>t'] = { cmd = 'NvimTreeToggle' },
+})
 
--- Leader mappings
-set_keymap('n', '<leader>a', '<cmd>Telescope lsp_code_actions<CR>', opts)
-set_keymap('n', '<leader>b', '<cmd>Telescope buffers<CR>', opts)
-set_keymap('n', '<leader>d', '<cmd>Telescope lsp_document_diagnostics<CR>', opts)
-set_keymap('n', '<leader>f', '<cmd>Telescope find_files<CR>', opts)
-set_keymap('n', '<leader>h', '<cmd>Telescope git_bcommits<CR>', opts)
-set_keymap('n', '<leader>p', '<cmd>Neoformat<CR>', opts)
-set_keymap('n', '<leader>r', "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-set_keymap('n', '<leader>s', '<cmd>Telescope lsp_document_symbols<CR>', opts)
-set_keymap('n', '<leader>t', '<cmd>NvimTreeToggle<CR>', opts)
+-- These bindings are set when a language server attaches to a buffer
+local function on_lsp_attach(client, buffer_number)
+  keymaps.buf_set(buffer_number, {
+    ['<leader>ca'] = { cmd = 'Telescope lsp_code_actions' },
+    ['<leader>cd'] = { cmd = 'Telescope lsp_document_diagnostics' },
+    ['<leader>cr'] = { cmd = 'lua vim.lsp.buf.rename()' },
+    ['<leader>cs'] = { cmd = 'Telescope lsp_document_symbols' },
+    ['K'] = { lua = 'vim.lsp.buf.hover()' },
+    ['gd'] = { lua = 'vim.lsp.buf.definition()' },
+    ['gr'] = { lua = 'vim.lsp.buf.references()' },
+  })
+end
 
 
 ----------------------------------------------------------------------
@@ -153,25 +162,16 @@ packadd 'cmp-nvim-lsp'
 local lsp = require 'lspconfig'
 local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 
--- This gets run when LSP attaches to a buffer.
-local on_attach = function(client, buffer_number)
-  local buf_set_keymap = vim.api.nvim_buf_set_keymap
-  local opts = { noremap = true, silent = true }
-  buf_set_keymap(buffer_number, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap(buffer_number, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap(buffer_number, 'n', 'K', "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-end
-
 local client_capabilities = vim.lsp.protocol.make_client_capabilities()
 local cmp_capabilities = cmp_nvim_lsp.update_capabilities(client_capabilities)
 
 lsp.tsserver.setup({
-  on_attach = on_attach,
+  on_attach = on_lsp_attach,
   capabilities = cmp_capabilities
 })
 
 lsp.solargraph.setup({
-  on_attach = on_attach,
+  on_attach = on_lsp_attach,
   capabilities = cmp_capabilities
 })
 
