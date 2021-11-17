@@ -180,7 +180,10 @@ lsp.solargraph.setup(lsp_opts)
 --
 packadd 'nvim-tree.lua'
 local nvim_tree = require 'nvim-tree'
-nvim_tree.setup({ filters = { dotfiles = true } })
+nvim_tree.setup({
+  filters = { dotfiles = true },
+  update_focused_file = { enable = true }
+})
 
 
 ----------------------------------------------------------------------
