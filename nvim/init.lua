@@ -166,15 +166,13 @@ local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 local client_capabilities = vim.lsp.protocol.make_client_capabilities()
 local cmp_capabilities = cmp_nvim_lsp.update_capabilities(client_capabilities)
 
-lsp.tsserver.setup({
+local lsp_opts = {
   on_attach = on_lsp_attach,
   capabilities = cmp_capabilities
-})
+}
 
-lsp.solargraph.setup({
-  on_attach = on_lsp_attach,
-  capabilities = cmp_capabilities
-})
+lsp.tsserver.setup(lsp_opts)
+lsp.solargraph.setup(lsp_opts)
 
 
 ----------------------------------------------------------------------
