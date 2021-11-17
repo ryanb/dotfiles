@@ -14,6 +14,7 @@ opt.linebreak = true
 opt.hidden = true
 
 opt.relativenumber = true
+opt.scrolloff = 2
 
 opt.showmatch = true  -- show matching brackets when typing
 
