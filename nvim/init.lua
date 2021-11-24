@@ -16,6 +16,8 @@ opt.hidden = true
 opt.relativenumber = true
 opt.scrolloff = 2
 
+opt.tildeop = true  -- make the ~ command behave like an operator
+
 opt.showmatch = true  -- show matching brackets when typing
 
 opt.mouse = 'a'
@@ -181,8 +183,10 @@ lsp.solargraph.setup(lsp_opts)
 packadd 'nvim-tree.lua'
 local nvim_tree = require 'nvim-tree'
 nvim_tree.setup({
+  open_on_setup = true,
   filters = { dotfiles = true },
-  update_focused_file = { enable = true }
+  update_focused_file = { enable = true },
+  view = { auto_resize = true }
 })
 
 
