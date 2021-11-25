@@ -49,3 +49,6 @@
 [submodule "nvim/plugins/opt/nvim-ts-autotag"]
 	path = nvim/pack/plugins/opt/nvim-ts-autotag
 	url = https://github.com/windwp/nvim-ts-autotag.git
+[submodule "nvim/pack/plugins/opt/nvim-treesitter-textobjects"]
+	path = nvim/pack/plugins/opt/nvim-treesitter-textobjects
+	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects.git

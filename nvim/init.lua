@@ -113,15 +113,34 @@ opt.showmode = false  -- lualine shows the mode for us
 
 
 ----------------------------------------------------------------------
--- Syntax highlighting
+-- Syntax highlighting and text objects for functions
 --
 packadd 'nvim-treesitter'
+packadd 'nvim-treesitter-textobjects'
 local treesitter = require 'nvim-treesitter.configs'
 treesitter.setup({
   ensure_installed = {
     'lua', 'javascript', 'typescript', 'tsx', 'css', 'scss', 'ruby'
   },
-  highlight = { enable = true }
+  highlight = { enable = true },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner"
+      }
+    },
+    move = {
+      enable = true,
+      set_jumps = true,
+      goto_next_start = { ["]m"] = "@function.outer" },
+      goto_next_end = { ["]M"] = "@function.outer" },
+      goto_previous_start = { ["[m"] = "@function.outer" },
+      goto_previous_end = { ["[M"] = "@function.outer" },
+    }
+  }
 })
 
 
