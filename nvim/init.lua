@@ -11,7 +11,13 @@ opt.expandtab = true
 opt.breakindent = true
 opt.linebreak = true
 
+-- Use relative line numbering, but display the actual line
+-- number on the current line, and highlight it.
+opt.number = true
 opt.relativenumber = true
+opt.cursorline = true
+opt.cursorlineopt = 'number'
+
 opt.scrolloff = 2
 
 opt.tildeop = true  -- make the ~ command behave like an operator
