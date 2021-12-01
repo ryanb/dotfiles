@@ -59,6 +59,9 @@ local function on_lsp_attach(client, buffer_number)
     ['gd'] = { lua = 'vim.lsp.buf.definition()' },
     ['gr'] = { lua = 'vim.lsp.buf.references()' },
   })
+  keymaps.buf_set(buffer_number, {
+    ['<leader>ca'] = { cmd = 'Telescope lsp_range_code_actions', mode = 'v' }
+  })
 end
 
 
@@ -160,7 +163,11 @@ autotag.setup()
 -- Completion
 --
 packadd 'nvim-cmp'
-packadd 'vim-vsnip' -- cmp doesn't work without a snipper plugin
+packadd 'cmp-nvim-lsp'
+packadd 'vim-vsnip' -- cmp doesn't work without a snippet plugin
+
+opt.completeopt = { 'menu', 'menuone', 'noselect' }
+
 local cmp = require 'cmp'
 cmp.setup({
   snippet = {
@@ -168,24 +175,22 @@ cmp.setup({
       vim.fn["vsnip#anonymous"](args.body)
     end
   },
-  sources = cmp.config.sources({
+  sources = {
     { name = 'nvim_lsp' }
-  })
+  }
 })
 
-opt.completeopt = { 'menu', 'menuone', 'noselect' }
+local cmp_nvim_lsp = require 'cmp_nvim_lsp'
+local cmp_capabilities = cmp_nvim_lsp.update_capabilities(
+  vim.lsp.protocol.make_client_capabilities()
+)
 
 
 ----------------------------------------------------------------------
 -- Language server
 --
 packadd 'nvim-lspconfig'
-packadd 'cmp-nvim-lsp'
 local lsp = require 'lspconfig'
-local cmp_nvim_lsp = require 'cmp_nvim_lsp'
-
-local client_capabilities = vim.lsp.protocol.make_client_capabilities()
-local cmp_capabilities = cmp_nvim_lsp.update_capabilities(client_capabilities)
 
 local lsp_opts = {
   on_attach = on_lsp_attach,
