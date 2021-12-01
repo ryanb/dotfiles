@@ -11,8 +11,6 @@ opt.expandtab = true
 opt.breakindent = true
 opt.linebreak = true
 
-opt.hidden = true
-
 opt.relativenumber = true
 opt.scrolloff = 2
 
