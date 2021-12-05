@@ -1,4 +1,27 @@
 # ==============================================================================
+# Plugins
+
+export ZPLUG_HOME=/usr/local/opt/zplug
+if [[ -f $ZPLUG_HOME/init.zsh ]]; then
+  source $ZPLUG_HOME/init.zsh
+
+  zplug "mafredri/zsh-async", from:github
+  zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+
+  zplug "zsh-users/zsh-syntax-highlighting", defer:2
+  zplug "zsh-users/zsh-autosuggestions", defer:2
+
+  if ! zplug check; then
+    zplug install
+  fi
+
+  zplug load
+fi
+
+ZSH_AUTOSUGGEST_STRATEGY=(completion)
+
+
+# ==============================================================================
 # Basics
 
 if type brew &>/dev/null; then
@@ -55,50 +78,6 @@ zle-keymap-select () {
   fi
 }
 zle -N zle-keymap-select
-
-
-# ==============================================================================
-# Tab title
-
-autoload add-zsh-hook
-
-function set_tab_title() {
-  echo -n "\033];${PWD##*/}\007"
-}
-
-# Set the tab title before each prompt
-add-zsh-hook precmd set_tab_title
-
-
-# ==============================================================================
-# Prompt
-
-autoload colors; colors;
-
-PATH_PROMPT_INFO="%{$fg[blue]%}%~%{$reset_color%}"
-
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}["
-ZSH_THEME_GIT_PROMPT_SUFFIX="]%b%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="*"  # Text to display if the branch is dirty
-ZSH_THEME_GIT_PROMPT_CLEAN=""   # Text to display if the branch is clean
-
-function git_prompt_info() {
-  branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null) || return
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${branch}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
-}
-
-function parse_git_dirty() {
-  if [[ -n $(git status -s 2> /dev/null) ]]; then
-    echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
-  else
-    echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
-  fi
-}
-
-JOB_PROMPT_INFO="%{$fg[red]%}%(1j.&.)%{$reset_color%}"
-
-setopt prompt_subst
-PROMPT='${PATH_PROMPT_INFO}$(git_prompt_info)${JOB_PROMPT_INFO} '
 
 
 # ==============================================================================
