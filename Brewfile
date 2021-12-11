@@ -9,6 +9,7 @@ brew 'entr'
 brew 'fd'
 brew 'ripgrep'
 brew 'jq'
+brew 'zplug'
 
 # ----------------------------------------------------------------------
 # Languages
