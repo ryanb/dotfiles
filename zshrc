@@ -123,4 +123,6 @@ alias gp='git push'
 alias gpr='git push -u && gh pr create --web'
 alias gs='git status'
 
-source ~/.zshrc-envato
+if [ -f ~/.zshrc-envato ]; then
+  source ~/.zshrc-envato
+fi
