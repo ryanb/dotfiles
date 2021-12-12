@@ -1,7 +1,7 @@
 # ==============================================================================
 # Plugins
 
-export ZPLUG_HOME=/usr/local/opt/zplug
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
 if [[ -f $ZPLUG_HOME/init.zsh ]]; then
   source $ZPLUG_HOME/init.zsh
 
@@ -34,7 +34,7 @@ compinit -i
 bindkey -v
 KEYTIMEOUT=1
 
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 
 # ==============================================================================
@@ -91,16 +91,13 @@ fi
 # ==============================================================================
 # Environment
 
-export EDITOR=/usr/local/bin/nvim
+export EDITOR=/opt/homebrew/bin/nvim
 
 export CLICOLOR=1  # Make ls colour its output.
 export LESS=-R     # Make less support ANSI colour sequences.
 
 export RAILS_CACHE_CLASSES=true
 export DISABLE_SPRING=true
-
-export GOPATH=$HOME/src/go
-export PATH=$GOPATH/bin:$PATH
 
 
 # ==============================================================================
@@ -122,6 +119,9 @@ alias gm='git merge --no-ff'
 alias gp='git push'
 alias gpr='git push -u && gh pr create --web'
 alias gs='git status'
+
+alias m1='arch -arm64e'
+alias mbrew='arch -arm64e /opt/homebrew/bin/brew'
 
 if [ -f ~/.zshrc-envato ]; then
   source ~/.zshrc-envato

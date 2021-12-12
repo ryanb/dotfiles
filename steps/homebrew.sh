@@ -1,8 +1,15 @@
 if [ ! -f /usr/local/bin/brew ]; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
-  echo 'brew is already installed, skipping.'
+  echo 'x86_64 brew is already installed, skipping.'
 fi
 
-link_config_files Brewfile
-brew bundle --global
+if [ ! -f /opt/homebrew/bin/brew ]; then
+  arch -arm64e /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  echo 'arm64e brew is already installed, skipping.'
+fi
+
+arch -x86_64 /usr/local/bin/brew bundle --file Brewfile-x86_64
+
+arch -arm64e /opt/homebrew/bin/brew bundle --file Brewfile-arm64e
