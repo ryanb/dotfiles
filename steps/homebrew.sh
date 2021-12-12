@@ -10,6 +10,6 @@ else
   echo 'arm64e brew is already installed, skipping.'
 fi
 
-arch -x86_64 /usr/local/bin/brew bundle --file Brewfile-x86_64
+arch -x86_64 /usr/local/bin/brew bundle --no-lock --file Brewfile-x86_64
 
-arch -arm64e /opt/homebrew/bin/brew bundle --file Brewfile-arm64e
+arch -arm64e /opt/homebrew/bin/brew bundle --no-lock --file Brewfile-arm64e
