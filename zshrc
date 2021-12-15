@@ -121,6 +121,8 @@ alias gpr='git push -u && gh pr create --web'
 alias gs='git status'
 
 alias m1='arch -arm64e'
+alias intel='arch -x86_64'
+alias ibrew='arch -x86_64 /usr/local/bin/brew'
 alias mbrew='arch -arm64e /opt/homebrew/bin/brew'
 
 if [ -f ~/.zshrc-envato ]; then
