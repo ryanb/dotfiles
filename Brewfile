@@ -11,6 +11,21 @@ brew 'ripgrep'
 brew 'zplug'
 
 # ----------------------------------------
+# Languages
+
+brew 'asdf'
+
+# Needed for the asdf-nodejs plugin
+brew 'gpg'
+brew 'gawk'
+
+# ----------------------------------------
+# Services
+
+brew 'postgresql@12'
+brew 'redis'
+
+# ----------------------------------------
 # Fonts
 
 tap 'homebrew/cask-fonts'

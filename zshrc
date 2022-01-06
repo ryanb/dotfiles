@@ -34,7 +34,7 @@ compinit -i
 bindkey -v
 KEYTIMEOUT=1
 
-export PATH=/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 
 # ==============================================================================
@@ -83,8 +83,8 @@ zle -N zle-keymap-select
 # ==============================================================================
 # Tools
 
-if [ -f /usr/local/opt/asdf/libexec/asdf.sh ]; then
-  source /usr/local/opt/asdf/libexec/asdf.sh
+if [ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]; then
+  source /opt/homebrew/opt/asdf/libexec/asdf.sh
 fi
 
 
@@ -122,8 +122,6 @@ alias gs='git status'
 
 alias m1='arch -arm64e'
 alias intel='arch -x86_64'
-alias ibrew='arch -x86_64 /usr/local/bin/brew'
-alias mbrew='arch -arm64e /opt/homebrew/bin/brew'
 
 if [ -f ~/.zshrc-envato ]; then
   source ~/.zshrc-envato
