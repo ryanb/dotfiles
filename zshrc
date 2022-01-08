@@ -5,9 +5,6 @@ export ZPLUG_HOME=/opt/homebrew/opt/zplug
 if [[ -f $ZPLUG_HOME/init.zsh ]]; then
   source $ZPLUG_HOME/init.zsh
 
-  zplug "mafredri/zsh-async", from:github
-  zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-
   zplug "zsh-users/zsh-syntax-highlighting", defer:2
   zplug "zsh-users/zsh-autosuggestions", defer:2
 
@@ -23,6 +20,8 @@ ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
 # ==============================================================================
 # Basics
+
+PROMPT="%# "
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
