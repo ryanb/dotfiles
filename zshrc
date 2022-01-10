@@ -1,7 +1,25 @@
 # ==============================================================================
+# Path
+
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+
+# ==============================================================================
+# Homebrew
+
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+
+  FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
+
+  export EDITOR=$HOMEBREW_PREFIX/bin/nvim
+fi
+
+
+# ==============================================================================
 # Plugins
 
-export ZPLUG_HOME=/opt/homebrew/opt/zplug
+export ZPLUG_HOME=$HOMEBREW_PREFIX/opt/zplug
 if [[ -f $ZPLUG_HOME/init.zsh ]]; then
   source $ZPLUG_HOME/init.zsh
 
@@ -13,27 +31,29 @@ if [[ -f $ZPLUG_HOME/init.zsh ]]; then
   fi
 
   zplug load
+
+  ZSH_AUTOSUGGEST_STRATEGY=(completion)
 fi
 
-ZSH_AUTOSUGGEST_STRATEGY=(completion)
+
+# ==============================================================================
+# asdf
+
+if [[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ]]; then
+  source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+fi
 
 
 # ==============================================================================
 # Basics
 
-PROMPT="%# "
-
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
+PROMPT=$'\n'"%# "
 
 autoload -U compinit
 compinit -i
 
 bindkey -v
 KEYTIMEOUT=1
-
-export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
 
 # ==============================================================================
@@ -70,7 +90,7 @@ block_cursor() { echo -ne "\e[2 q" }
 zle -N zle-line-init bar_cursor
 
 zle-keymap-select () {
-  if [ $KEYMAP = vicmd ]; then
+  if [[ $KEYMAP = vicmd ]]; then
     block_cursor
   else
     bar_cursor
@@ -80,17 +100,7 @@ zle -N zle-keymap-select
 
 
 # ==============================================================================
-# Tools
-
-if [ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]; then
-  source /opt/homebrew/opt/asdf/libexec/asdf.sh
-fi
-
-
-# ==============================================================================
 # Environment
-
-export EDITOR=/opt/homebrew/bin/nvim
 
 export CLICOLOR=1  # Make ls colour its output.
 export LESS=-R     # Make less support ANSI colour sequences.
@@ -122,6 +132,6 @@ alias gs='git status'
 alias m1='arch -arm64e'
 alias intel='arch -x86_64'
 
-if [ -f ~/.zshrc-envato ]; then
+if [[ -f ~/.zshrc-envato ]]; then
   source ~/.zshrc-envato
 fi
