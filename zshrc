@@ -1,7 +1,9 @@
 # ==============================================================================
-# Path
+# Basics
 
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+PROMPT=$'\n'"%# "
 
 
 # ==============================================================================
@@ -17,7 +19,7 @@ fi
 
 
 # ==============================================================================
-# Plugins
+# zsh plugins
 
 export ZPLUG_HOME=$HOMEBREW_PREFIX/opt/zplug
 if [[ -f $ZPLUG_HOME/init.zsh ]]; then
@@ -45,15 +47,24 @@ fi
 
 
 # ==============================================================================
-# Basics
-
-PROMPT=$'\n'"%# "
-
-autoload -U compinit
-compinit -i
+# vi mode
 
 bindkey -v
 KEYTIMEOUT=1
+
+bar_cursor() { echo -ne "\e[6 q" }
+block_cursor() { echo -ne "\e[2 q" }
+
+zle -N zle-line-init bar_cursor
+
+zle-keymap-select () {
+  if [[ $KEYMAP = vicmd ]]; then
+    block_cursor
+  else
+    bar_cursor
+  fi
+}
+zle -N zle-keymap-select
 
 
 # ==============================================================================
@@ -79,24 +90,6 @@ bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 bindkey -M vicmd "k" up-line-or-beginning-search
 bindkey -M vicmd "j" down-line-or-beginning-search
-
-
-# ==============================================================================
-# Cursor
-
-bar_cursor() { echo -ne "\e[6 q" }
-block_cursor() { echo -ne "\e[2 q" }
-
-zle -N zle-line-init bar_cursor
-
-zle-keymap-select () {
-  if [[ $KEYMAP = vicmd ]]; then
-    block_cursor
-  else
-    bar_cursor
-  fi
-}
-zle -N zle-keymap-select
 
 
 # ==============================================================================
