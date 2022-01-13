@@ -902,18 +902,20 @@
 								<real>+infinity</real>
 								<key>minwidth</key>
 								<integer>0</integer>
+								<key>path</key>
+								<string>path</string>
 								<key>shared text color</key>
 								<dict>
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.25</real>
+									<real>0.63</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.25</real>
+									<real>0.63</real>
 									<key>Red Component</key>
-									<real>0.5</real>
+									<real>0.90000000000000002</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -951,13 +953,13 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.25</real>
+									<real>0.63</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.5</real>
+									<real>0.90000000000000002</real>
 									<key>Red Component</key>
-									<real>0.29499999999999998</real>
+									<real>0.67859999999999998</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -993,13 +995,13 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.5</real>
+									<real>0.90000000000000002</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.33999999999999997</real>
+									<real>0.72719999999999996</real>
 									<key>Red Component</key>
-									<real>0.25</real>
+									<real>0.63</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1035,13 +1037,13 @@
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.38500000000000001</real>
+									<real>0.77580000000000005</real>
 									<key>Color Space</key>
 									<string>sRGB</string>
 									<key>Green Component</key>
-									<real>0.25</real>
+									<real>0.63</real>
 									<key>Red Component</key>
-									<real>0.5</real>
+									<real>0.90000000000000002</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1068,7 +1070,7 @@
 			<key>Thin Strokes</key>
 			<integer>4</integer>
 			<key>Title Components</key>
-			<integer>1</integer>
+			<integer>2</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Unicode Version</key>
