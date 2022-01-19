@@ -15,5 +15,3 @@ if ! command -v fzf &> /dev/null; then
 fi
 
 vim.basic +PlugInstall +qall
-
-source ~/.zshrc
