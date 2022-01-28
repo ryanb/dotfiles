@@ -101,6 +101,8 @@ export LESS=-R     # Make less support ANSI colour sequences.
 export RAILS_CACHE_CLASSES=true
 export DISABLE_SPRING=true
 
+export HOMEBREW_NO_ENV_HINTS=true
+
 
 # ==============================================================================
 # Aliases
