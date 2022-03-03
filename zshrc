@@ -127,6 +127,8 @@ alias gs='git status'
 alias m1='arch -arm64e'
 alias intel='arch -x86_64'
 
+alias dog='cat'
+
 if [[ -f ~/.zshrc-envato ]]; then
   source ~/.zshrc-envato
 fi
