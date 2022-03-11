@@ -10,8 +10,8 @@ compdef _h h
 unsetopt correct_all
 
 # a few aliases I like
-alias gs='git status'
-alias gd='git diff'
+alias gb='git branch --sort=committerdate'
+alias gdh='git diff head'
 alias tlog='tail -f log/development.log'
 
 # add plugin's bin directory to path
