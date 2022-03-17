@@ -9,6 +9,7 @@ module.exports = {
         'github.com/*',
         'heroku.com/*',
         'trello.com/*',
+        'www.notion.so/*',
 
         'calendar.google.com/*',
         'docs.google.com/*',
