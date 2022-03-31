@@ -56,7 +56,7 @@ keymaps.set({
 local function on_lsp_attach(client, buffer_number)
   keymaps.buf_set(buffer_number, {
     ['<leader>ca'] = { cmd = 'Telescope lsp_code_actions' },
-    ['<leader>cd'] = { cmd = 'Telescope lsp_document_diagnostics' },
+    ['<leader>cd'] = { cmd = 'Telescope diagnostics' },
     ['<leader>cr'] = { cmd = 'lua vim.lsp.buf.rename()' },
     ['<leader>cs'] = { cmd = 'Telescope lsp_document_symbols' },
     ['K'] = { lua = 'vim.lsp.buf.hover()' },
@@ -114,7 +114,7 @@ devicons.setup({ default = true })
 --
 packadd 'lualine.nvim'
 local lualine = require('lualine')
-lualine.setup({ options = { theme = 'jellybeans' } })
+lualine.setup({ options = { theme = 'auto' } })
 
 opt.showmode = false  -- lualine shows the mode for us
 
