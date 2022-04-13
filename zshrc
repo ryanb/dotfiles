@@ -58,11 +58,6 @@ bindkey -M vicmd "j" down-line-or-beginning-search
 export CLICOLOR=1  # Make ls colour its output.
 export LESS=-R     # Make less support ANSI colour sequences.
 
-export RAILS_CACHE_CLASSES=true
-export DISABLE_SPRING=true
-
-export HOMEBREW_NO_ENV_HINTS=true
-
 
 # ==============================================================================
 # Aliases
@@ -84,15 +79,6 @@ alias gp='git push'
 alias gpr='git push -u && gh pr create --web'
 alias gs='git status'
 
-alias m1='arch -arm64e'
-alias intel='arch -x86_64'
-
-alias dog='cat'
-
-if [[ -f ~/.zshrc-envato ]]; then
-  source ~/.zshrc-envato
-fi
-
 
 # ==============================================================================
 # Homebrew
@@ -102,6 +88,7 @@ if [[ -f /opt/homebrew/bin/brew ]]; then
 
   FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
 
+  export HOMEBREW_NO_ENV_HINTS=true
   export EDITOR=$HOMEBREW_PREFIX/bin/nvim
 fi
 
@@ -111,6 +98,14 @@ fi
 
 if [[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ]]; then
   source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+fi
+
+
+# ==============================================================================
+# Work stuff
+
+if [[ -f ~/.zshrc-envato ]]; then
+  source ~/.zshrc-envato
 fi
 
 
