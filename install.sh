@@ -32,6 +32,13 @@ function run_step {
   source ~/.dotfiles/steps/$1.sh
 }
 
+function usage {
+  echo "Usage:"
+  echo "  ./install.sh [step]"
+  echo
+  echo "Available steps: ${steps[@]}"
+}
+
 steps=(firewall filevault config homebrew iterm2 ruby node git neovim vscode)
 
 if [ -z $1 ]; then
@@ -39,7 +46,7 @@ if [ -z $1 ]; then
     run_step $step
   done
 elif [ $1 = -h ]; then
-  echo "Available steps: ${steps[@]}"
+  usage
 else
   run_step $1
 fi
