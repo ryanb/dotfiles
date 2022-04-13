@@ -95,18 +95,6 @@ fi
 
 
 # ==============================================================================
-# Completion and syntax highlighting
-
-autoload -U compinit
-compinit
-
-ZSH_AUTOSUGGEST_STRATEGY=(completion)
-
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-
-# ==============================================================================
 # Homebrew
 
 if [[ -f /opt/homebrew/bin/brew ]]; then
@@ -124,3 +112,15 @@ fi
 if [[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ]]; then
   source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 fi
+
+
+# ==============================================================================
+# Completion and syntax highlighting
+
+autoload -U compinit
+compinit
+
+ZSH_AUTOSUGGEST_STRATEGY=(completion)
+
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
