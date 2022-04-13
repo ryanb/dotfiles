@@ -7,6 +7,18 @@ PROMPT=$'\n'"%# "
 
 
 # ==============================================================================
+# Completion and syntax highlighting
+
+autoload -U compinit
+compinit
+
+ZSH_AUTOSUGGEST_STRATEGY=(completion)
+
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# ==============================================================================
 # Homebrew
 
 if [[ -f /opt/homebrew/bin/brew ]]; then
@@ -15,26 +27,6 @@ if [[ -f /opt/homebrew/bin/brew ]]; then
   FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
 
   export EDITOR=$HOMEBREW_PREFIX/bin/nvim
-fi
-
-
-# ==============================================================================
-# zsh plugins
-
-export ZPLUG_HOME=$HOMEBREW_PREFIX/opt/zplug
-if [[ -f $ZPLUG_HOME/init.zsh ]]; then
-  source $ZPLUG_HOME/init.zsh
-
-  zplug "zsh-users/zsh-syntax-highlighting", defer:2
-  zplug "zsh-users/zsh-autosuggestions", defer:2
-
-  if ! zplug check; then
-    zplug install
-  fi
-
-  zplug load
-
-  ZSH_AUTOSUGGEST_STRATEGY=(completion)
 fi
 
 

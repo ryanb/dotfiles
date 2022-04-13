@@ -8,7 +8,6 @@ brew 'fd'
 brew 'jq'
 brew 'neovim'
 brew 'ripgrep'
-brew 'zplug'
 
 # ----------------------------------------
 # Languages
