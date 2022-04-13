@@ -7,38 +7,6 @@ PROMPT=$'\n'"%# "
 
 
 # ==============================================================================
-# Completion and syntax highlighting
-
-autoload -U compinit
-compinit
-
-ZSH_AUTOSUGGEST_STRATEGY=(completion)
-
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-
-# ==============================================================================
-# Homebrew
-
-if [[ -f /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-
-  FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
-
-  export EDITOR=$HOMEBREW_PREFIX/bin/nvim
-fi
-
-
-# ==============================================================================
-# asdf
-
-if [[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ]]; then
-  source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
-fi
-
-
-# ==============================================================================
 # vi mode
 
 bindkey -v
@@ -123,4 +91,36 @@ alias dog='cat'
 
 if [[ -f ~/.zshrc-envato ]]; then
   source ~/.zshrc-envato
+fi
+
+
+# ==============================================================================
+# Completion and syntax highlighting
+
+autoload -U compinit
+compinit
+
+ZSH_AUTOSUGGEST_STRATEGY=(completion)
+
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# ==============================================================================
+# Homebrew
+
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+
+  FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
+
+  export EDITOR=$HOMEBREW_PREFIX/bin/nvim
+fi
+
+
+# ==============================================================================
+# asdf
+
+if [[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ]]; then
+  source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 fi
