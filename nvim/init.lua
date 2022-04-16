@@ -28,48 +28,6 @@ opt.mouse = 'a'
 
 
 ----------------------------------------------------------------------
--- Key bindings
---
-local keymaps = require 'keymaps'
-
-vim.g.mapleader = ','
-
-keymaps.set({
-  -- Shortcuts for navigation between windows
-  ['<c-h>'] = { keys = '<c-w>h' },
-  ['<c-j>'] = { keys = '<c-w>j' },
-  ['<c-k>'] = { keys = '<c-w>k' },
-  ['<c-l>'] = { keys = '<c-w>l' },
-
-  -- Reselect the visual area when changing indenting in visual mode
-  ['<'] = { mode = 'v', keys = '<gv' },
-  ['>'] = { mode = 'v', keys = '>gv' },
-
-  -- Leader mappings
-  ['<leader>b'] = { cmd = 'Telescope buffers' },
-  ['<leader>f'] = { cmd = 'Telescope find_files' },
-  ['<leader>p'] = { cmd = 'Neoformat' },
-  ['<leader>t'] = { cmd = 'NvimTreeToggle' },
-})
-
--- These bindings are set when a language server attaches to a buffer
-local function on_lsp_attach(client, buffer_number)
-  keymaps.buf_set(buffer_number, {
-    ['<leader>ca'] = { cmd = 'Telescope lsp_code_actions' },
-    ['<leader>cd'] = { cmd = 'Telescope diagnostics' },
-    ['<leader>cr'] = { cmd = 'lua vim.lsp.buf.rename()' },
-    ['<leader>cs'] = { cmd = 'Telescope lsp_document_symbols' },
-    ['K'] = { lua = 'vim.lsp.buf.hover()' },
-    ['gd'] = { lua = 'vim.lsp.buf.definition()' },
-    ['gr'] = { lua = 'vim.lsp.buf.references()' },
-  })
-  keymaps.buf_set(buffer_number, {
-    ['<leader>ca'] = { cmd = 'Telescope lsp_range_code_actions', mode = 'v' }
-  })
-end
-
-
-----------------------------------------------------------------------
 -- Remove whitespace at the end of lines on save
 --
 cmd [[
@@ -90,6 +48,9 @@ end
 packadd 'plenary.nvim'
 packadd 'vim-commentary'
 packadd 'telescope.nvim'
+
+-- We need this further down for some key bindings
+local telescope = require('telescope.builtin')
 
 
 ----------------------------------------------------------------------
@@ -191,21 +152,6 @@ local cmp_capabilities = cmp_nvim_lsp.update_capabilities(
 
 
 ----------------------------------------------------------------------
--- Language server
---
-packadd 'nvim-lspconfig'
-local lsp = require 'lspconfig'
-
-local lsp_opts = {
-  on_attach = on_lsp_attach,
-  capabilities = cmp_capabilities
-}
-
-lsp.tsserver.setup(lsp_opts)
-lsp.solargraph.setup(lsp_opts)
-
-
-----------------------------------------------------------------------
 -- File navigation
 --
 packadd 'nvim-tree.lua'
@@ -231,3 +177,55 @@ vim.g.neoformat_try_node_exe = true
 packadd 'gitsigns.nvim'
 local gitsigns = require 'gitsigns'
 gitsigns.setup()
+
+
+----------------------------------------------------------------------
+-- Key bindings
+--
+local keymap = vim.keymap
+
+vim.g.mapleader = ','
+
+-- Shortcuts for navigation between windows
+keymap.set('n', '<c-h>', '<c-w>h')
+keymap.set('n', '<c-j>', '<c-w>j')
+keymap.set('n', '<c-k>', '<c-w>k')
+keymap.set('n', '<c-l>', '<c-w>l')
+
+-- Reselect the visual area when changing indenting in visual mode
+keymap.set('v', '<', '<gv')
+keymap.set('v', 'r', 'rgv')
+
+-- Leader mappings
+keymap.set('n', '<leader>b', function() telescope.buffers() end)
+keymap.set('n', '<leader>f', function() telescope.find_files() end)
+keymap.set('n', '<leader>p', '<cmd>Neoformat<cr>')
+keymap.set('n', '<leader>t', function() nvim_tree.toggle() end)
+
+-- These bindings are set when a language server attaches to a buffer
+local function on_lsp_attach(client, buffer_number)
+  keymap.set('n', '<leader>ca', function() telescope.lsp_code_actions() end, { buffer = buffer_number })
+  keymap.set('v', '<leader>ca', function() telescope.lsp_range_code_actions() end, { buffer = buffer_number })
+  keymap.set('n', '<leader>cd', function() telescope.diagnostics() end, { buffer = buffer_number })
+  keymap.set('n', '<leader>cr', function() vim.lsp.buf.rename() end, { buffer = buffer_number })
+  keymap.set('n', '<leader>cs', function() telescope.lsp_document_symbols() end, { buffer = buffer_number })
+
+  keymap.set('n', 'K', function() vim.lsp.buf.hover() end, { buffer = buffer_number })
+  keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, { buffer = buffer_number })
+  keymap.set('n', 'gr', function() vim.lsp.buf.references() end, { buffer = buffer_number })
+end
+
+
+----------------------------------------------------------------------
+-- Language server
+--
+packadd 'nvim-lspconfig'
+local lsp = require 'lspconfig'
+
+local lsp_opts = {
+  on_attach = on_lsp_attach,
+  capabilities = cmp_capabilities
+}
+
+lsp.tsserver.setup(lsp_opts)
+lsp.solargraph.setup(lsp_opts)
