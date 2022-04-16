@@ -47,10 +47,14 @@ end
 
 packadd 'plenary.nvim'
 packadd 'vim-commentary'
-packadd 'telescope.nvim'
 
+
+----------------------------------------------------------------------
+-- Telescope
+--
+packadd 'telescope.nvim'
 -- We need this further down for some key bindings
-local telescope = require('telescope.builtin')
+local telescope = require 'telescope.builtin'
 
 
 ----------------------------------------------------------------------
@@ -74,7 +78,7 @@ devicons.setup({ default = true })
 -- Fancy status line
 --
 packadd 'lualine.nvim'
-local lualine = require('lualine')
+local lualine = require 'lualine'
 lualine.setup({ options = { theme = 'auto' } })
 
 opt.showmode = false  -- lualine shows the mode for us
@@ -146,6 +150,7 @@ cmp.setup({
 })
 
 local cmp_nvim_lsp = require 'cmp_nvim_lsp'
+-- This is used to set up LSP further down.
 local cmp_capabilities = cmp_nvim_lsp.update_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
