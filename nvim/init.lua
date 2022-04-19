@@ -196,7 +196,7 @@ bind('n', '<c-l>', '<c-w>l')
 
 -- Reselect the visual area when changing indenting in visual mode
 bind('v', '<', '<gv')
-bind('v', 'r', 'rgv')
+bind('v', '>', '>gv')
 
 -- Leader mappings
 bind('n', '<leader>b', telescope.buffers)
