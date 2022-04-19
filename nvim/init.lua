@@ -199,22 +199,22 @@ bind('v', '<', '<gv')
 bind('v', 'r', 'rgv')
 
 -- Leader mappings
-bind('n', '<leader>b', function() telescope.buffers() end)
-bind('n', '<leader>f', function() telescope.find_files() end)
+bind('n', '<leader>b', telescope.buffers)
+bind('n', '<leader>f', telescope.find_files)
 bind('n', '<leader>p', '<cmd>Neoformat<cr>')
-bind('n', '<leader>t', function() nvim_tree.toggle() end)
+bind('n', '<leader>t', nvim_tree.toggle)
 
 -- These bindings are set when a language server attaches to a buffer
 local function on_lsp_attach(client, buffer_number)
-  bind('n', '<leader>ca', function() telescope.lsp_code_actions() end, { buffer = buffer_number })
-  bind('v', '<leader>ca', function() telescope.lsp_range_code_actions() end, { buffer = buffer_number })
-  bind('n', '<leader>cd', function() telescope.diagnostics() end, { buffer = buffer_number })
-  bind('n', '<leader>cr', function() vim.lsp.buf.rename() end, { buffer = buffer_number })
-  bind('n', '<leader>cs', function() telescope.lsp_document_symbols() end, { buffer = buffer_number })
+  bind('n', '<leader>ca', telescope.lsp_code_actions, { buffer = buffer_number })
+  bind('v', '<leader>ca', telescope.lsp_range_code_actions, { buffer = buffer_number })
+  bind('n', '<leader>cd', telescope.diagnostics, { buffer = buffer_number })
+  bind('n', '<leader>cr', vim.lsp.buf.rename, { buffer = buffer_number })
+  bind('n', '<leader>cs', telescope.lsp_document_symbols, { buffer = buffer_number })
 
-  bind('n', 'K', function() vim.lsp.buf.hover() end, { buffer = buffer_number })
-  bind('n', 'gd', function() vim.lsp.buf.definition() end, { buffer = buffer_number })
-  bind('n', 'gr', function() vim.lsp.buf.references() end, { buffer = buffer_number })
+  bind('n', 'K', vim.lsp.buf.hover, { buffer = buffer_number })
+  bind('n', 'gd', vim.lsp.buf.definition, { buffer = buffer_number })
+  bind('n', 'gr', vim.lsp.buf.references, { buffer = buffer_number })
 end
 
 
