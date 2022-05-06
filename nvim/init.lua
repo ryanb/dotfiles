@@ -28,7 +28,7 @@ vim.opt.mouse = 'a'
 -- Remove whitespace at the end of lines on save
 --
 vim.cmd [[
-augroup vimrcCommands
+augroup removeTrailingWhitespace
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
@@ -171,6 +171,13 @@ nvim_tree.setup({
 --
 packadd('neoformat')
 vim.g.neoformat_try_node_exe = true
+
+vim.cmd [[
+augroup formatOnSave
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
+]]
 
 
 ----------------------------------------------------------------------
