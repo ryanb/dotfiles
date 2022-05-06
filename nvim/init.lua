@@ -161,8 +161,7 @@ local nvim_tree = require('nvim-tree')
 nvim_tree.setup({
   open_on_setup = true,
   filters = { dotfiles = true },
-  update_focused_file = { enable = true },
-  view = { auto_resize = true }
+  update_focused_file = { enable = true }
 })
 
 
