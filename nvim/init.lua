@@ -50,8 +50,22 @@ packadd('vim-commentary')
 -- Telescope
 --
 packadd('telescope.nvim')
+packadd('telescope-ui-select.nvim')
+
+local telescope = require('telescope')
+
+telescope.setup {
+  extensions = {
+    ["ui-select"] = {
+      require('telescope.themes').get_cursor()
+    }
+  }
+}
+
+telescope.load_extension("ui-select")
+
 -- We need this further down for some key bindings
-local telescope = require('telescope.builtin')
+local telescope_builtin = require('telescope.builtin')
 
 
 ----------------------------------------------------------------------
@@ -205,18 +219,18 @@ bind('v', '<', '<gv')
 bind('v', '>', '>gv')
 
 -- Leader mappings
-bind('n', '<leader>b', telescope.buffers)
-bind('n', '<leader>f', telescope.find_files)
+bind('n', '<leader>b', telescope_builtin.buffers)
+bind('n', '<leader>f', telescope_builtin.find_files)
 bind('n', '<leader>p', '<cmd>Neoformat<cr>')
 bind('n', '<leader>t', nvim_tree.toggle)
 
 -- These bindings are set when a language server attaches to a buffer
 local function on_lsp_attach(client, buffer_number)
-  bind('n', '<leader>ca', telescope.lsp_code_actions, { buffer = buffer_number })
-  bind('v', '<leader>ca', telescope.lsp_range_code_actions, { buffer = buffer_number })
-  bind('n', '<leader>cd', telescope.diagnostics, { buffer = buffer_number })
+  bind('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = buffer_number })
+  bind('v', '<leader>ca', vim.lsp.buf.range_code_action, { buffer = buffer_number })
+  bind('n', '<leader>cd', telescope_builtin.diagnostics, { buffer = buffer_number })
   bind('n', '<leader>cr', vim.lsp.buf.rename, { buffer = buffer_number })
-  bind('n', '<leader>cs', telescope.lsp_document_symbols, { buffer = buffer_number })
+  bind('n', '<leader>cs', telescope_builtin.lsp_document_symbols, { buffer = buffer_number })
 
   bind('n', 'K', vim.lsp.buf.hover, { buffer = buffer_number })
   bind('n', 'gd', vim.lsp.buf.definition, { buffer = buffer_number })

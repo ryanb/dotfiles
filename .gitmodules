@@ -58,3 +58,6 @@
 [submodule "zsh/zsh-autosuggestions"]
 	path = zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "nvim/pack/plugins/opt/telescope-ui-select.nvim"]
+	path = nvim/pack/plugins/opt/telescope-ui-select.nvim
+	url = https://github.com/nvim-telescope/telescope-ui-select.nvim.git
