@@ -185,13 +185,6 @@ nvim_tree.setup({
 packadd('neoformat')
 vim.g.neoformat_try_node_exe = true
 
-vim.cmd [[
-augroup formatOnSave
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
-]]
-
 
 ----------------------------------------------------------------------
 -- Git diffs in the sign column
