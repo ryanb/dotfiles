@@ -33,6 +33,7 @@ cask 'font-inconsolata-nerd-font'
 # ----------------------------------------
 # Mac apps
 
+cask '1password'
 cask 'adobe-creative-cloud'
 cask 'appcleaner'
 cask 'brave-browser'
@@ -57,7 +58,6 @@ cask 'zoom'
 # App store apps
 
 brew 'mas'
-mas '1Password 7', id: 1333542190
 mas 'Bear', id: 1091189122
 mas 'Hidden Bar', id: 1452453066
 mas 'Logic Pro X', id: 634148309
