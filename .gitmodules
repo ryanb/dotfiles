@@ -61,3 +61,6 @@
 [submodule "nvim/pack/plugins/opt/telescope-ui-select.nvim"]
 	path = nvim/pack/plugins/opt/telescope-ui-select.nvim
 	url = https://github.com/nvim-telescope/telescope-ui-select.nvim.git
+[submodule "zsh/zsh-yarn-completions"]
+	path = zsh/zsh-yarn-completions
+	url = https://github.com/chrisands/zsh-yarn-completions.git

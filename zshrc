@@ -119,3 +119,4 @@ ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-yarn-completions/zsh-yarn-completions.plugin.zsh
