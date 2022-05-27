@@ -64,3 +64,6 @@
 [submodule "zsh/zsh-yarn-completions"]
 	path = zsh/zsh-yarn-completions
 	url = https://github.com/chrisands/zsh-yarn-completions.git
+[submodule "nvim/pack/plugins/opt/vim-rails"]
+	path = nvim/pack/plugins/opt/vim-rails
+	url = https://github.com/tpope/vim-rails.git

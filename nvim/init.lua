@@ -44,6 +44,7 @@ end
 
 packadd('plenary.nvim')
 packadd('vim-commentary')
+packadd('vim-rails')
 
 
 ----------------------------------------------------------------------
