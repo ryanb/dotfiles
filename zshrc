@@ -102,14 +102,6 @@ fi
 
 
 # ==============================================================================
-# Work stuff
-
-if [[ -f ~/.zshrc-envato ]]; then
-  source ~/.zshrc-envato
-fi
-
-
-# ==============================================================================
 # Completion and syntax highlighting
 
 autoload -U compinit
