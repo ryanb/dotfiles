@@ -36,10 +36,10 @@ cask 'font-inconsolata-nerd-font'
 cask '1password'
 cask 'adobe-creative-cloud'
 cask 'appcleaner'
-cask 'brave-browser'
+# cask 'brave-browser'
 cask 'caffeine'
-cask 'camo-studio'
-cask 'finicky'
+# cask 'camo-studio'
+# cask 'finicky'
 cask 'firefox'
 cask 'google-chrome'
 cask 'iterm2'
@@ -65,5 +65,5 @@ mas 'MindNode', id: 1289197285
 mas 'OmniGraffle', id: 1142578753
 mas 'Slack', id: 803453959
 mas 'Things', id: 904280696
-mas 'Tomato One', id: 907364780
+# mas 'Tomato One', id: 907364780
 mas 'Xcode', id: 497799835
