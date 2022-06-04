@@ -15,15 +15,23 @@
   "files.associations": {
     "*.css": "postcss"
   },
-  "prettier.requireConfig": true,
-"editor.defaultFormatter": "esbenp.prettier-vscode",
-"editor.lineHeight": 1.25,
-"vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
-"editor.lineNumbers": "relative",
-"vscode-neovim.neovimInitVimPaths.darwin": "/Users/notahat/.config/nvim/vscode.vim",
-"editor.scrollBeyondLastLine": false,
-"editor.guides.indentation": false,
-"editor.renderLineHighlight": "none",
-"editor.cursorBlinking": "solid",
-"editor.renderWhitespace": "all"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.lineHeight": 1.25,
+  "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+  "editor.lineNumbers": "relative",
+  "vscode-neovim.neovimInitVimPaths.darwin": "/Users/notahat/.config/nvim/vscode.vim",
+  "editor.scrollBeyondLastLine": false,
+  "editor.guides.indentation": false,
+  "editor.renderLineHighlight": "none",
+  "editor.cursorBlinking": "solid",
+  "editor.renderWhitespace": "none",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.unicodeHighlight.allowedCharacters": {
+    "—": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }
