@@ -61,6 +61,7 @@ brew 'mas'
 mas 'Bear', id: 1091189122
 mas 'Hidden Bar', id: 1452453066
 mas 'Logic Pro X', id: 634148309
+mas 'Messenger', id: 1480068668
 mas 'MindNode', id: 1289197285
 mas 'OmniGraffle', id: 1142578753
 mas 'Slack', id: 803453959
