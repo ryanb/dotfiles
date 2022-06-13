@@ -51,8 +51,9 @@ cask 'tripmode'
 cask 'visual-studio-code'
 cask 'zoom'
 
-# cask 'midi-monitor'
-# cask 'sysex-librarian'
+cask 'midikeys'
+cask 'midi-monitor'
+cask 'sysex-librarian'
 
 # ----------------------------------------
 # App store apps
