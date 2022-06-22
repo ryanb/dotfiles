@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
 git submodule deinit --all -f
