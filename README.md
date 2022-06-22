@@ -8,15 +8,15 @@ I'm sure you want different things on your system, but feel free to copy this ap
 
 ## Philosophy
 
-The key to sucess of setup scripts is maintaining them.
-The only way to maintain them is to use them often.
+Setup scripts only work if you maintain them.
+The only way to maintain them is to use them frequently.
 
 To that end, these scripts are:
 
 * idempotent
 * divided into steps that can be run individually
 
-That makes it very easy to modify and rerun a step.
+That makes it very easy to modify and re-run a step on a sytem that's already set up.
 
 ## Installation
 
