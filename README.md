@@ -1,22 +1,39 @@
+This is what I use to set up a Mac for myself.
+It gets me 80% of the way there, including:
+
+* Installing most of the apps I use
+* Setting up my dev environment
+
+I'm sure you want different things on your system, but feel free to copy this approach.
+
+## Philosophy
+
+The key to sucess of setup scripts is maintaining them.
+The only way to maintain them is to use them often.
+
+To that end, these scripts are:
+
+* idempotent
+* divided into steps that can be run individually
+
+That makes it very easy to modify and rerun a step.
+
 ## Installation
 
-To set up a new system:
+On a new system:
 
+    xcode-select --install
     git clone git://github.com/notahat/dotfiles ~/.dotfiles
     cd ~/.dotfiles
     ./install.sh
 
-The install script is idempotent; it is safe to run multiple times.
-
 ## Steps
-
-The installation is divided into steps.
 
 Run `./install.sh -h` to see all the available steps.
 
 Run `./install.sh [step name]` to run a single step.
 
-The script for each step is in the `steps` directory.
+The scripts for the steps are in the `steps` directory.
 
 ## Plugins
 
