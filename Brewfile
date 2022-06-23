@@ -4,7 +4,9 @@
 cask '1password'
 mas 'Bear', id: 1091189122
 mas 'MindNode', id: 1289197285
+mas 'Numbers', id: 409203825
 mas 'OmniGraffle', id: 1142578753
+mas 'Pages', id: 409201541
 mas 'Things', id: 904280696
 
 # ----------------------------------------
