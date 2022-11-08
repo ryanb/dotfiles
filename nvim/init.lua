@@ -163,7 +163,7 @@ cmp.setup({
 
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 -- This is used to set up LSP further down.
-local cmp_capabilities = cmp_nvim_lsp.update_capabilities(
+local cmp_capabilities = cmp_nvim_lsp.default_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
 
