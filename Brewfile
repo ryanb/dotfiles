@@ -72,7 +72,7 @@ brew 'neovim'
 tap 'homebrew/cask-fonts'
 cask 'font-inconsolata-nerd-font'
 
-brew 'postgresql@12'
+brew 'postgresql@14'
 brew 'redis'
 
 # ----------------------------------------
