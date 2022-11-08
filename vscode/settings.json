@@ -33,5 +33,6 @@
   },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
-  }
+  },
+  "workbench.colorTheme": "Default Dark+"
 }
