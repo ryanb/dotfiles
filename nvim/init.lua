@@ -174,7 +174,6 @@ local cmp_capabilities = cmp_nvim_lsp.default_capabilities(
 packadd('nvim-tree.lua')
 local nvim_tree = require('nvim-tree')
 nvim_tree.setup({
-  open_on_setup = true,
   filters = { dotfiles = true },
   update_focused_file = { enable = true }
 })
