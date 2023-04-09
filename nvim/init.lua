@@ -177,6 +177,7 @@ nvim_tree.setup({
   filters = { dotfiles = true },
   update_focused_file = { enable = true }
 })
+local nvim_tree_api = require('nvim-tree.api')
 
 
 ----------------------------------------------------------------------
@@ -215,7 +216,7 @@ bind('v', '>', '>gv')
 bind('n', '<leader>b', telescope_builtin.buffers)
 bind('n', '<leader>f', telescope_builtin.find_files)
 bind('n', '<leader>p', '<cmd>Neoformat<cr>')
-bind('n', '<leader>t', nvim_tree.toggle)
+bind('n', '<leader>t', nvim_tree_api.tree.toggle)
 
 -- These bindings are set when a language server attaches to a buffer
 local function on_lsp_attach(client, buffer_number)
