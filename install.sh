@@ -39,7 +39,7 @@ function usage {
   echo "Available steps: ${steps[@]}"
 }
 
-steps=(firewall filevault plugins config homebrew iterm2 ruby node git neovim vscode)
+steps=(firewall filevault plugins config ssh homebrew iterm2 ruby node git neovim vscode)
 
 if [ -z $1 ]; then
   for step in ${steps[@]}; do
@@ -50,4 +50,3 @@ elif [ $1 = -h ]; then
 else
   run_step $1
 fi
-
