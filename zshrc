@@ -79,6 +79,8 @@ alias gp='git push'
 alias gpr='git push -u && gh pr create --web'
 alias gs='git status'
 
+alias zed='/usr/local/bin/zed'
+
 
 # ==============================================================================
 # Homebrew
