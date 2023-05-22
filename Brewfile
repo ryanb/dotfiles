@@ -3,6 +3,7 @@
 
 cask '1password'
 mas 'Bear', id: 1091189122
+mas 'Day One', id: 1055511498
 mas 'MindNode', id: 1289197285
 mas 'Numbers', id: 409203825
 mas 'OmniGraffle', id: 1142578753
@@ -12,28 +13,25 @@ mas 'Things', id: 904280696
 # ----------------------------------------
 # Helpful utilities
 
+mas 'Amphetamine', id: 937984704
 cask 'appcleaner'
-cask 'caffeine'
 mas 'Hidden Bar', id: 1452453066
 cask 'scroll-reverser'
 cask 'the-unarchiver'
 cask 'tripmode'
-# cask 'camo-studio'
-# mas 'Tomato One', id: 907364780
 
 # ----------------------------------------
 # Browsers
 
 cask 'firefox'
 cask 'google-chrome'
-# cask 'finicky'
-# cask 'brave-browser'
 
 # ----------------------------------------
 # Safari extensions
 
 mas '1Password for Safari', id: 1569813296
 mas 'Ghostery – Privacy Ad Blocker', id: 1436953057
+mas 'Hush', id: 1544743900
 mas 'Save to Pocket', id: 1477385213
 
 # ----------------------------------------
