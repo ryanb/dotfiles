@@ -3,7 +3,25 @@
 
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
-PROMPT=$'\n'"%# "
+
+# ==============================================================================
+# Prompt
+
+autoload colors; colors;
+
+PATH_PROMPT_INFO="$fg[blue]%~$reset_color"
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr '*'
+zstyle ':vcs_info:*' formats "$fg[green][%b%u]$reset_color"
+precmd () { vcs_info }
+
+NEWLINE=$'\n'
+
+setopt prompt_subst
+PROMPT='${NEWLINE}${PATH_PROMPT_INFO} ${vcs_info_msg_0_} %# '
 
 
 # ==============================================================================
