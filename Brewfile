@@ -80,3 +80,7 @@ brew 'entr'
 brew 'fd'
 brew 'jq'
 brew 'ripgrep'
+
+# If we don't list mas explicitly,
+# brew bundle cleanup will remove it.
+brew 'mas'
