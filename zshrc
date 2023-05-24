@@ -7,7 +7,7 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 # ==============================================================================
 # Prompt
 
-autoload colors; colors;
+autoload colors && colors
 
 PATH_PROMPT_INFO="$fg[blue]%~$reset_color"
 
