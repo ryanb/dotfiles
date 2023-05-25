@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd(
 ----------------------------------------------------------------------
 -- Random packages
 --
-function packadd(package)
+local function packadd(package)
     vim.cmd["packadd!"](package)
 end
 
