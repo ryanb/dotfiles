@@ -57,10 +57,23 @@ everything up to date.
 
 ### [asdf](https://asdf-vm.com)
 
-For things like languages where I want particular versions (and possibly
-multiple versions) installed, asdf takes care of it.
+Asdf manages things like languages, where I want particular versions (and
+possibly multiple versions) installed.
 
 ### [Neovim](https://neovim.io)
 
 I learnt to use vi on terminals where it was the only option. Neovim gives
 me a modern vim with Lua scripting.
+
+### [Visual Studio Code](https://code.visualstudio.com)
+
+I use VSCode for working on JavaScript and TypeScript. Its language server
+integration is hard to beat.
+
+### [Z shell](https://zsh.sourceforge.io)
+
+I started using zsh because it was much less resource-hungry than bash, back in
+the days when that mattered. I've stuck with it, and it's now the default on
+MacOS.
+
+I *don't* use Oh My Zsh. It ruins zsh's responsiveness.
