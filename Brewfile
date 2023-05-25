@@ -66,6 +66,7 @@ mas 'Xcode', id: 497799835
 brew 'gh'
 brew 'git'
 brew 'neovim'
+brew 'lua-language-server'
 
 tap 'homebrew/cask-fonts'
 cask 'font-inconsolata-nerd-font'
