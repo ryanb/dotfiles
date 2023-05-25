@@ -17,7 +17,7 @@ vim.opt.cursorlineopt = "number"
 
 vim.opt.scrolloff = 2
 
-vim.opt.tildeop = true -- Make the ~ command behave like an operator.
+vim.opt.tildeop = true   -- Make the ~ command behave like an operator.
 
 vim.opt.showmatch = true -- Show matching brackets when typing.
 
@@ -26,7 +26,7 @@ vim.opt.mouse = "a"
 ----------------------------------------------------------------------
 -- Remove whitespace at the end of lines on save
 --
-vim.api.nvim_create_augroup("removeTrailingWhitespace", {clear = true})
+vim.api.nvim_create_augroup("removeTrailingWhitespace", { clear = true })
 vim.api.nvim_create_autocmd(
     "BufWritePre",
     {
@@ -74,7 +74,7 @@ local telescope_builtin = require("telescope.builtin")
 vim.opt.termguicolors = true
 packadd("jellybeans.vim")
 -- Use the terminal's background instead of black:
-vim.g.jellybeans_overrides = {background = {guibg = "none"}}
+vim.g.jellybeans_overrides = { background = { guibg = "none" } }
 vim.cmd.colorscheme("jellybeans")
 
 ----------------------------------------------------------------------
@@ -82,14 +82,14 @@ vim.cmd.colorscheme("jellybeans")
 --
 packadd("nvim-web-devicons")
 local devicons = require("nvim-web-devicons")
-devicons.setup({default = true})
+devicons.setup({ default = true })
 
 ----------------------------------------------------------------------
 -- Fancy status line
 --
 packadd("lualine.nvim")
 local lualine = require("lualine")
-lualine.setup({options = {theme = "auto"}})
+lualine.setup({ options = { theme = "auto" } })
 
 vim.opt.showmode = false -- Lualine shows the mode for us.
 
@@ -110,7 +110,7 @@ treesitter.setup(
             "scss",
             "ruby"
         },
-        highlight = {enable = true},
+        highlight = { enable = true },
         textobjects = {
             select = {
                 enable = true,
@@ -123,10 +123,10 @@ treesitter.setup(
             move = {
                 enable = true,
                 set_jumps = true,
-                goto_next_start = {["]m"] = "@function.outer"},
-                goto_next_end = {["]M"] = "@function.outer"},
-                goto_previous_start = {["[m"] = "@function.outer"},
-                goto_previous_end = {["[M"] = "@function.outer"}
+                goto_next_start = { ["]m"] = "@function.outer" },
+                goto_next_end = { ["]M"] = "@function.outer" },
+                goto_previous_start = { ["[m"] = "@function.outer" },
+                goto_previous_end = { ["[M"] = "@function.outer" }
             }
         }
     }
@@ -150,7 +150,7 @@ packadd("nvim-cmp")
 packadd("cmp-nvim-lsp")
 packadd("vim-vsnip") -- cmp doesn't work without a snippet plugin
 
-vim.opt.completeopt = {"menu", "menuone", "noselect"}
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 local cmp = require("cmp")
 cmp.setup(
@@ -161,7 +161,7 @@ cmp.setup(
             end
         },
         sources = {
-            {name = "nvim_lsp"}
+            { name = "nvim_lsp" }
         }
     }
 )
@@ -177,8 +177,8 @@ packadd("nvim-tree.lua")
 local nvim_tree = require("nvim-tree")
 nvim_tree.setup(
     {
-        filters = {dotfiles = true},
-        update_focused_file = {enable = true}
+        filters = { dotfiles = true },
+        update_focused_file = { enable = true }
     }
 )
 local nvim_tree_api = require("nvim-tree.api")
@@ -221,15 +221,15 @@ bind("n", "<leader>t", nvim_tree_api.tree.toggle)
 
 -- These bindings are set when a language server attaches to a buffer.
 local function on_lsp_attach(client, buffer_number)
-    bind("n", "<leader>ca", vim.lsp.buf.code_action, {buffer = buffer_number})
-    bind("v", "<leader>ca", vim.lsp.buf.range_code_action, {buffer = buffer_number})
-    bind("n", "<leader>cd", telescope_builtin.diagnostics, {buffer = buffer_number})
-    bind("n", "<leader>cr", vim.lsp.buf.rename, {buffer = buffer_number})
-    bind("n", "<leader>cs", telescope_builtin.lsp_document_symbols, {buffer = buffer_number})
+    bind("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = buffer_number })
+    bind("v", "<leader>ca", vim.lsp.buf.range_code_action, { buffer = buffer_number })
+    bind("n", "<leader>cd", telescope_builtin.diagnostics, { buffer = buffer_number })
+    bind("n", "<leader>cr", vim.lsp.buf.rename, { buffer = buffer_number })
+    bind("n", "<leader>cs", telescope_builtin.lsp_document_symbols, { buffer = buffer_number })
 
-    bind("n", "K", vim.lsp.buf.hover, {buffer = buffer_number})
-    bind("n", "gd", vim.lsp.buf.definition, {buffer = buffer_number})
-    bind("n", "gr", vim.lsp.buf.references, {buffer = buffer_number})
+    bind("n", "K", vim.lsp.buf.hover, { buffer = buffer_number })
+    bind("n", "gd", vim.lsp.buf.definition, { buffer = buffer_number })
+    bind("n", "gr", vim.lsp.buf.references, { buffer = buffer_number })
 end
 
 ----------------------------------------------------------------------
