@@ -13,237 +13,234 @@ vim.opt.linebreak = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
-vim.opt.cursorlineopt = 'number'
+vim.opt.cursorlineopt = "number"
 
 vim.opt.scrolloff = 2
 
-vim.opt.tildeop = true  -- make the ~ command behave like an operator
+vim.opt.tildeop = true -- Make the ~ command behave like an operator.
 
-vim.opt.showmatch = true  -- show matching brackets when typing
+vim.opt.showmatch = true -- Show matching brackets when typing.
 
-vim.opt.mouse = 'a'
-
+vim.opt.mouse = "a"
 
 ----------------------------------------------------------------------
 -- Remove whitespace at the end of lines on save
 --
-vim.cmd [[
-augroup removeTrailingWhitespace
-  autocmd!
-  autocmd BufWritePre * :%s/\s\+$//e
-augroup END
-]]
-
+vim.api.nvim_create_augroup("removeTrailingWhitespace", {clear = true})
+vim.api.nvim_create_autocmd(
+    "BufWritePre",
+    {
+        pattern = "*",
+        group = "removeTrailingWhitespace",
+        command = "%s/\\s\\+$//e"
+    }
+)
 
 ----------------------------------------------------------------------
 -- Random packages
 --
 function packadd(package)
-  vim.cmd('packadd! '..package)
+    vim.cmd["packadd!"](package)
 end
 
-packadd('plenary.nvim')
-packadd('vim-commentary')
-packadd('vim-rails')
-
+packadd("plenary.nvim")
+packadd("vim-commentary")
+packadd("vim-rails")
 
 ----------------------------------------------------------------------
 -- Telescope
 --
-packadd('telescope.nvim')
-packadd('telescope-ui-select.nvim')
+packadd("telescope.nvim")
+packadd("telescope-ui-select.nvim")
 
-local telescope = require('telescope')
+local telescope = require("telescope")
 
 telescope.setup {
-  extensions = {
-    ["ui-select"] = {
-      require('telescope.themes').get_cursor()
+    extensions = {
+        ["ui-select"] = {
+            require("telescope.themes").get_cursor()
+        }
     }
-  }
 }
 
 telescope.load_extension("ui-select")
 
--- We need this further down for some key bindings
-local telescope_builtin = require('telescope.builtin')
-
+-- We need this further down for some key bindings.
+local telescope_builtin = require("telescope.builtin")
 
 ----------------------------------------------------------------------
 -- Colors
 --
 vim.opt.termguicolors = true
-
-packadd('jellybeans.vim')
--- Use the terminal's background instead of black.
-vim.g.jellybeans_overrides = { background = { guibg = 'none' } }
-vim.cmd('colorscheme jellybeans')
-
-
+packadd("jellybeans.vim")
+-- Use the terminal's background instead of black:
+vim.g.jellybeans_overrides = {background = {guibg = "none"}}
+vim.cmd.colorscheme("jellybeans")
 
 ----------------------------------------------------------------------
 -- Fancy icons (for telescope, nvim-tree, and lualine)
 --
-packadd('nvim-web-devicons')
-local devicons = require('nvim-web-devicons')
-devicons.setup({ default = true })
-
+packadd("nvim-web-devicons")
+local devicons = require("nvim-web-devicons")
+devicons.setup({default = true})
 
 ----------------------------------------------------------------------
 -- Fancy status line
 --
-packadd('lualine.nvim')
-local lualine = require('lualine')
-lualine.setup({ options = { theme = 'auto' } })
+packadd("lualine.nvim")
+local lualine = require("lualine")
+lualine.setup({options = {theme = "auto"}})
 
-vim.opt.showmode = false  -- lualine shows the mode for us
-
+vim.opt.showmode = false -- Lualine shows the mode for us.
 
 ----------------------------------------------------------------------
 -- Syntax highlighting and text objects for functions
 --
-packadd('nvim-treesitter')
-packadd('nvim-treesitter-textobjects')
-local treesitter = require('nvim-treesitter.configs')
-treesitter.setup({
-  ensure_installed = {
-    'lua', 'javascript', 'typescript', 'tsx', 'css', 'scss', 'ruby'
-  },
-  highlight = { enable = true },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner"
-      }
-    },
-    move = {
-      enable = true,
-      set_jumps = true,
-      goto_next_start = { ["]m"] = "@function.outer" },
-      goto_next_end = { ["]M"] = "@function.outer" },
-      goto_previous_start = { ["[m"] = "@function.outer" },
-      goto_previous_end = { ["[M"] = "@function.outer" },
+packadd("nvim-treesitter")
+packadd("nvim-treesitter-textobjects")
+local treesitter = require("nvim-treesitter.configs")
+treesitter.setup(
+    {
+        ensure_installed = {
+            "lua",
+            "javascript",
+            "typescript",
+            "tsx",
+            "css",
+            "scss",
+            "ruby"
+        },
+        highlight = {enable = true},
+        textobjects = {
+            select = {
+                enable = true,
+                lookahead = true,
+                keymaps = {
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner"
+                }
+            },
+            move = {
+                enable = true,
+                set_jumps = true,
+                goto_next_start = {["]m"] = "@function.outer"},
+                goto_next_end = {["]M"] = "@function.outer"},
+                goto_previous_start = {["[m"] = "@function.outer"},
+                goto_previous_end = {["[M"] = "@function.outer"}
+            }
+        }
     }
-  }
-})
-
+)
 
 ----------------------------------------------------------------------
 -- Auto-close brackets and tags and stuff
 --
-packadd('nvim-autopairs')
-local autopairs = require('nvim-autopairs')
-autopairs.setup{}
+packadd("nvim-autopairs")
+local autopairs = require("nvim-autopairs")
+autopairs.setup({})
 
-packadd('nvim-ts-autotag')
-local autotag = require('nvim-ts-autotag')
+packadd("nvim-ts-autotag")
+local autotag = require("nvim-ts-autotag")
 autotag.setup()
-
 
 ----------------------------------------------------------------------
 -- Completion
 --
-packadd('nvim-cmp')
-packadd('cmp-nvim-lsp')
-packadd('vim-vsnip') -- cmp doesn't work without a snippet plugin
+packadd("nvim-cmp")
+packadd("cmp-nvim-lsp")
+packadd("vim-vsnip") -- cmp doesn't work without a snippet plugin
 
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+vim.opt.completeopt = {"menu", "menuone", "noselect"}
 
-local cmp = require('cmp')
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end
-  },
-  sources = {
-    { name = 'nvim_lsp' }
-  }
-})
-
-local cmp_nvim_lsp = require('cmp_nvim_lsp')
--- This is used to set up LSP further down.
-local cmp_capabilities = cmp_nvim_lsp.default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
+local cmp = require("cmp")
+cmp.setup(
+    {
+        snippet = {
+            expand = function(args)
+                vim.fn["vsnip#anonymous"](args.body)
+            end
+        },
+        sources = {
+            {name = "nvim_lsp"}
+        }
+    }
 )
 
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+-- This is used to set up LSP further down.
+local cmp_capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 ----------------------------------------------------------------------
 -- File navigation
 --
-packadd('nvim-tree.lua')
-local nvim_tree = require('nvim-tree')
-nvim_tree.setup({
-  filters = { dotfiles = true },
-  update_focused_file = { enable = true }
-})
-local nvim_tree_api = require('nvim-tree.api')
-
+packadd("nvim-tree.lua")
+local nvim_tree = require("nvim-tree")
+nvim_tree.setup(
+    {
+        filters = {dotfiles = true},
+        update_focused_file = {enable = true}
+    }
+)
+local nvim_tree_api = require("nvim-tree.api")
 
 ----------------------------------------------------------------------
 -- Automatic formatting
 --
-packadd('neoformat')
+packadd("neoformat")
 vim.g.neoformat_try_node_exe = true
-
 
 ----------------------------------------------------------------------
 -- Git diffs in the sign column
 --
-packadd('gitsigns.nvim')
-local gitsigns = require('gitsigns')
+packadd("gitsigns.nvim")
+local gitsigns = require("gitsigns")
 gitsigns.setup()
-
 
 ----------------------------------------------------------------------
 -- Key bindings
 --
 local bind = vim.keymap.set
 
-vim.g.mapleader = ','
+vim.g.mapleader = ","
 
 -- Shortcuts for navigation between windows
-bind('n', '<c-h>', '<c-w>h')
-bind('n', '<c-j>', '<c-w>j')
-bind('n', '<c-k>', '<c-w>k')
-bind('n', '<c-l>', '<c-w>l')
+bind("n", "<c-h>", "<c-w>h")
+bind("n", "<c-j>", "<c-w>j")
+bind("n", "<c-k>", "<c-w>k")
+bind("n", "<c-l>", "<c-w>l")
 
--- Reselect the visual area when changing indenting in visual mode
-bind('v', '<', '<gv')
-bind('v', '>', '>gv')
+-- Reselect the visual area when changing indenting in visual mode.
+bind("v", "<", "<gv")
+bind("v", ">", ">gv")
 
 -- Leader mappings
-bind('n', '<leader>b', telescope_builtin.buffers)
-bind('n', '<leader>f', telescope_builtin.find_files)
-bind('n', '<leader>p', '<cmd>Neoformat<cr>')
-bind('n', '<leader>t', nvim_tree_api.tree.toggle)
+bind("n", "<leader>b", telescope_builtin.buffers)
+bind("n", "<leader>f", telescope_builtin.find_files)
+bind("n", "<leader>p", "<cmd>Neoformat<cr>")
+bind("n", "<leader>t", nvim_tree_api.tree.toggle)
 
--- These bindings are set when a language server attaches to a buffer
+-- These bindings are set when a language server attaches to a buffer.
 local function on_lsp_attach(client, buffer_number)
-  bind('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = buffer_number })
-  bind('v', '<leader>ca', vim.lsp.buf.range_code_action, { buffer = buffer_number })
-  bind('n', '<leader>cd', telescope_builtin.diagnostics, { buffer = buffer_number })
-  bind('n', '<leader>cr', vim.lsp.buf.rename, { buffer = buffer_number })
-  bind('n', '<leader>cs', telescope_builtin.lsp_document_symbols, { buffer = buffer_number })
+    bind("n", "<leader>ca", vim.lsp.buf.code_action, {buffer = buffer_number})
+    bind("v", "<leader>ca", vim.lsp.buf.range_code_action, {buffer = buffer_number})
+    bind("n", "<leader>cd", telescope_builtin.diagnostics, {buffer = buffer_number})
+    bind("n", "<leader>cr", vim.lsp.buf.rename, {buffer = buffer_number})
+    bind("n", "<leader>cs", telescope_builtin.lsp_document_symbols, {buffer = buffer_number})
 
-  bind('n', 'K', vim.lsp.buf.hover, { buffer = buffer_number })
-  bind('n', 'gd', vim.lsp.buf.definition, { buffer = buffer_number })
-  bind('n', 'gr', vim.lsp.buf.references, { buffer = buffer_number })
+    bind("n", "K", vim.lsp.buf.hover, {buffer = buffer_number})
+    bind("n", "gd", vim.lsp.buf.definition, {buffer = buffer_number})
+    bind("n", "gr", vim.lsp.buf.references, {buffer = buffer_number})
 end
-
 
 ----------------------------------------------------------------------
 -- Language server
 --
-packadd('nvim-lspconfig')
-local lsp = require('lspconfig')
+packadd("nvim-lspconfig")
+local lsp = require("lspconfig")
 
 local lsp_opts = {
-  on_attach = on_lsp_attach,
-  capabilities = cmp_capabilities
+    on_attach = on_lsp_attach,
+    capabilities = cmp_capabilities
 }
 
 lsp.tsserver.setup(lsp_opts)
