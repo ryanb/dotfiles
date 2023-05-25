@@ -4,12 +4,6 @@
 [submodule "nvim/plugins/start/lualine.nvim"]
 	path = nvim/pack/plugins/opt/lualine.nvim
 	url = https://github.com/nvim-lualine/lualine.nvim.git
-[submodule "nvim/plugins/start/lush.nvim"]
-	path = nvim/pack/plugins/opt/lush.nvim
-	url = https://github.com/rktjmp/lush.nvim.git
-[submodule "nvim/plugins/start/jellybeans-nvim"]
-	path = nvim/pack/plugins/opt/jellybeans-nvim
-	url = https://github.com/metalelf0/jellybeans-nvim.git
 [submodule "nvim/plugins/start/vim-commentary"]
 	path = nvim/pack/plugins/opt/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
@@ -67,3 +61,6 @@
 [submodule "nvim/pack/plugins/opt/vim-rails"]
 	path = nvim/pack/plugins/opt/vim-rails
 	url = https://github.com/tpope/vim-rails.git
+[submodule "nvim/pack/plugins/opt/jellybeans.vim"]
+	path = nvim/pack/plugins/opt/jellybeans.vim
+	url = https://github.com/nanotech/jellybeans.vim.git

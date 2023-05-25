@@ -73,9 +73,12 @@ local telescope_builtin = require('telescope.builtin')
 -- Colors
 --
 vim.opt.termguicolors = true
-packadd('lush.nvim')
-packadd('jellybeans-nvim')
-vim.cmd('colorscheme jellybeans-nvim')
+
+packadd('jellybeans.vim')
+-- Use the terminal's background instead of black.
+vim.g.jellybeans_overrides = { background = { guibg = 'none' } }
+vim.cmd('colorscheme jellybeans')
+
 
 
 ----------------------------------------------------------------------
