@@ -7,11 +7,11 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 # ==============================================================================
 # Prompt
 
-autoload colors && colors
+autoload -U colors && colors
 
 PATH_PROMPT_INFO="$fg[blue]%~$reset_color"
 
-autoload -Uz vcs_info
+autoload -U vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr '*'
@@ -124,8 +124,7 @@ fi
 # ==============================================================================
 # Completion and syntax highlighting
 
-autoload -U compinit
-compinit
+autoload -U compinit && compinit
 
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
