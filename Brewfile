@@ -53,7 +53,7 @@ cask 'splice'
 cask 'sysex-librarian'
 
 # ----------------------------------------
-# Software dev
+# Coding
 
 brew 'asdf'
 brew 'gpg'  # Needed for the asdf-nodejs plugin.
@@ -67,6 +67,8 @@ cask 'zed'
 
 brew 'gh'
 brew 'git'
+
+brew 'lua-language-server' # For better neovim config editing.
 
 tap 'homebrew/cask-fonts'
 cask 'font-inconsolata-nerd-font'
