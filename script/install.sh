@@ -39,7 +39,7 @@ function usage {
   echo "Available steps: ${steps[@]}"
 }
 
-steps=(firewall filevault plugins config ssh homebrew iterm2 ruby node git neovim vscode)
+steps=(plugins macos homebrew asdf zsh ssh git iterm2 neovim vscode)
 
 if [ -z $1 ]; then
   for step in ${steps[@]}; do
