@@ -105,6 +105,8 @@ local function configure_language_server(on_lsp_attach, cmp_capabilities)
     lsp.tsserver.setup(lsp_opts)
     lsp.solargraph.setup(lsp_opts)
     lsp.lua_ls.setup(lsp_opts)
+    -- For other language servers see:
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 end
 
 return {
