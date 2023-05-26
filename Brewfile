@@ -61,6 +61,7 @@ brew 'gawk' # Ditto.
 
 cask 'iterm2'
 cask 'visual-studio-code'
+cask 'zed'
 mas 'Xcode', id: 497799835
 
 brew 'gh'
