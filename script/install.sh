@@ -29,7 +29,7 @@ function link_config_files {
 function run_step {
   echo
   echo_green "*** $1 ***"
-  source ~/.dotfiles/steps/$1.sh
+  source ~/.dotfiles/script/steps/$1.sh
 }
 
 function usage {
