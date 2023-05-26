@@ -60,20 +60,16 @@ brew 'gpg'  # Needed for the asdf-nodejs plugin.
 brew 'gawk' # Ditto.
 
 cask 'iterm2'
+brew 'neovim'
 cask 'visual-studio-code'
-cask 'zed'
 mas 'Xcode', id: 497799835
+cask 'zed'
 
 brew 'gh'
 brew 'git'
-brew 'neovim'
-brew 'lua-language-server'
 
 tap 'homebrew/cask-fonts'
 cask 'font-inconsolata-nerd-font'
-
-brew 'postgresql@14'
-brew 'redis'
 
 # ----------------------------------------
 # Helpful command line tools
