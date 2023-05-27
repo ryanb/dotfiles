@@ -20,6 +20,7 @@ local function configure_status_line()
     local lualine = require("lualine")
     lualine.setup({ options = { theme = "auto" } })
     vim.opt.showmode = false -- Lualine shows the mode for us.
+    vim.opt.laststatus = 3   -- Use a full-width status line.
 end
 
 local function configure_syntax_highlighting()
