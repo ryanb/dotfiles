@@ -5,3 +5,6 @@ asdf install nodejs
 
 asdf plugin add ruby || true
 asdf install ruby
+
+asdf plugin add rust || true
+asdf install rust
