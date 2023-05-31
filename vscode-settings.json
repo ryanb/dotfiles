@@ -1,11 +1,11 @@
 {
-    "editor.fontFamily": "Inconsolata Nerd Font",
-    "editor.fontSize": 16,
     "editor.formatOnSave": true,
-    "editor.lineHeight": 1.2,
-    "editor.lineNumbers": "relative",
     "files.trimTrailingWhitespace": true,
     "editor.minimap.enabled": false,
     "editor.guides.indentation": false,
-    "files.autoSave": "onFocusChange"
+    "files.autoSave": "onFocusChange",
+    "window.zoomLevel": 1,
+    "editor.scrollBeyondLastLine": false,
+    "editor.mouseWheelScrollSensitivity": 0.2,
+    "editor.smoothScrolling": true
 }
