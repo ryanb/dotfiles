@@ -1,8 +1,8 @@
 local packadd = require("packadd")
 
 local function configure_fuzzy_finder()
-    packadd("telescope.nvim")
-    packadd("telescope-ui-select.nvim")
+    packadd("telescope.nvim")           -- https://github.com/nvim-telescope/telescope.nvim
+    packadd("telescope-ui-select.nvim") -- https://github.com/nvim-telescope/telescope-ui-select.nvim
 
     local telescope = require("telescope")
     telescope.setup(
@@ -20,7 +20,7 @@ local function configure_fuzzy_finder()
 end
 
 local function configure_file_navigation()
-    packadd("nvim-tree.lua")
+    packadd("nvim-tree.lua") -- https://github.com/nvim-tree/nvim-tree.lua
     local nvim_tree = require("nvim-tree")
     nvim_tree.setup(
         {
@@ -69,9 +69,10 @@ local function configure_key_bindings(telescope_builtin, nvim_tree_api)
 end
 
 local function configure_completion()
-    packadd("nvim-cmp")
-    packadd("cmp-nvim-lsp")
-    packadd("vim-vsnip") -- cmp doesn't work without a snippet plugin
+    packadd("nvim-cmp")  -- https://github.com/hrsh7th/nvim-cmp
+    packadd("cmp-nvim-lsp") -- https://github.com/sar/cmp-lsp.nvim
+    -- I don't use snippets, but cmp doesn't work without a snippet plugin, so:
+    packadd("vim-vsnip")    -- https://github.com/hrsh7th/vim-vsnip
 
     vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
@@ -94,7 +95,7 @@ local function configure_completion()
 end
 
 local function configure_language_server(on_lsp_attach, cmp_capabilities)
-    packadd("nvim-lspconfig")
+    packadd("nvim-lspconfig") -- https://github.com/neovim/nvim-lspconfig
     local lsp = require("lspconfig")
 
     local lsp_opts = {

@@ -2,7 +2,7 @@ local packadd = require("packadd")
 
 local function configure_colors()
     vim.opt.termguicolors = true
-    packadd("jellybeans.vim")
+    packadd("jellybeans.vim") -- https://github.com/nanotech/jellybeans.vim
     -- Use the terminal's background instead of black.
     vim.g.jellybeans_overrides = { background = { guibg = "none" } }
     vim.cmd.colorscheme("jellybeans")
@@ -10,13 +10,13 @@ end
 
 local function configure_icons()
     -- Used for telescope, nvim-tree, and lualine
-    packadd("nvim-web-devicons")
+    packadd("nvim-web-devicons") -- https://github.com/nvim-tree/nvim-web-devicons
     local devicons = require("nvim-web-devicons")
     devicons.setup({ default = true })
 end
 
 local function configure_status_line()
-    packadd("lualine.nvim")
+    packadd("lualine.nvim") -- https://github.com/nvim-lualine/lualine.nvim
     local lualine = require("lualine")
     lualine.setup({ options = { theme = "auto" } })
     vim.opt.showmode = false -- Lualine shows the mode for us.
@@ -24,8 +24,8 @@ local function configure_status_line()
 end
 
 local function configure_syntax_highlighting()
-    packadd("nvim-treesitter")
-    packadd("nvim-treesitter-textobjects")
+    packadd("nvim-treesitter")             -- https://github.com/nvim-treesitter/nvim-treesitter
+    packadd("nvim-treesitter-textobjects") -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     local treesitter = require("nvim-treesitter.configs")
     treesitter.setup(
         {
