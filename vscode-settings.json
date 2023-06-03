@@ -7,5 +7,6 @@
     "window.zoomLevel": 1,
     "editor.scrollBeyondLastLine": false,
     "editor.mouseWheelScrollSensitivity": 0.2,
-    "editor.smoothScrolling": true
+    "editor.smoothScrolling": true,
+    "workbench.colorTheme": "Visual Studio Dark"
 }
