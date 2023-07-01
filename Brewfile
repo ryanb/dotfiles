@@ -9,6 +9,7 @@ mas 'Numbers', id: 409203825
 mas 'OmniGraffle', id: 1142578753
 mas 'Pages', id: 409201541
 mas 'Things', id: 904280696
+cask 'sketch'
 
 # ----------------------------------------
 # Helpful utilities
@@ -16,6 +17,7 @@ mas 'Things', id: 904280696
 mas 'Amphetamine', id: 937984704
 cask 'appcleaner'
 mas 'Hidden Bar', id: 1452453066
+cask 'raycast'
 cask 'scroll-reverser'
 cask 'the-unarchiver'
 cask 'tripmode'
