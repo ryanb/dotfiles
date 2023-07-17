@@ -1,5 +1,5 @@
 prettier
 standard
-babel-eslint
+@babel/eslint-parser
 typescript
 typescript-language-server
