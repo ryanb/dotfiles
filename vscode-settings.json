@@ -4,9 +4,11 @@
     "editor.minimap.enabled": false,
     "editor.guides.indentation": false,
     "files.autoSave": "onFocusChange",
-    "window.zoomLevel": 1,
     "editor.scrollBeyondLastLine": false,
     "editor.mouseWheelScrollSensitivity": 0.2,
     "editor.smoothScrolling": true,
-    "workbench.colorTheme": "Visual Studio Dark"
+    "workbench.colorTheme": "Visual Studio Dark",
+    "svelte.enable-ts-plugin": true,
+    "window.zoomLevel": 1,
+    "cSpell.language": "en,en-AU"
 }
