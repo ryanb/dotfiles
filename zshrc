@@ -97,6 +97,14 @@ alias gs='git status'
 
 alias zed='/usr/local/bin/zed'
 
+function autoruby {
+  echo $1 | entr -c ruby $1
+}
+
+function autonode {
+  echo $1 | entry -c node $1
+}
+
 
 # ==============================================================================
 # Homebrew
