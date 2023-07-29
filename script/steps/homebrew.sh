@@ -3,3 +3,7 @@ if [ ! -f /opt/homebrew/bin/brew ]; then
 fi
 
 /opt/homebrew/bin/brew bundle --no-lock --file Brewfile
+
+if ! brew autoupdate status | grep "installed and running"; then
+  brew autoupdate start --upgrade
+fi
