@@ -69,7 +69,7 @@ local function configure_key_bindings(telescope_builtin, nvim_tree_api)
 end
 
 local function configure_completion()
-    packadd("nvim-cmp")  -- https://github.com/hrsh7th/nvim-cmp
+    packadd("nvim-cmp")     -- https://github.com/hrsh7th/nvim-cmp
     packadd("cmp-nvim-lsp") -- https://github.com/sar/cmp-lsp.nvim
     -- I don't use snippets, but cmp doesn't work without a snippet plugin, so:
     packadd("vim-vsnip")    -- https://github.com/hrsh7th/vim-vsnip
