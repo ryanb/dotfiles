@@ -1,5 +1,4 @@
-# ----------------------------------------
-# Keeping myself organised
+# Keeping myself organised ============================================
 
 cask '1password'
 mas 'Bear', id: 1091189122
@@ -11,8 +10,7 @@ mas 'Pages', id: 409201541
 mas 'Things', id: 904280696
 cask 'sketch'
 
-# ----------------------------------------
-# Helpful utilities
+# Helpful utilities ===================================================
 
 mas 'Amphetamine', id: 937984704
 cask 'appcleaner'
@@ -22,30 +20,26 @@ cask 'scroll-reverser'
 cask 'the-unarchiver'
 cask 'tripmode'
 
-# ----------------------------------------
-# Browsers
+# Browsers ============================================================
 
 cask 'firefox'
 cask 'google-chrome'
 
-# ----------------------------------------
-# Safari extensions
+# Safari extensions ===================================================
 
 mas '1Password for Safari', id: 1569813296
 mas 'Ghostery – Privacy Ad Blocker', id: 1436953057
 mas 'Hush', id: 1544743900
 mas 'Save to Pocket', id: 1477385213
 
-# ----------------------------------------
-# Teh socials
+# Teh socials =========================================================
 
 mas 'Messenger', id: 1480068668
 cask 'signal'
 mas 'Slack', id: 803453959
 cask 'zoom'
 
-# ----------------------------------------
-# Music and photos
+# Music and photos ====================================================
 
 cask 'adobe-creative-cloud'
 mas 'Logic Pro X', id: 634148309
@@ -54,8 +48,7 @@ cask 'midi-monitor'
 cask 'splice'
 cask 'sysex-librarian'
 
-# ----------------------------------------
-# Coding
+# Coding ==============================================================
 
 brew 'asdf'
 brew 'gpg'  # Needed for the asdf-nodejs plugin.
@@ -75,14 +68,12 @@ brew 'lua-language-server' # For better neovim config editing.
 tap 'homebrew/cask-fonts'
 cask 'font-inconsolata-nerd-font'
 
-# ----------------------------------------
-# Helpful command line tools
+# Helpful command line tools ==========================================
 
 brew 'entr'
 brew 'fd'
 brew 'jq'
 brew 'ripgrep'
 
-# If we don't list mas explicitly,
-# brew bundle cleanup will remove it.
+# If we don't list mas explicitly, brew bundle cleanup will remove it.
 brew 'mas'
