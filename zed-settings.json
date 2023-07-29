@@ -7,8 +7,22 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "terminal": {
+    "dock": "bottom"
+  },
+  "project_panel": {
+    "dock": "left"
+  },
   "theme": "One Dark",
   "buffer_font_features": {
     "calt": false
+  },
+  "lsp": {
+    "solargraph": {
+      "initialization_options": {
+        "diagnostics": true,
+        "formatting": true
+      }
+    }
   }
 }
