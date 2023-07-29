@@ -1,11 +1,11 @@
-# ==============================================================================
-# Basics
+# Environment ==================================================================
 
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
+export CLICOLOR=1  # Make ls colour its output.
+export LESS=-R     # Make less support ANSI colour sequences.
 
-# ==============================================================================
-# Prompt
+# Prompt =======================================================================
 
 PATH_PROMPT_INFO='%F{blue}%~%f'
 
@@ -23,9 +23,7 @@ NEWLINE=$'\n'
 setopt prompt_subst
 PROMPT='${NEWLINE}${PATH_PROMPT_INFO} ${vcs_info_msg_0_} %# '
 
-
-# ==============================================================================
-# vi mode
+# vi mode ======================================================================
 
 bindkey -v
 KEYTIMEOUT=1
@@ -44,9 +42,7 @@ zle-keymap-select () {
 }
 zle -N zle-keymap-select
 
-
-# ==============================================================================
-# History
+# History ======================================================================
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
@@ -69,16 +65,7 @@ bindkey "^[[B" down-line-or-beginning-search
 bindkey -M vicmd "k" up-line-or-beginning-search
 bindkey -M vicmd "j" down-line-or-beginning-search
 
-
-# ==============================================================================
-# Environment
-
-export CLICOLOR=1  # Make ls colour its output.
-export LESS=-R     # Make less support ANSI colour sequences.
-
-
-# ==============================================================================
-# Aliases
+# Aliases ======================================================================
 
 alias be='bundle exec'
 alias br='./bin/rails'
@@ -107,9 +94,7 @@ function autonode {
   echo $1 | entr -c node $1
 }
 
-
-# ==============================================================================
-# Homebrew
+# Homebrew =====================================================================
 
 if [[ -f /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -120,17 +105,13 @@ if [[ -f /opt/homebrew/bin/brew ]]; then
   export EDITOR=$HOMEBREW_PREFIX/bin/nvim
 fi
 
-
-# ==============================================================================
-# asdf
+# asdf =========================================================================
 
 if [[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ]]; then
   source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 fi
 
-
-# ==============================================================================
-# Completion and syntax highlighting
+# Completion and syntax highlighting ===========================================
 
 autoload -U compinit && compinit
 
