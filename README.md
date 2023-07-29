@@ -1,8 +1,4 @@
-This is what I use to set up a Mac for myself. It gets me 80% of the way there,
-including:
-
-* Installing most of the apps I use
-* Setting up my dev environment
+This does 80% of the work of setting up a Mac the way I like it.
 
 I'm sure you want different things on your system, but feel free to copy this
 approach.
@@ -14,8 +10,8 @@ approach.
 Setup scripts only work if you maintain them. The only way to maintain them is
 to use them frequently.
 
-Installation is divided into steps. The steps are all idempotent, so editing
-and re-running them works.
+To that end, the install script is idempotent, and can be edited and re-run on
+a machine that's already set up. Individual setup steps can be run separately.
 
 ### Simplicity
 
