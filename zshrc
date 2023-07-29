@@ -13,7 +13,9 @@ autoload -U vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr '*'
-zstyle ':vcs_info:*' formats '%F{green}[%b%u]%f'
+zstyle ':vsc_info:*' check-for-staged-changes true
+zstyle ':vcs_info:*' stagedstr '+'
+zstyle ':vcs_info:*' formats '%F{green}[%b%u%c]%f'
 precmd () { vcs_info }
 
 NEWLINE=$'\n'
@@ -102,7 +104,7 @@ function autoruby {
 }
 
 function autonode {
-  echo $1 | entry -c node $1
+  echo $1 | entr -c node $1
 }
 
 
