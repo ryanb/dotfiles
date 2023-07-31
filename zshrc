@@ -7,6 +7,8 @@ export LESS=-R     # Make less support ANSI colour sequences.
 
 # Prompt =======================================================================
 
+NEWLINE=$'\n'
+
 PATH_PROMPT_INFO='%F{blue}%~%f'
 
 autoload -U vcs_info
@@ -17,8 +19,6 @@ zstyle ':vsc_info:*' check-for-staged-changes true
 zstyle ':vcs_info:*' stagedstr '+'
 zstyle ':vcs_info:*' formats '%F{green}[%b%u%c]%f'
 precmd () { vcs_info }
-
-NEWLINE=$'\n'
 
 setopt prompt_subst
 PROMPT='${NEWLINE}${PATH_PROMPT_INFO} ${vcs_info_msg_0_} %# '
