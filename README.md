@@ -27,7 +27,7 @@ On a new system:
     xcode-select --install
     git clone git://github.com/notahat/dotfiles ~/.dotfiles
     cd ~/.dotfiles
-    ./script/install.sh
+    DOTFILES_ENV=home ./script/install.sh
 
 ### Running Individual Steps
 
