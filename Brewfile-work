@@ -1,0 +1,26 @@
+# If we don't list mas explicitly, brew bundle cleanup will remove it.
+brew 'mas'
+
+brew 'asdf'
+brew 'entr'
+brew 'fd'
+brew 'gawk' # Needed for the asdf-nodejs plugin.
+brew 'gh'
+brew 'git'
+brew 'gpg' # Needed for the asdf-nodejs plugin.
+brew 'jq'
+brew 'lua-language-server' # For better neovim config editing.
+brew 'neovim'
+brew 'ripgrep'
+
+cask 'iterm2'
+cask 'notion'
+cask 'raycast'
+cask 'scroll-reverser'
+cask 'visual-studio-code'
+cask 'warp'
+mas 'Xcode', id: 497799835
+cask 'zed'
+
+tap 'homebrew/cask-fonts'
+cask 'font-inconsolata-nerd-font'
