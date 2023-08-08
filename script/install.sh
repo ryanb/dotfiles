@@ -41,6 +41,11 @@ function usage {
 
 steps=(plugins macos homebrew asdf zsh ssh git iterm2 neovim vscode zed)
 
+if [ -z $DOTFILES_ENV ]; then
+  echo "No DOTFILES_ENV set! It should be either work or home."
+  exit 1
+fi
+
 if [ -z $1 ]; then
   for step in ${steps[@]}; do
     run_step $step
