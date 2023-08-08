@@ -111,6 +111,10 @@ if [[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ]]; then
   source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 fi
 
+if [[ -d ~/.asdf/plugins/java/ ]]; then
+  source ~/.asdf/plugins/java/set-java-home.zsh
+fi
+
 # Completion and syntax highlighting ===========================================
 
 autoload -U compinit && compinit
