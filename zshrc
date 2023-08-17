@@ -67,6 +67,8 @@ bindkey -M vicmd "j" down-line-or-beginning-search
 
 # Aliases ======================================================================
 
+alias reload='source ~/.zshrc'
+
 alias be='bundle exec'
 alias br='./bin/rails'
 
