@@ -2,8 +2,13 @@
 
 set -o errexit
 
+red=`tput setaf 1`
 green=`tput setaf 2`
 reset=`tput sgr0`
+
+function echo_red {
+  echo -e "${red}${1}${reset}"
+}
 
 function echo_green {
   echo -e "${green}${1}${reset}"
@@ -13,7 +18,7 @@ function link_file {
   if [ -L "$2" ]; then
     echo "$2 is already linked, skipping."
   elif [ -e "$2" ]; then
-    echo "$2 already exists, skipping. (You might not want this, so check the file.)"
+    echo_red "$2 already exists, skipping. (You might not want this, so check the file.)"
   else
     ln -s "$1" "$2"
     echo "Linked $2"
@@ -42,7 +47,7 @@ function usage {
 steps=(plugins macos homebrew asdf zsh ssh git iterm2 neovim vscode zed)
 
 if [ -z $DOTFILES_ENV ]; then
-  echo "No DOTFILES_ENV set! It should be either work or home."
+  echo_red "No DOTFILES_ENV set! It should be either work or home."
   exit 1
 fi
 
