@@ -39,24 +39,29 @@ function run_step {
 
 function usage {
   echo "Usage:"
-  echo "  ./install.sh [step]"
+  echo "  ./install.sh home|work [step name]"
+  echo
+  echo "Run all steps:"
+  echo "  ./script/install.sh home|work"
+  echo
+  echo "Run a single step:"
+  echo "  ./script/install.sh home|work [step name]"
   echo
   echo "Available steps: ${steps[@]}"
+  exit 1
 }
 
 steps=(plugins macos homebrew asdf zsh ssh git iterm2 neovim vscode zed)
 
-if [ -z $DOTFILES_ENV ]; then
-  echo_red "No DOTFILES_ENV set! It should be either work or home."
-  exit 1
-fi
+if [[ -z $1 || $1 == -h ]]; then usage; fi
 
-if [ -z $1 ]; then
+if [[ $1 != "home" && $1 != "work" ]]; then usage; fi
+DOTFILES_ENV=$1
+
+if [[ -e $2 ]]; then
+  run_step $2
+else
   for step in ${steps[@]}; do
     run_step $step
   done
-elif [ $1 = -h ]; then
-  usage
-else
-  run_step $1
 fi

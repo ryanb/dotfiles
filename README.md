@@ -27,21 +27,21 @@ On a new system:
     xcode-select --install
     git clone git://github.com/notahat/dotfiles ~/.dotfiles
     cd ~/.dotfiles
-    DOTFILES_ENV=home ./script/install.sh
+    ./script/install.sh home
 
-### Running Individual Steps
-
-Run `./script/install.sh -h` to see all the available steps.
-
-Run `./script/install.sh [step name]` to run a single step.
-
-The scripts for the steps are in the `script/steps` directory.
+Run `./script/install.sh -h` to see other options.
 
 ### Managing Plugins
 
 Plugins for neovim and zsh are managed as git submodules.
 
 Run `./script/update-plugins.sh` to fetch new versions of all plugins.
+
+## Modifying
+
+Scripts for each step live in the `script/steps` directory. They're all
+run by `scripts/install.h`, which also provides some helpful functions
+for the steps to use.
 
 ## Tools Used
 
