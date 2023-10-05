@@ -9,9 +9,8 @@
     "editor.smoothScrolling": true,
     "workbench.colorTheme": "Visual Studio Dark",
     "svelte.enable-ts-plugin": true,
-    "window.zoomLevel": 1,
     "cSpell.language": "en,en-AU",
-    "cSpell.userWords": [
-        "Yandell"
-    ]
+    "cSpell.userWords": ["Yandell"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "window.zoomLevel": 1
 }
