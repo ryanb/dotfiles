@@ -12,5 +12,8 @@
     "cSpell.language": "en,en-AU",
     "cSpell.userWords": ["Yandell"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "window.zoomLevel": 1
+    "window.zoomLevel": 1,
+    "[ruby]": {
+        "editor.tabSize": 2
+    }
 }
