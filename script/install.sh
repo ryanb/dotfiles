@@ -51,7 +51,7 @@ function usage {
   exit 1
 }
 
-steps=(plugins macos homebrew asdf zsh ssh git iterm2 neovim vscode zed)
+steps=(plugins macos homebrew asdf zsh ssh git iterm2 neovim zed)
 
 if [[ -z $1 || $1 == -h ]]; then usage; fi
 
