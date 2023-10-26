@@ -1,0 +1,6 @@
+{
+  "editor.formatOnSave": true,
+  "[lua]": {
+    "editor.defaultFormatter": "sumneko.lua"
+  }
+}
