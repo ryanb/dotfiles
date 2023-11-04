@@ -72,4 +72,4 @@ I started using zsh because it was much less resource-hungry than bash, back in
 the days when that mattered. I've stuck with it, and it's now the default on
 MacOS.
 
-I *don't* use Oh My Zsh. It ruins zsh's responsiveness.
+I _don't_ use Oh My Zsh. It ruins zsh's responsiveness.
