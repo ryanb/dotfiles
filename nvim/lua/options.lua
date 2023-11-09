@@ -29,6 +29,7 @@ local function configure_key_bindings()
     vim.g.mapleader = ","
 
     local telescope_builtin = require("telescope.builtin")
+    local telescope_utils = require("telescope.utils")
     local nvim_tree_api = require("nvim-tree.api")
 
     local bind = vim.keymap.set
@@ -43,30 +44,34 @@ local function configure_key_bindings()
     bind("v", "<", "<gv")
     bind("v", ">", ">gv")
 
-    -- Leader mappings
-    bind("n", "<leader>b", telescope_builtin.buffers)
-    bind("n", "<leader>f", telescope_builtin.find_files)
+    local function find_in_directory()
+        telescope_builtin.find_files({cwd = telescope_utils.buffer_dir()})
+    end
+
+    -- Telescope
+    bind("n", "<leader>fb", telescope_builtin.buffers)
+    bind("n", "<leader>ff", telescope_builtin.find_files)
+    bind("n", "<leader>fg", telescope_builtin.git_status)
+    bind("n", "<leader>fd", find_in_directory)
+
     bind("n", "<leader>p", "<cmd>Neoformat<cr>")
     bind("n", "<leader>t", nvim_tree_api.tree.toggle)
 
-    vim.api.nvim_create_autocmd(
-        "LspAttach",
-        {
-            group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-            callback = function(args)
-                local opts = {buffer = args.buf}
+    local function configure_lsp_keys(args)
+        local opts = {buffer = args.buf}
 
-                bind("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-                bind("n", "<leader>cd", telescope_builtin.diagnostics, opts)
-                bind("n", "<leader>cr", vim.lsp.buf.rename, opts)
-                bind("n", "<leader>cs", telescope_builtin.lsp_document_symbols, opts)
+        bind("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+        bind("n", "<leader>cd", telescope_builtin.diagnostics, opts)
+        bind("n", "<leader>cr", vim.lsp.buf.rename, opts)
+        bind("n", "<leader>cs", telescope_builtin.lsp_document_symbols, opts)
 
-                bind("n", "K", vim.lsp.buf.hover, opts)
-                bind("n", "gd", vim.lsp.buf.definition, opts)
-                bind("n", "gr", vim.lsp.buf.references, opts)
-            end
-        }
-    )
+        bind("n", "K", vim.lsp.buf.hover, opts)
+        bind("n", "gd", vim.lsp.buf.definition, opts)
+        bind("n", "gr", vim.lsp.buf.references, opts)
+    end
+
+    local lsp_group = vim.api.nvim_create_augroup("UserLspConfig", {})
+    vim.api.nvim_create_autocmd("LspAttach", {group = lsp_group, callback = configure_lsp_keys})
 end
 
 local function remove_trailing_whitespace_on_save()
