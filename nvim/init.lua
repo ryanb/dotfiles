@@ -1,18 +1,11 @@
-local packadd = require("packadd")
+local packadd = require("helpers/packadd")
 
 if not vim.g.vscode then
     packadd("plenary.nvim") -- Some other packages need this.
 
-    require("options").configure()
+    require("language_support").configure()
     require("appearance").configure()
-
-    require("plugins").configure()
-    require("testing").configure()
-
-    require("completion").configure()
-    require("lsp").configure()
-
-    require("bindings").configure()
-
-    require("whitespace").remove_trailing_whitespace_on_save()
+    require("navigation").configure()
+    require("editing").configure()
+    require("options").configure()
 end

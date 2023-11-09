@@ -1,4 +1,4 @@
-local packadd = require("packadd")
+local packadd = require("helpers/packadd")
 
 local function configure_colors()
     vim.opt.termguicolors = true
@@ -23,42 +23,10 @@ local function configure_status_line()
     vim.opt.laststatus = 3 -- Use a full-width status line.
 end
 
-local function configure_syntax_highlighting()
-    packadd("nvim-treesitter") -- https://github.com/nvim-treesitter/nvim-treesitter
-    packadd("nvim-treesitter-textobjects") -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-    local treesitter = require("nvim-treesitter.configs")
-    treesitter.setup(
-        {
-            ensure_installed = {
-                "lua",
-                "javascript",
-                "typescript",
-                "tsx",
-                "css",
-                "scss",
-                "ruby"
-            },
-            highlight = {enable = true},
-            textobjects = {
-                select = {
-                    enable = true,
-                    lookahead = true,
-                    keymaps = {
-                        ["af"] = "@function.outer",
-                        ["if"] = "@function.inner"
-                    }
-                },
-                move = {
-                    enable = true,
-                    set_jumps = true,
-                    goto_next_start = {["]m"] = "@function.outer"},
-                    goto_next_end = {["]M"] = "@function.outer"},
-                    goto_previous_start = {["[m"] = "@function.outer"},
-                    goto_previous_end = {["[M"] = "@function.outer"}
-                }
-            }
-        }
-    )
+local function configure_git_signs()
+    packadd("gitsigns.nvim") -- https://github.com/lewis6991/gitsigns.nvim
+    local gitsigns = require("gitsigns")
+    gitsigns.setup()
 end
 
 return {
@@ -66,6 +34,6 @@ return {
         configure_colors()
         configure_icons()
         configure_status_line()
-        configure_syntax_highlighting()
+        configure_git_signs()
     end
 }
