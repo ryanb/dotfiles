@@ -61,3 +61,9 @@
 [submodule "nvim/pack/plugins/opt/jellybeans.vim"]
 	path = nvim/pack/plugins/opt/jellybeans.vim
 	url = https://github.com/nanotech/jellybeans.vim.git
+[submodule "nvim/pack/plugins/opt/neotest"]
+	path = nvim/pack/plugins/opt/neotest
+	url = https://github.com/nvim-neotest/neotest.git
+[submodule "nvim/pack/plugins/opt/neotest-rspec"]
+	path = nvim/pack/plugins/opt/neotest-rspec
+	url = https://github.com/olimorris/neotest-rspec.git
