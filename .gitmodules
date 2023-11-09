@@ -67,3 +67,6 @@
 [submodule "nvim/pack/plugins/opt/neotest-rspec"]
 	path = nvim/pack/plugins/opt/neotest-rspec
 	url = https://github.com/olimorris/neotest-rspec.git
+[submodule "nvim/pack/plugins/opt/which-key.nvim"]
+	path = nvim/pack/plugins/opt/which-key.nvim
+	url = https://github.com/folke/which-key.nvim.git

@@ -1,3 +1,6 @@
+local packadd = require("helpers/packadd")
+local bind = vim.keymap.set
+
 local function configure_options()
     vim.opt.tabstop = 2
     vim.opt.shiftwidth = 2
@@ -25,14 +28,72 @@ local function configure_options()
     vim.g.loaded_perl_provider = 0
 end
 
-local function configure_key_bindings()
-    vim.g.mapleader = ","
-
+local function configure_navigation_bindings()
     local telescope_builtin = require("telescope.builtin")
     local telescope_utils = require("telescope.utils")
     local nvim_tree_api = require("nvim-tree.api")
 
-    local bind = vim.keymap.set
+    local function find_in_directory()
+        telescope_builtin.find_files({cwd = telescope_utils.buffer_dir()})
+    end
+
+    bind("n", "<leader>fb", telescope_builtin.buffers, {desc = "find buffers"})
+    bind("n", "<leader>ff", telescope_builtin.find_files, {desc = "find files"})
+    bind("n", "<leader>fg", telescope_builtin.git_status, {desc = "find git status"})
+    bind("n", "<leader>fd", find_in_directory, {desc = "find in current dir"})
+    bind("n", "<leader>fe", nvim_tree_api.tree.toggle, {desc = "file explorer"})
+end
+
+local function configure_testing_bindings()
+    local neotest = require("neotest")
+
+    local function run_file()
+        neotest.run.run(vim.fn.expand("%"))
+    end
+
+    bind("n", "<leader>tf", run_file, {desc = "run tests in file"})
+    bind("n", "<leader>tl", neotest.run.run_last, {desc = "run last test"})
+    bind("n", "<leader>tn", neotest.run.run, {desc = "run nearest test"})
+    bind("n", "<leader>ts", neotest.summary.toggle, {desc = "toggle test summary"})
+end
+
+local function configure_lsp_bindings(args)
+    local telescope_builtin = require("telescope.builtin")
+
+    local buffer = args.buf
+
+    bind("n", "<leader>ca", vim.lsp.buf.code_action, {buffer = buffer, desc = "code actions"})
+    bind("n", "<leader>cd", telescope_builtin.diagnostics, {buffer = buffer, desc = "diagnostics"})
+    bind("n", "<leader>cr", vim.lsp.buf.rename, {buffer = buffer, desc = "rename"})
+    bind("n", "<leader>cs", telescope_builtin.lsp_document_symbols, {buffer = buffer, desc = "document symbols"})
+
+    bind("n", "K", vim.lsp.buf.hover, {buffer = buffer})
+    bind("n", "gd", vim.lsp.buf.definition, {buffer = buffer})
+    bind("n", "gr", vim.lsp.buf.references, {buffer = buffer})
+end
+
+local function configure_which_key()
+    packadd("which-key.nvim")
+    local which_key = require("which-key")
+
+    vim.o.timeout = true
+    vim.o.timeoutlen = 500
+
+    which_key.setup({})
+    which_key.register(
+        {
+            c = "code",
+            f = "find",
+            t = "tests"
+        },
+        {
+            prefix = "<leader>"
+        }
+    )
+end
+
+local function configure_key_bindings()
+    vim.g.mapleader = ","
 
     -- Shortcuts for navigation between windows
     bind("n", "<c-h>", "<c-w>h")
@@ -44,52 +105,18 @@ local function configure_key_bindings()
     bind("v", "<", "<gv")
     bind("v", ">", ">gv")
 
-    local function find_in_directory()
-        telescope_builtin.find_files({cwd = telescope_utils.buffer_dir()})
-    end
+    configure_navigation_bindings()
+    configure_testing_bindings()
 
-    -- Telescope
-    bind("n", "<leader>fb", telescope_builtin.buffers)
-    bind("n", "<leader>ff", telescope_builtin.find_files)
-    bind("n", "<leader>fg", telescope_builtin.git_status)
-    bind("n", "<leader>fd", find_in_directory)
+    vim.api.nvim_create_augroup("lspKeyBindings", {clear = true})
+    vim.api.nvim_create_autocmd("LspAttach", {group = "lspKeyBindings", callback = configure_lsp_bindings})
 
-    bind("n", "<leader>p", "<cmd>Neoformat<cr>")
-    bind("n", "<leader>t", nvim_tree_api.tree.toggle)
-
-    local function configure_lsp_keys(args)
-        local opts = {buffer = args.buf}
-
-        bind("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-        bind("n", "<leader>cd", telescope_builtin.diagnostics, opts)
-        bind("n", "<leader>cr", vim.lsp.buf.rename, opts)
-        bind("n", "<leader>cs", telescope_builtin.lsp_document_symbols, opts)
-
-        bind("n", "K", vim.lsp.buf.hover, opts)
-        bind("n", "gd", vim.lsp.buf.definition, opts)
-        bind("n", "gr", vim.lsp.buf.references, opts)
-    end
-
-    local lsp_group = vim.api.nvim_create_augroup("UserLspConfig", {})
-    vim.api.nvim_create_autocmd("LspAttach", {group = lsp_group, callback = configure_lsp_keys})
-end
-
-local function remove_trailing_whitespace_on_save()
-    vim.api.nvim_create_augroup("removeTrailingWhitespace", {clear = true})
-    vim.api.nvim_create_autocmd(
-        "BufWritePre",
-        {
-            pattern = "*",
-            group = "removeTrailingWhitespace",
-            command = "%s/\\s\\+$//e"
-        }
-    )
+    configure_which_key()
 end
 
 return {
     configure = function()
         configure_options()
         configure_key_bindings()
-        remove_trailing_whitespace_on_save()
     end
 }
