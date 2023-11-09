@@ -13,6 +13,15 @@ end
 local function configure_autoformatting()
     packadd("neoformat") -- https://github.com/sbdchd/neoformat
     vim.g.neoformat_try_node_exe = true
+
+    vim.api.nvim_create_augroup("NeoformatGroup", {clear = true})
+    vim.api.nvim_create_autocmd(
+        "BufWritePre",
+        {
+            group = "NeoformatGroup",
+            command = "Neoformat"
+        }
+    )
 end
 
 return {
