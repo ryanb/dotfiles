@@ -1,7 +1,7 @@
 local packadd = require("helpers/packadd")
 
 local function configure_telescope()
-    packadd("telescope.nvim")           -- https://github.com/nvim-telescope/telescope.nvim
+    packadd("telescope.nvim") -- https://github.com/nvim-telescope/telescope.nvim
     packadd("telescope-ui-select.nvim") -- https://github.com/nvim-telescope/telescope-ui-select.nvim
 
     local telescope = require("telescope")
@@ -22,8 +22,8 @@ local function configure_nvim_tree()
     local nvim_tree = require("nvim-tree")
     nvim_tree.setup(
         {
-            filters = { dotfiles = true },
-            update_focused_file = { enable = true }
+            update_focused_file = {enable = true},
+            view = {width = 40}
         }
     )
 end

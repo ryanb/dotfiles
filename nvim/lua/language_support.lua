@@ -1,7 +1,7 @@
 local packadd = require("helpers/packadd")
 
 local function configure_syntax_highlighting()
-    packadd("nvim-treesitter")             -- https://github.com/nvim-treesitter/nvim-treesitter
+    packadd("nvim-treesitter") -- https://github.com/nvim-treesitter/nvim-treesitter
     packadd("nvim-treesitter-textobjects") -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     local treesitter = require("nvim-treesitter.configs")
     treesitter.setup(
@@ -15,7 +15,7 @@ local function configure_syntax_highlighting()
                 "scss",
                 "ruby"
             },
-            highlight = { enable = true },
+            highlight = {enable = true},
             textobjects = {
                 select = {
                     enable = true,
@@ -28,10 +28,10 @@ local function configure_syntax_highlighting()
                 move = {
                     enable = true,
                     set_jumps = true,
-                    goto_next_start = { ["]m"] = "@function.outer" },
-                    goto_next_end = { ["]M"] = "@function.outer" },
-                    goto_previous_start = { ["[m"] = "@function.outer" },
-                    goto_previous_end = { ["[M"] = "@function.outer" }
+                    goto_next_start = {["]m"] = "@function.outer"},
+                    goto_next_end = {["]M"] = "@function.outer"},
+                    goto_previous_start = {["[m"] = "@function.outer"},
+                    goto_previous_end = {["[M"] = "@function.outer"}
                 }
             }
         }
@@ -39,20 +39,20 @@ local function configure_syntax_highlighting()
 end
 
 local function configure_completion()
-    packadd("nvim-cmp")  -- https://github.com/hrsh7th/nvim-cmp
+    packadd("nvim-cmp") -- https://github.com/hrsh7th/nvim-cmp
     packadd("vim-vsnip") -- https://github.com/hrsh7th/vim-vsnip
 
     local cmp = require("cmp")
     cmp.setup(
         {
             sources = {
-                { name = "nvim_lsp" }
+                {name = "nvim_lsp"}
             },
             mapping = cmp.mapping.preset.insert(
                 {
                     ["<Tab>"] = cmp.mapping.select_next_item(),
                     ["<S-Tab"] = cmp.mapping.select_prev_item(),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true })
+                    ["<CR>"] = cmp.mapping.confirm({select = true})
                 }
             ),
             -- I don't use snippets, but cmp doesn't work without a snippet plugin, so:
