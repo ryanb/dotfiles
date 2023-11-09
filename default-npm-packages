@@ -1,3 +1,4 @@
+lua-fmt
 prettier
 standard
 @babel/eslint-parser
