@@ -1,22 +1,18 @@
 local packadd = require("packadd")
-local bind = vim.keymap.set
 
-if vim.g.vscode then
-    -- Clean for now.
-else
+if not vim.g.vscode then
     packadd("plenary.nvim") -- Some other packages need this.
 
     require("options").configure()
-    require("styling").configure()
-    require("navigation").configure()
-    require("plugins").configure()
-    require("whitespace").remove_trailing_whitespace_on_save()
+    require("appearance").configure()
 
-    packadd("neotest")
-    packadd("neotest-rspec")
-    require("neotest").setup({
-        adapters = {
-            require("neotest-rspec")
-        }
-    })
+    require("plugins").configure()
+    require("testing").configure()
+
+    require("completion").configure()
+    require("lsp").configure()
+
+    require("bindings").configure()
+
+    require("whitespace").remove_trailing_whitespace_on_save()
 end
