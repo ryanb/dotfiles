@@ -18,6 +18,8 @@ local function configure()
     -- While we're fixing diagnostic colours, let's give them some nice icons too.
     vim.cmd.sign("define", "DiagnosticSignError", "text=󰈸", "texthl=DiagnosticSignError")
     vim.cmd.sign("define", "DiagnosticSignWarn", "text=", "texthl=DiagnosticSignWarn")
+    vim.cmd.sign("define", "DiagnosticSignInfo", "text=i", "texthl=DiagnosticSignInfo")
+    vim.cmd.sign("define", "DiagnosticSignHint", "text=󰍉", "texthl=DiagnosticSignHint")
 end
 
 return {configure = configure}
