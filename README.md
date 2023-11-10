@@ -35,7 +35,7 @@ Run `./script/install.sh -h` to see other options.
 
 Plugins for neovim and zsh are managed as git submodules.
 
-Run `./script/update-plugins.sh` to fetch new versions of all plugins.
+Run `./script/upgrade-plugins.sh` to fetch new versions of all plugins.
 
 ## Modifying
 
