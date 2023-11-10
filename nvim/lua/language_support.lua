@@ -87,6 +87,22 @@ local function configure_language_server()
     lsp.tsserver.setup(lsp_opts)
 end
 
+local function configure_filetypes()
+    vim.api.nvim_create_augroup("fileTypeSettings", {clear = true})
+    vim.api.nvim_create_autocmd(
+        "FileType",
+        {
+            pattern = "lua",
+            group = "fileTypeSettings",
+            callback = function()
+                vim.opt_local.tabstop = 4
+                vim.opt_local.shiftwidth = 4
+                vim.opt_local.softtabstop = 4
+            end
+        }
+    )
+end
+
 local function configure_testing()
     packadd("neotest")
     packadd("neotest-rspec")
@@ -106,6 +122,7 @@ return {
         configure_syntax_highlighting()
         configure_completion()
         configure_language_server()
+        configure_filetypes()
         configure_testing()
     end
 }

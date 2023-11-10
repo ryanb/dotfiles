@@ -12,6 +12,7 @@ local function configure_options()
     vim.opt.tildeop = true
     vim.opt.showmatch = true
     vim.opt.mouse = "a"
+    vim.opt.autowriteall = true
 
     -- Use relative line numbering, but display the actual line
     -- number on the current line, and highlight it.
@@ -48,6 +49,7 @@ local function configure_testing_bindings()
     local neotest = require("neotest")
 
     local function run_file()
+        vim.cmd.write()
         neotest.run.run(vim.fn.expand("%"))
     end
 
