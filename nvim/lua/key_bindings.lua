@@ -12,6 +12,8 @@ local function configure()
     -- Reselect the visual area when changing indenting in visual mode.
     bind("v", "<", "<gv")
     bind("v", ">", ">gv")
+
+    bind("n", "<leader>d", vim.diagnostic.open_float, {desc = "show diagnostic"})
 end
 
-return { configure = configure }
+return {configure = configure}
