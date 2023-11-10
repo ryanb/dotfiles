@@ -36,6 +36,9 @@ local function configure_syntax_highlighting()
             }
         }
     )
+
+    -- Treesitter ain't got suppot for slim, so:
+    packadd("vim-slim")
 end
 
 local function configure_completion()

@@ -70,3 +70,6 @@
 [submodule "nvim/pack/plugins/opt/which-key.nvim"]
 	path = nvim/pack/plugins/opt/which-key.nvim
 	url = https://github.com/folke/which-key.nvim.git
+[submodule "nvim/pack/plugins/opt/vim-slim"]
+	path = nvim/pack/plugins/opt/vim-slim
+	url = https://github.com/slim-template/vim-slim.git
