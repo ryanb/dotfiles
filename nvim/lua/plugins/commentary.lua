@@ -1,7 +1,5 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("vim-commentary")
+    vim.cmd.packadd({"vim-commentary", bang = true})
 end
 
 return {configure = configure}

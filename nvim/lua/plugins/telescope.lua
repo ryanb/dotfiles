@@ -1,8 +1,6 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("telescope.nvim") -- https://github.com/nvim-telescope/telescope.nvim
-    packadd("telescope-ui-select.nvim") -- https://github.com/nvim-telescope/telescope-ui-select.nvim
+    vim.cmd.packadd({"telescope.nvim", bang = true}) -- https://github.com/nvim-telescope/telescope.nvim
+    vim.cmd.packadd({"telescope-ui-select.nvim", bang = true}) -- https://github.com/nvim-telescope/telescope-ui-select.nvim
 
     local telescope = require("telescope")
     telescope.setup(

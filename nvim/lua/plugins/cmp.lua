@@ -1,8 +1,6 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("nvim-cmp") -- https://github.com/hrsh7th/nvim-cmp
-    packadd("vim-vsnip") -- https://github.com/hrsh7th/vim-vsnip
+    vim.cmd.packadd({"nvim-cmp", bang = true}) -- https://github.com/hrsh7th/nvim-cmp
+    vim.cmd.packadd({"vim-vsnip", bang = true}) -- https://github.com/hrsh7th/vim-vsnip
 
     local cmp = require("cmp")
     cmp.setup(

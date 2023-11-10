@@ -76,3 +76,9 @@
 [submodule "nvim/pack/plugins/opt/nvim-surround"]
 	path = nvim/pack/plugins/opt/nvim-surround
 	url = https://github.com/kylechui/nvim-surround.git
+[submodule "nvim/pack/plugins/opt/neotest-vitest"]
+	path = nvim/pack/plugins/opt/neotest-vitest
+	url = https://github.com/marilari88/neotest-vitest.git
+[submodule "nvim/pack/plugins/opt/nvim-notify"]
+	path = nvim/pack/plugins/opt/nvim-notify
+	url = https://github.com/rcarriga/nvim-notify.git

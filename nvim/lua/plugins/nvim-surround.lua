@@ -1,7 +1,5 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("nvim-surround") -- https://github.com/kylechui/nvim-surround
+    vim.cmd.packadd({"nvim-surround", bang = true}) -- https://github.com/kylechui/nvim-surround
     local surround = require("nvim-surround")
     surround.setup({})
 end

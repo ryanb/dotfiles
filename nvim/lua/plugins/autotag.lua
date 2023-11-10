@@ -1,7 +1,5 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("nvim-ts-autotag") -- https://github.com/windwp/nvim-ts-autotag
+    vim.cmd.packadd({"nvim-ts-autotag", bang = true}) -- https://github.com/windwp/nvim-ts-autotag
     local autotag = require("nvim-ts-autotag")
     autotag.setup()
 end

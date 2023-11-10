@@ -1,7 +1,5 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("which-key.nvim") -- https://github.com/folke/which-key.nvim
+    vim.cmd.packadd({"which-key.nvim", bang = true}) -- https://github.com/folke/which-key.nvim
     local which_key = require("which-key")
 
     vim.opt.timeout = true

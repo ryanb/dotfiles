@@ -1,7 +1,5 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("vim-rails")
+    vim.cmd.packadd({"vim-rails", bang = true}) -- https://github.com/tpope/vim-rails
 end
 
 return {configure = configure}

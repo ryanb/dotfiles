@@ -1,8 +1,6 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("nvim-lspconfig") -- https://github.com/neovim/nvim-lspconfig
-    packadd("cmp-nvim-lsp") -- https://github.com/sar/cmp-lsp.nvim
+    vim.cmd.packadd({"nvim-lspconfig", bang = true}) -- https://github.com/neovim/nvim-lspconfig
+    vim.cmd.packadd({"cmp-nvim-lsp", bang = true}) -- https://github.com/sar/cmp-lsp.nvim
 
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 

@@ -2,35 +2,32 @@ if not vim.g.vscode then
     require("options").configure()
     require("key_mappings").configure()
 
-    local function configure_plugin(name)
-        require("plugins/" .. name).configure()
-    end
-
     -- Some other packages need this:
-    configure_plugin("plenary")
+    require("plugins/plenary").configure()
 
     -- Language support:
-    configure_plugin("treesitter")
-    configure_plugin("cmp")
-    configure_plugin("lspconfig")
-    configure_plugin("neotest")
+    require("plugins/treesitter").configure()
+    require("plugins/cmp").configure()
+    require("plugins/lspconfig").configure()
+    require("plugins/neotest").configure()
 
     -- Appearance:
-    configure_plugin("web-devicons")
-    configure_plugin("jellybeans")
-    configure_plugin("lualine")
-    configure_plugin("gitsigns")
+    require("plugins/web-devicons").configure()
+    require("plugins/jellybeans").configure()
+    require("plugins/lualine").configure()
+    require("plugins/gitsigns").configure()
+    require("plugins/nvim-notify").configure()
 
     -- Navigation:
-    configure_plugin("telescope")
-    configure_plugin("nvim-tree")
-    configure_plugin("rails")
-    configure_plugin("which-key")
+    require("plugins/telescope").configure()
+    require("plugins/nvim-tree").configure()
+    require("plugins/rails").configure()
+    require("plugins/which-key").configure()
 
     -- Editing:
-    configure_plugin("autopairs")
-    configure_plugin("autotag")
-    configure_plugin("commentary")
-    configure_plugin("nvim-surround")
-    configure_plugin("neoformat")
+    require("plugins/autopairs").configure()
+    require("plugins/autotag").configure()
+    require("plugins/commentary").configure()
+    require("plugins/nvim-surround").configure()
+    require("plugins/neoformat").configure()
 end

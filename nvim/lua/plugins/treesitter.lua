@@ -1,8 +1,6 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("nvim-treesitter") -- https://github.com/nvim-treesitter/nvim-treesitter
-    packadd("nvim-treesitter-textobjects") -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    vim.cmd.packadd({"nvim-treesitter", bang = true}) -- https://github.com/nvim-treesitter/nvim-treesitter
+    vim.cmd.packadd({"nvim-treesitter-textobjects", bang = true}) -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 
     local treesitter = require("nvim-treesitter.configs")
     treesitter.setup(
@@ -44,7 +42,7 @@ local function configure()
     )
 
     -- Treesitter ain't got suppot for slim, so:
-    packadd("vim-slim")
+    vim.cmd.packadd({"vim-slim", bang = true}) -- https://github.com/tpope/vim-rails
 end
 
 return {configure = configure}

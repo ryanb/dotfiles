@@ -1,7 +1,5 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("nvim-tree.lua") -- https://github.com/nvim-tree/nvim-tree.lua
+    vim.cmd.packadd({"nvim-tree.lua", bang = true}) -- https://github.com/nvim-tree/nvim-tree.lua
     local nvim_tree = require("nvim-tree")
     nvim_tree.setup(
         {

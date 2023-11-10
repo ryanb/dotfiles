@@ -1,7 +1,5 @@
-local packadd = require("helpers").packadd
-
 local function configure()
-    packadd("plenary.nvim")
+    vim.cmd.packadd({"plenary.nvim", bang = true}) -- https://github.com/nvim-lua/plenary.nvim
 end
 
 return {configure = configure}
