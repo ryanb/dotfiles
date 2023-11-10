@@ -8,13 +8,18 @@ local function configure()
     treesitter.setup(
         {
             ensure_installed = {
-                "lua",
-                "javascript",
-                "typescript",
-                "tsx",
+                "bash",
                 "css",
+                "graphql",
+                "html",
+                "javascript",
+                "json",
+                "jsonc",
+                "lua",
+                "ruby",
                 "scss",
-                "ruby"
+                "tsx",
+                "typescript"
             },
             highlight = {enable = true},
             textobjects = {
