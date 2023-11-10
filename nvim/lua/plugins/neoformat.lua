@@ -9,11 +9,11 @@ local function configure()
     -- Remove trailing whitespace on save.
     vim.g.neoformat_basic_format_trim = true
 
-    vim.api.nvim_create_augroup("neoformatOnSave", {clear = true})
+    local group = vim.api.nvim_create_augroup("neoformatOnSave", {clear = true})
     vim.api.nvim_create_autocmd(
         "BufWritePre",
         {
-            group = "neoformatOnSave",
+            group = group,
             command = "Neoformat"
         }
     )

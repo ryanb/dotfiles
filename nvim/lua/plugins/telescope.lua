@@ -1,5 +1,4 @@
 local packadd = require("helpers").packadd
-local bind = require("helpers").bind
 
 local function configure()
     packadd("telescope.nvim") -- https://github.com/nvim-telescope/telescope.nvim
@@ -24,10 +23,11 @@ local function configure()
         telescope_builtin.find_files({cwd = telescope_utils.buffer_dir()})
     end
 
-    bind("n", "<leader>fb", telescope_builtin.buffers, {desc = "find buffers"})
-    bind("n", "<leader>ff", telescope_builtin.find_files, {desc = "find files"})
-    bind("n", "<leader>fg", telescope_builtin.git_status, {desc = "find git status"})
-    bind("n", "<leader>fd", find_in_directory, {desc = "find in current dir"})
+    vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, {desc = "find buffers"})
+    vim.keymap.set("n", "<leader>fd", find_in_directory, {desc = "find in buffer's dir"})
+    vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, {desc = "find files"})
+    vim.keymap.set("n", "<leader>fg", telescope_builtin.git_status, {desc = "find git status"})
+    vim.keymap.set("n", "<leader>fs", telescope_builtin.live_grep, {desc = "search file contents"})
 end
 
 return {configure = configure}

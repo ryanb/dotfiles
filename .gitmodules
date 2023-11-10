@@ -73,3 +73,6 @@
 [submodule "nvim/pack/plugins/opt/vim-slim"]
 	path = nvim/pack/plugins/opt/vim-slim
 	url = https://github.com/slim-template/vim-slim.git
+[submodule "nvim/pack/plugins/opt/nvim-surround"]
+	path = nvim/pack/plugins/opt/nvim-surround
+	url = https://github.com/kylechui/nvim-surround.git

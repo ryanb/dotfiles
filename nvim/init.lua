@@ -1,8 +1,10 @@
 if not vim.g.vscode then
     require("options").configure()
-    require("key_bindings").configure()
+    require("key_mappings").configure()
 
-    local configure_plugin = require("helpers").configure_plugin
+    local function configure_plugin(name)
+        require("plugins/" .. name).configure()
+    end
 
     -- Some other packages need this:
     configure_plugin("plenary")
@@ -14,8 +16,8 @@ if not vim.g.vscode then
     configure_plugin("neotest")
 
     -- Appearance:
-    configure_plugin("jellybeans")
     configure_plugin("web-devicons")
+    configure_plugin("jellybeans")
     configure_plugin("lualine")
     configure_plugin("gitsigns")
 
@@ -28,6 +30,7 @@ if not vim.g.vscode then
     -- Editing:
     configure_plugin("autopairs")
     configure_plugin("autotag")
-    configure_plugin("neoformat")
     configure_plugin("commentary")
+    configure_plugin("nvim-surround")
+    configure_plugin("neoformat")
 end

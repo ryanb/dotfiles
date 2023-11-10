@@ -25,12 +25,12 @@ local function configure()
     vim.g.loaded_node_provider = 0
     vim.g.loaded_perl_provider = 0
 
-    vim.api.nvim_create_augroup("fileTypeOptions", {clear = true})
+    local group = vim.api.nvim_create_augroup("fileTypeOptions", {clear = true})
     vim.api.nvim_create_autocmd(
         "FileType",
         {
             pattern = "lua",
-            group = "fileTypeOptions",
+            group = group,
             callback = function()
                 vim.opt_local.tabstop = 4
                 vim.opt_local.shiftwidth = 4

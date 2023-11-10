@@ -1,5 +1,4 @@
 local packadd = require("helpers").packadd
-local bind = require("helpers").bind
 
 local function configure()
     packadd("nvim-tree.lua") -- https://github.com/nvim-tree/nvim-tree.lua
@@ -13,7 +12,7 @@ local function configure()
 
     local nvim_tree_api = require("nvim-tree.api")
 
-    bind("n", "<leader>fe", nvim_tree_api.tree.toggle, {desc = "file explorer"})
+    vim.keymap.set("n", "<leader>fe", nvim_tree_api.tree.toggle, {desc = "file explorer"})
 end
 
 return {configure = configure}
