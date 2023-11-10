@@ -39,7 +39,7 @@ function run_step {
 
 function usage {
   echo "Usage:"
-  echo "  ./install.sh home|work [step name]"
+  echo "  ./script/install.sh home|work [step name]"
   echo
   echo "Run all steps:"
   echo "  ./script/install.sh home|work"
@@ -58,7 +58,7 @@ if [[ -z $1 || $1 == -h ]]; then usage; fi
 if [[ $1 != "home" && $1 != "work" ]]; then usage; fi
 DOTFILES_ENV=$1
 
-if [[ -e $2 ]]; then
+if [[ -n $2 ]]; then
   run_step $2
 else
   for step in ${steps[@]}; do
