@@ -1,90 +1,90 @@
-[submodule "nvim/plugins/start/plenary.nvim"]
-	path = nvim/pack/plugins/opt/plenary.nvim
+[submodule "config/nvim/pack/plugins/opt/plenary.nvim"]
+	path = config/nvim/pack/plugins/opt/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim.git
-[submodule "nvim/plugins/start/lualine.nvim"]
-	path = nvim/pack/plugins/opt/lualine.nvim
+[submodule "config/nvim/pack/plugins/opt/lualine.nvim"]
+	path = config/nvim/pack/plugins/opt/lualine.nvim
 	url = https://github.com/nvim-lualine/lualine.nvim.git
-[submodule "nvim/plugins/start/vim-commentary"]
-	path = nvim/pack/plugins/opt/vim-commentary
+[submodule "config/nvim/pack/plugins/opt/vim-commentary"]
+	path = config/nvim/pack/plugins/opt/vim-commentary
 	url = https://github.com/tpope/vim-commentary.git
-[submodule "nvim/plugins/start/gitsigns.nvim"]
-	path = nvim/pack/plugins/opt/gitsigns.nvim
+[submodule "config/nvim/pack/plugins/opt/gitsigns.nvim"]
+	path = config/nvim/pack/plugins/opt/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim.git
-[submodule "nvim/plugins/start/nvim-tree.lua"]
-	path = nvim/pack/plugins/opt/nvim-tree.lua
+[submodule "config/nvim/pack/plugins/opt/nvim-tree.lua"]
+	path = config/nvim/pack/plugins/opt/nvim-tree.lua
 	url = https://github.com/kyazdani42/nvim-tree.lua.git
-[submodule "nvim/plugins/start/telescope.nvim"]
-	path = nvim/pack/plugins/opt/telescope.nvim
+[submodule "config/nvim/pack/plugins/opt/telescope.nvim"]
+	path = config/nvim/pack/plugins/opt/telescope.nvim
 	url = https://github.com/nvim-telescope/telescope.nvim.git
-[submodule "nvim/plugins/start/nvim-lspconfig"]
-	path = nvim/pack/plugins/opt/nvim-lspconfig
+[submodule "config/nvim/pack/plugins/opt/nvim-lspconfig"]
+	path = config/nvim/pack/plugins/opt/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
-[submodule "nvim/plugins/start/nvim-cmp"]
-	path = nvim/pack/plugins/opt/nvim-cmp
+[submodule "config/nvim/pack/plugins/opt/nvim-cmp"]
+	path = config/nvim/pack/plugins/opt/nvim-cmp
 	url = https://github.com/hrsh7th/nvim-cmp.git
-[submodule "nvim/plugins/start/cmp-nvim-lsp"]
-	path = nvim/pack/plugins/opt/cmp-nvim-lsp
+[submodule "config/nvim/pack/plugins/opt/cmp-nvim-lsp"]
+	path = config/nvim/pack/plugins/opt/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
-[submodule "nvim/plugins/start/nvim-treesitter"]
-	path = nvim/pack/plugins/opt/nvim-treesitter
+[submodule "config/nvim/pack/plugins/opt/nvim-treesitter"]
+	path = config/nvim/pack/plugins/opt/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter.git
-[submodule "nvim/plugins/start/nvim-web-devicons"]
-	path = nvim/pack/plugins/opt/nvim-web-devicons
+[submodule "config/nvim/pack/plugins/opt/nvim-web-devicons"]
+	path = config/nvim/pack/plugins/opt/nvim-web-devicons
 	url = https://github.com/kyazdani42/nvim-web-devicons.git
-[submodule "nvim/plugins/start/neoformat"]
-	path = nvim/pack/plugins/opt/neoformat
+[submodule "config/nvim/pack/plugins/opt/neoformat"]
+	path = config/nvim/pack/plugins/opt/neoformat
 	url = https://github.com/sbdchd/neoformat.git
-[submodule "nvim/plugins/start/vim-vsnip"]
-	path = nvim/pack/plugins/opt/vim-vsnip
+[submodule "config/nvim/pack/plugins/opt/vim-vsnip"]
+	path = config/nvim/pack/plugins/opt/vim-vsnip
 	url = https://github.com/hrsh7th/vim-vsnip.git
-[submodule "nvim/plugins/opt/nvim-autopairs"]
-	path = nvim/pack/plugins/opt/nvim-autopairs
+[submodule "config/nvim/pack/plugins/opt/nvim-autopairs"]
+	path = config/nvim/pack/plugins/opt/nvim-autopairs
 	url = https://github.com/windwp/nvim-autopairs.git
-[submodule "nvim/plugins/opt/nvim-ts-autotag"]
-	path = nvim/pack/plugins/opt/nvim-ts-autotag
+[submodule "config/nvim/pack/plugins/opt/nvim-ts-autotag"]
+	path = config/nvim/pack/plugins/opt/nvim-ts-autotag
 	url = https://github.com/windwp/nvim-ts-autotag.git
-[submodule "nvim/pack/plugins/opt/nvim-treesitter-textobjects"]
-	path = nvim/pack/plugins/opt/nvim-treesitter-textobjects
+[submodule "config/nvim/pack/plugins/opt/nvim-treesitter-textobjects"]
+	path = config/nvim/pack/plugins/opt/nvim-treesitter-textobjects
 	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects.git
-[submodule "zsh/zsh-syntax-highlighting"]
-	path = zsh/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "zsh/zsh-autosuggestions"]
-	path = zsh/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions
-[submodule "nvim/pack/plugins/opt/telescope-ui-select.nvim"]
-	path = nvim/pack/plugins/opt/telescope-ui-select.nvim
+[submodule "config/nvim/pack/plugins/opt/telescope-ui-select.nvim"]
+	path = config/nvim/pack/plugins/opt/telescope-ui-select.nvim
 	url = https://github.com/nvim-telescope/telescope-ui-select.nvim.git
-[submodule "nvim/pack/plugins/opt/vim-rails"]
-	path = nvim/pack/plugins/opt/vim-rails
+[submodule "config/nvim/pack/plugins/opt/vim-rails"]
+	path = config/nvim/pack/plugins/opt/vim-rails
 	url = https://github.com/tpope/vim-rails.git
-[submodule "nvim/pack/plugins/opt/jellybeans.vim"]
-	path = nvim/pack/plugins/opt/jellybeans.vim
+[submodule "config/nvim/pack/plugins/opt/jellybeans.vim"]
+	path = config/nvim/pack/plugins/opt/jellybeans.vim
 	url = https://github.com/nanotech/jellybeans.vim.git
-[submodule "nvim/pack/plugins/opt/neotest"]
-	path = nvim/pack/plugins/opt/neotest
+[submodule "config/nvim/pack/plugins/opt/neotest"]
+	path = config/nvim/pack/plugins/opt/neotest
 	url = https://github.com/nvim-neotest/neotest.git
-[submodule "nvim/pack/plugins/opt/neotest-rspec"]
-	path = nvim/pack/plugins/opt/neotest-rspec
+[submodule "config/nvim/pack/plugins/opt/neotest-rspec"]
+	path = config/nvim/pack/plugins/opt/neotest-rspec
 	url = https://github.com/olimorris/neotest-rspec.git
-[submodule "nvim/pack/plugins/opt/which-key.nvim"]
-	path = nvim/pack/plugins/opt/which-key.nvim
+[submodule "config/nvim/pack/plugins/opt/which-key.nvim"]
+	path = config/nvim/pack/plugins/opt/which-key.nvim
 	url = https://github.com/folke/which-key.nvim.git
-[submodule "nvim/pack/plugins/opt/vim-slim"]
-	path = nvim/pack/plugins/opt/vim-slim
+[submodule "config/nvim/pack/plugins/opt/vim-slim"]
+	path = config/nvim/pack/plugins/opt/vim-slim
 	url = https://github.com/slim-template/vim-slim.git
-[submodule "nvim/pack/plugins/opt/nvim-surround"]
-	path = nvim/pack/plugins/opt/nvim-surround
+[submodule "config/nvim/pack/plugins/opt/nvim-surround"]
+	path = config/nvim/pack/plugins/opt/nvim-surround
 	url = https://github.com/kylechui/nvim-surround.git
-[submodule "nvim/pack/plugins/opt/neotest-vitest"]
-	path = nvim/pack/plugins/opt/neotest-vitest
+[submodule "config/nvim/pack/plugins/opt/neotest-vitest"]
+	path = config/nvim/pack/plugins/opt/neotest-vitest
 	url = https://github.com/marilari88/neotest-vitest.git
-[submodule "nvim/pack/plugins/opt/nvim-notify"]
-	path = nvim/pack/plugins/opt/nvim-notify
+[submodule "config/nvim/pack/plugins/opt/nvim-notify"]
+	path = config/nvim/pack/plugins/opt/nvim-notify
 	url = https://github.com/rcarriga/nvim-notify.git
-[submodule "nvim/pack/plugins/opt/neo-tree.nvim"]
-	path = nvim/pack/plugins/opt/neo-tree.nvim
+[submodule "config/nvim/pack/plugins/opt/neo-tree.nvim"]
+	path = config/nvim/pack/plugins/opt/neo-tree.nvim
 	url = https://github.com/nvim-neo-tree/neo-tree.nvim.git
-[submodule "nvim/pack/plugins/opt/nui.nvim"]
-	path = nvim/pack/plugins/opt/nui.nvim
+[submodule "config/nvim/pack/plugins/opt/nui.nvim"]
+	path = config/nvim/pack/plugins/opt/nui.nvim
 	url = https://github.com/MunifTanjim/nui.nvim.git
+[submodule "config/zsh/plugins/zsh-syntax-highlighting"]
+	path = config/zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "config/zsh/plugins/zsh-autosuggestions"]
+	path = config/zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions

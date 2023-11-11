@@ -20,32 +20,26 @@ function link_file {
   elif [ -e "$2" ]; then
     echo_red "$2 already exists, skipping. (You might not want this, so check the file.)"
   else
-    ln -s "$1" "$2"
+    ln -s "$PWD/$1" "$2"
     echo "Linked $2"
   fi
-}
-
-function link_config_files {
-  for filename in $*; do
-    link_file ~/.dotfiles/$filename ~/.$filename
-  done
 }
 
 function run_step {
   echo
   echo_green "*** $1 ***"
-  source ~/.dotfiles/script/steps/$1.sh
+  source ~/.dotfiles/steps/$1.sh
 }
 
 function usage {
   echo "Usage:"
-  echo "  ./script/install.sh home|work [step name]"
+  echo "  install home|work [step name]"
   echo
   echo "Run all steps:"
-  echo "  ./script/install.sh home|work"
+  echo "  install home|work"
   echo
   echo "Run a single step:"
-  echo "  ./script/install.sh home|work [step name]"
+  echo "  install home|work [step name]"
   echo
   echo "Available steps: ${steps[@]}"
   exit 1

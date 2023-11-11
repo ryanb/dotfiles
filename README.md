@@ -18,21 +18,27 @@ On a new system:
     xcode-select --install
     git clone git://github.com/notahat/dotfiles ~/.dotfiles
     cd ~/.dotfiles
-    ./script/install.sh home
+    ./bin/install home
 
-Run `./script/install.sh -h` to see other options.
+Run `./bin/install -h` to see other options.
 
 ### Managing Plugins
 
 Plugins for neovim and zsh are managed as git submodules.
 
-Run `./script/upgrade-plugins.sh` to fetch new versions of all plugins.
+Run `./bin/upgrade-plugins` to fetch new versions of all plugins.
 
 ## Modifying
 
-Scripts for each step live in the `script/steps` directory. They're all
-run by `scripts/install.h`, which also provides some helpful functions
-for the steps to use.
+Scripts for each step live in the `steps` directory. They're all run by
+`bin/install`, which also provides some helpful functions for the steps to
+use.
+
+All the config files live under `config`. Most of these get soft-linked into
+place by the steps.
+
+The `environments` directory contains Brewfiles and `.tool-versions` files
+specific to home and work.
 
 ## Tools Used
 

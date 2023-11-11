@@ -1,4 +1,4 @@
-link_config_files gitignore
+link_file config/git/gitignore ~/.gitignore
 
 git config --global user.name "Pete Yandell"
 git config --global user.email "pete@notahat.com"
