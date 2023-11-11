@@ -11,7 +11,7 @@ local function configure()
     vim.keymap.set("v", "<", "<gv")
     vim.keymap.set("v", ">", ">gv")
 
-    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, {desc = "show diagnostic"})
+    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostic" })
 end
 
-return {configure = configure}
+return { configure = configure }

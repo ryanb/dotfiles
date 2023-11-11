@@ -12,6 +12,7 @@ brew 'jq'
 brew 'lua-language-server' # For better neovim config editing.
 brew 'neovim'
 brew 'ripgrep'
+brew 'stylua'
 
 cask 'iterm2'
 cask 'notion'

@@ -64,6 +64,7 @@ brew 'gh'
 brew 'git'
 
 brew 'lua-language-server' # For better neovim config editing.
+brew 'stylua'
 
 tap 'homebrew/cask-fonts'
 cask 'font-inconsolata-nerd-font'

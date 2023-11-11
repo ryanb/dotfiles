@@ -1,5 +1,5 @@
 local function configure()
-    vim.cmd.packadd({"vim-commentary", bang = true})
+    vim.cmd.packadd({ "vim-commentary", bang = true })
 end
 
-return {configure = configure}
+return { configure = configure }

@@ -1,16 +1,14 @@
 local function configure()
-    vim.cmd.packadd({"nvim-tree.lua", bang = true}) -- https://github.com/nvim-tree/nvim-tree.lua
+    vim.cmd.packadd({ "nvim-tree.lua", bang = true }) -- https://github.com/nvim-tree/nvim-tree.lua
     local nvim_tree = require("nvim-tree")
-    nvim_tree.setup(
-        {
-            update_focused_file = {enable = true},
-            view = {width = 40}
-        }
-    )
+    nvim_tree.setup({
+        update_focused_file = { enable = true },
+        view = { width = 40 },
+    })
 
     local nvim_tree_api = require("nvim-tree.api")
 
-    vim.keymap.set("n", "<leader>fe", nvim_tree_api.tree.toggle, {desc = "file explorer"})
+    vim.keymap.set("n", "<leader>fe", nvim_tree_api.tree.toggle, { desc = "file explorer" })
 end
 
-return {configure = configure}
+return { configure = configure }
