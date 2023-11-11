@@ -9,6 +9,7 @@ local function configure()
     which_key.register(
         {
             c = "code",
+            e = "file explorer",
             f = "find",
             t = "tests"
         },

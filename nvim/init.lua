@@ -20,7 +20,8 @@ if not vim.g.vscode then
 
     -- Navigation:
     require("plugins/telescope").configure()
-    require("plugins/nvim-tree").configure()
+    -- require("plugins/nvim-tree").configure()
+    require("plugins/neo-tree").configure()
     require("plugins/rails").configure()
     require("plugins/which-key").configure()
 

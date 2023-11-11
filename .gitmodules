@@ -82,3 +82,9 @@
 [submodule "nvim/pack/plugins/opt/nvim-notify"]
 	path = nvim/pack/plugins/opt/nvim-notify
 	url = https://github.com/rcarriga/nvim-notify.git
+[submodule "nvim/pack/plugins/opt/neo-tree.nvim"]
+	path = nvim/pack/plugins/opt/neo-tree.nvim
+	url = https://github.com/nvim-neo-tree/neo-tree.nvim.git
+[submodule "nvim/pack/plugins/opt/nui.nvim"]
+	path = nvim/pack/plugins/opt/nui.nvim
+	url = https://github.com/MunifTanjim/nui.nvim.git
