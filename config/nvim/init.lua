@@ -6,13 +6,13 @@ if not vim.g.vscode then
     require("plugins/plenary").configure()
 
     -- Language support:
-    require("plugins/treesitter").configure()
-    require("plugins/cmp").configure()
-    require("plugins/lspconfig").configure()
+    require("plugins/nvim-treesitter").configure()
+    require("plugins/nvim-cmp").configure()
+    require("plugins/nvim-lspconfig").configure()
     require("plugins/neotest").configure()
 
     -- Appearance:
-    require("plugins/web-devicons").configure()
+    require("plugins/nvim-web-devicons").configure()
     require("plugins/jellybeans").configure()
     require("plugins/lualine").configure()
     require("plugins/gitsigns").configure()
@@ -22,13 +22,13 @@ if not vim.g.vscode then
     require("plugins/telescope").configure()
     -- require("plugins/nvim-tree").configure()
     require("plugins/neo-tree").configure()
-    require("plugins/rails").configure()
+    require("plugins/vim-rails").configure()
     require("plugins/which-key").configure()
 
     -- Editing:
-    require("plugins/autopairs").configure()
-    require("plugins/autotag").configure()
-    require("plugins/commentary").configure()
+    require("plugins/nvim-autopairs").configure()
+    require("plugins/nvim-ts-autotag").configure()
+    require("plugins/vim-commentary").configure()
     require("plugins/nvim-surround").configure()
     require("plugins/neoformat").configure()
 end
