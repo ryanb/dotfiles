@@ -1,3 +1,5 @@
+# Pete's Dotfiles
+
 This does 80% of the work of setting up a Mac the way I like it.
 
 Setup scripts only work if you maintain them. The only way to maintain them is
