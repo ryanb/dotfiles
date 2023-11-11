@@ -1,6 +1,0 @@
-lua-fmt
-prettier
-standard
-@babel/eslint-parser
-typescript
-typescript-language-server

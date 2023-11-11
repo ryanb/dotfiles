@@ -14,8 +14,16 @@ local function configure()
     -- For other language servers see:
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
     lsp.lua_ls.setup(lsp_opts)
-    lsp.sorbet.setup(lsp_opts)
-    lsp.tsserver.setup(lsp_opts)
+    lsp.ruby_ls.setup({
+        cmd = { "bundle", "exec", "ruby-lsp" }
+    })
+    -- lsp.sorbet.setup({
+    --     cmd = { "bundle", "exec",  "srb", "tc", "--lsp" }
+    -- })
+    lsp.tsserver.setup({
+        cmd = { "npx", "typescript-language-server", "--stdio" },
+        capabilities = cmp_nvim_lsp.default_capabilities()
+    })
 
     local function map_lsp_keys(args)
         local telescope_builtin = require("telescope.builtin")
