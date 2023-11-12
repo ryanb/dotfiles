@@ -88,3 +88,6 @@
 [submodule "config/zsh/plugins/zsh-autosuggestions"]
 	path = config/zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "config/nvim/pack/plugins/opt/bufdelete.nvim"]
+	path = config/nvim/pack/plugins/opt/bufdelete.nvim
+	url = https://github.com/famiu/bufdelete.nvim.git

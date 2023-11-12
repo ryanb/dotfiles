@@ -22,6 +22,7 @@ if not vim.g.vscode then
     -- require("plugins/nvim-tree").configure()
     require("plugins/neo-tree").configure()
     require("plugins/vim-rails").configure()
+    require("plugins/bufdelete").configure()
     require("plugins/which-key").configure()
 
     -- Editing:

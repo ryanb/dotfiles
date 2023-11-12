@@ -1,3 +1,4 @@
+local bufdelete = require("bufdelete")
 local neotest = require("neotest")
 local neo_tree_command = require("neo-tree.command")
 local telescope_builtin = require("telescope.builtin")
@@ -36,6 +37,7 @@ local function configure()
     vim.keymap.set("n", "<leader>e", explore_files, { desc = "explore files" })
     vim.keymap.set("n", "<leader>q", write_all_and_quit, { desc = "write all files and quit" })
     vim.keymap.set("n", "<leader>s", telescope_builtin.live_grep, { desc = "search files" })
+    vim.keymap.set("n", "<leader>x", bufdelete.bufdelete, { desc = "close current buffer" })
 
     local function map_lsp_keys(args)
         local buffer = args.buf
