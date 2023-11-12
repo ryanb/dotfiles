@@ -2,8 +2,8 @@ local function configure()
     vim.cmd.packadd({ "which-key.nvim", bang = true }) -- https://github.com/folke/which-key.nvim
     local which_key = require("which-key")
 
-    vim.opt.timeout = true
-    vim.opt.timeoutlen = 500
+    vim.o.timeout = true
+    vim.o.timeoutlen = 300
 
     which_key.setup({})
     which_key.register({

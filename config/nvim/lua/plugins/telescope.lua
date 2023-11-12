@@ -24,6 +24,8 @@ local function configure()
     vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, { desc = "find files" })
     vim.keymap.set("n", "<leader>fg", telescope_builtin.git_status, { desc = "find git status" })
     vim.keymap.set("n", "<leader>fs", telescope_builtin.live_grep, { desc = "search file contents" })
+
+    vim.keymap.set("n", "<leader><leader>", telescope_builtin.find_files, { desc = "find files" })
 end
 
 return { configure = configure }

@@ -1,5 +1,5 @@
 local function configure()
-    vim.g.mapleader = ","
+    vim.g.mapleader = " "
 
     -- Shortcuts for navigation between windows
     vim.keymap.set("n", "<c-h>", "<c-w>h")

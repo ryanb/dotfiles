@@ -1,22 +1,22 @@
 local function configure()
-    vim.opt.tabstop = 2
-    vim.opt.shiftwidth = 2
-    vim.opt.softtabstop = 2
-    vim.opt.expandtab = true
-    vim.opt.breakindent = true
-    vim.opt.linebreak = true
-    vim.opt.scrolloff = 2
-    vim.opt.tildeop = true
-    vim.opt.showmatch = true
-    vim.opt.mouse = "a"
-    vim.opt.autowriteall = true
+    vim.o.tabstop = 2
+    vim.o.shiftwidth = 2
+    vim.o.softtabstop = 2
+    vim.o.expandtab = true
+    vim.o.breakindent = true
+    vim.o.linebreak = true
+    vim.o.scrolloff = 2
+    vim.o.tildeop = true
+    vim.o.showmatch = true
+    vim.o.mouse = "a"
+    vim.o.autowriteall = true
 
     -- Use relative line numbering, but display the actual line
     -- number on the current line, and highlight it.
-    vim.opt.number = true
-    vim.opt.relativenumber = true
-    vim.opt.cursorline = true
-    vim.opt.cursorlineopt = "number"
+    vim.o.number = true
+    vim.o.relativenumber = true
+    vim.o.cursorline = true
+    vim.o.cursorlineopt = "number"
 
     -- Stop checkhealth complaining about missing language providers.
     -- I never use the language-specific interfaces anyway.
@@ -30,9 +30,9 @@ local function configure()
         pattern = "lua",
         group = group,
         callback = function()
-            vim.opt_local.tabstop = 4
-            vim.opt_local.shiftwidth = 4
-            vim.opt_local.softtabstop = 4
+            vim.bo.tabstop = 4
+            vim.bo.shiftwidth = 4
+            vim.bo.softtabstop = 4
         end,
     })
 end
