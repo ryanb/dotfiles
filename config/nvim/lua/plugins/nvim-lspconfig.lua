@@ -25,29 +25,6 @@ local function configure()
 
     -- For other language servers see:
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-
-    local function map_lsp_keys(args)
-        local telescope_builtin = require("telescope.builtin")
-
-        local buffer = args.buf
-
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = buffer, desc = "code actions" })
-        vim.keymap.set("n", "<leader>cd", telescope_builtin.diagnostics, { buffer = buffer, desc = "diagnostics" })
-        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { buffer = buffer, desc = "rename" })
-        vim.keymap.set(
-            "n",
-            "<leader>cs",
-            telescope_builtin.lsp_document_symbols,
-            { buffer = buffer, desc = "document symbols" }
-        )
-
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buffer })
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buffer })
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = buffer })
-    end
-
-    local group = vim.api.nvim_create_augroup("lspKeyBindings", { clear = true })
-    vim.api.nvim_create_autocmd("LspAttach", { group = group, callback = map_lsp_keys })
 end
 
 return { configure = configure }

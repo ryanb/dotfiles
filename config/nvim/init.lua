@@ -1,6 +1,5 @@
 if not vim.g.vscode then
     require("options").configure()
-    require("key_mappings").configure()
 
     -- Some other packages need this:
     require("plugins/plenary").configure()
@@ -31,4 +30,6 @@ if not vim.g.vscode then
     require("plugins/vim-commentary").configure()
     require("plugins/nvim-surround").configure()
     require("plugins/neoformat").configure()
+
+    require("key_mappings").configure()
 end

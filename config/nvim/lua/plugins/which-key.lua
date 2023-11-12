@@ -7,10 +7,9 @@ local function configure()
 
     which_key.setup({})
     which_key.register({
-        c = "code",
-        e = "file explorer",
-        f = "find",
-        t = "tests",
+        c = "code...",
+        g = "git...",
+        t = "tests...",
     }, {
         prefix = "<leader>",
     })
