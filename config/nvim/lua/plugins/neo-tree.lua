@@ -12,7 +12,16 @@ local function configure()
         bind_to_cwd = false,
         use_popups_for_input = false,
         filesystem = {
+            follow_current_file = {
+                enabled = true,
+                leave_dirs_open = false,
+            },
             use_libuv_file_watcher = true,
+            window = {
+                mappings = {
+                    ["<space>"] = "none", -- Let our leader key work in the explorer.
+                },
+            },
         },
     })
 end
