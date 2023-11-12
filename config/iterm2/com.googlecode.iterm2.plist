@@ -464,7 +464,7 @@
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>120</integer>
+			<integer>160</integer>
 			<key>Command</key>
 			<string>arch -x86_64 /bin/zsh</string>
 			<key>Cursor Color</key>
