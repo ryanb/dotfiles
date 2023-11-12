@@ -10,6 +10,10 @@ local function run_tests_for_current_buffer()
     neotest.run.run(vim.fn.expand("%"))
 end
 
+local function write_all_and_quit()
+    vim.cmd("confirm xall")
+end
+
 local function configure()
     vim.g.mapleader = " "
 
@@ -30,6 +34,7 @@ local function configure()
     vim.keymap.set("n", "<leader>b", telescope_builtin.buffers, { desc = "find buffers" })
     vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
     vim.keymap.set("n", "<leader>e", explore_files, { desc = "explore files" })
+    vim.keymap.set("n", "<leader>q", write_all_and_quit, { desc = "write all files and quit" })
     vim.keymap.set("n", "<leader>s", telescope_builtin.live_grep, { desc = "search files" })
 
     local function map_lsp_keys(args)
