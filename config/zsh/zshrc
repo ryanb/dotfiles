@@ -84,6 +84,7 @@ alias gl='git log'
 alias gm='git merge --no-ff'
 alias gp='git push'
 alias gpr='git push -u && gh pr create --web'
+alias gb='gh pr view --web'
 alias gs='git status'
 
 alias zed='/usr/local/bin/zed'
@@ -94,6 +95,10 @@ function autoruby {
 
 function autonode {
   echo $1 | entr -c node $1
+}
+
+function autorspec {
+  echo $1 | entr -c ./up rspec $1
 }
 
 # Homebrew =====================================================================
@@ -125,3 +130,27 @@ ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Work stuff ===================================================================
+
+if [[ -z ${ANDROID_HOME+x} ]]; then
+  export ANDROID_HOME=$HOME/Library/Android/sdk
+  export PATH=$ANDROID_HOME/emulator:$PATH
+  export PATH=$ANDROID_HOME/tools:$PATH
+  export PATH=$ANDROID_HOME/tools/bin:$PATH
+  export PATH=$ANDROID_HOME/platform-tools:$PATH
+  export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+fi
+
+if [ -z ${ANDROID_SDK_ROOT+x} ]; then
+  export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+  export PATH=$ANDROID_SDK_ROOT/emulator:$PATH
+  export PATH=$ANDROID_SDK_ROOT/tools:$PATH
+  export PATH=$ANDROID_SDK_ROOT/tools/bin:$PATH
+  export PATH=$ANDROID_SDK_ROOT/platform-tools:$PATH
+  export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+fi
+
+if [[ -f ~/src/up/.zsh-up-completion/init.zsh ]]; then
+  source ~/src/up/.zsh-up-completion/init.zsh
+fi
