@@ -26,7 +26,7 @@ Anything I'm not using gets removed.
 All the config files live under `config`. Most of these get soft-linked into
 place by the steps.
 
-The `environments` directory contains a `Brewfile`s and `.tool-versions`s files
+The `environments` directory contains `Brewfile`s and `.tool-versions`s files
 for home and work.
 
 Plugins for neovim and zsh are installed as git submodules. Run
