@@ -18,6 +18,9 @@ local function configure()
     vim.o.cursorline = true
     vim.o.cursorlineopt = "number"
 
+    -- Get rid of the annoying ~ characters on empty lines.
+    vim.opt.fillchars = { eob = " " }
+
     -- Stop checkhealth complaining about missing language providers.
     -- I never use the language-specific interfaces anyway.
     vim.g.loaded_python3_provider = 0
