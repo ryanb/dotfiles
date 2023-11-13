@@ -89,6 +89,8 @@ alias gs='git status'
 
 alias zed='/usr/local/bin/zed'
 
+alias lvim='NVIM_APPNAME=lazyvim nvim'
+
 function autoruby {
   echo $1 | entr -c ruby $1
 }
