@@ -30,7 +30,8 @@ if not vim.g.vscode then
     require("plugins/nvim-ts-autotag").configure()
     require("plugins/vim-commentary").configure()
     require("plugins/nvim-surround").configure()
-    require("plugins/neoformat").configure()
+    -- require("plugins/neoformat").configure()
+    require("plugins/conform").configure()
 
     require("key_mappings").configure()
 end

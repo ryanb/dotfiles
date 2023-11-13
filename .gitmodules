@@ -91,3 +91,6 @@
 [submodule "config/nvim/pack/plugins/opt/bufdelete.nvim"]
 	path = config/nvim/pack/plugins/opt/bufdelete.nvim
 	url = https://github.com/famiu/bufdelete.nvim.git
+[submodule "config/nvim/pack/plugins/opt/conform.nvim"]
+	path = config/nvim/pack/plugins/opt/conform.nvim
+	url = https://github.com/stevearc/conform.nvim.git
