@@ -8,6 +8,7 @@ if not vim.g.vscode then
     require("plugins/nvim-treesitter").configure()
     require("plugins/nvim-cmp").configure()
     require("plugins/nvim-lspconfig").configure()
+    require("plugins/nvim-lint").configure()
     require("plugins/neotest").configure()
 
     -- Appearance:

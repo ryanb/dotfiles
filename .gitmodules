@@ -94,3 +94,6 @@
 [submodule "config/nvim/pack/plugins/opt/conform.nvim"]
 	path = config/nvim/pack/plugins/opt/conform.nvim
 	url = https://github.com/stevearc/conform.nvim.git
+[submodule "config/nvim/pack/plugins/opt/nvim-lint"]
+	path = config/nvim/pack/plugins/opt/nvim-lint
+	url = https://github.com/mfussenegger/nvim-lint.git

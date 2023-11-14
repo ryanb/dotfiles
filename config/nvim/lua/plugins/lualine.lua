@@ -1,6 +1,7 @@
 local function copy_relative_path()
-    vim.fn.setreg("+", vim.fn.expand("%:."))
-    vim.notify("Path copied")
+    local path = vim.fn.expand("%:.")
+    vim.fn.setreg("+", path)
+    vim.notify("Path copied: " .. path)
 end
 
 local function configure()
