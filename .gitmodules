@@ -97,3 +97,12 @@
 [submodule "config/nvim/pack/plugins/opt/nvim-lint"]
 	path = config/nvim/pack/plugins/opt/nvim-lint
 	url = https://github.com/mfussenegger/nvim-lint.git
+[submodule "config/nvim/pack/plugins/opt/vim-test"]
+	path = config/nvim/pack/plugins/opt/vim-test
+	url = https://github.com/vim-test/vim-test.git
+[submodule "config/nvim/pack/plugins/opt/vim-dispatch"]
+	path = config/nvim/pack/plugins/opt/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch.git
+[submodule "config/nvim/pack/plugins/opt/asyncrun.vim"]
+	path = config/nvim/pack/plugins/opt/asyncrun.vim
+	url = https://github.com/skywind3000/asyncrun.vim.git

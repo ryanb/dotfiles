@@ -10,6 +10,8 @@ if not vim.g.vscode then
     require("plugins/nvim-lspconfig").configure()
     require("plugins/nvim-lint").configure()
     require("plugins/neotest").configure()
+    -- require("plugins/neotest").configure()
+    require("plugins/vim-test").configure()
 
     -- Appearance:
     require("plugins/nvim-web-devicons").configure()

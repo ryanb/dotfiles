@@ -1,5 +1,5 @@
 local bufdelete = require("bufdelete")
-local neotest = require("neotest")
+-- local neotest = require("neotest")
 local neo_tree_command = require("neo-tree.command")
 local telescope_builtin = require("telescope.builtin")
 
@@ -8,7 +8,7 @@ local function explore_files()
 end
 
 local function run_tests_for_current_buffer()
-    neotest.run.run(vim.fn.expand("%"))
+    -- neotest.run.run(vim.fn.expand("%"))
 end
 
 local function write_all_and_quit()
@@ -69,10 +69,14 @@ local function configure()
     vim.keymap.set("n", "<leader>gs", telescope_builtin.git_status, { desc = "git status" })
 
     -- Running tests:
-    vim.keymap.set("n", "<leader>tb", run_tests_for_current_buffer, { desc = "run tests in current buffer" })
-    vim.keymap.set("n", "<leader>tl", neotest.run.run_last, { desc = "run last test" })
-    vim.keymap.set("n", "<leader>tn", neotest.run.run, { desc = "run nearest test" })
-    vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, { desc = "toggle test summary" })
+    vim.keymap.set("n", "<leader>tb", ":TestFile<CR>", { desc = "run tests in current buffer" })
+    vim.keymap.set("n", "<leader>tl", ":TestLast<CR>", { desc = "run last test" })
+    vim.keymap.set("n", "<leader>tn", ":TestNearest<CR>", { desc = "run nearest test" })
+    -- vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, { desc = "toggle test summary" })
+    -- vim.keymap.set("n", "<leader>tb", run_tests_for_current_buffer, { desc = "run tests in current buffer" })
+    -- vim.keymap.set("n", "<leader>tl", neotest.run.run_last, { desc = "run last test" })
+    -- vim.keymap.set("n", "<leader>tn", neotest.run.run, { desc = "run nearest test" })
+    -- vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, { desc = "toggle test summary" })
 end
 
 return { configure = configure }
