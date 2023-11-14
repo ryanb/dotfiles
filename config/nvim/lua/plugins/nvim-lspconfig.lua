@@ -10,13 +10,13 @@ local function configure()
 
     lsp.lua_ls.setup({ capabilities = cmp_nvim_lsp.default_capabilities() })
 
-    lsp.ruby_ls.setup({
-        cmd = { "bundle", "exec", "ruby-lsp" },
-    })
-
-    -- lsp.sorbet.setup({
-    --     cmd = { "bundle", "exec",  "srb", "tc", "--lsp" }
+    -- lsp.ruby_ls.setup({
+    --     cmd = { "bundle", "exec", "ruby-lsp" },
     -- })
+
+    lsp.sorbet.setup({
+        cmd = { "bundle", "exec", "srb", "tc", "--lsp" },
+    })
 
     lsp.tsserver.setup({
         cmd = { "npx", "typescript-language-server", "--stdio" },

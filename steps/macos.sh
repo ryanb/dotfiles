@@ -2,6 +2,10 @@
 defaults write com.apple.dock show-recents -boolean FALSE
 killall Dock
 
+# Don't have the nn key open the emoji picker.
+# This doesn't seem to stick until a logout. :(
+defaults write com.apple.HIToolbox AppleFnUsageType -int 0
+
 # Turn on filevault.
 if ! fdesetup status | grep -E "FileVault is (On|Off, but will be enabled after the next restart)."; then
   sudo fdesetup enable -user "$USER" | tee ~/Desktop/"FileVault Recovery Key.txt"
