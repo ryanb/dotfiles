@@ -9,6 +9,7 @@ local function configure()
     vim.o.tildeop = true
     vim.o.showmatch = true
     vim.o.mouse = "a"
+    vim.o.mousescroll = "ver:1"
     vim.o.autowriteall = true
 
     -- Use relative line numbering, but display the actual line

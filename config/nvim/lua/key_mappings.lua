@@ -7,9 +7,9 @@ local function explore_files()
     neo_tree_command.execute({ reveal_file = vim.fn.expand("%:p"), toggle = true })
 end
 
-local function run_tests_for_current_buffer()
-    -- neotest.run.run(vim.fn.expand("%"))
-end
+-- local function run_tests_for_current_buffer()
+--     neotest.run.run(vim.fn.expand("%"))
+-- end
 
 local function write_all_and_quit()
     vim.cmd("confirm xall")
@@ -27,6 +27,10 @@ local function configure()
     -- Reselect the visual area when changing indenting in visual mode.
     vim.keymap.set("v", "<", "<gv")
     vim.keymap.set("v", ">", ">gv")
+
+    -- Move through the quickfix list.
+    vim.keymap.set("n", "[q", vim.cmd.cbefore, { desc = "previous quickfix error in buffer" })
+    vim.keymap.set("n", "]q", vim.cmd.cafter, { desc = "next quickfix error in buffer" })
 
     -- We do this often enought that we want it fast.
     vim.keymap.set("n", "<leader><leader>", telescope_builtin.find_files, { desc = "find files" })
@@ -69,7 +73,7 @@ local function configure()
     vim.keymap.set("n", "<leader>gs", telescope_builtin.git_status, { desc = "git status" })
 
     -- Running tests:
-    vim.keymap.set("n", "<leader>tb", ":TestFile<CR>", { desc = "run tests in current buffer" })
+    vim.keymap.set("n", "<leader>tf", ":TestFile<CR>", { desc = "run tests in current file" })
     vim.keymap.set("n", "<leader>tl", ":TestLast<CR>", { desc = "run last test" })
     vim.keymap.set("n", "<leader>tn", ":TestNearest<CR>", { desc = "run nearest test" })
     -- vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, { desc = "toggle test summary" })
