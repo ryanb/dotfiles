@@ -3,14 +3,14 @@ local function configure()
     local conform = require("conform")
     conform.setup({
         formatters_by_ft = {
-            css = { "prettier" },
-            html = { "prettier" },
-            javascript = { "prettier" },
-            json = { "prettier" },
+            css = { { "prettierd", "prettier" } },
+            html = { { "prettierd", "prettier" } },
+            javascript = { { "prettierd", "prettier" } },
+            json = { { "prettierd", "prettier" } },
             lua = { "stylua" },
-            ruby = { { "standardrb", "prettier" } },
-            typescript = { "prettier" },
-            typescriptreact = { "prettier" },
+            ruby = { { "standardrb", "prettierd", "prettier" } },
+            typescript = { { "prettierd", "prettier" } },
+            typescriptreact = { { "prettierd", "prettier" } },
         },
         format_on_save = {
             lsp_fallback = true,
