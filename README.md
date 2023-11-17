@@ -29,8 +29,8 @@ place by the steps.
 The `environments` directory contains `Brewfile`s and `.tool-versions`s files
 for home and work.
 
-Plugins for neovim and zsh are installed as git submodules. Run
-`./bin/upgrade-plugins` to fetch new versions of all plugins.
+Plugins for zsh are installed as git submodules. Run `./bin/upgrade-plugins` to
+fetch new versions of all plugins.
 
 ## Tools Used
 
