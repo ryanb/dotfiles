@@ -15,7 +15,6 @@ local function configure()
     vim.o.mouse = "a"
     vim.o.mousescroll = "ver:1"
     vim.o.autowriteall = true
-    vim.opt.shortmess:append({ I = true })
 
     -- Use relative line numbering, but display the actual line
     -- number on the current line, and highlight it.
@@ -23,6 +22,9 @@ local function configure()
     vim.o.relativenumber = true
     vim.o.cursorline = true
     vim.o.cursorlineopt = "number"
+
+    -- Don't show the default startup message.
+    vim.opt.shortmess:append({ I = true })
 
     -- Get rid of the annoying ~ characters on empty lines.
     vim.opt.fillchars = { eob = " " }

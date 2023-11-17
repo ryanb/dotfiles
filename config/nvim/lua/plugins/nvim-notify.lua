@@ -1,5 +1,6 @@
 local opts = {
     background_colour = "#000000",
+    render = "wrapped-compact",
     stages = "fade",
     top_down = false,
 }

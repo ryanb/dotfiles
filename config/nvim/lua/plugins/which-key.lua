@@ -8,6 +8,7 @@ local function init()
         c = "code...",
         g = "git...",
         t = "tests...",
+        w = "windows...",
     }, {
         prefix = "<leader>",
     })
