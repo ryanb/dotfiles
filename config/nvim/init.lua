@@ -1,7 +1,18 @@
 if not vim.g.vscode then
-    require("bootstrap_lazy").bootstrap()
-
     require("options").configure()
-    require("lazy").setup("plugins")
+
+    require("bootstrap_lazy").bootstrap()
+    require("lazy").setup({
+        spec = {
+            { import = "plugins.appearance" },
+            { import = "plugins.editing" },
+            { import = "plugins.language" },
+            { import = "plugins.navigation" },
+        },
+        install = {
+            colorscheme = { "jellybeans" },
+        },
+    })
+
     require("key_mappings").configure()
 end
