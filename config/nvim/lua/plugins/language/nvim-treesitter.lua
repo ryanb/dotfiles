@@ -35,15 +35,11 @@ local opts = {
 }
 
 return {
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
-        },
-        opts = opts,
-        version = false,
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter-textobjects",
     },
-    -- Treesitter ain't got support for slim, so:
-    "slim-template/vim-slim",
+    opts = opts,
+    version = false,
 }
