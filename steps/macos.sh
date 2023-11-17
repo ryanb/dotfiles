@@ -13,3 +13,7 @@ fi
 
 # Turn on the firewall.
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+
+# Make key repeats work properly in Warp.
+# (Hopeufully Warp will fix this soon.)
+defaults write dev.warp.Warp-Stable ApplePressAndHoldEnabled -bool false
