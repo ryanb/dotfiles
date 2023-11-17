@@ -1,4 +1,7 @@
 if not vim.g.vscode then
+    -- Need this set up before loading all the plugins.
+    vim.g.mapleader = " "
+
     require("options").configure()
 
     -- Some other packages need this:

@@ -11,6 +11,7 @@ local function configure()
     vim.o.mouse = "a"
     vim.o.mousescroll = "ver:1"
     vim.o.autowriteall = true
+    vim.opt.shortmess:append({ I = true })
 
     -- Use relative line numbering, but display the actual line
     -- number on the current line, and highlight it.

@@ -16,8 +16,6 @@ local function write_all_and_quit()
 end
 
 local function configure()
-    vim.g.mapleader = " "
-
     -- Shortcuts for navigation between windows
     vim.keymap.set("n", "<c-h>", "<c-w>h")
     vim.keymap.set("n", "<c-j>", "<c-w>j")
