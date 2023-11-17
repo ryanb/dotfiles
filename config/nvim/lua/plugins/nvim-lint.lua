@@ -1,6 +1,6 @@
-local function configure()
-    vim.cmd.packadd({ "nvim-lint", bang = true }) -- https://github.com/mfussenegger/nvim-lint
+local function config()
     local lint = require("lint")
+
     lint.linters_by_ft = {
         typescript = { "eslint" },
         typescriptreact = { "eslint" },
@@ -15,4 +15,4 @@ local function configure()
     })
 end
 
-return { configure = configure }
+return { "mfussenegger/nvim-lint", config = config }

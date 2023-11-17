@@ -1,9 +1,6 @@
-local function configure()
-    vim.cmd.packadd({ "nvim-cmp", bang = true }) -- https://github.com/hrsh7th/nvim-cmp
-    vim.cmd.packadd({ "vim-vsnip", bang = true }) -- https://github.com/hrsh7th/vim-vsnip
-
+local opts = function()
     local cmp = require("cmp")
-    cmp.setup({
+    return {
         sources = {
             { name = "nvim_lsp" },
         },
@@ -18,7 +15,11 @@ local function configure()
                 vim.fn["vsnip#anonymous"](args.body)
             end,
         },
-    })
+    }
 end
 
-return { configure = configure }
+return {
+    "hrsh7th/nvim-cmp",
+    dependencies = { "hrsh7th/vim-vsnip" },
+    opts = opts,
+}

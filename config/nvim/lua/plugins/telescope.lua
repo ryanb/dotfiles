@@ -1,16 +1,26 @@
-local function configure()
-    vim.cmd.packadd({ "telescope.nvim", bang = true }) -- https://github.com/nvim-telescope/telescope.nvim
-    vim.cmd.packadd({ "telescope-ui-select.nvim", bang = true }) -- https://github.com/nvim-telescope/telescope-ui-select.nvim
-
-    local telescope = require("telescope")
-    telescope.setup({
+local function opts()
+    return {
         extensions = {
             ["ui-select"] = {
-                require("telescope.themes").get_cursor(),
+                require("telescope.themes").get_dropdown(),
             },
         },
-    })
-    telescope.load_extension("ui-select")
+    }
 end
 
-return { configure = configure }
+local function init()
+    require("telescope").load_extension("ui-select")
+end
+
+return {
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-ui-select.nvim",
+        },
+        init = init,
+        opts = opts,
+    },
+    "nvim-telescope/telescope.nvim",
+}

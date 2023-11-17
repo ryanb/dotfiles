@@ -1,7 +1,4 @@
-local function configure()
-    vim.cmd.packadd({ "nvim-lspconfig", bang = true }) -- https://github.com/neovim/nvim-lspconfig
-    vim.cmd.packadd({ "cmp-nvim-lsp", bang = true }) -- https://github.com/sar/cmp-lsp.nvim
-
+local function config()
     local lsp = require("lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
@@ -27,4 +24,8 @@ local function configure()
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 end
 
-return { configure = configure }
+return {
+    "neovim/nvim-lspconfig",
+    config = config,
+    dependencies = { "sar/cmp-lsp.nvim" },
+}

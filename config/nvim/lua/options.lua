@@ -1,4 +1,8 @@
 local function configure()
+    -- Need this set up before we load all the plugins.
+    vim.g.mapleader = " "
+    vim.o.termguicolors = true
+
     vim.o.tabstop = 2
     vim.o.shiftwidth = 2
     vim.o.softtabstop = 2
