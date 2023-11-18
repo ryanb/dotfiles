@@ -30,5 +30,5 @@ end
 return {
     "neovim/nvim-lspconfig",
     config = config,
-    dependencies = { "sar/cmp-lsp.nvim" },
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
 }
