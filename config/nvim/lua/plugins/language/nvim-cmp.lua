@@ -27,6 +27,7 @@ local opts = function()
         sources = {
             { name = "nvim_lsp", group_index = 1 },
             { name = "luasnip", group_index = 1 },
+            -- The group index means buffer completions will only be shown when there are no LSP or snippet completions.
             { name = "buffer", group_index = 2 },
         },
         mapping = cmp.mapping.preset.insert({
@@ -48,6 +49,7 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-buffer",
     },
     event = "InsertEnter",
     opts = opts,

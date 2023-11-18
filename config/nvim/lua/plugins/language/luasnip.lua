@@ -10,4 +10,5 @@ return {
     build = "make install_jsregexp",
     config = config,
     dependencies = { "rafamadriz/friendly-snippets" },
+    lazy = true, -- This'll get loaded by nvim-cmp.
 }

@@ -1,6 +1,7 @@
 local bufdelete = require("bufdelete")
 local neo_tree_command = require("neo-tree.command")
 local telescope_builtin = require("telescope.builtin")
+local gitsigns = require("gitsigns")
 
 local function explore_files()
     neo_tree_command.execute({ reveal_file = vim.fn.expand("%:p"), toggle = true })
@@ -24,6 +25,10 @@ local function configure()
     -- Move through the quickfix list.
     vim.keymap.set("n", "[q", vim.cmd.cbefore, { desc = "previous quickfix error in buffer" })
     vim.keymap.set("n", "]q", vim.cmd.cafter, { desc = "next quickfix error in buffer" })
+
+    -- Move throught git hunks.
+    vim.keymap.set("n", "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
+    vim.keymap.set("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
 
     -- We do this often enought that we want it fast.
     vim.keymap.set("n", "<leader><leader>", telescope_builtin.find_files, { desc = "find files" })
