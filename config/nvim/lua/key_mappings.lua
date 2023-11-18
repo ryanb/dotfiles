@@ -26,10 +26,6 @@ local function configure()
     vim.keymap.set("n", "[q", vim.cmd.cbefore, { desc = "previous quickfix error in buffer" })
     vim.keymap.set("n", "]q", vim.cmd.cafter, { desc = "next quickfix error in buffer" })
 
-    -- Move throught git hunks.
-    vim.keymap.set("n", "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
-    vim.keymap.set("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
-
     -- We do this often enought that we want it fast.
     vim.keymap.set("n", "<leader><leader>", telescope_builtin.find_files, { desc = "find files" })
 
@@ -61,7 +57,11 @@ local function configure()
 
         vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buffer, desc = "show info about symbol under cursor" })
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buffer, desc = "go to defintion" })
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = buffer, desc = "go to references" })
+        vim.keymap.set("n", "gr", telescope_builtin.lsp_references, { buffer = buffer, desc = "go to references" })
+
+        -- Move through diagnostics.
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "previous diagnostic in buffer" })
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "next diagnostic in buffer" })
     end
 
     local group = vim.api.nvim_create_augroup("lspKeyBindings", { clear = true })
@@ -69,6 +69,8 @@ local function configure()
 
     -- Git:
     vim.keymap.set("n", "<leader>gs", telescope_builtin.git_status, { desc = "git status" })
+    vim.keymap.set("n", "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
+    vim.keymap.set("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
 
     -- Running tests:
     vim.keymap.set("n", "<leader>tf", ":TestFile<CR>", { desc = "run tests in current file" })
