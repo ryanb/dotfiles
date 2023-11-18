@@ -1,3 +1,5 @@
+-- https://github.com/nvim-lualine/lualine.nvim
+
 local function copy_relative_path()
     local path = vim.fn.expand("%:.")
     vim.fn.setreg("+", path)

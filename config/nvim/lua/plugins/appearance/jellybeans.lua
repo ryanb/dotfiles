@@ -1,3 +1,5 @@
+-- https://github.com/nanotech/jellybeans.vim
+
 local function config()
     -- Use the terminal's background instead of black.
     vim.g.jellybeans_overrides = {

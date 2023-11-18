@@ -1,3 +1,4 @@
+-- Set my preferred neovim options.
 local function configure()
     -- Need this set up before we load all the plugins.
     vim.g.mapleader = " "

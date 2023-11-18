@@ -1,3 +1,5 @@
+-- https://github.com/nvim-neo-tree/neo-tree.nvim
+
 local opts = {
     sources = {
         "filesystem",

@@ -1,4 +1,6 @@
-local function init()
+-- https://github.com/vim-test/vim-test
+
+local function config()
     vim.cmd('let test#strategy = "asyncrun_background"')
 end
 
@@ -8,5 +10,5 @@ return {
         "tpope/vim-dispatch",
         "skywind3000/asyncrun.vim",
     },
-    init = init,
+    config = config,
 }

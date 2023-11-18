@@ -1,3 +1,5 @@
+-- https://github.com/nvim-telescope/telescope.nvim
+
 local function opts()
     return {
         extensions = {
@@ -13,15 +15,12 @@ local function init()
 end
 
 return {
-    {
-        "nvim-telescope/telescope.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "nvim-telescope/telescope-ui-select.nvim",
-        },
-        init = init,
-        opts = opts,
-    },
     "nvim-telescope/telescope.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "nvim-telescope/telescope-ui-select.nvim",
+    },
+    init = init,
+    opts = opts,
 }

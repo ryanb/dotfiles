@@ -1,3 +1,5 @@
+-- https://github.com/folke/which-key.nvim
+
 local function init()
     vim.o.timeout = true
     vim.o.timeoutlen = 300

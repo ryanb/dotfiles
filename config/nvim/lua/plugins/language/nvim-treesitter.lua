@@ -1,3 +1,5 @@
+-- https://github.com/nvim-treesitter/nvim-treesitter
+
 local opts = {
     ensure_installed = {
         "bash",

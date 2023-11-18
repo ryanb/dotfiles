@@ -1,9 +1,13 @@
+-- Linting!
+--
+-- https://github.com/mfussenegger/nvim-lint
+
 local function config()
     local lint = require("lint")
 
     lint.linters_by_ft = {
-        typescript = { "eslint" },
-        typescriptreact = { "eslint" },
+        typescript = { "eslint_d", "eslint" },
+        typescriptreact = { "eslint_d", "eslint" },
     }
 
     local group = vim.api.nvim_create_augroup("lintOnSave", { clear = true })

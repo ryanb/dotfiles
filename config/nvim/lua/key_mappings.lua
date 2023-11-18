@@ -11,6 +11,7 @@ local function write_all_and_quit()
     vim.cmd("confirm xall")
 end
 
+-- Set up all my key mappings.
 local function configure()
     -- Shortcuts for navigation between windows
     vim.keymap.set("n", "<c-h>", "<c-w>h")

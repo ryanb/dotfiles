@@ -1,3 +1,7 @@
+-- Completion
+--
+-- https://github.com/hrsh7th/nvim-cmp
+
 local opts = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")

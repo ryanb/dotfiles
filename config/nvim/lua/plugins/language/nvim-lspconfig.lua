@@ -1,6 +1,9 @@
+-- Language server support
+--
+-- https://github.com/neovim/nvim-lspconfig
+
 local function config()
     local lspconfig = require("lspconfig")
-
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     -- I need to figure out how to make these behave on a per-project basis.

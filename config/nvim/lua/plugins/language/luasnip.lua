@@ -1,3 +1,5 @@
+-- https://github.com/L3MON4D3/LuaSnip
+
 local function config()
     local luasnip = require("luasnip")
     luasnip.filetype_extend("ruby", { "rails" })
