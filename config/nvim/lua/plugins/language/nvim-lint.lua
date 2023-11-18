@@ -1,9 +1,15 @@
-local function configure()
-    vim.cmd.packadd({ "nvim-lint", bang = true }) -- https://github.com/mfussenegger/nvim-lint
+-- Linting!
+--
+-- https://github.com/mfussenegger/nvim-lint
+
+local function config()
     local lint = require("lint")
+
     lint.linters_by_ft = {
-        typescript = { "eslint" },
-        typescriptreact = { "eslint" },
+        javascript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        typescript = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
     }
 
     local group = vim.api.nvim_create_augroup("lintOnSave", { clear = true })
@@ -15,4 +21,4 @@ local function configure()
     })
 end
 
-return { configure = configure }
+return { "mfussenegger/nvim-lint", config = config }

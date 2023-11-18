@@ -1,4 +1,13 @@
+-- Set my preferred neovim options.
 local function configure()
+    -- Allow loading config from the current directory.
+    -- Since neovim 0.9, this has been made pretty secure.
+    vim.o.exrc = true
+
+    -- Need this set up before we load all the plugins.
+    vim.g.mapleader = " "
+    vim.o.termguicolors = true
+
     vim.o.tabstop = 2
     vim.o.shiftwidth = 2
     vim.o.softtabstop = 2
@@ -11,7 +20,6 @@ local function configure()
     vim.o.mouse = "a"
     vim.o.mousescroll = "ver:1"
     vim.o.autowriteall = true
-    vim.opt.shortmess:append({ I = true })
 
     -- Use relative line numbering, but display the actual line
     -- number on the current line, and highlight it.
@@ -19,6 +27,9 @@ local function configure()
     vim.o.relativenumber = true
     vim.o.cursorline = true
     vim.o.cursorlineopt = "number"
+
+    -- Don't show the default startup message.
+    vim.opt.shortmess:append({ I = true })
 
     -- Get rid of the annoying ~ characters on empty lines.
     vim.opt.fillchars = { eob = " " }

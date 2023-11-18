@@ -1,8 +1,6 @@
-local function configure()
-    vim.opt.termguicolors = true
+-- https://github.com/nanotech/jellybeans.vim
 
-    vim.cmd.packadd({ "jellybeans.vim", bang = true }) -- https://github.com/nanotech/jellybeans.vim
-
+local function config()
     -- Use the terminal's background instead of black.
     vim.g.jellybeans_overrides = {
         background = { guibg = "none" },
@@ -20,4 +18,4 @@ local function configure()
     vim.cmd.sign("define", "DiagnosticSignHint", "text=󰍉", "texthl=DiagnosticSignHint")
 end
 
-return { configure = configure }
+return { "nanotech/jellybeans.vim", config = config, lazy = false, priority = 1000 }

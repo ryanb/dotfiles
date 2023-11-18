@@ -1,20 +1,17 @@
 local bufdelete = require("bufdelete")
--- local neotest = require("neotest")
 local neo_tree_command = require("neo-tree.command")
 local telescope_builtin = require("telescope.builtin")
+local gitsigns = require("gitsigns")
 
 local function explore_files()
     neo_tree_command.execute({ reveal_file = vim.fn.expand("%:p"), toggle = true })
 end
 
--- local function run_tests_for_current_buffer()
---     neotest.run.run(vim.fn.expand("%"))
--- end
-
 local function write_all_and_quit()
     vim.cmd("confirm xall")
 end
 
+-- Set up all my key mappings.
 local function configure()
     -- Shortcuts for navigation between windows
     vim.keymap.set("n", "<c-h>", "<c-w>h")
@@ -61,7 +58,11 @@ local function configure()
 
         vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buffer, desc = "show info about symbol under cursor" })
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buffer, desc = "go to defintion" })
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = buffer, desc = "go to references" })
+        vim.keymap.set("n", "gr", telescope_builtin.lsp_references, { buffer = buffer, desc = "go to references" })
+
+        -- Move through diagnostics.
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "previous diagnostic in buffer" })
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "next diagnostic in buffer" })
     end
 
     local group = vim.api.nvim_create_augroup("lspKeyBindings", { clear = true })
@@ -69,16 +70,16 @@ local function configure()
 
     -- Git:
     vim.keymap.set("n", "<leader>gs", telescope_builtin.git_status, { desc = "git status" })
+    vim.keymap.set("n", "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
+    vim.keymap.set("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
 
     -- Running tests:
     vim.keymap.set("n", "<leader>tf", ":TestFile<CR>", { desc = "run tests in current file" })
     vim.keymap.set("n", "<leader>tl", ":TestLast<CR>", { desc = "run last test" })
     vim.keymap.set("n", "<leader>tn", ":TestNearest<CR>", { desc = "run nearest test" })
-    -- vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, { desc = "toggle test summary" })
-    -- vim.keymap.set("n", "<leader>tb", run_tests_for_current_buffer, { desc = "run tests in current buffer" })
-    -- vim.keymap.set("n", "<leader>tl", neotest.run.run_last, { desc = "run last test" })
-    -- vim.keymap.set("n", "<leader>tn", neotest.run.run, { desc = "run nearest test" })
-    -- vim.keymap.set("n", "<leader>ts", neotest.summary.toggle, { desc = "toggle test summary" })
+
+    -- Window management:
+    vim.keymap.set("n", "<leader>wc", vim.cmd.close, { desc = "close the current window" })
 end
 
 return { configure = configure }
