@@ -1,23 +1,26 @@
 local function config()
-    local lsp = require("lspconfig")
-    local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    local lspconfig = require("lspconfig")
+
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     -- I need to figure out how to make these behave on a per-project basis.
     -- This might help: https://github.com/tamago324/nlsp-settings.nvim
 
-    lsp.lua_ls.setup({ capabilities = cmp_nvim_lsp.default_capabilities() })
+    lspconfig.lua_ls.setup({ capabilities = capabilities })
 
     -- lsp.ruby_ls.setup({
     --     cmd = { "bundle", "exec", "ruby-lsp" },
+    --    capabilities = capabilities,
     -- })
 
-    lsp.sorbet.setup({
+    lspconfig.sorbet.setup({
         cmd = { "bundle", "exec", "srb", "tc", "--lsp" },
+        capabilities = capabilities,
     })
 
-    lsp.tsserver.setup({
+    lspconfig.tsserver.setup({
         cmd = { "npx", "typescript-language-server", "--stdio" },
-        capabilities = cmp_nvim_lsp.default_capabilities(),
+        capabilities = capabilities,
     })
 
     -- For other language servers see:
