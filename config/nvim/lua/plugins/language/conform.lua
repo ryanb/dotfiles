@@ -13,7 +13,7 @@ local opts = {
     },
     format_on_save = {
         lsp_fallback = true,
-        timeout_ms = 10000,
+        timeout_ms = 3000,
     },
     notify_on_error = true,
 }

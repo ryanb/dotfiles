@@ -6,12 +6,10 @@ local function config()
     local lspconfig = require("lspconfig")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-    -- I need to figure out how to make these behave on a per-project basis.
-    -- This might help: https://github.com/tamago324/nlsp-settings.nvim
+    -- These can be configured on a per-project basis using exrc.
+    -- See the .nvim.lua file in .dotfiles for an example.
 
-    lspconfig.lua_ls.setup({ capabilities = capabilities })
-
-    -- lsp.ruby_ls.setup({
+    -- lspconfig.ruby_ls.setup({
     --     cmd = { "bundle", "exec", "ruby-lsp" },
     --    capabilities = capabilities,
     -- })

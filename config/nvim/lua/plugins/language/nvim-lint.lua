@@ -6,8 +6,10 @@ local function config()
     local lint = require("lint")
 
     lint.linters_by_ft = {
-        typescript = { "eslint_d", "eslint" },
-        typescriptreact = { "eslint_d", "eslint" },
+        javascript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        typescript = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
     }
 
     local group = vim.api.nvim_create_augroup("lintOnSave", { clear = true })

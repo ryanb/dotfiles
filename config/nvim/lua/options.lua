@@ -1,5 +1,9 @@
 -- Set my preferred neovim options.
 local function configure()
+    -- Allow loading config from the current directory.
+    -- Since neovim 0.9, this has been made pretty secure.
+    vim.o.exrc = true
+
     -- Need this set up before we load all the plugins.
     vim.g.mapleader = " "
     vim.o.termguicolors = true
