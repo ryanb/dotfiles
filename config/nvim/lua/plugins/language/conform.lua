@@ -10,6 +10,9 @@ local opts = {
         ruby = { { "standardrb", "prettierd", "prettier" } },
         typescript = { { "prettierd", "prettier" } },
         typescriptreact = { { "prettierd", "prettier" } },
+
+        -- This will run if no other formatters are configured.
+        ["_"] = { "trim_whitespace" },
     },
     format_on_save = {
         lsp_fallback = true,
