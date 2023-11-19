@@ -4,7 +4,11 @@ local telescope_builtin = require("telescope.builtin")
 local gitsigns = require("gitsigns")
 
 local function explore_files()
-    neo_tree_command.execute({ reveal_file = vim.fn.expand("%:p"), toggle = true })
+    neo_tree_command.execute({ action = "focus", source = "filesystem" })
+end
+
+local function explore_buffers()
+    neo_tree_command.execute({ action = "focus", source = "buffers" })
 end
 
 local function write_all_and_quit()
@@ -31,7 +35,7 @@ local function configure()
     vim.keymap.set("n", "<leader><leader>", telescope_builtin.find_files, { desc = "find files" })
 
     -- Leader + single key stuff:
-    vim.keymap.set("n", "<leader>b", telescope_builtin.buffers, { desc = "find buffers" })
+    vim.keymap.set("n", "<leader>b", explore_buffers, { desc = "find buffers" })
     vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
     vim.keymap.set("n", "<leader>e", explore_files, { desc = "explore files" })
     vim.keymap.set("n", "<leader>q", write_all_and_quit, { desc = "write all files and quit" })
