@@ -7,7 +7,11 @@ local function copy_relative_path()
 end
 
 local opts = {
-    options = { theme = "auto" },
+    options = {
+        theme = "auto",
+        section_separators = { left = "", right = "" },
+        padding = 2,
+    },
     sections = {
         lualine_c = { { "filename", path = 1, on_click = copy_relative_path } },
     },

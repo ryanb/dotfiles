@@ -9,6 +9,11 @@ local opts = {
     },
     bind_to_cwd = false,
     use_popups_for_input = false,
+    default_component_configs = {
+        indent = {
+            with_markers = false,
+        },
+    },
     filesystem = {
         follow_current_file = {
             enabled = true,
