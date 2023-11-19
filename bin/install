@@ -45,7 +45,7 @@ function usage {
   exit 1
 }
 
-steps=(macos homebrew asdf zsh ssh git iterm2 neovim zed)
+steps=(macos homebrew asdf zsh ssh git iterm2 neovim warp zed)
 
 if [[ -z $1 || $1 == -h ]]; then usage; fi
 
