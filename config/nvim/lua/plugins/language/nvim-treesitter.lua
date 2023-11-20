@@ -15,7 +15,11 @@ local opts = {
         "tsx",
         "typescript",
     },
-    highlight = { enable = true },
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+    incremental_selection = { enable = true },
     textobjects = {
         select = {
             enable = true,
@@ -42,6 +46,7 @@ return {
     dependencies = {
         "nvim-treesitter/nvim-treesitter-textobjects",
     },
+    main = "nvim-treesitter.configs",
     opts = opts,
     version = false,
 }
