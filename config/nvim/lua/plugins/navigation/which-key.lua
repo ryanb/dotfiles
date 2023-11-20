@@ -1,6 +1,6 @@
 -- https://github.com/folke/which-key.nvim
 
-local function init()
+local function config()
     vim.o.timeout = true
     vim.o.timeoutlen = 300
 
@@ -18,5 +18,5 @@ end
 
 return {
     "folke/which-key.nvim",
-    init = init,
+    config = config,
 }
