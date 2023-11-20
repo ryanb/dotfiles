@@ -4,3 +4,5 @@ defaults write dev.warp.Warp-Stable LineHeightRatio -string "1.4"
 defaults write dev.warp.Warp-Stable NewWindowsNumColumns -int 160
 defaults write dev.warp.Warp-Stable Autosuggestions -bool false
 defaults write dev.warp.Warp-Stable FontName -string '"Waterfall"'
+
+echo Installed.
