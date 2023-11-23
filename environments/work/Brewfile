@@ -17,6 +17,7 @@ brew 'jq'
 brew 'neovim'
 brew 'ripgrep'
 
+cask_args force: true
 cask 'iterm2'
 cask 'notion'
 cask 'raycast'

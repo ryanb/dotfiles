@@ -1,3 +1,5 @@
+cask_args force: true
+
 # Keeping myself organised ============================================
 
 cask '1password'
