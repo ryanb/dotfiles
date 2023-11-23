@@ -6,9 +6,9 @@ end
 
 return {
     "vim-test/vim-test",
+    config = config,
     dependencies = {
         "tpope/vim-dispatch",
         "skywind3000/asyncrun.vim",
     },
-    config = config,
 }
