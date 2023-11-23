@@ -9,11 +9,6 @@ local function config()
     -- These can be configured on a per-project basis using exrc.
     -- See the .nvim.lua file in .dotfiles for an example.
 
-    -- lspconfig.ruby_ls.setup({
-    --     cmd = { "bundle", "exec", "ruby-lsp" },
-    --    capabilities = capabilities,
-    -- })
-
     lspconfig.sorbet.setup({
         cmd = { "bundle", "exec", "srb", "tc", "--lsp" },
         capabilities = capabilities,

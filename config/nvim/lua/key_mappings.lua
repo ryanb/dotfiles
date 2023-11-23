@@ -15,6 +15,27 @@ local function write_all_and_quit()
     vim.cmd("confirm xall")
 end
 
+local function open_quickfix_window()
+    local window_id = vim.fn.win_getid()
+    vim.api.nvim_cmd({ cmd = "copen", mods = { keepalt = true } }, {})
+    vim.fn.win_gotoid(window_id)
+end
+
+local function test_file()
+    vim.cmd.TestFile()
+    open_quickfix_window()
+end
+
+local function test_last()
+    vim.cmd.TestLast()
+    open_quickfix_window()
+end
+
+local function test_nearest()
+    vim.cmd.TestNearest()
+    open_quickfix_window()
+end
+
 -- Set up all my key mappings.
 local function configure()
     local keymap = vim.keymap
@@ -75,12 +96,14 @@ local function configure()
     keymap.set("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
 
     -- Running tests:
-    keymap.set("n", "<leader>tf", ":TestFile<CR>", { desc = "run tests in current file" })
-    keymap.set("n", "<leader>tl", ":TestLast<CR>", { desc = "run last test" })
-    keymap.set("n", "<leader>tn", ":TestNearest<CR>", { desc = "run nearest test" })
+    keymap.set("n", "<leader>tf", test_file, { desc = "run tests in current file" })
+    keymap.set("n", "<leader>tl", test_last, { desc = "run last test" })
+    keymap.set("n", "<leader>tn", test_nearest, { desc = "run nearest test" })
 
     -- Window management:
     keymap.set("n", "<leader>wc", vim.cmd.close, { desc = "close the current window" })
+    keymap.set("n", "<leader>wqc", vim.cmd.cclose, { desc = "close the quickfix window" })
+    keymap.set("n", "<leader>wqo", vim.cmd.copen, { desc = "open the quickfix window" })
 end
 
 return { configure = configure }
