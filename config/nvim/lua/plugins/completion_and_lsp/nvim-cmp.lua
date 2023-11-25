@@ -38,7 +38,7 @@ local opts = function()
         mapping = cmp.mapping.preset.insert({
             ["<Tab>"] = cmp.mapping(tab, { "i", "s" }),
             ["<S-Tab"] = cmp.mapping(shift_tab, { "i", "s" }),
-            ["<CR>"] = cmp.mapping.confirm({ select = true }),
+            ["<CR>"] = cmp.mapping.confirm({}),
         }),
         snippet = {
             expand = function(args)
