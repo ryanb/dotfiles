@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 # Don't show recents in the dock.
 defaults write com.apple.dock show-recents -boolean FALSE
 killall Dock

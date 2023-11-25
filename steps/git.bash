@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 link_file config/git/gitignore ~/.gitignore
 
 git config --global user.name "Pete Yandell"
