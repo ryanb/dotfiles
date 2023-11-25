@@ -8,7 +8,7 @@ local opts = {
         "document_symbols",
     },
     bind_to_cwd = false,
-    use_popups_for_input = false,
+    use_popups_for_input = true,
     default_component_configs = {
         indent = {
             with_markers = false,
