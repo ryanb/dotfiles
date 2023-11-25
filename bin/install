@@ -2,9 +2,9 @@
 
 set -o errexit
 
-red=`tput setaf 1`
-green=`tput setaf 2`
-reset=`tput sgr0`
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+reset=$(tput sgr0)
 
 function echo_red {
   echo -e "${red}${1}${reset}"
@@ -28,7 +28,8 @@ function link_file {
 function run_step {
   echo
   echo_green "*** $1 ***"
-  source ~/.dotfiles/steps/$1.sh
+  # shellcheck disable=SC1090
+  source "$HOME/.dotfiles/steps/$1.bash"
 }
 
 function usage {
@@ -41,7 +42,7 @@ function usage {
   echo "Run a single step:"
   echo "  install home|work [step name]"
   echo
-  echo "Available steps: ${steps[@]}"
+  echo "Available steps: ${steps[*]}"
   exit 1
 }
 
@@ -50,12 +51,12 @@ steps=(macos homebrew asdf zsh ssh git iterm2 neovim warp zed)
 if [[ -z $1 || $1 == -h ]]; then usage; fi
 
 if [[ $1 != "home" && $1 != "work" ]]; then usage; fi
-DOTFILES_ENV=$1
+export DOTFILES_ENV=$1
 
 if [[ -n $2 ]]; then
-  run_step $2
+  run_step "$2"
 else
-  for step in ${steps[@]}; do
-    run_step $step
+  for step in "${steps[@]}"; do
+    run_step "$step"
   done
 fi

@@ -5,7 +5,7 @@ git config --global user.email "pete@notahat.com"
 git config --global github.user notahat
 git config --global difftool.prompt false
 git config --global color.ui true
-git config --global core.excludesfile '~/.gitignore'
+git config --global core.excludesfile "$HOME/.gitignore"
 git config --global init.defaultBranch main
 
 # Use 1Password for commit signing.
