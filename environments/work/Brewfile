@@ -15,6 +15,7 @@ brew 'gh'
 brew 'git'
 brew 'jq'
 brew 'neovim'
+brew 'shellcheck'
 brew 'ripgrep'
 
 cask_args force: true
