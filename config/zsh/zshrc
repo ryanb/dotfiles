@@ -14,3 +14,5 @@ configure aliases
 configure homebrew
 configure asdf
 configure work
+
+unfunction configure

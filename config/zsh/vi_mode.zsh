@@ -1,12 +1,14 @@
 bindkey -v
 KEYTIMEOUT=1
 
-bar_cursor() { echo -ne "\e[6 q" }
-block_cursor() { echo -ne "\e[2 q" }
+function bar_cursor { echo -ne "\e[6 q" }
+function block_cursor { echo -ne "\e[2 q" }
 
+# Start a new command line with the bar cursor.
 zle -N zle-line-init bar_cursor
 
-zle-keymap-select() {
+# Swich between the bar and block cursors depending on the vi mode.
+function zle-keymap-select {
   if [[ $KEYMAP = vicmd ]] {
     block_cursor
   } else {

@@ -9,7 +9,7 @@ zstyle ':vcs_info:*' unstagedstr '*'
 zstyle ':vsc_info:*' check-for-staged-changes true
 zstyle ':vcs_info:*' stagedstr '+'
 zstyle ':vcs_info:*' formats '%F{green}[%b%u%c]%f'
-precmd () { vcs_info }
+function precmd { vcs_info }
 
 setopt prompt_subst
 PROMPT='${NEWLINE}${PATH_PROMPT_INFO} ${vcs_info_msg_0_} %# '
