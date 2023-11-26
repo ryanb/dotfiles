@@ -6,27 +6,21 @@ This does 80% of the work of setting up a Mac the way I like it:
 xcode-select --install
 git clone git://github.com/notahat/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-./bin/install home
+./install home
 ```
 
-Setup scripts only work if you maintain them. The only way to maintain them is to use them frequently.
+I re-run this frequently (it's idempotent), which ensures I maintain it.
 
-To that end, the install script is idempotent. It can be edited and re-run on a machine that's already set up. It's broken up into small steps that can be edited and run individually. (See `./bin/install -h` for usage.)
-
-Simpler is better. I like to be as close to a stock system as possible. Anything I'm not using gets removed.
+I remove anything I'm not using to keep it simple.
 
 ## How It Works
 
-`bin/install` runs a series of steps that live in the `steps` directory.
+`./install` runs steps from the `steps` directory. You can run individual steps, or the whole set. See `./install -h` for usage.
 
-All the config files live under `config`. Most of these get soft-linked into place by the steps.
+All my config files live under `config`. These get soft-linked into place by the steps.
 
-The `environments` directory contains `Brewfile`s and `.tool-versions`s files for home and work.
+The `environments` directory contains separate `Brewfile`s and `.tool-versions`s files for my home and work machines.
 
-Plugins for zsh are installed as git submodules. Run `./bin/upgrade-plugins` to fetch new versions of all plugins.
+[Homebrew](https://brew.sh) installs anything where I always want the latest version, including apps from the Mac App Store.
 
-## Tools Used
-
-[Homebrew](https://brew.sh) installs anything where I always want the latest version, including apps from the Mac App Store. I configure it to run `brew upgrade` automatically.
-
-[Asdf](https://asdf-vm.com) manages things like languages, where I want particular versions (and possibly multiple versions) installed.
+[Asdf](https://asdf-vm.com) manages things like languages, where I want particular versions installed.

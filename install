@@ -2,6 +2,9 @@
 
 set -o errexit
 
+steps_dir="$(dirname "$0")/steps"
+steps=(macos homebrew asdf zsh ssh git iterm2 neovim warp zed)
+
 red=$(tput setaf 1)
 green=$(tput setaf 2)
 reset=$(tput sgr0)
@@ -15,9 +18,9 @@ function echo_green {
 }
 
 function link_file {
-  if [ -L "$2" ]; then
+  if [[ -L "$2" ]]; then
     echo "$2 is already linked, skipping."
-  elif [ -e "$2" ]; then
+  elif [[ -e "$2" ]]; then
     echo_red "$2 already exists, skipping. (You might not want this, so check the file.)"
   else
     ln -s "$PWD/$1" "$2"
@@ -27,9 +30,15 @@ function link_file {
 
 function run_step {
   echo
-  echo_green "*** $1 ***"
+  echo_green "Configuring $1..."
   # shellcheck disable=SC1090
-  source "$HOME/.dotfiles/steps/$1.bash"
+  source "$steps_dir/$1.bash"
+}
+
+function run_all_steps {
+  for step in "${steps[@]}"; do
+    run_step "$step"
+  done
 }
 
 function usage {
@@ -46,17 +55,15 @@ function usage {
   exit 1
 }
 
-steps=(macos homebrew asdf zsh ssh git iterm2 neovim warp zed)
-
-if [[ -z $1 || $1 == -h ]]; then usage; fi
-
 if [[ $1 != "home" && $1 != "work" ]]; then usage; fi
+
 export DOTFILES_ENV=$1
 
 if [[ -n $2 ]]; then
   run_step "$2"
 else
-  for step in "${steps[@]}"; do
-    run_step "$step"
-  done
+  run_all_steps
 fi
+
+echo
+echo_green "Install complete."
