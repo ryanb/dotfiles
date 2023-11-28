@@ -36,6 +36,13 @@ local function test_nearest()
     open_quickfix_window()
 end
 
+local function restart_eslint()
+    local function done()
+        vim.notify("eslint_d restarted")
+    end
+    vim.loop.spawn("eslint_d", { args = { "restart" } }, done)
+end
+
 -- Set up all my key mappings.
 local function configure()
     local keymap = vim.keymap
@@ -94,6 +101,10 @@ local function configure()
     keymap.set("n", "<leader>gs", telescope_builtin.git_status, { desc = "git status" })
     keymap.set("n", "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
     keymap.set("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
+
+    -- Restarting things:
+    keymap.set("n", "<leader>re", restart_eslint, { desc = "restart eslint" })
+    keymap.set("n", "<leader>rl", vim.cmd.LspRestart, { desc = "restart LSP" })
 
     -- Running tests:
     keymap.set("n", "<leader>tf", test_file, { desc = "run tests in current file" })
