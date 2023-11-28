@@ -1,5 +1,6 @@
 if not vim.g.vscode then
     require("options").configure()
+    require("file_types").configure()
 
     require("bootstrap_lazy").bootstrap()
     require("lazy").setup({
