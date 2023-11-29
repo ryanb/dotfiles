@@ -1,18 +1,24 @@
 #!/bin/sh
 
-ln -s $(readlink -f gemrc) ~/.gemrc
-ln -s $(readlink -f gitconfig) ~/.gitconfig
-ln -s $(readlink -f gitignore) ~/.gitignore
-ln -s $(readlink -f irbrc) ~/.irbrc
+ln -is $(readlink -f gemrc) ~/.gemrc
+ln -is $(readlink -f gitconfig) ~/.gitconfig
+ln -is $(readlink -f gitignore) ~/.gitignore
+ln -is $(readlink -f irbrc) ~/.irbrc
+ln -is $(readlink -f plugins) ~/.zsh-plugins
 
-cp -s $(readlink -f zshrc) ~/.zshrc
+cp -i $(readlink -f zshrc) ~/.zshrc
 
 read -p "Your Name for Git Commits: " git_name
-read -p "Your Email for Git Commits: " git_email
 
-echo "export GIT_AUTHOR_NAME=\"$git_name\"" >> ~/.zshrc
-echo "export GIT_AUTHOR_EMAIL=\"$git_email\"" >> ~/.zshrc
-echo "export GIT_COMMITTER_NAME=\"$git_name\"" >> ~/.zshrc
-echo "export GIT_COMMITTER_EMAIL=\"$git_email\"" >> ~/.zshrc
+if [[ -n $git_name ]]; then
+  read -p "Your Email for Git Commits: " git_email
 
-echo "Git Name and Email have been appended to ~/.zshrc"
+  echo "" >> ~/.zshrc
+  echo "# GIT CONFIG" >> ~/.zshrc
+  echo "export GIT_AUTHOR_NAME=\"$git_name\"" >> ~/.zshrc
+  echo "export GIT_AUTHOR_EMAIL=\"$git_email\"" >> ~/.zshrc
+  echo "export GIT_COMMITTER_NAME=\"$git_name\"" >> ~/.zshrc
+  echo "export GIT_COMMITTER_EMAIL=\"$git_email\"" >> ~/.zshrc
+
+  echo "Git Name and Email have been appended to ~/.zshrc"
+fi
