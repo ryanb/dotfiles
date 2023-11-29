@@ -1,0 +1,18 @@
+#!/bin/sh
+
+ln -s $(readlink -f gemrc) ~/.gemrc
+ln -s $(readlink -f gitconfig) ~/.gitconfig
+ln -s $(readlink -f gitignore) ~/.gitignore
+ln -s $(readlink -f irbrc) ~/.irbrc
+
+cp -s $(readlink -f zshrc) ~/.zshrc
+
+read -p "Your Name for Git Commits: " git_name
+read -p "Your Email for Git Commits: " git_email
+
+echo "export GIT_AUTHOR_NAME=\"$git_name\"" >> ~/.zshrc
+echo "export GIT_AUTHOR_EMAIL=\"$git_email\"" >> ~/.zshrc
+echo "export GIT_COMMITTER_NAME=\"$git_name\"" >> ~/.zshrc
+echo "export GIT_COMMITTER_EMAIL=\"$git_email\"" >> ~/.zshrc
+
+echo "Git Name and Email have been appended to ~/.zshrc"
