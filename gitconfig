@@ -6,6 +6,7 @@
 	excludesfile = ~/.gitignore
 	editor = code -w
 	autocrlf = input
+	pager = less -+$LESS -RSF
 [apply]
 	whitespace = nowarn
 [format]
