@@ -4,6 +4,9 @@ local function config()
     local telescope = require("telescope")
 
     telescope.setup({
+        defaults = {
+            layout_strategy = "vertical",
+        },
         extensions = {
             ["ui-select"] = {
                 require("telescope.themes").get_dropdown(),

@@ -8,10 +8,8 @@ local function config()
 
     which_key.register({
         c = "code...",
-        g = "git...",
         t = "tests...",
         r = "restart things...",
-        w = "windows...",
     }, {
         prefix = "<leader>",
     })
