@@ -7,6 +7,8 @@ alias gaa='git add --all'
 
 alias gb='git branch --sort=committerdate'
 
+alias gco='git checkout'
+
 alias gc='git commit --verbose'
 alias gca='git commit --verbose --all'
 alias gca!='git commit --verbose --all --amend'
@@ -15,6 +17,7 @@ alias gc!='git commit --verbose --amend'
 alias gcn!='git commit --verbose --no-edit --amend'
 
 alias gd='git diff'
+alias gdh='git diff HEAD'
 alias gdca='git diff --cached'
 alias gds='git diff --staged'
 
