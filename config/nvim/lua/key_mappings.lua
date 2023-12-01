@@ -1,7 +1,7 @@
 local bufdelete = require("bufdelete")
 local gitsigns = require("gitsigns")
 local telescope_builtin = require("telescope.builtin")
-local helpers = require("helpers")
+local actions = require("actions")
 
 local map = vim.keymap.set
 
@@ -28,21 +28,21 @@ local function map_global_keys()
     map("n", "<leader><leader>", telescope_builtin.find_files, { desc = "find files" })
     map("n", "<leader>.", telescope_builtin.resume, { desc = "resume last find" })
     map("n", "<leader>/", telescope_builtin.live_grep, { desc = "find in project" })
-    map("n", "<leader>b", helpers.explore_buffers, { desc = "explore buffers" })
+    map("n", "<leader>b", actions.explore_buffers, { desc = "explore buffers" })
     map("n", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
-    map("n", "<leader>e", helpers.explore_files, { desc = "explore files" })
-    map("n", "<leader>g", helpers.explore_git_status, { desc = "explore git status" })
-    map("n", "<leader>q", helpers.write_all_and_quit, { desc = "write all files and quit" })
+    map("n", "<leader>e", actions.explore_files, { desc = "explore files" })
+    map("n", "<leader>g", actions.explore_git_status, { desc = "explore git status" })
+    map("n", "<leader>q", actions.write_all_and_quit, { desc = "write all files and quit" })
     map("n", "<leader>x", bufdelete.bufdelete, { desc = "close current buffer" })
 
     -- Restart things.
-    map("n", "<leader>re", helpers.restart_eslint, { desc = "restart eslint" })
+    map("n", "<leader>re", actions.restart_eslint, { desc = "restart eslint" })
     map("n", "<leader>rl", vim.cmd.LspRestart, { desc = "restart LSP" })
 
     -- Run tests.
-    map("n", "<leader>t.", helpers.test_last, { desc = "repeat the last test run" })
-    map("n", "<leader>tf", helpers.test_file, { desc = "run tests in current file" })
-    map("n", "<leader>tn", helpers.test_nearest, { desc = "run nearest test" })
+    map("n", "<leader>t.", actions.test_last, { desc = "repeat the last test run" })
+    map("n", "<leader>tf", actions.test_file, { desc = "run tests in current file" })
+    map("n", "<leader>tn", actions.test_nearest, { desc = "run nearest test" })
 end
 
 -- These mappings only apply when a buffer has a language server attached.
