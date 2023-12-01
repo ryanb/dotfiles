@@ -26,6 +26,8 @@ alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias grbi='git rebase --interactive'
 
+alias grst='git restore --staged'
+
 alias gpristine='git reset --hard && git clean --force -dfx'
 alias groh='git reset origin/$(git_current_branch) --hard'
 
