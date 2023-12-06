@@ -9,7 +9,7 @@ local function config()
     which_key.register({
         c = "code...",
         t = "tests...",
-        r = "restart things...",
+        z = "restart things...",
     }, {
         prefix = "<leader>",
     })

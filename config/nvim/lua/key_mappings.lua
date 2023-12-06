@@ -1,6 +1,7 @@
 local bufdelete = require("bufdelete")
 local gitsigns = require("gitsigns")
 local telescope_builtin = require("telescope.builtin")
+local telescope = require("telescope")
 local actions = require("actions")
 
 local map = vim.keymap.set
@@ -33,16 +34,17 @@ local function map_global_keys()
     map("n", "<leader>e", actions.explore_files, { desc = "explore files" })
     map("n", "<leader>g", actions.explore_git_status, { desc = "explore git status" })
     map("n", "<leader>q", actions.write_all_and_quit, { desc = "write all files and quit" })
+    map({ "n", "x" }, "<leader>r", telescope.extensions.refactoring.refactors, { desc = "refacor" })
     map("n", "<leader>x", bufdelete.bufdelete, { desc = "close current buffer" })
-
-    -- Restart things.
-    map("n", "<leader>re", actions.restart_eslint, { desc = "restart eslint" })
-    map("n", "<leader>rl", vim.cmd.LspRestart, { desc = "restart LSP" })
 
     -- Run tests.
     map("n", "<leader>t.", actions.test_last, { desc = "repeat the last test run" })
     map("n", "<leader>tf", actions.test_file, { desc = "run tests in current file" })
     map("n", "<leader>tn", actions.test_nearest, { desc = "run nearest test" })
+
+    -- Restart things.
+    map("n", "<leader>ze", actions.restart_eslint, { desc = "restart eslint" })
+    map("n", "<leader>zl", vim.cmd.LspRestart, { desc = "restart LSP" })
 end
 
 -- These mappings only apply when a buffer has a language server attached.
