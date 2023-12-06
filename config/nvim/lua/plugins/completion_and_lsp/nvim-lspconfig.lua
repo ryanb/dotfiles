@@ -10,12 +10,14 @@ local function config()
     -- See the .nvim.lua file in .dotfiles for an example.
 
     lspconfig.sorbet.setup({
-        cmd = { "bundle", "exec", "srb", "tc", "--lsp" },
+        capabilities = capabilities,
+    })
+
+    lspconfig.ruby_ls.setup({
         capabilities = capabilities,
     })
 
     lspconfig.tsserver.setup({
-        cmd = { "npx", "typescript-language-server", "--stdio" },
         capabilities = capabilities,
     })
 
@@ -26,5 +28,8 @@ end
 return {
     "neovim/nvim-lspconfig",
     config = config,
-    dependencies = { "hrsh7th/cmp-nvim-lsp" },
+    dependencies = {
+        "hrsh7th/cmp-nvim-lsp",
+        "williamboman/mason-lspconfig.nvim",
+    },
 }
