@@ -9,17 +9,9 @@ local function config()
     -- These can be configured on a per-project basis using exrc.
     -- See the .nvim.lua file in .dotfiles for an example.
 
-    lspconfig.sorbet.setup({
-        capabilities = capabilities,
-    })
-
-    lspconfig.ruby_ls.setup({
-        capabilities = capabilities,
-    })
-
-    lspconfig.tsserver.setup({
-        capabilities = capabilities,
-    })
+    lspconfig.ruby_ls.setup({ capabilities = capabilities })
+    lspconfig.sorbet.setup({ capabilities = capabilities })
+    lspconfig.tsserver.setup({ capabilities = capabilities })
 
     -- For other language servers see:
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md

@@ -1,3 +1,5 @@
+-- https://github.com/Wansmer/treesj
+
 return {
     "Wansmer/treesj",
     config = true,

@@ -1,3 +1,5 @@
+-- https://github.com/williamboman/mason-lspconfig.nvim
+
 local opts = {
     ensure_installed = {
         "eslint",
