@@ -7,24 +7,6 @@ local actions = require("actions")
 local map = vim.keymap.set
 
 local function map_global_keys()
-    -- Reselect the visual area when changing indenting in visual mode.
-    map("v", "<", "<gv")
-    map("v", ">", ">gv")
-
-    -- Navigate between windows.
-    map("n", "<c-h>", "<c-w>h")
-    map("n", "<c-j>", "<c-w>j")
-    map("n", "<c-k>", "<c-w>k")
-    map("n", "<c-l>", "<c-w>l")
-
-    -- Move around in the buffer.
-    map("n", "[d", vim.diagnostic.goto_prev, { desc = "previous diagnostic in buffer" })
-    map("n", "]d", vim.diagnostic.goto_next, { desc = "next diagnostic in buffer" })
-    map("n", "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
-    map("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
-    map("n", "[q", vim.cmd.cbefore, { desc = "previous quickfix error in buffer" })
-    map("n", "]q", vim.cmd.cafter, { desc = "next quickfix error in buffer" })
-
     -- Leader + single key stuff.
     map("n", "<leader><leader>", telescope_builtin.find_files, { desc = "find files" })
     map("n", "<leader>.", telescope_builtin.resume, { desc = "resume last find" })
@@ -45,6 +27,24 @@ local function map_global_keys()
     -- Restart things.
     map("n", "<leader>ze", actions.restart_eslint, { desc = "restart eslint" })
     map("n", "<leader>zl", vim.cmd.LspRestart, { desc = "restart LSP" })
+
+    -- Move around in the buffer.
+    map("n", "[d", vim.diagnostic.goto_prev, { desc = "previous diagnostic in buffer" })
+    map("n", "]d", vim.diagnostic.goto_next, { desc = "next diagnostic in buffer" })
+    map("n", "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
+    map("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
+    map("n", "[q", vim.cmd.cbefore, { desc = "previous quickfix error in buffer" })
+    map("n", "]q", vim.cmd.cafter, { desc = "next quickfix error in buffer" })
+
+    -- Navigate between windows.
+    map("n", "<c-h>", "<c-w>h")
+    map("n", "<c-j>", "<c-w>j")
+    map("n", "<c-k>", "<c-w>k")
+    map("n", "<c-l>", "<c-w>l")
+
+    -- Reselect the visual area when changing indenting in visual mode.
+    map("v", "<", "<gv")
+    map("v", ">", ">gv")
 end
 
 -- These mappings only apply when a buffer has a language server attached.
