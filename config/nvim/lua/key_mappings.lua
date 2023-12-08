@@ -1,7 +1,7 @@
 local bufdelete = require("bufdelete")
 local gitsigns = require("gitsigns")
 local telescope_builtin = require("telescope.builtin")
-local telescope = require("telescope")
+local refactoring = require("refactoring")
 local actions = require("actions")
 
 local map = vim.keymap.set
@@ -16,7 +16,7 @@ local function map_global_keys()
     map("n", "<leader>e", actions.explore_files, { desc = "explore files" })
     map("n", "<leader>g", actions.explore_git_status, { desc = "explore git status" })
     map("n", "<leader>q", actions.write_all_and_quit, { desc = "write all files and quit" })
-    map({ "n", "x" }, "<leader>r", telescope.extensions.refactoring.refactors, { desc = "refacor" })
+    map({ "n", "x" }, "<leader>r", refactoring.select_refactor, { desc = "refacor" })
     map("n", "<leader>x", bufdelete.bufdelete, { desc = "close current buffer" })
 
     -- Run tests:
