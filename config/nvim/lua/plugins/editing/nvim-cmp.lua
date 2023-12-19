@@ -1,5 +1,3 @@
--- Completion
---
 -- https://github.com/hrsh7th/nvim-cmp
 
 local opts = function()
@@ -31,9 +29,6 @@ local opts = function()
         sources = {
             { name = "nvim_lsp", group_index = 1 },
             { name = "luasnip", group_index = 1 },
-            -- The group index means buffer completions will only be shown when there are no LSP or snippet completions.
-            -- This is too aggressive, so I've turned it off for now.
-            -- { name = "buffer", group_index = 2 },
         },
         mapping = cmp.mapping.preset.insert({
             ["<Tab>"] = cmp.mapping(tab, { "i", "s" }),
@@ -54,7 +49,6 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
-        -- "hrsh7th/cmp-buffer",
     },
     event = "InsertEnter",
     opts = opts,

@@ -7,7 +7,7 @@ local opts = {
         javascript = { { "prettierd", "prettier" } },
         json = { { "prettierd", "prettier" } },
         lua = { "stylua" },
-        ruby = { { "standardrb", "prettierd", "prettier" } },
+        ruby = { { "prettierd", "prettier" } },
         typescript = { { "prettierd", "prettier" } },
         typescriptreact = { { "prettierd", "prettier" } },
 

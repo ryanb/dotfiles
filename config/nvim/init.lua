@@ -7,8 +7,8 @@ if not vim.g.vscode then
         spec = {
             { import = "plugins.appearance" },
             { import = "plugins.editing" },
-            { import = "plugins.completion_and_lsp" },
-            { import = "plugins.language" },
+            { import = "plugins.languages" },
+            { import = "plugins.lsp" },
             { import = "plugins.navigation" },
         },
         install = {

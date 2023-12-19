@@ -9,8 +9,12 @@ local function config()
     -- These can be configured on a per-project basis using exrc.
     -- See the .nvim.lua file in .dotfiles for an example.
 
-    lspconfig.ruby_ls.setup({ capabilities = capabilities })
+    -- Ruby
+    lspconfig.rubocop.setup({ capabilities = capabilities })
     lspconfig.sorbet.setup({ capabilities = capabilities })
+
+    -- Typescript
+    lspconfig.eslint.setup({ capabilities = capabilities })
     lspconfig.tsserver.setup({ capabilities = capabilities })
 
     -- For other language servers see:

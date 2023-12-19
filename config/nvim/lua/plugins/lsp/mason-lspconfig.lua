@@ -4,7 +4,7 @@ local opts = {
     ensure_installed = {
         "eslint",
         "lua_ls",
-        "ruby_ls",
+        "rubocop",
         "sorbet",
         "tsserver",
     },
