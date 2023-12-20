@@ -1,3 +1,5 @@
+-- A fancy status line
+--
 -- https://github.com/nvim-lualine/lualine.nvim
 
 local function copy_relative_path()

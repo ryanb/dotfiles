@@ -1,3 +1,5 @@
+-- Split and join blocks of code
+--
 -- https://github.com/Wansmer/treesj
 
 return {

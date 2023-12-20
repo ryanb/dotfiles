@@ -1,3 +1,5 @@
+-- Completion
+--
 -- https://github.com/hrsh7th/nvim-cmp
 
 local opts = function()

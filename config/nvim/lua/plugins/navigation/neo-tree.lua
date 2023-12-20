@@ -1,3 +1,5 @@
+-- File, buffer, and git status explorer
+--
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 
 local opts = {

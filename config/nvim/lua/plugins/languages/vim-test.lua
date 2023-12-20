@@ -1,3 +1,5 @@
+-- Run tests from inside neovim
+--
 -- https://github.com/vim-test/vim-test
 
 local function config()

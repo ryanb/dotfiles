@@ -1,4 +1,4 @@
--- Fix imports when we rename a file in neo-tree.
+-- Fix imports when we rename a file in neo-tree
 --
 -- https://github.com/antosha417/nvim-lsp-file-operations
 

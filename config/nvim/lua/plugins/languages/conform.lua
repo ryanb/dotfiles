@@ -1,3 +1,5 @@
+-- Formatting on save
+--
 -- https://github.com/stevearc/conform.nvim
 
 local opts = {

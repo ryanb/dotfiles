@@ -1,4 +1,4 @@
--- Language server support
+-- Language server configuration
 --
 -- https://github.com/neovim/nvim-lspconfig
 

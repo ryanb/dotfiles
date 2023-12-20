@@ -1,3 +1,5 @@
+-- Linting on save
+--
 -- https://github.com/mfussenegger/nvim-lint
 
 local function config()
@@ -16,4 +18,8 @@ local function config()
     })
 end
 
-return { "mfussenegger/nvim-lint", config = config }
+return {
+    "mfussenegger/nvim-lint",
+    config = config,
+    dependencies = { "williamboman/mason.nvim" },
+}

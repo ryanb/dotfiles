@@ -1,3 +1,5 @@
+-- Display help for key mappings
+--
 -- https://github.com/folke/which-key.nvim
 
 local function config()

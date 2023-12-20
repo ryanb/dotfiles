@@ -1,3 +1,5 @@
+-- Quickly open and search files in a project
+--
 -- https://github.com/nvim-telescope/telescope.nvim
 
 local function config()

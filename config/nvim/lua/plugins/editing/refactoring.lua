@@ -1,3 +1,5 @@
+-- Extract functions and variables
+--
 -- https://github.com/ThePrimeagen/refactoring.nvim
 
 local function config()

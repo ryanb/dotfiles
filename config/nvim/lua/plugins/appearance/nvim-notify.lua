@@ -1,3 +1,5 @@
+-- Show notifications nicely
+--
 -- https://github.com/rcarriga/nvim-notify
 
 local function config()

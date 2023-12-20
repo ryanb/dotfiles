@@ -1,3 +1,5 @@
+-- My favourite colorscheme, with some tweaks
+--
 -- https://github.com/nanotech/jellybeans.vim
 
 local function config()

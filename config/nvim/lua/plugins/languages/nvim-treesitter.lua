@@ -1,3 +1,5 @@
+-- Fast parsing for syntax highlighting and text objects
+--
 -- https://github.com/nvim-treesitter/nvim-treesitter
 
 -- Ensure all these parsers are loaded.

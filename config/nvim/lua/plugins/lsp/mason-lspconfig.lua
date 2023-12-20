@@ -1,3 +1,5 @@
+-- Install language servers
+--
 -- https://github.com/williamboman/mason-lspconfig.nvim
 
 local opts = {
