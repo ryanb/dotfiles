@@ -5,10 +5,6 @@ brew 'asdf'
 brew 'gawk' # Needed for the asdf-nodejs plugin.
 brew 'gpg' # Ditto.
 
-# Better neovim config editing:
-brew 'lua-language-server'
-brew 'stylua'
-
 brew 'entr'
 brew 'fd'
 brew 'gh'
@@ -17,6 +13,7 @@ brew 'jq'
 brew 'neovim'
 brew 'shellcheck'
 brew 'ripgrep'
+brew 'wget'
 
 cask_args force: true
 cask 'iterm2'

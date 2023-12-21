@@ -66,10 +66,6 @@ cask 'zed'
 brew 'gh'
 brew 'git'
 
-# For better neovim config editing.
-brew 'lua-language-server'
-brew 'stylua'
-
 tap 'homebrew/cask-fonts'
 cask 'font-inconsolata-nerd-font'
 
@@ -80,6 +76,7 @@ brew 'fd'
 brew 'jq'
 brew 'ripgrep'
 brew 'shellcheck'
+brew 'wget'
 
 # If we don't list mas explicitly, brew bundle cleanup will remove it.
 brew 'mas'
