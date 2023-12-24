@@ -39,7 +39,13 @@ local function config()
     -- anything LSP related.
     local registry = require("mason-registry")
     registry.refresh(function()
-        ensure_installed({ "shellcheck", "prettier", "prettierd" })
+        ensure_installed({
+            "prettier",
+            "prettierd",
+            "shellcheck",
+            "standardrb",
+            "stylua",
+        })
     end)
 end
 

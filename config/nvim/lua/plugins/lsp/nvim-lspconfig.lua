@@ -10,8 +10,13 @@ local function config()
     -- See the .nvim.lua file in .dotfiles for an example.
 
     -- Ruby
-    lspconfig.rubocop.setup({ capabilities = capabilities })
-    lspconfig.sorbet.setup({ capabilities = capabilities })
+    local dotfiles_env = os.getenv("DOTFILES_ENV")
+    if dotfiles_env == "home" then
+        lspconfig.solargraph.setup({ capabilities = capabilities })
+    elseif dotfiles_env == "work" then
+        lspconfig.rubocop.setup({ capabilities = capabilities })
+        lspconfig.sorbet.setup({ capabilities = capabilities })
+    end
 
     -- Typescript
     lspconfig.eslint.setup({ capabilities = capabilities })

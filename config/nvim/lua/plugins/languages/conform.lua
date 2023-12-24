@@ -2,22 +2,26 @@
 --
 -- https://github.com/stevearc/conform.nvim
 
+local ruby_formatters = {
+    home = { "standardrb" },
+    work = { "prettierd" },
+}
+
 local opts = {
     formatters_by_ft = {
-        css = { { "prettierd", "prettier" } },
-        html = { { "prettierd", "prettier" } },
-        javascript = { { "prettierd", "prettier" } },
-        json = { { "prettierd", "prettier" } },
+        css = { "prettierd" },
+        html = { "prettierd" },
+        javascript = { "prettierd" },
+        json = { "prettierd" },
         lua = { "stylua" },
-        ruby = { { "prettierd", "prettier" } },
-        typescript = { { "prettierd", "prettier" } },
-        typescriptreact = { { "prettierd", "prettier" } },
+        ruby = ruby_formatters[os.getenv("DOTFILES_ENV")],
+        typescript = { "prettierd" },
+        typescriptreact = { "prettierd" },
 
         -- This will run if no other formatters are configured.
         ["_"] = { "trim_whitespace" },
     },
     format_on_save = {
-        lsp_fallback = true,
         timeout_ms = 3000,
     },
     notify_on_error = true,

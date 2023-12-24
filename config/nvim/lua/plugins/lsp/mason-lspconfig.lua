@@ -7,6 +7,7 @@ local opts = {
         "eslint",
         "lua_ls",
         "rubocop",
+        "solargraph",
         "sorbet",
         "tsserver",
     },
