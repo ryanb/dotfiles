@@ -9,19 +9,16 @@ local function copy_relative_path()
 end
 
 local opts = {
+    extensions = { "lazy", "neo-tree", "man", "mason", "quickfix" },
     options = {
-        theme = "auto",
-        section_separators = { left = "", right = "" },
+        globalstatus = true,
         padding = 2,
+        section_separators = { left = "", right = "" },
+        theme = "auto",
     },
     sections = {
         lualine_c = { { "filename", path = 1, on_click = copy_relative_path } },
     },
 }
 
-local function init()
-    vim.o.showmode = false -- Lualine shows the mode for us.
-    vim.o.laststatus = 3 -- Use a full-width status line.
-end
-
-return { "nvim-lualine/lualine.nvim", init = init, opts = opts }
+return { "nvim-lualine/lualine.nvim", opts = opts }
