@@ -2,7 +2,7 @@ local bufdelete = require("bufdelete")
 local gitsigns = require("gitsigns")
 local telescope_builtin = require("telescope.builtin")
 local refactoring = require("refactoring")
-local actions = require("actions")
+local actions = require("helpers.actions")
 
 local map = vim.keymap.set
 
