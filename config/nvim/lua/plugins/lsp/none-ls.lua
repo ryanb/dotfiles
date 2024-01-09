@@ -40,7 +40,7 @@ local function generate_on_attach_callback()
                 group = augroup,
                 buffer = bufnr,
                 callback = function()
-                    vim.lsp.buf.format()
+                    vim.lsp.buf.format({ name = "null-ls" })
                 end,
             })
         end
