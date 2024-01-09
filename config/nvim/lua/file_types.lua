@@ -7,6 +7,13 @@ end
 local function configure()
     local group = vim.api.nvim_create_augroup("fileTypeOptions", { clear = true })
 
+    vim.filetype.add({
+        filename = {
+            ["Fastfile"] = "ruby",
+            ["Scanfile"] = "ruby",
+        },
+    })
+
     vim.api.nvim_create_autocmd("FileType", {
         pattern = "lua",
         callback = lua,
