@@ -6,10 +6,12 @@ if not vim.g.vscode then
     require("lazy").setup({
         spec = {
             { import = "plugins.appearance" },
+            { import = "plugins.completion" },
             { import = "plugins.editing" },
             { import = "plugins.languages" },
             { import = "plugins.lsp" },
             { import = "plugins.navigation" },
+            { import = "plugins.treesitter" },
         },
         install = {
             colorscheme = { "jellybeans" },

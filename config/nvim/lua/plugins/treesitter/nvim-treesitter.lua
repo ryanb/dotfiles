@@ -60,6 +60,7 @@ local function config()
     local configs = require("nvim-treesitter.configs")
 
     configs.setup({
+        autotag = { enable = true },
         ensure_installed = parsers,
         highlight = { enable = true },
         incremental_selection = { enable = true },
@@ -76,5 +77,6 @@ return {
     config = config,
     dependencies = {
         "nvim-treesitter/nvim-treesitter-textobjects",
+        "windwp/nvim-ts-autotag",
     },
 }
