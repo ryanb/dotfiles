@@ -20,7 +20,10 @@ local function choose_sources()
         },
         work = {
             diagnostics.shellcheck,
-            formatting.prettierd,
+            formatting.prettierd.with({
+                disabled_filetypes = { "yaml" },
+                extra_filetypes = { "ruby" },
+            }),
             formatting.stylua,
             formatting.trim_whitespace,
         },
