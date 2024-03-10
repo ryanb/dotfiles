@@ -14,6 +14,8 @@
     "dock": "left"
   },
   "theme": "One Dark",
+  "buffer_font_family": "BerkeleyMono Nerd Font",
+  "buffer_font_size": 14,
   "buffer_font_features": {
     "calt": false
   },
