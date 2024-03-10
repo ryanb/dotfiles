@@ -7,18 +7,11 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "terminal": {
-    "dock": "bottom"
-  },
-  "project_panel": {
-    "dock": "left"
-  },
-  "theme": "One Dark",
   "buffer_font_family": "BerkeleyMono Nerd Font",
-  "buffer_font_size": 14,
   "buffer_font_features": {
     "calt": false
   },
+  "buffer_font_size": 14,
   "lsp": {
     "solargraph": {
       "initialization_options": {
@@ -26,5 +19,13 @@
         "formatting": true
       }
     }
-  }
+  },
+  "project_panel": {
+    "dock": "left"
+  },
+  "terminal": {
+    "dock": "bottom"
+  },
+  "theme": "One Dark",
+  "vim_mode": true
 }
