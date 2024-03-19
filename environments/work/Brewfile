@@ -1,7 +1,6 @@
 # If we don't list mas explicitly, brew bundle cleanup will remove it.
 brew 'mas'
 
-brew 'asdf'
 brew 'gawk' # Needed for the asdf-nodejs plugin.
 brew 'gpg' # Ditto.
 

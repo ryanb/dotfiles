@@ -1,3 +1,11 @@
+if [[ -f $HOMEBREW_PREFIX/bin/mise ]] {
+  if [[ -o interactive ]] {
+    eval "$(mise activate zsh)"
+  } else {
+    eval "$(mise activate zsh --shims)"
+  }
+}
+
 if [[ ! -v $ANDROID_HOME ]] {
   export ANDROID_HOME=$HOME/Library/Android/sdk
   export PATH=$ANDROID_HOME/emulator:$PATH

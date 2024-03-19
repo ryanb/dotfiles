@@ -13,6 +13,7 @@ if [[ ! -v WARP_IS_LOCAL_SHELL_SESSION ]] {
 configure aliases
 configure homebrew
 configure asdf
+configure mise
 configure work
 
 unfunction configure
