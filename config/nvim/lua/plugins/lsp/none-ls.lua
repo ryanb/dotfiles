@@ -10,22 +10,17 @@ local function choose_sources()
 
     local sources = {
         home = {
-            diagnostics.shellcheck,
             formatting.prettierd.with({
                 disabled_filetypes = { "ruby" },
             }),
-            formatting.standardrb,
             formatting.stylua,
-            formatting.trim_whitespace,
         },
         work = {
-            diagnostics.shellcheck,
             formatting.prettierd.with({
                 disabled_filetypes = { "yaml" },
                 extra_filetypes = { "ruby" },
             }),
             formatting.stylua,
-            formatting.trim_whitespace,
         },
     }
 

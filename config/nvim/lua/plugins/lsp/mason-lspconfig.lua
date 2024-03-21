@@ -4,11 +4,13 @@
 
 local opts = {
     ensure_installed = {
+        "bashls",
         "eslint",
         "lua_ls",
         "rubocop",
         "solargraph",
         "sorbet",
+        "standardrb",
         "tsserver",
     },
 }

@@ -10,8 +10,6 @@ local function config()
     ensure_installed({
         "prettier",
         "prettierd",
-        "shellcheck",
-        "standardrb",
         "stylua",
     })
 
