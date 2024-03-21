@@ -1,4 +1,5 @@
 local neo_tree_command = require("neo-tree.command")
+local telescope_builtin = require("telescope.builtin")
 
 local function open_quickfix_window()
     local window_id = vim.fn.win_getid()
@@ -15,8 +16,16 @@ return {
         neo_tree_command.execute({ action = "focus", source = "filesystem" })
     end,
 
+    explore_current_file = function()
+        neo_tree_command.execute({ action = "focus", source = "filesystem", reveal = true })
+    end,
+
     explore_git_status = function()
         neo_tree_command.execute({ action = "focus", source = "git_status" })
+    end,
+
+    find_word_under_cursor = function()
+        telescope_builtin.grep_string({ search = vim.fn.expand("<cword>") })
     end,
 
     restart_eslint = function()

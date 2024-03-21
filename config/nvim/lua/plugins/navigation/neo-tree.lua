@@ -18,7 +18,7 @@ local opts = {
     },
     filesystem = {
         follow_current_file = {
-            enabled = true,
+            enabled = false,
             leave_dirs_open = false,
         },
         use_libuv_file_watcher = true,
