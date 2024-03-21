@@ -2,32 +2,43 @@
 --
 -- https://github.com/neovim/nvim-lspconfig
 
-local function config()
+-- Select the language servers we want to use for home and work.
+local function choose_servers()
     local lspconfig = require("lspconfig")
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-    -- These can be configured on a per-project basis using exrc.
-    -- See the .nvim.lua file in .dotfiles for an example.
-
-    -- Bash
-    lspconfig.bashls.setup({ capabilities = capabilities })
-
-    -- Ruby
-    local dotfiles_env = os.getenv("DOTFILES_ENV")
-    if dotfiles_env == "home" then
-        lspconfig.solargraph.setup({ capabilities = capabilities })
-        lspconfig.standardrb.setup({ capabilities = capabilities })
-    elseif dotfiles_env == "work" then
-        lspconfig.rubocop.setup({ capabilities = capabilities })
-        lspconfig.sorbet.setup({ capabilities = capabilities })
-    end
-
-    -- Typescript
-    lspconfig.eslint.setup({ capabilities = capabilities })
-    lspconfig.tsserver.setup({ capabilities = capabilities })
+    local servers = {
+        home = {
+            lspconfig.bashls,
+            lspconfig.eslint,
+            lspconfig.solargraph,
+            lspconfig.standardrb,
+            lspconfig.tsserver,
+        },
+        work = {
+            lspconfig.bashls,
+            lspconfig.eslint,
+            lspconfig.rubocop,
+            lspconfig.sorbet,
+            lspconfig.tsserver,
+        },
+    }
 
     -- For other language servers see:
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+
+    return servers[os.getenv("DOTFILES_ENV")]
+end
+
+local function config()
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+    local servers = choose_servers()
+    for _, server in ipairs(servers) do
+        server.setup({ capabilities = capabilities })
+    end
+
+    -- Language servers can be configured on a per-project basis using exrc.
+    -- See the .nvim.lua file in .dotfiles for an example.
 end
 
 return {
