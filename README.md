@@ -6,7 +6,8 @@ This does 80% of the work of setting up a Mac the way I like it:
 xcode-select --install
 git clone git://github.com/notahat/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-./install home
+export DOTFILES_ENV=home
+./install
 ```
 
 I re-run this frequently (it's idempotent), which ensures I maintain it.

@@ -43,24 +43,25 @@ function run_all_steps {
 
 function usage {
   echo "Usage:"
-  echo "  install home|work [step name]"
+  echo "  export DOTFILES_ENV=home|work"
+  echo "  install [step name]"
   echo
   echo "Run all steps:"
-  echo "  install home|work"
+  echo "  install"
   echo
   echo "Run a single step:"
-  echo "  install home|work [step name]"
+  echo "  install [step name]"
   echo
   echo "Available steps: ${steps[*]}"
   exit 1
 }
 
-if [[ $1 != "home" && $1 != "work" ]]; then usage; fi
+if [[ $DOTFILES_ENV != "home" && $DOTFILES_ENV != "work" ]]; then usage; fi
 
-export DOTFILES_ENV=$1
-
-if [[ -n $2 ]]; then
-  run_step "$2"
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+  usage
+elif [[ -n $1 ]]; then
+  run_step "$1"
 else
   run_all_steps
 fi
