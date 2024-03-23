@@ -6,14 +6,14 @@ local function config()
     local mason = require("mason")
     mason.setup({})
 
+    -- This installs things needed for none-ls.
+    -- See also mason-lspconfig.lua, which installs language servers.
     local ensure_installed = require("helpers.mason_ensure_installed")
     ensure_installed({
         "prettier",
         "prettierd",
         "stylua",
     })
-
-    -- See also mason-lspconfig.lua, which installs things related to LSP.
 end
 
 return {

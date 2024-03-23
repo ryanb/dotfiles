@@ -4,7 +4,7 @@
 defaults write com.apple.dock show-recents -boolean FALSE
 killall Dock
 
-# Don't have the nn key open the emoji picker.
+# Don't have the fn key open the emoji picker.
 # This doesn't seem to stick until a logout. :(
 defaults write com.apple.HIToolbox AppleFnUsageType -int 0
 
