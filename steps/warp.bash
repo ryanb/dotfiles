@@ -6,7 +6,7 @@ defaults write dev.warp.Warp-Stable LineHeightRatio -string "1.4"
 defaults write dev.warp.Warp-Stable NewWindowsNumColumns -int 160
 defaults write dev.warp.Warp-Stable Autosuggestions -string "false"
 
-# Make key repeats work properly. (Hopeufully Warp will fix this soon.)
+# Make key repeats work properly. (Hopefully Warp will fix this soon.)
 defaults write dev.warp.Warp-Stable ApplePressAndHoldEnabled -bool false
 
 echo Installed.
