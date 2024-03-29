@@ -28,7 +28,7 @@ end
 
 -- Generate a callback to run the formatter on save.
 local function generate_on_attach_callback()
-    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+    local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
 
     local function on_attach(client, bufnr)
         if client.supports_method("textDocument/formatting") then
