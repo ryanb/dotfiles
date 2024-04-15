@@ -5,4 +5,5 @@
 return {
     "nvim-treesitter/nvim-treesitter-context",
     config = true,
+    enabled = false,
 }

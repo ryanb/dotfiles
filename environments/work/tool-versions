@@ -1,3 +1,4 @@
 java temurin-17.0.0+35
 nodejs 20.5.1
 ruby 3.2.2
+yarn 1.22.19
