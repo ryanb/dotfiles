@@ -1,13 +1,5 @@
 if [[ $DOTFILES_ENV != work ]] { return }
 
-if [[ -f $HOMEBREW_PREFIX/bin/mise ]] {
-  if [[ -o interactive ]] {
-    eval "$(mise activate zsh)"
-  } else {
-    eval "$(mise activate zsh --shims)"
-  }
-}
-
 if [[ ! -v $ANDROID_HOME ]] {
   export ANDROID_HOME=$HOME/Library/Android/sdk
   export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
