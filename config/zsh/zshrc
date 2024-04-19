@@ -1,19 +1,182 @@
-function configure { source ~/.config/zsh/$1.zsh }
+function _configure_environment {
+  export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
-configure environment
+  export CLICOLOR=1  # Make ls colour its output.
+  export LESS=-R     # Make less support ANSI colour sequences.
+
+  if [[ $(hostname -s) == Knuth ]] {
+    export DOTFILES_ENV=home
+  } else {
+    export DOTFILES_ENV=work
+  }
+}
+
+function _configure_prompt {
+  NEWLINE=$'\n'
+
+  PATH_PROMPT_INFO='%F{blue}%~%f'
+
+  autoload -U vcs_info
+  zstyle ':vcs_info:*' enable git
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:*' unstagedstr '*'
+  zstyle ':vsc_info:*' check-for-staged-changes true
+  zstyle ':vcs_info:*' stagedstr '+'
+  zstyle ':vcs_info:*' formats '%F{green}[%b%u%c]%f'
+  function precmd { vcs_info }
+
+  setopt prompt_subst
+  PROMPT='${NEWLINE}${PATH_PROMPT_INFO} ${vcs_info_msg_0_} %# '
+}
+
+function _configure_vi_mode {
+  bindkey -v
+  KEYTIMEOUT=1
+
+  function _bar_cursor { echo -ne "\e[6 q" }
+  function _block_cursor { echo -ne "\e[2 q" }
+
+  # Start a new command line with the bar cursor.
+  zle -N zle-line-init bar_cursor
+
+  # Swich between the bar and block cursors depending on the vi mode.
+  function zle-keymap-select {
+    if [[ $KEYMAP = vicmd ]] {
+      _block_cursor
+    } else {
+      _bar_cursor
+    }
+  }
+  zle -N zle-keymap-select
+}
+
+function _configure_completion {
+  autoload -U compinit && compinit
+
+  ZSH_AUTOSUGGEST_STRATEGY=(completion)
+
+  source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+  # Make arrows and command mode j and k search the history.
+  autoload -U up-line-or-beginning-search
+  autoload -U down-line-or-beginning-search
+
+  zle -N up-line-or-beginning-search
+  zle -N down-line-or-beginning-search
+
+  bindkey "^[[A" up-line-or-beginning-search
+  bindkey "^[[B" down-line-or-beginning-search
+  bindkey -M vicmd "k" up-line-or-beginning-search
+  bindkey -M vicmd "j" down-line-or-beginning-search
+}
+
+function _configure_history {
+  HISTFILE=$HOME/.zsh_history
+  HISTSIZE=10000
+  SAVEHIST=10000
+  setopt HIST_IGNORE_DUPS
+  setopt APPEND_HISTORY
+  setopt INC_APPEND_HISTORY
+  setopt EXTENDED_HISTORY
+}
+
+function _configure_aliases {
+  alias reload='source ~/.zshrc'
+
+  alias be='bundle exec'
+  alias br='./bin/rails'
+
+  alias cdr='cd $(git root)'
+
+  alias ga='git add'
+  alias gc='git commit'
+  alias gco='git checkout'
+  alias gd='git diff'
+  alias gf='git fetch'
+  alias gff='git merge --ff-only'
+  alias gl='git log'
+  alias gm='git merge --no-ff'
+  alias gp='git push'
+  alias gpr='git push -u && gh pr create --web'
+  alias gb='gh pr view --web'
+  alias gs='git status'
+
+  alias zed='/usr/local/bin/zed'
+
+  alias lvim='NVIM_APPNAME=lazyvim nvim'
+
+  function autonode { echo $1 | entr -c node $1 }
+  function autoruby { echo $1 | entr -c ruby $1 }
+  function autorspec { echo $1 | entr -c ./up rspec $1 }
+}
+
+function _configure_homebrew {
+  if [[ -f /opt/homebrew/bin/brew ]] {
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
+
+    export HOMEBREW_NO_ENV_HINTS=true
+    export EDITOR=$HOMEBREW_PREFIX/bin/nvim
+  }
+}
+
+function _configure_asdf {
+  if [[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ]] {
+    source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+
+    if [[ -d ~/.asdf/plugins/java/ ]] {
+      source ~/.asdf/plugins/java/set-java-home.zsh
+    }
+  }
+}
+
+function _configure_mise {
+  if [[ -f $HOMEBREW_PREFIX/bin/mise ]] {
+    if [[ -o interactive ]] {
+      eval "$(mise activate zsh)"
+    } else {
+      eval "$(mise activate zsh --shims)"
+    }
+  }
+}
+
+function _configure_android {
+  if [[ ! -v $ANDROID_HOME ]] {
+    export ANDROID_HOME=$HOME/Library/Android/sdk
+    export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+
+    export PATH=$ANDROID_HOME/emulator:$PATH
+    export PATH=$ANDROID_HOME/tools:$PATH
+    export PATH=$ANDROID_HOME/tools/bin:$PATH
+    export PATH=$ANDROID_HOME/platform-tools:$PATH
+    export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+  }
+}
+
+function _configure_up_completion {
+  if [[ -f ~/src/up/.zsh-up-completion/init.zsh ]] {
+    source ~/src/up/.zsh-up-completion/init.zsh
+  }
+}
+
+_configure_environment
 
 if [[ ! -v WARP_IS_LOCAL_SHELL_SESSION ]] {
   # We don't need these in Warp, coz it has its own equivalents.
-  configure prompt
-  configure vi_mode
-  configure completion
-  configure history
+  _configure_prompt
+  _configure_vi_mode
+  _configure_completion
+  _configure_history
 }
 
-configure aliases
-configure homebrew
-configure asdf
-configure mise
-configure work
+_configure_aliases
+_configure_homebrew
+_configure_asdf
+_configure_mise
 
-unfunction configure
+if [[ $DOTFILES_ENV == "work" ]] {
+  _configure_android
+  _configure_up_completion
+}
