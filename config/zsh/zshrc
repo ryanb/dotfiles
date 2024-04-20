@@ -4,10 +4,11 @@ function _configure_environment {
   export CLICOLOR=1  # Make ls colour its output.
   export LESS=-R     # Make less support ANSI colour sequences.
 
-  if [[ $(hostname -s) == Knuth ]] {
-    export DOTFILES_ENV=home
-  } else {
-    export DOTFILES_ENV=work
+  case $(hostname -s) {
+    Knuth)
+      export DOTFILES_ENV=home;;
+    *)
+      export DOTFILES_ENV=work;;
   }
 }
 
@@ -37,7 +38,7 @@ function _configure_vi_mode {
   function _block_cursor { echo -ne "\e[2 q" }
 
   # Start a new command line with the bar cursor.
-  zle -N zle-line-init bar_cursor
+  zle -N zle-line-init _bar_cursor
 
   # Swich between the bar and block cursors depending on the vi mode.
   function zle-keymap-select {
