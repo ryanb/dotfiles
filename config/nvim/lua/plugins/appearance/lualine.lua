@@ -12,8 +12,8 @@ local opts = {
     extensions = { "lazy", "neo-tree", "man", "mason", "quickfix" },
     options = {
         globalstatus = true,
-        padding = 2,
-        section_separators = { left = "", right = "" },
+        -- padding = 2,
+        -- section_separators = { left = "", right = "" },
         theme = "auto",
     },
     sections = {

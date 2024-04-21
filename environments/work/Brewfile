@@ -7,12 +7,12 @@ brew 'gh'
 brew 'git'
 brew 'jq'
 brew 'neovim'
-brew 'shellcheck'
 brew 'ripgrep'
 brew 'wget'
 
 cask_args force: true
 cask 'iterm2'
+cask 'kitty'
 cask 'notion'
 cask 'raycast'
 cask 'scroll-reverser'
