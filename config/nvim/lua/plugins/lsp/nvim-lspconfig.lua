@@ -17,6 +17,7 @@ local function choose_servers()
         work = {
             lspconfig.bashls,
             lspconfig.eslint,
+            lspconfig.relay_lsp,
             lspconfig.rubocop,
             lspconfig.sorbet,
             lspconfig.tsserver,
