@@ -24,4 +24,4 @@ The `environments` directory contains separate `Brewfile`s and `.tool-versions`s
 
 [Homebrew](https://brew.sh) installs anything where I always want the latest version, including apps from the Mac App Store.
 
-[Asdf](https://asdf-vm.com) manages things like languages, where I want particular versions installed.
+[Mise](https://mise.jdx.dev/) manages things like languages, where I want particular versions installed.

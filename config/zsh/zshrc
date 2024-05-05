@@ -123,16 +123,6 @@ function _configure_homebrew {
   }
 }
 
-function _configure_asdf {
-  if [[ -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh ]] {
-    source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
-
-    if [[ -d ~/.asdf/plugins/java/ ]] {
-      source ~/.asdf/plugins/java/set-java-home.zsh
-    }
-  }
-}
-
 function _configure_mise {
   if [[ -f $HOMEBREW_PREFIX/bin/mise ]] {
     if [[ -o interactive ]] {
@@ -174,7 +164,6 @@ if [[ ! -v WARP_IS_LOCAL_SHELL_SESSION ]] {
 
 _configure_aliases
 _configure_homebrew
-_configure_asdf
 _configure_mise
 
 if [[ $DOTFILES_ENV == "work" ]] {

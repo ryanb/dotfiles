@@ -52,9 +52,7 @@ cask 'sysex-librarian'
 
 # Coding ==============================================================
 
-brew 'asdf'
-brew 'gpg'  # Needed for the asdf-nodejs plugin.
-brew 'gawk' # Ditto.
+brew 'mise'
 
 cask 'iterm2'
 cask 'kitty'
