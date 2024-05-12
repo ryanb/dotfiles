@@ -1,5 +1,11 @@
 cask_args force: true
 
+tap 'homebrew/autoupdate'
+tap 'homebrew/services'
+
+# If we don't list mas explicitly, brew bundle cleanup will remove it.
+brew 'mas'
+
 # Keeping myself organised ============================================
 
 cask '1password'
@@ -10,20 +16,18 @@ mas 'Numbers', id: 409203825
 mas 'OmniGraffle', id: 1142578753
 mas 'Pages', id: 409201541
 mas 'Things', id: 904280696
-cask 'sketch'
 
 # Helpful utilities ===================================================
 
 mas 'Amphetamine', id: 937984704
 cask 'appcleaner'
-mas 'Hidden Bar', id: 1452453066
 cask 'raycast'
 cask 'scroll-reverser'
 cask 'the-unarchiver'
-cask 'tripmode'
 
 # Browsers ============================================================
 
+cask 'arc'
 cask 'firefox'
 cask 'google-chrome'
 
@@ -52,18 +56,17 @@ cask 'sysex-librarian'
 
 # Coding ==============================================================
 
-brew 'mise'
-
+brew 'gh'
+brew 'git'
 cask 'iterm2'
 cask 'kitty'
+brew 'mise'
 brew 'neovim'
+cask 'swiftformat-for-xcode'
 cask 'visual-studio-code'
 cask 'warp'
 mas 'Xcode', id: 497799835
 cask 'zed'
-
-brew 'gh'
-brew 'git'
 
 tap 'homebrew/cask-fonts'
 cask 'font-inconsolata-nerd-font'
@@ -76,5 +79,3 @@ brew 'jq'
 brew 'ripgrep'
 brew 'wget'
 
-# If we don't list mas explicitly, brew bundle cleanup will remove it.
-brew 'mas'
