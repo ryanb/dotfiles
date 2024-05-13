@@ -79,3 +79,7 @@ brew 'jq'
 brew 'ripgrep'
 brew 'wget'
 
+# mason.nvim needs these to build gems ================================
+
+brew 'coreutils'
+brew 'libyaml'

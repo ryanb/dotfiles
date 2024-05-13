@@ -24,3 +24,7 @@ cask 'zed'
 
 tap 'homebrew/cask-fonts'
 cask 'font-inconsolata-nerd-font'
+
+# mason.nvim needs these to build gems:
+brew 'coreutils'
+brew 'libyaml'
