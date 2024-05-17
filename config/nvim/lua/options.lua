@@ -4,9 +4,8 @@ local function configure()
     -- Since neovim 0.9, this has been made pretty secure.
     vim.o.exrc = true
 
-    -- We need these set up before we load all the plugins.
+    -- Use space as the leader key. Needs to be set before we load plugins.
     vim.g.mapleader = " "
-    vim.o.termguicolors = true
 
     -- Default to 2 space indents.
     vim.o.tabstop = 2

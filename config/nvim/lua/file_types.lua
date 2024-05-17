@@ -4,6 +4,7 @@ local function lua()
     vim.bo.softtabstop = 4
 end
 
+-- Configure handling for individual file types.
 local function configure()
     local group = vim.api.nvim_create_augroup("fileTypeOptions", { clear = true })
 

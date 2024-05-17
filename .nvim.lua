@@ -13,6 +13,7 @@ local lua_settings = {
             checkThirdParty = false,
             library = {
                 vim.env.VIMRUNTIME,
+                "${3rd}/luv/library",
             },
         },
     },

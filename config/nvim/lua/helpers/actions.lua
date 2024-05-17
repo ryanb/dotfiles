@@ -32,7 +32,8 @@ return {
         local function done()
             vim.notify("eslint_d restarted")
         end
-        vim.loop.spawn("eslint_d", { args = { "restart" } }, done)
+        local options = { args = { "restart" } }
+        vim.uv.spawn("eslint_d", options, done)
     end,
 
     test_file = function()

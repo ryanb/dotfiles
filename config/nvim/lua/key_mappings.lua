@@ -34,8 +34,6 @@ local function map_global_keys()
     map("n", "<leader>zl", vim.cmd.LspRestart, { desc = "restart LSP" })
 
     -- Move around in the buffer
-    map("n", "[d", vim.diagnostic.goto_prev, { desc = "previous diagnostic in buffer" })
-    map("n", "]d", vim.diagnostic.goto_next, { desc = "next diagnostic in buffer" })
     map("n", "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
     map("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
     map("n", "[q", vim.cmd.cbefore, { desc = "previous quickfix error in buffer" })
@@ -61,11 +59,11 @@ local function map_lsp_keys(args)
     map("n", "<leader>cd", telescope_builtin.diagnostics, { buffer = buffer, desc = "search diagnostics" })
     map("n", "<leader>cr", vim.lsp.buf.rename, { buffer = buffer, desc = "rename symbol under cursor" })
 
-    map("n", "K", vim.lsp.buf.hover, { buffer = buffer, desc = "show info about symbol under cursor" })
-    map("n", "gd", vim.lsp.buf.definition, { buffer = buffer, desc = "go to defintion" })
-    map("n", "gr", telescope_builtin.lsp_references, { buffer = buffer, desc = "go to references" })
+    map("n", "gd", vim.lsp.buf.definition, { buffer = buffer, desc = "Go to defintion" })
+    map("n", "gr", telescope_builtin.lsp_references, { buffer = buffer, desc = "Go to references" })
 end
 
+-- Configure all the key mappings to my liking.
 local function configure()
     map_global_keys()
 
