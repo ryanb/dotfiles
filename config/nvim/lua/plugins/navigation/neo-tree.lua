@@ -2,6 +2,21 @@
 --
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 
+-- Generate a key mapping that sets the base used to calculate git status.
+local function set_git_base(git_base)
+    return {
+        function(_)
+            local neo_tree_command = require("neo-tree.command")
+            neo_tree_command.execute({
+                action = "focus",
+                source = "git_status",
+                git_base = git_base,
+            })
+        end,
+        desc = "show diffs from " .. git_base,
+    }
+end
+
 local opts = {
     sources = {
         "filesystem",
@@ -25,6 +40,15 @@ local opts = {
         window = {
             mappings = {
                 ["<space>"] = "none", -- Let our leader key work in the explorer.
+            },
+        },
+    },
+    git_status = {
+        window = {
+            mappings = {
+                ["bh"] = set_git_base("HEAD"),
+                ["bl"] = set_git_base("HEAD~1"),
+                ["bm"] = set_git_base("main"),
             },
         },
     },
