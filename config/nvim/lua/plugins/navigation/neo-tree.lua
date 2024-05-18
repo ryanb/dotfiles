@@ -46,9 +46,9 @@ local opts = {
     git_status = {
         window = {
             mappings = {
-                ["bh"] = set_git_base("HEAD"),
-                ["bl"] = set_git_base("HEAD~1"),
-                ["bm"] = set_git_base("main"),
+                ["gdh"] = set_git_base("HEAD"),
+                ["gdl"] = set_git_base("HEAD~1"),
+                ["gdm"] = set_git_base("main"),
             },
         },
     },
