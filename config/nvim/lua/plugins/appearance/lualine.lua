@@ -11,15 +11,16 @@ end
 local opts = {
     extensions = { "lazy", "neo-tree", "man", "mason", "quickfix" },
     options = {
+        component_separators = "",
         globalstatus = true,
     },
     sections = {
-        lualine_a = { "mode", "searchcount" },
+        lualine_a = { "mode" },
         lualine_b = { "diagnostics" },
         lualine_c = { { "filename", path = 1, on_click = copy_relative_path } },
         lualine_x = { "branch" },
-        lualine_y = { "progress" },
-        lualine_z = { "location" },
+        lualine_y = { "searchcount" },
+        lualine_z = { "progress", "location" },
     },
 }
 

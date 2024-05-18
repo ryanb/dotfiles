@@ -2,6 +2,7 @@ local bufdelete = require("bufdelete")
 local gitsigns = require("gitsigns")
 local refactoring = require("refactoring")
 local telescope = require("telescope.builtin")
+local telescope_extensions = require("telescope").extensions
 local treesj = require("treesj")
 local actions = require("helpers.actions")
 
@@ -31,7 +32,8 @@ local function map_global_keys()
     map("n", "<leader>f.", telescope.resume, { desc = "repeat last find" })
     map("n", "<leader>fb", telescope.buffers, { desc = "find buffers" })
     map("n", "<leader>fg", telescope.live_grep, { desc = "live grep" })
-    map("n", "<leader>fj", telescope.jumplist, { desc = "find jumplist" })
+    map("n", "<leader>fj", telescope.jumplist, { desc = "find in jumplist" })
+    map("n", "<leader>fn", telescope_extensions.notify.notify, { desc = "find in notifications" })
     map("n", "<leader>fw", actions.find_word_under_cursor, { desc = "live grep word under cursor" })
 
     -- Do git things with gitsigns
