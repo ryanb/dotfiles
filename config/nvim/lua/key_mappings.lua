@@ -33,7 +33,7 @@ local function map_global_keys()
 
     -- Do git things with gitsigns
     map("n", "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
-    map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "preview hunk" })
+    map("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
     map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "stage hunk" })
     map("n", "<leader>gu", gitsigns.undo_stage_hunk, { desc = "undo stage hunk" })
 

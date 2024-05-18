@@ -6,12 +6,13 @@ local function config()
     vim.g.jellybeans_overrides = {
         background = { guibg = "none" },
         DiagnosticError = { guifg = "ff6666" },
+        DiffDelete = { guifg = "d2ebbe" },
         GitSignsAdd = { guifg = "99bc80" },
         GitSignsChange = { guifg = "68aee8" },
         GitSignsDelete = { guifg = "e16d77" },
         NormalFloat = { guibg = "333333" },
         SignColumn = { guibg = "none" },
-        VertSplit = { guifg = "35373b", guibg = "35373b" },
+        WinSeparator = { guifg = "2f2f2b" },
     }
 
     vim.cmd.sign("define", "DiagnosticSignError", "text=", "texthl=DiagnosticSignError")
