@@ -7,8 +7,10 @@ local actions = require("helpers.actions")
 
 local map = vim.keymap.set
 
+-- Set up mappings available in all buffers.
 local function map_global_keys()
     -- Things I do often enough that they get a top-level mapping
+    map("n", "<leader>/", vim.cmd.nohlsearch, { desc = "clear search" })
     map("n", "<leader><leader>", telescope.find_files, { desc = "find files" })
     map("n", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
     map("n", "<leader>q", actions.write_all_and_quit, { desc = "write all files and quit" })
@@ -29,6 +31,7 @@ local function map_global_keys()
     map("n", "<leader>f.", telescope.resume, { desc = "repeat last find" })
     map("n", "<leader>fb", telescope.buffers, { desc = "find buffers" })
     map("n", "<leader>fg", telescope.live_grep, { desc = "live grep" })
+    map("n", "<leader>fj", telescope.jumplist, { desc = "find jumplist" })
     map("n", "<leader>fw", actions.find_word_under_cursor, { desc = "live grep word under cursor" })
 
     -- Do git things with gitsigns
@@ -63,7 +66,7 @@ local function map_global_keys()
     map("v", ">", ">gv")
 end
 
--- These mappings only apply when a buffer has a language server attached.
+-- Set up mappings for buffers with a language server attached.
 local function map_lsp_keys(args)
     local buffer = args.buf
 
@@ -73,7 +76,7 @@ local function map_lsp_keys(args)
     map("n", "<leader>fd", telescope.diagnostics, { buffer = buffer, desc = "find diagnostics" })
     map("n", "<leader>fs", telescope.lsp_document_symbols, { buffer = buffer, desc = "find document symbols" })
 
-    map("n", "gd", vim.lsp.buf.definition, { buffer = buffer, desc = "Go to defintion" })
+    map("n", "gd", telescope.lsp_definitions, { buffer = buffer, desc = "Go to defintion" })
     map("n", "gr", telescope.lsp_references, { buffer = buffer, desc = "Go to references" })
 end
 

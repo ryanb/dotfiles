@@ -15,10 +15,10 @@ local function config()
         WinSeparator = { guifg = "2f2f2b" },
     }
 
-    vim.cmd.sign("define", "DiagnosticSignError", "text=", "texthl=DiagnosticSignError")
-    vim.cmd.sign("define", "DiagnosticSignWarn", "text=󰀪", "texthl=DiagnosticSignWarn")
-    vim.cmd.sign("define", "DiagnosticSignInfo", "text=i", "texthl=DiagnosticSignInfo")
-    vim.cmd.sign("define", "DiagnosticSignHint", "text=󰍉", "texthl=DiagnosticSignHint")
+    vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+    vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+    vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+    vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
 
     vim.cmd.colorscheme("jellybeans")
 end

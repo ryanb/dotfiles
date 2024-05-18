@@ -18,18 +18,15 @@ local function set_git_base(git_base)
 end
 
 local opts = {
-    sources = {
-        "filesystem",
-        "buffers",
-        "git_status",
-        "document_symbols",
-    },
     bind_to_cwd = false,
-    use_popups_for_input = true,
     default_component_configs = {
-        indent = {
-            with_markers = false,
+        diagnostics = {
+            -- The neo-tree docs say these should be read from the signs we
+            -- define in jellybeans.lua, but it doesn't seem to work so we need
+            -- to set them here.
+            symbols = { error = " ", hint = "󰌵", info = " ", warn = " " },
         },
+        indent = { with_markers = false },
     },
     filesystem = {
         follow_current_file = {
@@ -52,6 +49,8 @@ local opts = {
             },
         },
     },
+    sources = { "filesystem", "buffers", "git_status" },
+    use_popups_for_input = true,
 }
 
 return {
