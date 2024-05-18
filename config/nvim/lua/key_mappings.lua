@@ -8,7 +8,7 @@ local actions = require("helpers.actions")
 local map = vim.keymap.set
 
 local function map_global_keys()
-    -- Things I do often enough that they get a top-level mapping.
+    -- Things I do often enough that they get a top-level mapping
     map("n", "<leader><leader>", telescope.find_files, { desc = "find files" })
     map("n", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
     map("n", "<leader>q", actions.write_all_and_quit, { desc = "write all files and quit" })
@@ -26,10 +26,10 @@ local function map_global_keys()
     map("n", "<leader>eg", actions.explore_git_status, { desc = "explore git status" })
 
     -- Find with Telescope
-    map("n", "<leader>f/", telescope.live_grep, { desc = "find in project" })
+    map("n", "<leader>f.", telescope.resume, { desc = "repeat last find" })
     map("n", "<leader>fb", telescope.buffers, { desc = "find buffers" })
-    map("n", "<leader>ff", telescope.resume, { desc = "resume last find" })
-    map("n", "<leader>fw", actions.find_word_under_cursor, { desc = "find word under cursor" })
+    map("n", "<leader>fg", telescope.live_grep, { desc = "live grep" })
+    map("n", "<leader>fw", actions.find_word_under_cursor, { desc = "live grep word under cursor" })
 
     -- Do git things with gitsigns
     map("n", "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
