@@ -2,8 +2,10 @@
 --
 -- https://github.com/Wansmer/treesj
 
+local opts = { use_default_keymaps = false }
+
 return {
     "Wansmer/treesj",
-    config = true,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = opts,
 }

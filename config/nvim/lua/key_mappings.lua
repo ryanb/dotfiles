@@ -1,35 +1,48 @@
 local bufdelete = require("bufdelete")
 local gitsigns = require("gitsigns")
-local telescope_builtin = require("telescope.builtin")
 local refactoring = require("refactoring")
+local telescope = require("telescope.builtin")
+local treesj = require("treesj")
 local actions = require("helpers.actions")
 
 local map = vim.keymap.set
 
 local function map_global_keys()
-    -- Leader + upper case for Neo-tree
-    map("n", "<leader>B", actions.explore_buffers, { desc = "explore buffers" })
-    map("n", "<leader>E", actions.explore_files, { desc = "explore files" })
-    map("n", "<leader>F", actions.explore_current_file, { desc = "explore current file" })
-    map("n", "<leader>G", actions.explore_git_status, { desc = "explore git status" })
-
-    -- Leader + lower case for lots of other things
-    map("n", "<leader><leader>", telescope_builtin.find_files, { desc = "find files" })
-    map("n", "<leader>.", telescope_builtin.resume, { desc = "resume last find" })
-    map("n", "<leader>/", telescope_builtin.live_grep, { desc = "find in project" })
-    map("n", "<leader>b", telescope_builtin.buffers, { desc = "find buffers" })
+    -- Things I do often enough that they get a top-level mapping.
+    map("n", "<leader><leader>", telescope.find_files, { desc = "find files" })
     map("n", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
     map("n", "<leader>q", actions.write_all_and_quit, { desc = "write all files and quit" })
-    map({ "n", "x" }, "<leader>r", refactoring.select_refactor, { desc = "refacor" })
-    map("n", "<leader>w", actions.find_word_under_cursor, { desc = "find word under cursor" })
     map("n", "<leader>x", bufdelete.bufdelete, { desc = "close current buffer" })
+
+    -- Code actions
+    map("n", "<leader>cj", treesj.join, { desc = "join lines" })
+    map({ "n", "x" }, "<leader>cf", refactoring.select_refactor, { desc = "refactor" })
+    map("n", "<leader>cs", treesj.split, { desc = "split lines" })
+
+    -- Explore with Neo-tree
+    map("n", "<leader>eb", actions.explore_buffers, { desc = "explore buffers" })
+    map("n", "<leader>ec", actions.explore_current_file, { desc = "explore current file" })
+    map("n", "<leader>ef", actions.explore_files, { desc = "explore files" })
+    map("n", "<leader>eg", actions.explore_git_status, { desc = "explore git status" })
+
+    -- Find with Telescope
+    map("n", "<leader>f/", telescope.live_grep, { desc = "find in project" })
+    map("n", "<leader>fb", telescope.buffers, { desc = "find buffers" })
+    map("n", "<leader>ff", telescope.resume, { desc = "resume last find" })
+    map("n", "<leader>fw", actions.find_word_under_cursor, { desc = "find word under cursor" })
+
+    -- Do git things with gitsigns
+    map("n", "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
+    map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "preview hunk" })
+    map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "stage hunk" })
+    map("n", "<leader>gu", gitsigns.undo_stage_hunk, { desc = "undo stage hunk" })
 
     -- Run tests
     map("n", "<leader>t.", actions.test_last, { desc = "repeat the last test run" })
     map("n", "<leader>tf", actions.test_file, { desc = "run tests in current file" })
     map("n", "<leader>tn", actions.test_nearest, { desc = "run nearest test" })
 
-    -- Restart things
+    -- Restart things (coz they break sometimes)
     map("n", "<leader>ze", actions.restart_eslint, { desc = "restart eslint" })
     map("n", "<leader>zl", vim.cmd.LspRestart, { desc = "restart LSP" })
 
@@ -54,13 +67,14 @@ end
 local function map_lsp_keys(args)
     local buffer = args.buf
 
-    map("n", "<leader>c/", telescope_builtin.lsp_document_symbols, { buffer = buffer, desc = "document symbols" })
     map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = buffer, desc = "code actions" })
-    map("n", "<leader>cd", telescope_builtin.diagnostics, { buffer = buffer, desc = "search diagnostics" })
     map("n", "<leader>cr", vim.lsp.buf.rename, { buffer = buffer, desc = "rename symbol under cursor" })
 
+    map("n", "<leader>fd", telescope.diagnostics, { buffer = buffer, desc = "find diagnostics" })
+    map("n", "<leader>fs", telescope.lsp_document_symbols, { buffer = buffer, desc = "find document symbols" })
+
     map("n", "gd", vim.lsp.buf.definition, { buffer = buffer, desc = "Go to defintion" })
-    map("n", "gr", telescope_builtin.lsp_references, { buffer = buffer, desc = "Go to references" })
+    map("n", "gr", telescope.lsp_references, { buffer = buffer, desc = "Go to references" })
 end
 
 -- Configure all the key mappings to my liking.

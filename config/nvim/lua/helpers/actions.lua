@@ -1,6 +1,7 @@
-local neo_tree_command = require("neo-tree.command")
-local telescope_builtin = require("telescope.builtin")
+local neo_tree = require("neo-tree.command")
+local telescope = require("telescope.builtin")
 
+-- Open the quickfix window without focussing on it.
 local function open_quickfix_window()
     local window_id = vim.fn.win_getid()
     vim.api.nvim_cmd({ cmd = "copen", mods = { keepalt = true } }, {})
@@ -9,23 +10,23 @@ end
 
 return {
     explore_buffers = function()
-        neo_tree_command.execute({ action = "focus", source = "buffers" })
+        neo_tree.execute({ action = "focus", position = "right", source = "buffers" })
     end,
 
     explore_files = function()
-        neo_tree_command.execute({ action = "focus", source = "filesystem" })
+        neo_tree.execute({ action = "focus", position = "right", source = "filesystem" })
     end,
 
     explore_current_file = function()
-        neo_tree_command.execute({ action = "focus", source = "filesystem", reveal = true })
+        neo_tree.execute({ action = "focus", position = "right", source = "filesystem", reveal = true })
     end,
 
     explore_git_status = function()
-        neo_tree_command.execute({ action = "focus", source = "git_status" })
+        neo_tree.execute({ action = "focus", position = "right", source = "git_status" })
     end,
 
     find_word_under_cursor = function()
-        telescope_builtin.grep_string({ search = vim.fn.expand("<cword>") })
+        telescope.grep_string({ search = vim.fn.expand("<cword>") })
     end,
 
     restart_eslint = function()

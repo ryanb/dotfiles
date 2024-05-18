@@ -9,9 +9,12 @@ local function config()
     local which_key = require("which-key")
 
     which_key.register({
-        c = "code...",
-        t = "tests...",
-        z = "restart things...",
+        c = { name = "code" },
+        e = { name = "expore" },
+        f = { name = "find" },
+        g = { name = "git" },
+        t = { name = "tests" },
+        z = { name = "restart things" },
     }, {
         prefix = "<leader>",
     })
