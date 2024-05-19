@@ -25,8 +25,8 @@ local function map_global_keys()
 
     -- Explore with Neo-tree
     map("n", "<leader>eb", actions.explore_buffers, { desc = "explore buffers" })
-    map("n", "<leader>ec", actions.explore_current_file, { desc = "explore current file" })
-    map("n", "<leader>ef", actions.explore_files, { desc = "explore files" })
+    map("n", "<leader>ee", actions.explore_files, { desc = "explore files" })
+    map("n", "<leader>ef", actions.explore_current_file, { desc = "explore current file" })
     map("n", "<leader>eg", actions.explore_git_status, { desc = "explore git status" })
 
     -- Find with Telescope
@@ -39,6 +39,7 @@ local function map_global_keys()
 
     -- Do git things with gitsigns
     map("n", "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
+    map("n", "<leader>gd", gitsigns.diffthis, { desc = "git diff" })
     map("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
     map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "stage hunk" })
     map("n", "<leader>gu", gitsigns.undo_stage_hunk, { desc = "undo stage hunk" })
