@@ -20,7 +20,7 @@ I remove anything I'm not using to keep it simple.
 
 All my config files live under `config`. These get soft-linked into place by the steps.
 
-The `environments` directory contains separate `Brewfile`s and `.tool-versions`s files for my home and work machines.
+The `environments` directory contains separate `Brewfile`s and `mise.toml` files for my home and work machines.
 
 [Homebrew](https://brew.sh) installs anything where I always want the latest version, including apps from the Mac App Store.
 
