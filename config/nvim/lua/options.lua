@@ -28,8 +28,10 @@ local function configure()
     vim.o.cursorline = true
     vim.o.cursorlineopt = "number"
 
-    -- Don't show the default startup message.
-    vim.opt.shortmess:append({ I = true })
+    vim.opt.shortmess:append({
+        I = true, -- Don't show the default startup message.
+        S = true, -- Hide the search count, because lualine shows it for us.
+    })
 
     -- Get rid of the annoying ~ characters on empty lines.
     vim.opt.fillchars = { eob = " " }
