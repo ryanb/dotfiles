@@ -16,7 +16,7 @@ end
 
 local opts = {
     extensions = { "lazy", "neo-tree", "man", "mason", "quickfix" },
-    options = { globalstatus = true },
+    options = { globalstatus = false },
     sections = {
         lualine_a = { "mode" },
         lualine_b = { "diagnostics" },

@@ -12,7 +12,9 @@ local function config()
         GitSignsDelete = { guifg = "e16d77" },
         NormalFloat = { guibg = "333333" },
         SignColumn = { guibg = "none" },
-        WinSeparator = { guifg = "2f2f2b" },
+        StatusLine = { guibg = "30302c" },
+        StatusLineNC = { guibg = "30302c" },
+        WinSeparator = { guifg = "30302c" },
     }
 
     vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
