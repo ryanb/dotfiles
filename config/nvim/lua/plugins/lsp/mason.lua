@@ -4,7 +4,9 @@
 
 local function config()
     local mason = require("mason")
-    mason.setup({})
+    mason.setup({
+        PATH = "append",
+    })
 
     -- This installs things needed for none-ls.
     -- See also mason-lspconfig.lua, which installs language servers.

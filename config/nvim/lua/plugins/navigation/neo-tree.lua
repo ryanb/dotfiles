@@ -51,6 +51,7 @@ local opts = {
     },
     sources = { "filesystem", "buffers", "git_status" },
     use_popups_for_input = true,
+    window = { width = 50 },
 }
 
 return {

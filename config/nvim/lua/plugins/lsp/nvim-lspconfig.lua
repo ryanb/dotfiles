@@ -2,41 +2,36 @@
 --
 -- https://github.com/neovim/nvim-lspconfig
 
--- Select the language servers we want to use for home and work.
-local function choose_servers()
-    local lspconfig = require("lspconfig")
+local environments = {
+    home = function(lspconfig)
+        lspconfig.bashls.setup({})
+        lspconfig.eslint.setup({})
+        lspconfig.solargraph.setup({})
+        lspconfig.standardrb.setup({})
+        lspconfig.tsserver.setup({})
+    end,
 
-    local servers = {
-        home = {
-            lspconfig.bashls,
-            lspconfig.eslint,
-            lspconfig.solargraph,
-            lspconfig.standardrb,
-            lspconfig.tsserver,
-        },
-        work = {
-            lspconfig.bashls,
-            lspconfig.eslint,
-            lspconfig.relay_lsp,
-            lspconfig.rubocop,
-            lspconfig.sorbet,
-            lspconfig.tsserver,
-        },
-    }
-
-    -- For other language servers see:
-    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-
-    return servers[os.getenv("DOTFILES_ENV")]
-end
+    work = function(lspconfig)
+        lspconfig.bashls.setup({})
+        lspconfig.eslint.setup({})
+        lspconfig.relay_lsp.setup({})
+        lspconfig.rubocop.setup({})
+        lspconfig.sorbet.setup({})
+        lspconfig.tsserver.setup({})
+    end,
+}
 
 local function config()
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local lspconfig = require("lspconfig")
 
-    local servers = choose_servers()
-    for _, server in ipairs(servers) do
-        server.setup({ capabilities = capabilities })
-    end
+    -- Use the client capabilities for nvim-cmp with every server.
+    -- See lspconfig-global-defaults in nvim-lspconfig help.
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    lspconfig.util.default_config =
+        vim.tbl_extend("force", lspconfig.util.default_config, { capabilities = capabilities })
+
+    -- Configure for the correct DOTFILES_ENV.
+    environments[os.getenv("DOTFILES_ENV")](lspconfig)
 
     -- Language servers can be configured on a per-project basis using exrc.
     -- See the .nvim.lua file in .dotfiles for an example.
