@@ -44,9 +44,8 @@ end
 return {
     "nanotech/jellybeans.vim",
     config = config,
-    dependencies = {
-        "rktjmp/lush.nvim",
-    },
+    dependencies = { "rktjmp/lush.nvim" },
+    enabled = false,
     lazy = false,
     priority = 1000,
 }

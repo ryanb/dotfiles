@@ -52,6 +52,11 @@ return {
         open_quickfix_window()
     end,
 
+    write_all = function()
+        vim.cmd.wall()
+        vim.notify("Saved.")
+    end,
+
     write_all_and_quit = function()
         vim.cmd("confirm xall")
     end,

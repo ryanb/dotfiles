@@ -4,6 +4,11 @@ if not vim.g.vscode then
 
     require("bootstrap_lazy").bootstrap()
     require("lazy").setup({
+        -- Don't notify whenever a config file changes. It's not helpful.
+        change_detection = {
+            enabled = true,
+            notify = false,
+        },
         spec = {
             -- Lazy will load every file in these directories.
             { import = "plugins.appearance" },
@@ -17,7 +22,7 @@ if not vim.g.vscode then
         install = {
             -- This doesn't set the colorscheme for neovim, it just tells Lazy
             -- to use this colorscheme while it's setting everything up.
-            colorscheme = { "jellybeans" },
+            colorscheme = { "nightfox" },
         },
     })
 

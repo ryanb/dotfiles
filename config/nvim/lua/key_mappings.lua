@@ -15,7 +15,7 @@ local function map_global_keys()
     map("n", "<leader><leader>", telescope.find_files, { desc = "find files" })
     map("n", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
     map("n", "<leader>q", actions.write_all_and_quit, { desc = "save all files and quit" })
-    map("n", "<leader>s", vim.cmd.wall, { desc = "save all files" })
+    map("n", "<leader>s", actions.write_all, { desc = "save all files" })
     map("n", "<leader>w", vim.cmd.close, { desc = "close window" })
     map("n", "<leader>x", bufdelete.bufdelete, { desc = "close buffer" })
 
