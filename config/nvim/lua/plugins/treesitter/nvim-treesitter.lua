@@ -12,10 +12,14 @@ local parsers = {
     "json",
     "jsonc",
     "lua",
+    "markdown",
+    "markdown_inline",
+    "regex",
     "ruby",
     "scss",
     "tsx",
     "typescript",
+    "vim",
 }
 
 -- Configuration for moving around by textobject.
