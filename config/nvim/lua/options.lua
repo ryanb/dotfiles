@@ -39,6 +39,7 @@ local function configure()
     -- Other bits and pieces.
     vim.o.autowriteall = true
     vim.o.scrolloff = 5
+    vim.o.showcmd = false
     vim.o.showmatch = true
     vim.o.showmode = false
     vim.o.signcolumn = "yes"
