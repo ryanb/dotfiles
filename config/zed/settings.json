@@ -7,9 +7,10 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "autosave": "on_window_change",
   "buffer_font_family": "BerkeleyMono Nerd Font",
   "buffer_font_features": {
-    "calt": false
+    "calt": false // Don't use ligatures.
   },
   "buffer_font_size": 14,
   "lsp": {
@@ -20,12 +21,6 @@
       }
     }
   },
-  "project_panel": {
-    "dock": "left"
-  },
-  "terminal": {
-    "dock": "bottom"
-  },
-  "theme": "One Dark",
+  "relative_line_numbers": true,
   "vim_mode": true
 }
