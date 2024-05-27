@@ -22,9 +22,9 @@ local opts = {
     default_component_configs = {
         diagnostics = {
             -- The neo-tree docs say these should be read from the signs we
-            -- define in jellybeans.lua, but it doesn't seem to work so we need
+            -- define in nightfox.lua, but it doesn't seem to work so we need
             -- to set them here.
-            symbols = { error = " ", hint = "󰌵", info = " ", warn = " " },
+            symbols = { error = "󰅚 ", hint = "󰌶", info = "󰋽 ", warn = "󰀪 " },
         },
         indent = { with_markers = false },
     },
