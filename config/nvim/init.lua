@@ -26,5 +26,8 @@ if not vim.g.vscode then
         },
     })
 
+    vim.cmd.colorscheme("nightfox")
+
+    require("signs").configure()
     require("key_mappings").configure()
 end

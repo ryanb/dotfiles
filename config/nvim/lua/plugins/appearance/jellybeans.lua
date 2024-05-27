@@ -26,19 +26,12 @@ local function config()
         GitSignsChange = { guifg = "68aee8" },
         GitSignsDelete = { guifg = "e16d77" },
         NormalFloat = { guibg = "333333" },
-        NotifyBackground = { guibg = "444444" },
+        NotifyBackground = { guibg = "000000" },
         SignColumn = { guibg = "none" },
         StatusLine = { guibg = "30302c" },
         StatusLineNC = { guibg = "30302c" },
         WinSeparator = { guifg = "30302c" },
     }
-
-    vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
-    vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
-    vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
-    vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
-
-    vim.cmd.colorscheme("jellybeans")
 end
 
 return {

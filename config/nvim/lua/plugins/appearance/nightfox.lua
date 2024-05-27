@@ -1,36 +1,29 @@
-local function config()
-    local nightfox = require("nightfox")
+-- Nightfox colour scheme
+--
+-- https://github.com/EdenEast/nightfox.nvim
 
-    -- Set the diagnostic signs shown in the gutter to match lualine's.
-    vim.fn.sign_define("DiagnosticSignError", { text = "󰅚 ", texthl = "DiagnosticSignError" })
-    vim.fn.sign_define("DiagnosticSignWarn", { text = "󰀪 ", texthl = "DiagnosticSignWarn" })
-    vim.fn.sign_define("DiagnosticSignInfo", { text = "󰋽 ", texthl = "DiagnosticSignInfo" })
-    vim.fn.sign_define("DiagnosticSignHint", { text = "󰌶", texthl = "DiagnosticSignHint" })
-
-    nightfox.setup({
-        options = {
-            module_default = false,
-            modules = {
-                diagnostic = { enabled = true, background = true },
-                gitsigns = true,
-                lazy = true,
-                lsp_semantic_tokens = true,
-                native_lsp = { enabled = true, background = true },
-                neotree = true,
-                telescope = true,
-                treesitter = true,
-                whichkey = true,
-            },
-            transparent = true,
+local opts = {
+    options = {
+        module_default = false,
+        modules = {
+            diagnostic = { enabled = true, background = true },
+            gitsigns = true,
+            lazy = true,
+            lsp_semantic_tokens = true,
+            native_lsp = { enabled = true, background = true },
+            neotree = true,
+            notify = true,
+            telescope = true,
+            treesitter = true,
+            whichkey = true,
         },
-    })
-
-    vim.cmd.colorscheme("nightfox")
-end
+        transparent = true,
+    },
+}
 
 return {
     "EdenEast/nightfox.nvim",
-    config = config,
+    opts = opts,
     lazy = false,
     priority = 1000,
 }
