@@ -1,5 +1,5 @@
+-- Set the diagnostic signs shown in the gutter to match lualine's.
 local function configure()
-    -- Set the diagnostic signs shown in the gutter to match lualine's.
     vim.fn.sign_define("DiagnosticSignError", { text = "󰅚 ", texthl = "DiagnosticSignError" })
     vim.fn.sign_define("DiagnosticSignWarn", { text = "󰀪 ", texthl = "DiagnosticSignWarn" })
     vim.fn.sign_define("DiagnosticSignInfo", { text = "󰋽 ", texthl = "DiagnosticSignInfo" })
