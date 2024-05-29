@@ -16,6 +16,9 @@ local function bootstrap()
 end
 
 -- Install and load all the plugins.
+--
+-- Pass in the colorscheme to use during installation. This does not set the
+-- overall neovim colorscheme.
 local function configure(colorscheme)
     bootstrap()
 

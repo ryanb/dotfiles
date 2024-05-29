@@ -5,16 +5,14 @@ end
 
 local colorscheme = "nordfox"
 
--- Plugins depend on some of the options, so set them first.
+-- These need to happen before plugins have loaded:
 require("options").configure()
 require("file_types").configure()
+require("signs").configure()
 
--- Now install and load plugins.
+-- Then we install and load the plugins:
 require("plugins").configure(colorscheme)
 
--- Once our colorscheme plugin is loaded, we can set the colorscheme.
+-- And these need to happen after the plugins have loaded:
 vim.cmd.colorscheme(colorscheme)
-
--- And now Key mappings that depend on plugins can happen.
 require("key_mappings").configure()
-require("signs").configure()

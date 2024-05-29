@@ -22,8 +22,8 @@ local opts = {
     default_component_configs = {
         diagnostics = {
             -- The neo-tree docs say these should be read from the signs we
-            -- define in nightfox.lua, but it doesn't seem to work so we need
-            -- to set them here.
+            -- define in signs.lua, but it doesn't seem to work so we need to
+            -- set them here.
             symbols = { error = "󰅚 ", hint = "󰌶", info = "󰋽 ", warn = "󰀪 " },
         },
         indent = { with_markers = false },
