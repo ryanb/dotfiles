@@ -6,7 +6,7 @@ local function configure_global_completion()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
 
-    -- Handle both completion and snippets when hitting tab.
+    -- Handle completion and snippets when hitting tab.
     local function tab(fallback)
         if cmp.visible() then
             cmp.select_next_item()
@@ -17,7 +17,7 @@ local function configure_global_completion()
         end
     end
 
-    -- Handle both completion and snippets when hitting shift-tab.
+    -- Handle completion and snippets when hitting shift-tab.
     local function shift_tab(fallback)
         if cmp.visible() then
             cmp.select_prev_item()
@@ -28,18 +28,31 @@ local function configure_global_completion()
         end
     end
 
+    -- Handle confirming on CR.
+    local function cr(fallback)
+        if cmp.visible() and cmp.get_active_entry() then
+            cmp.confirm()
+        else
+            fallback()
+        end
+    end
+
+    local mapping = cmp.mapping.preset.insert({
+        ["<Tab>"] = cmp.mapping(tab, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "s" }),
+        ["<CR>"] = cmp.mapping(cr, { "i", "s", "c" }),
+    })
+
+    local function format(entry, vim_item)
+        vim_item.menu = "[" .. entry.source.name .. "]"
+        return vim_item
+    end
+
     cmp.setup({
         formatting = {
-            format = function(entry, vim_item)
-                vim_item.menu = "[" .. entry.source.name .. "]"
-                return vim_item
-            end,
+            format = format,
         },
-        mapping = cmp.mapping.preset.insert({
-            ["<Tab>"] = cmp.mapping(tab, { "i", "s" }),
-            ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "s" }),
-            ["<CR>"] = cmp.mapping.confirm({}),
-        }),
+        mapping = mapping,
         snippet = {
             expand = function(args)
                 require("luasnip").lsp_expand(args.body)
@@ -56,6 +69,7 @@ local function configure_command_line_completion()
     local cmp = require("cmp")
 
     cmp.setup.cmdline(":", {
+        completion = { autocomplete = false },
         formatting = {
             fields = { "abbr", "menu" },
         },
@@ -73,6 +87,7 @@ local function configure_search_completion()
     local cmp = require("cmp")
 
     cmp.setup.cmdline({ "/", "?" }, {
+        completion = { autocomplete = false },
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
             { name = "buffer" },
