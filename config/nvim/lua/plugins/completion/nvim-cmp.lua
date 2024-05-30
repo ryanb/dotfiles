@@ -37,16 +37,16 @@ local function configure_global_completion()
         end
     end
 
+    local function format(entry, vim_item)
+        vim_item.menu = "[" .. entry.source.name .. "]"
+        return vim_item
+    end
+
     local mapping = cmp.mapping.preset.insert({
         ["<Tab>"] = cmp.mapping(tab, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "s" }),
         ["<CR>"] = cmp.mapping(cr, { "i", "s", "c" }),
     })
-
-    local function format(entry, vim_item)
-        vim_item.menu = "[" .. entry.source.name .. "]"
-        return vim_item
-    end
 
     cmp.setup({
         formatting = {
