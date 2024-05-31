@@ -16,12 +16,21 @@ local function configure_global_completion()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
 
+    -- Handle confirming on CR.
+    local function cr(fallback)
+        if cmp.visible() and cmp.get_active_entry() then
+            cmp.confirm()
+        else
+            fallback()
+        end
+    end
+
     -- Handle completion and snippets when hitting tab.
     local function tab(fallback)
         if cmp.visible() then
             cmp.select_next_item()
-        elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
+        elseif luasnip.jumpable(1) then
+            luasnip.jump(1)
         else
             fallback()
         end
@@ -38,30 +47,22 @@ local function configure_global_completion()
         end
     end
 
-    -- Handle confirming on CR.
-    local function cr(fallback)
-        if cmp.visible() and cmp.get_active_entry() then
-            cmp.confirm()
-        else
-            fallback()
-        end
-    end
+    local mapping = cmp.mapping.preset.insert({
+        ["<CR>"] = cmp.mapping(cr, { "c", "i", "s" }),
+        ["<Tab>"] = cmp.mapping(tab, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "s" }),
+        -- Note that we don't have to apply the tab and shift-tab mappings in
+        -- command mode, because the presets already have mappings for them.
+    })
 
+    -- Include the source of completions as a column in the completion popup.
     local function format(entry, vim_item)
         vim_item.menu = "[" .. entry.source.name .. "]"
         return vim_item
     end
 
-    local mapping = cmp.mapping.preset.insert({
-        ["<Tab>"] = cmp.mapping(tab, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(shift_tab, { "i", "s" }),
-        ["<CR>"] = cmp.mapping(cr, { "i", "s", "c" }),
-    })
-
     cmp.setup({
-        formatting = {
-            format = format,
-        },
+        formatting = { format = format },
         mapping = mapping,
         snippet = {
             expand = function(args)
