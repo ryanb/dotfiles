@@ -6,6 +6,7 @@ local function config()
     local luasnip = require("luasnip")
     luasnip.filetype_extend("ruby", { "rails" })
 
+    -- This loads the snippets from friendly-snippets.
     require("luasnip.loaders.from_vscode").lazy_load()
 end
 
