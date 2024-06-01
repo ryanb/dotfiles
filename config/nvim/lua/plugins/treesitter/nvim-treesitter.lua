@@ -26,13 +26,13 @@ local textobjects = {
     move = {
         enable = true,
         set_jumps = true,
-        goto_previous_start = {
-            ["[p"] = { query = "@parameter.inner", desc = "previous parameter" },
-            ["[m"] = { query = "@function.outer", desc = "previous function" },
-        },
         goto_next_start = {
             ["]p"] = { query = "@parameter.inner", desc = "next parameter" },
             ["]m"] = { query = "@function.outer", desc = "next function" },
+        },
+        goto_previous_start = {
+            ["[p"] = { query = "@parameter.inner", desc = "previous parameter" },
+            ["[m"] = { query = "@function.outer", desc = "previous function" },
         },
     },
     select = {
@@ -66,16 +66,19 @@ local function config()
         textobjects = textobjects,
     })
 
-    -- Make , and ; repeat the last move.
+    local map = vim.keymap.set
+
     local repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
-    vim.keymap.set({ "n", "x", "o" }, ";", repeatable_move.repeat_last_move_next)
-    vim.keymap.set({ "n", "x", "o" }, ",", repeatable_move.repeat_last_move_previous)
+
+    -- Make , and ; repeat the last move.
+    map({ "n", "x", "o" }, ";", repeatable_move.repeat_last_move_next)
+    map({ "n", "x", "o" }, ",", repeatable_move.repeat_last_move_previous)
 
     -- Make repeating the builtins work properly too.
-    vim.keymap.set({ "n", "x", "o" }, "f", repeatable_move.builtin_f)
-    vim.keymap.set({ "n", "x", "o" }, "F", repeatable_move.builtin_F)
-    vim.keymap.set({ "n", "x", "o" }, "t", repeatable_move.builtin_t)
-    vim.keymap.set({ "n", "x", "o" }, "T", repeatable_move.builtin_T)
+    map({ "n", "x", "o" }, "f", repeatable_move.builtin_f)
+    map({ "n", "x", "o" }, "F", repeatable_move.builtin_F)
+    map({ "n", "x", "o" }, "t", repeatable_move.builtin_t)
+    map({ "n", "x", "o" }, "T", repeatable_move.builtin_T)
 end
 
 return {
