@@ -27,31 +27,33 @@ local textobjects = {
         enable = true,
         set_jumps = true,
         goto_next_start = {
+            ["]f"] = { query = "@function.outer", desc = "next function" },
             ["]p"] = { query = "@parameter.inner", desc = "next parameter" },
-            ["]m"] = { query = "@function.outer", desc = "next function" },
         },
         goto_previous_start = {
+            ["[f"] = { query = "@function.outer", desc = "previous function" },
             ["[p"] = { query = "@parameter.inner", desc = "previous parameter" },
-            ["[m"] = { query = "@function.outer", desc = "previous function" },
         },
     },
     select = {
         enable = true,
         lookahead = true,
         keymaps = {
-            ["ap"] = { query = "@parameter.outer", desc = "a parameter" },
-            ["ip"] = { query = "@parameter.inner", desc = "inner parameter" },
             ["af"] = { query = "@function.outer", desc = "a function" },
             ["if"] = { query = "@function.inner", desc = "inner function" },
+            ["ap"] = { query = "@parameter.outer", desc = "a parameter" },
+            ["ip"] = { query = "@parameter.inner", desc = "inner parameter" },
         },
     },
     swap = {
         enable = true,
         swap_next = {
+            ["<leader>mf"] = { query = "@function.outer", desc = "move function forward" },
             ["<leader>mp"] = { query = "@parameter.inner", desc = "move paramater forward" },
         },
         swap_previous = {
-            ["<leader>mP"] = { query = "@parameter.inner", desc = "move parameter backwards" },
+            ["<leader>mF"] = { query = "@function.outer", desc = "move function backward" },
+            ["<leader>mP"] = { query = "@parameter.inner", desc = "move parameter backward" },
         },
     },
 }
@@ -65,20 +67,6 @@ local function config()
         highlight = { enable = true },
         textobjects = textobjects,
     })
-
-    local map = vim.keymap.set
-
-    local repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
-
-    -- Make , and ; repeat the last move.
-    map({ "n", "x", "o" }, ";", repeatable_move.repeat_last_move_next)
-    map({ "n", "x", "o" }, ",", repeatable_move.repeat_last_move_previous)
-
-    -- Make repeating the builtins work properly too.
-    map({ "n", "x", "o" }, "f", repeatable_move.builtin_f)
-    map({ "n", "x", "o" }, "F", repeatable_move.builtin_F)
-    map({ "n", "x", "o" }, "t", repeatable_move.builtin_t)
-    map({ "n", "x", "o" }, "T", repeatable_move.builtin_T)
 end
 
 return {

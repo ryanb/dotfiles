@@ -9,14 +9,15 @@ local function config()
     local which_key = require("which-key")
 
     which_key.register({
-        c = { name = "code" },
-        e = { name = "expore" },
-        f = { name = "find" },
-        g = { name = "git" },
-        t = { name = "tests" },
-        z = { name = "restart things" },
-    }, {
-        prefix = "<leader>",
+        ["<leader>"] = {
+            c = { name = "code" },
+            e = { name = "explore" },
+            f = { name = "find" },
+            g = { name = "git" },
+            m = { name = "move" }, -- This doesn't show up correctly for some reason.
+            t = { name = "tests" },
+            z = { name = "restart things" },
+        },
     })
 end
 

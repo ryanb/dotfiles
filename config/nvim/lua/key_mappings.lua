@@ -1,6 +1,7 @@
 local bufdelete = require("bufdelete")
 local gitsigns = require("gitsigns")
 local refactoring = require("refactoring")
+local repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
 local telescope = require("telescope.builtin")
 local telescope_extensions = require("telescope").extensions
 local treesj = require("treesj")
@@ -59,6 +60,16 @@ local function map_global_keys()
     map("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
     map("n", "[q", vim.cmd.cbefore, { desc = "previous quickfix error in buffer" })
     map("n", "]q", vim.cmd.cafter, { desc = "next quickfix error in buffer" })
+
+    -- Make , and ; repeat the last move.
+    map({ "n", "x", "o" }, ";", repeatable_move.repeat_last_move_next)
+    map({ "n", "x", "o" }, ",", repeatable_move.repeat_last_move_previous)
+
+    -- Make repeating the builtins work properly too.
+    map({ "n", "x", "o" }, "f", repeatable_move.builtin_f)
+    map({ "n", "x", "o" }, "F", repeatable_move.builtin_F)
+    map({ "n", "x", "o" }, "t", repeatable_move.builtin_t)
+    map({ "n", "x", "o" }, "T", repeatable_move.builtin_T)
 
     -- Navigate between windows
     map("n", "<c-h>", "<c-w>h")
