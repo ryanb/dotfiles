@@ -9,6 +9,12 @@ local actions = require("helpers.actions")
 
 local map = vim.keymap.set
 
+local function change_git_base(git_base)
+    return function()
+        actions.change_git_base(git_base)
+    end
+end
+
 -- Set up mappings available in all buffers.
 local function map_global_keys()
     -- Things I do often enough that they get a top-level mapping
@@ -41,6 +47,9 @@ local function map_global_keys()
 
     -- Do git things with gitsigns
     map("n", "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
+    map("n", "<leader>gch", change_git_base("HEAD"), { desc = "change git base to HEAD" })
+    map("n", "<leader>gcl", change_git_base("HEAD~1"), { desc = "change git base to HEAD~1" })
+    map("n", "<leader>gcm", change_git_base("main"), { desc = "change git base to main" })
     map("n", "<leader>gd", gitsigns.diffthis, { desc = "git diff" })
     map("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
     map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "stage hunk" })

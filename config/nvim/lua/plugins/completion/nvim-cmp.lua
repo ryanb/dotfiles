@@ -58,10 +58,10 @@ local function configure_global_completion()
                 require("luasnip").lsp_expand(args.body)
             end,
         },
-        sources = {
+        sources = cmp.config.sources({
             { name = "nvim_lsp" },
             { name = "luasnip" },
-        },
+        }),
     })
 end
 

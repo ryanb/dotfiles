@@ -1,4 +1,6 @@
+local gitsigns = require("gitsigns")
 local neo_tree = require("neo-tree.command")
+local neo_tree_command = require("neo-tree.command")
 local telescope = require("telescope.builtin")
 
 -- Open the quickfix window without focussing on it.
@@ -59,5 +61,14 @@ return {
 
     write_all_and_quit = function()
         vim.cmd("confirm xall")
+    end,
+
+    change_git_base = function(git_base)
+        gitsigns.change_base(git_base)
+        neo_tree_command.execute({
+            action = "focus",
+            source = "git_status",
+            git_base = git_base,
+        })
     end,
 }
