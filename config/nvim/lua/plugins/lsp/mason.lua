@@ -2,24 +2,12 @@
 --
 -- https://github.com/williamboman/mason.nvim
 
-local function config()
-    local mason = require("mason")
-    mason.setup({
-        PATH = "append",
-    })
-
-    -- This installs things needed for none-ls.
-    -- See also mason-lspconfig.lua, which installs language servers.
-    local ensure_installed = require("helpers.mason_ensure_installed")
-    ensure_installed({
-        "prettier",
-        "prettierd",
-        "stylua",
-    })
-end
+local opts = {
+    PATH = "append",
+}
 
 return {
     "williamboman/mason.nvim",
-    config = config,
     dependencies = { "rcarriga/nvim-notify" },
+    opts = opts,
 }
