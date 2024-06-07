@@ -38,7 +38,7 @@ local neo_tree_spec = {
 local neo_tree_file_operations_spec = {
     "antosha417/nvim-lsp-file-operations",
     config = true,
-    dependencies = { "nvim-lua/plenary.nvim" }
+    dependencies = { "nvim-lua/plenary.nvim" },
 }
 
 local telescope_spec = {
@@ -51,7 +51,7 @@ local telescope_spec = {
     config = function()
         local telescope = require("telescope")
         telescope.setup({
-            defaults = { layout_strategy = "vertical", },
+            defaults = { layout_strategy = "vertical" },
             extensions = {
                 ["ui-select"] = {
                     require("telescope.themes").get_dropdown(),
@@ -59,11 +59,11 @@ local telescope_spec = {
             },
         })
         require("telescope").load_extension("ui-select")
-    end
+    end,
 }
 
 return {
     neo_tree_spec,
     neo_tree_file_operations_spec,
-    telescope_spec
+    telescope_spec,
 }

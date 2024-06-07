@@ -1,7 +1,3 @@
--- Use the language server system to call formatters when we save.
---
--- https://github.com/nvimtools/none-ls.nvim
-
 -- Select the formatters we want to use for home and work.
 local function choose_sources()
     local null_ls = require("null-ls")

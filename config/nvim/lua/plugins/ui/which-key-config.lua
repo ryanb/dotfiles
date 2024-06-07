@@ -10,6 +10,7 @@ local function config()
             e = { name = "explore" },
             f = { name = "find" },
             g = { name = "git" },
+            gc = { name = "change git base" },
             m = { name = "move" }, -- This doesn't show up correctly for some reason.
             t = { name = "tests" },
             z = { name = "restart things" },

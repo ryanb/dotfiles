@@ -33,10 +33,10 @@ local null_ls_spec = {
 local mason_null_ls_spec = {
     "jay-babu/mason-null-ls.nvim",
     dependencies = { mason_spec, null_ls_spec },
-    opts = { automatic_installation = true }
+    opts = { automatic_installation = true },
 }
 
 return {
     lspconfig_spec,
-    mason_null_ls_spec
+    mason_null_ls_spec,
 }
