@@ -1,7 +1,3 @@
--- A fancy status line
---
--- https://github.com/nvim-lualine/lualine.nvim
-
 local function copy_relative_path()
     local path = vim.fn.expand("%:.")
     vim.fn.setreg("+", path)
@@ -27,4 +23,4 @@ local opts = {
     },
 }
 
-return { "nvim-lualine/lualine.nvim", opts = opts }
+return opts

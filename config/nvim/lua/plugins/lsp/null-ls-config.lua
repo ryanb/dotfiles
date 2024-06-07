@@ -54,8 +54,4 @@ local function config()
     })
 end
 
-return {
-    "nvimtools/none-ls.nvim",
-    config = config,
-    dependencies = { "nvim-lua/plenary.nvim" },
-}
+return config

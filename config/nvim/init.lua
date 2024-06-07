@@ -7,12 +7,39 @@ local colorscheme = "nordfox"
 
 -- These need to happen before plugins have loaded:
 require("options").configure()
-require("file_types").configure()
+require("file-types").configure()
 require("signs").configure()
 
+-- Install lazy.nvim from git if it's not already installed..
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.uv.fs_stat(lazypath) then
+    vim.notify("Installing lazy.nvim...")
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+
+vim.opt.rtp:prepend(lazypath)
+
 -- Then we install and load the plugins:
-require("plugins").configure(colorscheme)
+require("lazy").setup({
+    -- Don't notify whenever a config file changes. It's not helpful.
+    change_detection = {
+        enabled = true,
+        notify = false,
+    },
+    install = {
+        -- Lazy tries to use this colorscheme during installation.
+        colorscheme = { colorscheme },
+    },
+    spec = { import = "plugins" },
+})
 
 -- And these need to happen after the plugins have loaded:
 vim.cmd.colorscheme(colorscheme)
-require("key_mappings").configure()
+require("key-mappings").configure()

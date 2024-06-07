@@ -8,6 +8,8 @@ local lua_settings = {
     Lua = {
         runtime = {
             version = "LuaJIT",
+            library = { vim.fn.stdpath("config") .. "/lua/?.lua" },
+            pathStrict = true,
         },
         workspace = {
             checkThirdParty = false,

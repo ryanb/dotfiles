@@ -1,7 +1,3 @@
--- Display help for key mappings
---
--- https://github.com/folke/which-key.nvim
-
 local function config()
     vim.o.timeout = true
     vim.o.timeoutlen = 300
@@ -21,7 +17,4 @@ local function config()
     })
 end
 
-return {
-    "folke/which-key.nvim",
-    config = config,
-}
+return config

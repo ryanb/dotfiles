@@ -1,7 +1,3 @@
--- Language server configuration
---
--- https://github.com/neovim/nvim-lspconfig
-
 -- Select the language servers we want to use for home and work.
 local function choose_servers()
     local lspconfig = require("lspconfig")
@@ -42,11 +38,4 @@ local function config()
     -- See the .nvim.lua file in .dotfiles for an example.
 end
 
-return {
-    "neovim/nvim-lspconfig",
-    config = config,
-    dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
-        "williamboman/mason-lspconfig.nvim",
-    },
-}
+return config

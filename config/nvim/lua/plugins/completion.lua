@@ -1,6 +1,15 @@
--- Completion
---
--- https://github.com/hrsh7th/nvim-cmp
+local luasnip_spec = {
+    "L3MON4D3/LuaSnip",
+    build = "make install_jsregexp",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    config = function()
+        local luasnip = require("luasnip")
+        luasnip.filetype_extend("ruby", { "rails" })
+
+        -- This loads the snippets from friendly-snippets.
+        require("luasnip.loaders.from_vscode").lazy_load()
+    end,
+}
 
 local function configure_global_completion()
     local cmp = require("cmp")
@@ -95,21 +104,19 @@ local function configure_search_completion()
     })
 end
 
-local function config()
-    configure_global_completion()
-    configure_command_line_completion()
-    configure_search_completion()
-end
-
 return {
     "hrsh7th/nvim-cmp",
-    config = config,
     dependencies = {
+        luasnip_spec,
+        "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-path",
-        "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
     },
+    config = function()
+        configure_global_completion()
+        configure_command_line_completion()
+        configure_search_completion()
+    end,
 }

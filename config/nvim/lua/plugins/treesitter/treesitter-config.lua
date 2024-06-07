@@ -1,27 +1,3 @@
--- Fast parsing for syntax highlighting and text objects
---
--- https://github.com/nvim-treesitter/nvim-treesitter
-
--- Ensure all these parsers are loaded.
-local parsers = {
-    "bash",
-    "css",
-    "graphql",
-    "html",
-    "javascript",
-    "json",
-    "jsonc",
-    "lua",
-    "markdown",
-    "markdown_inline",
-    "regex",
-    "ruby",
-    "scss",
-    "tsx",
-    "typescript",
-    "vim",
-}
-
 local textobjects = {
     move = {
         enable = true,
@@ -62,19 +38,11 @@ local function config()
     local configs = require("nvim-treesitter.configs")
 
     configs.setup({
+        auto_install = true,
         autotag = { enable = true },
-        ensure_installed = parsers,
         highlight = { enable = true },
         textobjects = textobjects,
     })
 end
 
-return {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = config,
-    dependencies = {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        "windwp/nvim-ts-autotag",
-    },
-}
+return config

@@ -2,6 +2,8 @@
 --
 -- https://github.com/ThePrimeagen/refactoring.nvim
 
+local treesitter_spec = require("plugin-specs.treesitter.treesitter-spec")
+
 local function config()
     require("refactoring").setup()
 end
@@ -11,6 +13,6 @@ return {
     config = config,
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "nvim-treesitter/nvim-treesitter",
+        treesitter_spec,
     },
 }
