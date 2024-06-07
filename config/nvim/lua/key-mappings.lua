@@ -1,10 +1,10 @@
 local bufdelete = require("bufdelete")
 local gitsigns = require("gitsigns")
--- local refactoring = require("refactoring")
+local refactoring = require("refactoring")
 local repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
 local telescope = require("telescope.builtin")
 local telescope_extensions = require("telescope").extensions
--- local treesj = require("treesj")
+local treesj = require("treesj")
 local actions = require("actions")
 
 local map = vim.keymap.set
@@ -27,9 +27,9 @@ local function map_global_keys()
     map("n", "<leader>x", bufdelete.bufdelete, { desc = "close buffer" })
 
     -- Code actions
-    -- map("n", "<leader>cj", treesj.join, { desc = "join lines" })
-    -- map({ "n", "x" }, "<leader>cf", refactoring.select_refactor, { desc = "refactor" })
-    -- map("n", "<leader>cs", treesj.split, { desc = "split lines" })
+    map("n", "<leader>cj", treesj.join, { desc = "join lines" })
+    map({ "n", "x" }, "<leader>cf", refactoring.select_refactor, { desc = "refactor" })
+    map("n", "<leader>cs", treesj.split, { desc = "split lines" })
 
     -- Explore with Neo-tree
     map("n", "<leader>eb", actions.explore_buffers, { desc = "explore buffers" })

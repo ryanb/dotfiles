@@ -45,7 +45,7 @@ local function config()
     })
 end
 
-return {
+local treesitter_spec = {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
         "nvim-treesitter/nvim-treesitter-textobjects",
@@ -54,3 +54,22 @@ return {
     build = ":TSUpdate",
     config = config,
 }
+
+local refactoring_spec = {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        treesitter_spec,
+    },
+    config = function()
+        require("refactoring").setup()
+    end,
+}
+
+local treesj_spec = {
+    "Wansmer/treesj",
+    dependencies = { treesitter_spec },
+    opts = { use_default_keymaps = false },
+}
+
+return { refactoring_spec, treesj_spec }
