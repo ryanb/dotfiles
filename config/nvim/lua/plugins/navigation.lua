@@ -1,6 +1,7 @@
 -- neo-tree gives us a sidebar in which we can explore the file system, open
--- buffers, or files changed by git.
+-- buffers, and files changed by git.
 local neo_tree_spec = {
+    -- https://github.com/nvim-neo-tree/neo-tree.nvim
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -38,13 +39,18 @@ local neo_tree_spec = {
     },
 }
 
+-- nvim-lsp-file-operations automatically fixes imports whenever we rename a
+-- file in neo-tree.
 local neo_tree_file_operations_spec = {
+    -- https://github.com/antosha417/nvim-lsp-file-operations
     "antosha417/nvim-lsp-file-operations",
     config = true,
     dependencies = { "nvim-lua/plenary.nvim" },
 }
 
+-- telescope does fuzzy finding over all sorts of things.
 local telescope_spec = {
+    -- https://github.com/nvim-telescope/telescope.nvim
     "nvim-telescope/telescope.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
