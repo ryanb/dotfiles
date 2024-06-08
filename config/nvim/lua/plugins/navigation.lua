@@ -20,22 +20,21 @@ local neo_tree_spec = {
             indent = { with_markers = false },
         },
         filesystem = {
-            follow_current_file = {
-                enabled = false,
-                leave_dirs_open = false,
-            },
+            follow_current_file = { enabled = false, leave_dirs_open = false },
             use_libuv_file_watcher = true,
-            window = {
-                mappings = {
-                    ["<space>"] = "none", -- Let our leader key work in the explorer.
-                },
-            },
         },
         hide_root_node = true,
         sources = { "filesystem", "buffers", "git_status" },
-        source_selector = { winbar = true },
-        use_popups_for_input = true,
-        window = { width = 50 },
+        source_selector = {
+            content_layout = "center",
+            sources = {
+                { source = "filesystem" },
+                { source = "git_status" },
+                { source = "buffers" },
+            },
+            statusline = true,
+        },
+        window = { width = 49 },
     },
 }
 

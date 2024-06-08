@@ -11,8 +11,8 @@ local function position()
 end
 
 return {
-    extensions = { "lazy", "neo-tree", "man", "mason", "quickfix" },
-    options = { globalstatus = false },
+    extensions = { "lazy", "man", "mason", "quickfix" },
+    options = { disabled_filetypes = { "neo-tree" } },
     sections = {
         lualine_a = { "mode" },
         lualine_b = { "diagnostics" },
