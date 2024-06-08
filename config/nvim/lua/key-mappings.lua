@@ -11,7 +11,7 @@ local map = vim.keymap.set
 
 -- Set up mappings available in all buffers.
 local function map_global_keys()
-    -- Things I do often enough that they get a top-level mapping
+    -- Things I do often enough get a top-level mapping.
     map("", "<leader><leader>", telescope.find_files, { desc = "find files" })
     map("", "<leader>*", actions.find_word_under_cursor, { desc = "find word under cursor" })
     map("", "<leader>/", vim.cmd.nohlsearch, { desc = "clear search" })
@@ -22,6 +22,14 @@ local function map_global_keys()
     map("", "<leader>s", actions.write_all, { desc = "save all files" })
     map("", "<leader>W", vim.cmd.close, { desc = "close window" })
     map("", "<leader>X", bufdelete.bufdelete, { desc = "close buffer" })
+
+    -- Make command keys do sensible things.
+    map("v", "<D-c>", '"*y', { desc = "copy to system clipboard" })
+    map("", "<D-q>", actions.write_all_and_quit, { desc = "save all files and quit" })
+    map("", "<D-s>", actions.write_all, { desc = "save all files" })
+    map("", "<D-v>", '"*p', { desc = "paste from system clipboard" })
+    map("", "<D-w>", vim.cmd.close, { desc = "close window" })
+    map("v", "<D-x>", '"*d', { desc = "cut to system clipboard" })
 
     which_key.register({ ["<leader>c"] = { name = "code changes" } })
     map("", "<leader>cj", treesj.join, { desc = "join lines" })
@@ -82,12 +90,35 @@ local function map_lsp_keys(args)
     map("", "<leader>ts", telescope.lsp_document_symbols, { buffer = buffer, desc = "find document symbols" })
 end
 
+-- This sets things up so we tell Kitty when Neovim is open, so it can pass
+-- command keys through correctly.
+local function let_kitty_know_about_editor()
+    -- Code Taken from:
+    -- https://sw.kovidgoyal.net/kitty/mapping/#conditional-mappings-depending-on-the-state-of-the-focused-window
+
+    vim.api.nvim_create_autocmd({ "VimEnter", "VimResume" }, {
+        group = vim.api.nvim_create_augroup("KittySetVarVimEnter", { clear = true }),
+        callback = function()
+            io.stdout:write("\x1b]1337;SetUserVar=in_editor=MQo\007")
+        end,
+    })
+
+    vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, {
+        group = vim.api.nvim_create_augroup("KittyUnsetVarVimLeave", { clear = true }),
+        callback = function()
+            io.stdout:write("\x1b]1337;SetUserVar=in_editor\007")
+        end,
+    })
+end
+
 -- Configure all the key mappings to my liking.
 local function configure()
     map_global_keys()
 
     local group = vim.api.nvim_create_augroup("lspKeyBindings", { clear = true })
     vim.api.nvim_create_autocmd("LspAttach", { group = group, callback = map_lsp_keys })
+
+    let_kitty_know_about_editor()
 end
 
 return { configure = configure }
