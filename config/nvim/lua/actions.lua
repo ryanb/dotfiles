@@ -5,11 +5,13 @@ local telescope = require("telescope.builtin")
 return {
     choose_git_base = function()
         local callback = function(git_base)
-            gitsigns.change_base(git_base, true)
-            neo_tree.execute({ action = "focus", position = "right", source = "git_status", git_base = git_base })
-            vim.notify("Showing git differences from " .. git_base)
+            if git_base ~= nil then
+                gitsigns.change_base(git_base, true)
+                neo_tree.execute({ action = "focus", source = "git_status", git_base = git_base })
+                vim.notify("Showing git differences from " .. git_base)
+            end
         end
-        vim.ui.select({ "HEAD", "main", "HEAD~1" }, { prompt = "Show git differences from:" }, callback)
+        vim.ui.select({ "main", "HEAD", "HEAD~1" }, { prompt = "Show git differences from:" }, callback)
     end,
 
     find_word_under_cursor = function()
@@ -17,16 +19,16 @@ return {
     end,
 
     show_current_file_in_neo_tree = function()
-        neo_tree.execute({ action = "focus", position = "right", source = "filesystem", reveal = true })
+        neo_tree.execute({ action = "focus", source = "filesystem", reveal = true })
     end,
 
     toggle_neo_tree = function()
-        neo_tree.execute({ action = "focus", position = "right", toggle = true })
+        neo_tree.execute({ action = "focus", toggle = true })
     end,
 
     write_all = function()
         vim.cmd.wall()
-        vim.notify("Saved.")
+        vim.notify("Saved all files.")
     end,
 
     write_all_and_quit = function()

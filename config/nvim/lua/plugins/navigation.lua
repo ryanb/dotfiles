@@ -33,7 +33,7 @@ local neo_tree_spec = {
             },
             statusline = true,
         },
-        window = { width = 49 },
+        window = { position = "right", width = 49 },
     },
 }
 
