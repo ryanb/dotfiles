@@ -12,38 +12,36 @@ local map = vim.keymap.set
 -- Set up mappings available in all buffers.
 local function map_global_keys()
     -- Things I do often enough that they get a top-level mapping
-    map("n", "<leader><leader>", telescope.find_files, { desc = "find files" })
-    map("n", "<leader>*", actions.find_word_under_cursor, { desc = "find word under cursor" })
-    map("n", "<leader>/", vim.cmd.nohlsearch, { desc = "clear search" })
-    map("n", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
-    map("n", "<leader>e", actions.toggle_neo_tree, { desc = "toggle neo-tree explorer" })
-    map("n", "<leader>f", actions.show_current_file_in_neo_tree, { desc = "show current file in neo-tree" })
-    map("n", "<leader>Q", actions.write_all_and_quit, { desc = "save all files and quit" })
-    map("n", "<leader>s", actions.write_all, { desc = "save all files" })
-    map("n", "<leader>W", vim.cmd.close, { desc = "close window" })
-    map("n", "<leader>x", bufdelete.bufdelete, { desc = "close buffer" })
+    map("", "<leader><leader>", telescope.find_files, { desc = "find files" })
+    map("", "<leader>*", actions.find_word_under_cursor, { desc = "find word under cursor" })
+    map("", "<leader>/", vim.cmd.nohlsearch, { desc = "clear search" })
+    map("", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
+    map("", "<leader>e", actions.toggle_neo_tree, { desc = "toggle neo-tree explorer" })
+    map("", "<leader>f", actions.show_current_file_in_neo_tree, { desc = "show current file in neo-tree" })
+    map("", "<leader>Q", actions.write_all_and_quit, { desc = "save all files and quit" })
+    map("", "<leader>s", actions.write_all, { desc = "save all files" })
+    map("", "<leader>W", vim.cmd.close, { desc = "close window" })
+    map("", "<leader>X", bufdelete.bufdelete, { desc = "close buffer" })
 
     which_key.register({ ["<leader>c"] = { name = "code changes" } })
-    map("n", "<leader>cj", treesj.join, { desc = "join lines" })
-    map({ "n", "x" }, "<leader>cf", refactoring.select_refactor, { desc = "refactor" })
-    map("n", "<leader>cs", treesj.split, { desc = "split lines" })
+    map("", "<leader>cj", treesj.join, { desc = "join lines" })
+    map("", "<leader>cf", refactoring.select_refactor, { desc = "refactor" })
+    map("", "<leader>cs", treesj.split, { desc = "split lines" })
 
     which_key.register({ ["<leader>t"] = { name = "telescope" } })
-    map("n", "<leader>t.", telescope.resume, { desc = "repeat last find" })
-    map("n", "<leader>t/", telescope.live_grep, { desc = "live grep" })
-    map("n", "<leader>tb", telescope.buffers, { desc = "find buffers" })
-    map("n", "<leader>tj", telescope.jumplist, { desc = "find in jumplist" })
+    map("", "<leader>t.", telescope.resume, { desc = "repeat last find" })
+    map("", "<leader>t/", telescope.live_grep, { desc = "live grep" })
+    map("", "<leader>tb", telescope.buffers, { desc = "find buffers" })
+    map("", "<leader>tj", telescope.jumplist, { desc = "find in jumplist" })
 
     which_key.register({ ["<leader>g"] = { name = "git" } })
-    map("n", "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
-    map("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
-    map("n", "<leader>gc", actions.choose_git_base, { desc = "change git base" })
+    map("", "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
+    map("", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
+    map("", "<leader>gc", actions.choose_git_base, { desc = "change git base" })
 
     -- Move around in the buffer
-    map("n", "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
-    map("n", "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
-    map("n", "[q", vim.cmd.cbefore, { desc = "previous quickfix error in buffer" })
-    map("n", "]q", vim.cmd.cafter, { desc = "next quickfix error in buffer" })
+    map({ "n", "x", "o" }, "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
+    map({ "n", "x", "o" }, "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
 
     -- Make , and ; repeat the last move.
     map({ "n", "x", "o" }, ";", repeatable_move.repeat_last_move_next)
@@ -56,10 +54,10 @@ local function map_global_keys()
     map({ "n", "x", "o" }, "T", repeatable_move.builtin_T)
 
     -- Navigate between windows
-    map("n", "<c-h>", "<c-w>h")
-    map("n", "<c-j>", "<c-w>j")
-    map("n", "<c-k>", "<c-w>k")
-    map("n", "<c-l>", "<c-w>l")
+    map("", "<c-h>", "<c-w>h")
+    map("", "<c-j>", "<c-w>j")
+    map("", "<c-k>", "<c-w>k")
+    map("", "<c-l>", "<c-w>l")
 
     -- Reselect the visual area when changing indenting in visual mode
     map("v", "<", "<gv")
@@ -70,14 +68,14 @@ end
 local function map_lsp_keys(args)
     local buffer = args.buf
 
-    map("n", "gd", telescope.lsp_definitions, { buffer = buffer, desc = "Go to defintion" })
-    map("n", "gr", telescope.lsp_references, { buffer = buffer, desc = "Go to references" })
+    map({ "n", "x", "o" }, "gd", telescope.lsp_definitions, { buffer = buffer, desc = "Go to defintion" })
+    map({ "n", "x", "o" }, "gr", telescope.lsp_references, { buffer = buffer, desc = "Go to references" })
 
-    map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = buffer, desc = "code actions" })
-    map("n", "<leader>cr", vim.lsp.buf.rename, { buffer = buffer, desc = "rename symbol under cursor" })
+    map("", "<leader>ca", vim.lsp.buf.code_action, { buffer = buffer, desc = "code actions" })
+    map("", "<leader>cr", vim.lsp.buf.rename, { buffer = buffer, desc = "rename symbol under cursor" })
 
-    map("n", "<leader>td", telescope.diagnostics, { buffer = buffer, desc = "find diagnostics" })
-    map("n", "<leader>ts", telescope.lsp_document_symbols, { buffer = buffer, desc = "find document symbols" })
+    map("", "<leader>td", telescope.diagnostics, { buffer = buffer, desc = "find diagnostics" })
+    map("", "<leader>ts", telescope.lsp_document_symbols, { buffer = buffer, desc = "find document symbols" })
 end
 
 -- Configure all the key mappings to my liking.
