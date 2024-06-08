@@ -13,9 +13,7 @@ local neo_tree_spec = {
         bind_to_cwd = false,
         default_component_configs = {
             diagnostics = {
-                -- The neo-tree docs say these should be read from the signs we
-                -- define in signs.lua, but it doesn't seem to work so we need to
-                -- set them here.
+                -- Set the diagnostic signs to match lualine's.
                 symbols = { error = "󰅚 ", hint = "󰌶", info = "󰋽 ", warn = "󰀪 " },
             },
             indent = { with_markers = false },

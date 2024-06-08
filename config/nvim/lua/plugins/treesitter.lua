@@ -55,10 +55,7 @@ local treesitter_spec = {
 
 local refactoring_spec = {
     "ThePrimeagen/refactoring.nvim",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        treesitter_spec,
-    },
+    dependencies = { "nvim-lua/plenary.nvim", treesitter_spec },
     config = function()
         require("refactoring").setup()
     end,

@@ -7,7 +7,6 @@ local colorscheme = "nordfox"
 
 -- These need to happen before plugins have loaded:
 require("options").configure()
-require("signs").configure()
 
 -- Install lazy.nvim from git if it's not already installed.
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
