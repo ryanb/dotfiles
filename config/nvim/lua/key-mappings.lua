@@ -74,14 +74,14 @@ end
 local function map_lsp_keys(args)
     local buffer = args.buf
 
+    map("n", "gd", telescope.lsp_definitions, { buffer = buffer, desc = "Go to defintion" })
+    map("n", "gr", telescope.lsp_references, { buffer = buffer, desc = "Go to references" })
+
     map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = buffer, desc = "code actions" })
     map("n", "<leader>cr", vim.lsp.buf.rename, { buffer = buffer, desc = "rename symbol under cursor" })
 
-    map("n", "<leader>fd", telescope.diagnostics, { buffer = buffer, desc = "find diagnostics" })
-    map("n", "<leader>fs", telescope.lsp_document_symbols, { buffer = buffer, desc = "find document symbols" })
-
-    map("n", "gd", telescope.lsp_definitions, { buffer = buffer, desc = "Go to defintion" })
-    map("n", "gr", telescope.lsp_references, { buffer = buffer, desc = "Go to references" })
+    map("n", "<leader>td", telescope.diagnostics, { buffer = buffer, desc = "find diagnostics" })
+    map("n", "<leader>ts", telescope.lsp_document_symbols, { buffer = buffer, desc = "find document symbols" })
 end
 
 -- Configure all the key mappings to my liking.

@@ -24,10 +24,10 @@ local treesitter_textobjects = {
     swap = {
         enable = true,
         swap_next = {
-            ["<leader>mp"] = { query = "@parameter.inner", desc = "move paramater forward" },
+            ["<leader>>"] = { query = "@parameter.inner", desc = "move paramater forward" },
         },
         swap_previous = {
-            ["<leader>mP"] = { query = "@parameter.inner", desc = "move parameter backward" },
+            ["<leader><"] = { query = "@parameter.inner", desc = "move parameter backward" },
         },
     },
 }
