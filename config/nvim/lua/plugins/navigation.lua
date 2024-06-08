@@ -39,11 +39,13 @@ local neo_tree_spec = {
 
 -- nvim-lsp-file-operations automatically fixes imports whenever we rename a
 -- file in neo-tree.
+--
+-- Neo-tree must load before this, so this depends on the Neo-tree spec.
 local neo_tree_file_operations_spec = {
     -- https://github.com/antosha417/nvim-lsp-file-operations
     "antosha417/nvim-lsp-file-operations",
     config = true,
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", neo_tree_spec },
 }
 
 -- telescope does fuzzy finding over all sorts of things.
@@ -70,7 +72,6 @@ local telescope_spec = {
 }
 
 return {
-    neo_tree_spec,
     neo_tree_file_operations_spec,
     telescope_spec,
 }
