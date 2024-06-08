@@ -10,7 +10,7 @@ local function position()
     return string.format("%d/%d", current, total)
 end
 
-local opts = {
+return {
     extensions = { "lazy", "neo-tree", "man", "mason", "quickfix" },
     options = { globalstatus = false },
     sections = {
@@ -22,5 +22,3 @@ local opts = {
         lualine_z = { position },
     },
 }
-
-return opts

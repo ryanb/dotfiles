@@ -10,7 +10,7 @@ require("options").configure()
 require("file-types").configure()
 require("signs").configure()
 
--- Install lazy.nvim from git if it's not already installed..
+-- Install lazy.nvim from git if it's not already installed.
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
     vim.notify("Installing lazy.nvim...")
@@ -26,10 +26,14 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
--- Then we install and load the plugins:
+-- Then we install and load the plugins.
 require("lazy").setup({
-    -- Don't notify whenever a config file changes. It's not helpful.
+    spec = {
+        -- Load everything from the lua/plugins directory.
+        import = "plugins",
+    },
     change_detection = {
+        -- Don't notify whenever a config file changes. It's not helpful.
         enabled = true,
         notify = false,
     },
@@ -37,7 +41,6 @@ require("lazy").setup({
         -- Lazy tries to use this colorscheme during installation.
         colorscheme = { colorscheme },
     },
-    spec = { import = "plugins" },
 })
 
 -- And these need to happen after the plugins have loaded:

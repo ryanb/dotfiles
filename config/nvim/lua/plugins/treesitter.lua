@@ -1,4 +1,4 @@
-local textobjects = {
+local treesitter_textobjects = {
     move = {
         enable = true,
         set_jumps = true,
@@ -24,35 +24,33 @@ local textobjects = {
     swap = {
         enable = true,
         swap_next = {
-            ["<leader>mf"] = { query = "@function.outer", desc = "move function forward" },
             ["<leader>mp"] = { query = "@parameter.inner", desc = "move paramater forward" },
         },
         swap_previous = {
-            ["<leader>mF"] = { query = "@function.outer", desc = "move function backward" },
             ["<leader>mP"] = { query = "@parameter.inner", desc = "move parameter backward" },
         },
     },
 }
 
-local function config()
-    local configs = require("nvim-treesitter.configs")
-
-    configs.setup({
-        auto_install = true,
-        autotag = { enable = true },
-        highlight = { enable = true },
-        textobjects = textobjects,
-    })
-end
-
 local treesitter_spec = {
+    -- https://github.com/nvim-treesitter/nvim-treesitter
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
+        -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
         "nvim-treesitter/nvim-treesitter-textobjects",
+        -- https://github.com/windwp/nvim-ts-autotag
         "windwp/nvim-ts-autotag",
     },
     build = ":TSUpdate",
-    config = config,
+    config = function()
+        local treesitter = require("nvim-treesitter.configs")
+        treesitter.setup({
+            auto_install = true,
+            autotag = { enable = true },
+            highlight = { enable = true },
+            textobjects = treesitter_textobjects,
+        })
+    end,
 }
 
 local refactoring_spec = {

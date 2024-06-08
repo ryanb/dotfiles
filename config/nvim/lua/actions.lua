@@ -31,29 +31,6 @@ return {
         telescope.grep_string({ search = vim.fn.expand("<cword>") })
     end,
 
-    restart_eslint = function()
-        local function done()
-            vim.notify("eslint_d restarted")
-        end
-        local options = { args = { "restart" } }
-        vim.uv.spawn("eslint_d", options, done)
-    end,
-
-    test_file = function()
-        vim.cmd.TestFile()
-        open_quickfix_window()
-    end,
-
-    test_last = function()
-        vim.cmd.TestLast()
-        open_quickfix_window()
-    end,
-
-    test_nearest = function()
-        vim.cmd.TestNearest()
-        open_quickfix_window()
-    end,
-
     write_all = function()
         vim.cmd.wall()
         vim.notify("Saved.")
@@ -63,12 +40,15 @@ return {
         vim.cmd("confirm xall")
     end,
 
-    change_git_base = function(git_base)
-        gitsigns.change_base(git_base, true)
-        neo_tree_command.execute({
-            action = "focus",
-            source = "git_status",
-            git_base = git_base,
-        })
+    choose_git_base = function()
+        vim.ui.select({ "HEAD", "main", "HEAD~1" }, { prompt = "Show git differences from:" }, function(git_base)
+            gitsigns.change_base(git_base, true)
+            neo_tree_command.execute({
+                action = "focus",
+                source = "git_status",
+                git_base = git_base,
+            })
+            vim.notify("Showing git differences from " .. git_base)
+        end)
     end,
 }

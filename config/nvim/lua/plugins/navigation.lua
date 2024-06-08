@@ -1,3 +1,5 @@
+-- neo-tree gives us a sidebar in which we can explore the file system, open
+-- buffers, or files changed by git.
 local neo_tree_spec = {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {

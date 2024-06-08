@@ -3,66 +3,45 @@ local gitsigns = require("gitsigns")
 local refactoring = require("refactoring")
 local repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
 local telescope = require("telescope.builtin")
-local telescope_extensions = require("telescope").extensions
 local treesj = require("treesj")
+local which_key = require("which-key")
 local actions = require("actions")
 
 local map = vim.keymap.set
 
-local function change_git_base(git_base)
-    return function()
-        actions.change_git_base(git_base)
-    end
-end
-
 -- Set up mappings available in all buffers.
 local function map_global_keys()
     -- Things I do often enough that they get a top-level mapping
-    map("n", "<leader>/", vim.cmd.nohlsearch, { desc = "clear search" })
     map("n", "<leader><leader>", telescope.find_files, { desc = "find files" })
+    map("n", "<leader>*", actions.find_word_under_cursor, { desc = "find word under cursor" })
+    map("n", "<leader>/", vim.cmd.nohlsearch, { desc = "clear search" })
     map("n", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
     map("n", "<leader>q", actions.write_all_and_quit, { desc = "save all files and quit" })
     map("n", "<leader>s", actions.write_all, { desc = "save all files" })
     map("n", "<leader>w", vim.cmd.close, { desc = "close window" })
     map("n", "<leader>x", bufdelete.bufdelete, { desc = "close buffer" })
 
-    -- Code actions
+    which_key.register({ ["<leader>c"] = { name = "code changes" } })
     map("n", "<leader>cj", treesj.join, { desc = "join lines" })
     map({ "n", "x" }, "<leader>cf", refactoring.select_refactor, { desc = "refactor" })
     map("n", "<leader>cs", treesj.split, { desc = "split lines" })
 
-    -- Explore with Neo-tree
-    map("n", "<leader>eb", actions.explore_buffers, { desc = "explore buffers" })
-    map("n", "<leader>ee", actions.explore_files, { desc = "explore files" })
-    map("n", "<leader>ef", actions.explore_current_file, { desc = "explore current file" })
-    map("n", "<leader>eg", actions.explore_git_status, { desc = "explore git status" })
+    which_key.register({ ["<leader>n"] = { name = "neo-tree" } })
+    map("n", "<leader>nb", actions.explore_buffers, { desc = "explore buffers" })
+    map("n", "<leader>ne", actions.explore_files, { desc = "explore files" })
+    map("n", "<leader>nf", actions.explore_current_file, { desc = "explore current file" })
+    map("n", "<leader>ng", actions.explore_git_status, { desc = "explore git status" })
 
-    -- Find with Telescope
-    map("n", "<leader>f.", telescope.resume, { desc = "repeat last find" })
-    map("n", "<leader>fb", telescope.buffers, { desc = "find buffers" })
-    map("n", "<leader>fg", telescope.live_grep, { desc = "live grep" })
-    map("n", "<leader>fj", telescope.jumplist, { desc = "find in jumplist" })
-    map("n", "<leader>fn", telescope_extensions.notify.notify, { desc = "find in notifications" })
-    map("n", "<leader>fw", actions.find_word_under_cursor, { desc = "live grep word under cursor" })
+    which_key.register({ ["<leader>t"] = { name = "telescope" } })
+    map("n", "<leader>t.", telescope.resume, { desc = "repeat last find" })
+    map("n", "<leader>t/", telescope.live_grep, { desc = "live grep" })
+    map("n", "<leader>tb", telescope.buffers, { desc = "find buffers" })
+    map("n", "<leader>tj", telescope.jumplist, { desc = "find in jumplist" })
 
-    -- Do git things with gitsigns
+    which_key.register({ ["<leader>g"] = { name = "git" } })
     map("n", "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
-    map("n", "<leader>gch", change_git_base("HEAD"), { desc = "change git base to HEAD" })
-    map("n", "<leader>gcl", change_git_base("HEAD~1"), { desc = "change git base to HEAD~1" })
-    map("n", "<leader>gcm", change_git_base("main"), { desc = "change git base to main" })
-    map("n", "<leader>gd", gitsigns.diffthis, { desc = "git diff" })
     map("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
-    map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "stage hunk" })
-    map("n", "<leader>gu", gitsigns.undo_stage_hunk, { desc = "undo stage hunk" })
-
-    -- Run tests
-    map("n", "<leader>t.", actions.test_last, { desc = "repeat the last test run" })
-    map("n", "<leader>tf", actions.test_file, { desc = "run tests in current file" })
-    map("n", "<leader>tn", actions.test_nearest, { desc = "run nearest test" })
-
-    -- Restart things (coz they break sometimes)
-    map("n", "<leader>ze", actions.restart_eslint, { desc = "restart eslint" })
-    map("n", "<leader>zl", vim.cmd.LspRestart, { desc = "restart LSP" })
+    map("n", "<leader>gc", actions.choose_git_base, { desc = "change git base" })
 
     -- Move around in the buffer
     map("n", "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })

@@ -1,4 +1,5 @@
 local dressing_spec = {
+    -- https://github.com/stevearc/dressing.nvim
     "stevearc/dressing.nvim",
     opts = {},
 }
@@ -35,7 +36,10 @@ local notify_spec = {
 
 local which_key_spec = {
     "folke/which-key.nvim",
-    config = require("plugins/ui/which-key-config"),
+    config = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+    end,
 }
 
 return { dressing_spec, lualine_spec, nightfox_spec, notify_spec, which_key_spec }
