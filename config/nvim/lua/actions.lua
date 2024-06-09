@@ -3,6 +3,10 @@ local neo_tree = require("neo-tree.command")
 local telescope = require("telescope.builtin")
 
 return {
+    browse_on_github = function()
+        vim.cmd("silent !gh browse")
+    end,
+
     choose_git_base = function()
         local callback = function(git_base)
             if git_base ~= nil then
@@ -29,7 +33,7 @@ return {
         -- Neo-tree buffers don't restore correctly, so close it first.
         neo_tree.execute({ action = "close" })
         vim.cmd.wall()
-        vim.cmd("mksession!")
+        vim.cmd.mksession({ bang = true })
         vim.cmd.quit()
     end,
 

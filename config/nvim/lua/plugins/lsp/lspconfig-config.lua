@@ -2,7 +2,9 @@ return function()
     local lspconfig = require("lspconfig")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-    if os.getenv("DOTFILES_ENV") == "home" then
+    local dotfiles_env = os.getenv("DOTFILES_ENV")
+
+    if dotfiles_env == "home" then
         lspconfig.bashls.setup({ capabilities = capabilities })
         lspconfig.eslint.setup({ capabilities = capabilities })
         lspconfig.solargraph.setup({ capabilities = capabilities })
@@ -10,7 +12,7 @@ return function()
         lspconfig.tsserver.setup({ capabilities = capabilities })
     end
 
-    if os.getenv("DOTFILES_ENV") == "work" then
+    if dotfiles_env == "work" then
         lspconfig.bashls.setup({ capabilities = capabilities })
         lspconfig.eslint.setup({ capabilities = capabilities })
         lspconfig.relay_lsp.setup({ capabilities = capabilities })

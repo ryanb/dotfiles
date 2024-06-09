@@ -41,8 +41,9 @@ local function map_global_keys()
 
     which_key.register({ ["<leader>g"] = { name = "git" } })
     map("", "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
-    map("", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
     map("", "<leader>gc", actions.choose_git_base, { desc = "change git base" })
+    map("", "<leader>gh", actions.browse_on_github, { desc = "browse on github" })
+    map("", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
 
     which_key.register({ ["<leader>t"] = { name = "telescope" } })
     map("", "<leader>t.", telescope.resume, { desc = "repeat last find" })
@@ -89,7 +90,6 @@ local function map_lsp_keys(args)
     map("", "<leader>ca", vim.lsp.buf.code_action, { buffer = buffer, desc = "code actions" })
     map("", "<leader>cr", vim.lsp.buf.rename, { buffer = buffer, desc = "rename symbol under cursor" })
 
-    map("", "<leader>td", telescope.diagnostics, { buffer = buffer, desc = "find diagnostics" })
     map("", "<leader>ts", telescope.lsp_document_symbols, { buffer = buffer, desc = "find document symbols" })
 end
 

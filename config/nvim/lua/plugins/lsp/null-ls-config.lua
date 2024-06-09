@@ -3,8 +3,9 @@ return function()
     local formatting = null_ls.builtins.formatting
 
     local sources = {}
+    local dotfiles_env = os.getenv("DOTFILES_ENV")
 
-    if os.getenv("DOTFILES_ENV") == "home" then
+    if dotfiles_env == "home" then
         sources = {
             formatting.prettierd.with({
                 disabled_filetypes = { "ruby" },
@@ -13,7 +14,7 @@ return function()
         }
     end
 
-    if os.getenv("DOTFILES_ENV") == "work" then
+    if dotfiles_env == "work" then
         sources = {
             formatting.prettierd.with({
                 disabled_filetypes = { "yaml" },

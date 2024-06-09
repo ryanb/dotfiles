@@ -15,4 +15,10 @@ return {
 
     -- https://github.com/kylechui/nvim-surround
     { "kylechui/nvim-surround", config = true },
+
+    -- https://github.com/tpope/vim-rails
+    "tpope/vim-rails",
+
+    -- https://github.com/slim-template/vim-slim
+    "slim-template/vim-slim",
 }
