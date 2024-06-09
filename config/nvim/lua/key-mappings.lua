@@ -13,13 +13,14 @@ local map = vim.keymap.set
 local function map_global_keys()
     -- Things I do often enough get a top-level mapping.
     map("", "<leader><leader>", telescope.find_files, { desc = "find files" })
-    map("", "<leader>*", actions.find_word_under_cursor, { desc = "find word under cursor" })
+    map("", "<leader>*", telescope.grep_string, { desc = "find word under cursor" })
     map("", "<leader>/", vim.cmd.nohlsearch, { desc = "clear search" })
     map("", "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
     map("", "<leader>e", actions.toggle_neo_tree, { desc = "toggle neo-tree explorer" })
     map("", "<leader>f", actions.show_current_file_in_neo_tree, { desc = "show current file in neo-tree" })
     map("", "<leader>Q", actions.write_all_and_quit, { desc = "save all files and quit" })
     map("", "<leader>s", actions.write_all, { desc = "save all files" })
+    map("", "<leader>S", actions.save_session_and_quit, { desc = "Save session" })
     map("", "<leader>W", vim.cmd.close, { desc = "close window" })
     map("", "<leader>X", bufdelete.bufdelete, { desc = "close buffer" })
 

@@ -11,6 +11,7 @@ local neo_tree_spec = {
     },
     opts = {
         bind_to_cwd = false,
+        buffers = { show_unloaded = true },
         default_component_configs = {
             diagnostics = {
                 -- Set the diagnostic signs to match lualine's.
