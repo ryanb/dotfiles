@@ -21,6 +21,10 @@ return {
         telescope.grep_string({ search = vim.fn.expand("<cword>") })
     end,
 
+    restore_session = function()
+        vim.cmd.source("Session.vim")
+    end,
+
     save_session_and_quit = function()
         -- Neo-tree buffers don't restore correctly, so close it first.
         neo_tree.execute({ action = "close" })
