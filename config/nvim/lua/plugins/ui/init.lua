@@ -5,11 +5,13 @@ local dressing_spec = {
 }
 
 local lualine_spec = {
+    -- https://github.com/nvim-lualine/lualine.nvim
     "nvim-lualine/lualine.nvim",
     opts = require("plugins/ui/lualine-opts"),
 }
 
 local nightfox_spec = {
+    -- https://github.com/EdenEast/nightfox.nvim
     "EdenEast/nightfox.nvim",
     opts = {
         groups = {
@@ -26,6 +28,7 @@ local nightfox_spec = {
 }
 
 local notify_spec = {
+    -- https://github.com/rcarriga/nvim-notify
     "rcarriga/nvim-notify",
     config = function()
         local notify = require("notify")
@@ -35,6 +38,7 @@ local notify_spec = {
 }
 
 local which_key_spec = {
+    -- https://github.com/folke/which-key.nvim
     "folke/which-key.nvim",
     config = function()
         vim.o.timeout = true

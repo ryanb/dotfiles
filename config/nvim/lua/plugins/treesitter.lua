@@ -54,6 +54,7 @@ local treesitter_spec = {
 }
 
 local refactoring_spec = {
+    -- https://github.com/ThePrimeagen/refactoring.nvim
     "ThePrimeagen/refactoring.nvim",
     dependencies = { "nvim-lua/plenary.nvim", treesitter_spec },
     config = function()
@@ -62,6 +63,7 @@ local refactoring_spec = {
 }
 
 local treesj_spec = {
+    -- https://github.com/Wansmer/treesj
     "Wansmer/treesj",
     dependencies = { treesitter_spec },
     opts = { use_default_keymaps = false },
