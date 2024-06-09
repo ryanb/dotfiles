@@ -30,6 +30,7 @@ local function map_global_keys()
     map("", "<D-q>", actions.write_all_and_quit, { desc = "save all files and quit" })
     map("", "<D-s>", actions.write_all, { desc = "save all files" })
     map("", "<D-v>", '"*p', { desc = "paste from system clipboard" })
+    map({ "c", "i" }, "<D-v>", "<C-R>*", { desc = "paste from system clipboard" })
     map("", "<D-w>", vim.cmd.close, { desc = "close window" })
     map("v", "<D-x>", '"*d', { desc = "cut to system clipboard" })
 
