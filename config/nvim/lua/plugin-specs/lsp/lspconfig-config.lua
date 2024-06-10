@@ -1,8 +1,12 @@
+-- Configure nvim-lspconfig to use the language servers I want.
 return function()
     local lspconfig = require("lspconfig")
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+    -- The language servers need to know what capabilities our completion
+    -- system supports. This fetches the capabilities to pass along to them.
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
     local opts = { capabilities = capabilities }
+
     local dotfiles_env = os.getenv("DOTFILES_ENV")
 
     if dotfiles_env == "home" then
@@ -28,6 +32,6 @@ return function()
     vim.fn.sign_define("DiagnosticSignInfo", { text = "󰋽 ", texthl = "DiagnosticSignInfo" })
     vim.fn.sign_define("DiagnosticSignHint", { text = "󰌶", texthl = "DiagnosticSignHint" })
 
-    -- Language servers can be configured on a per-project basis using exrc.
-    -- See the .nvim.lua file in .dotfiles for an example.
+    -- Language servers can also be configured on a per-project basis using
+    -- exrc. See the .nvim.lua file in .dotfiles for an example.
 end

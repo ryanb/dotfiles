@@ -1,3 +1,5 @@
+-- Configure none-ls to use the formatters I want, and set it up to auto-format
+-- on save.
 return function()
     local null_ls = require("null-ls")
     local formatting = null_ls.builtins.formatting
@@ -7,9 +9,7 @@ return function()
 
     if dotfiles_env == "home" then
         sources = {
-            formatting.prettierd.with({
-                disabled_filetypes = { "ruby" },
-            }),
+            formatting.prettierd,
             formatting.stylua,
         }
     end
@@ -28,6 +28,8 @@ return function()
 
     null_ls.setup({
         sources = sources,
+        -- This sets up auto-formatting on save. Taken from:
+        -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
         on_attach = function(client, bufnr)
             if client.supports_method("textDocument/formatting") then
                 vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
