@@ -1,16 +1,16 @@
-local bufdelete = require("bufdelete")
-local gitsigns = require("gitsigns")
-local refactoring = require("refactoring")
-local repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
-local telescope = require("telescope.builtin")
-local treesj = require("treesj")
-local which_key = require("which-key")
-local actions = require("actions")
-
 local map = vim.keymap.set
 
 -- Set up mappings available in all buffers.
 local function map_global_keys()
+    local actions = require("actions")
+    local bufdelete = require("bufdelete")
+    local gitsigns = require("gitsigns")
+    local refactoring = require("refactoring")
+    local repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
+    local telescope = require("telescope.builtin")
+    local treesj = require("treesj")
+    local which_key = require("which-key")
+
     -- Things I do often enough get a top-level mapping.
     map("", "<leader><leader>", telescope.find_files, { desc = "find files" })
     map("", "<leader>*", telescope.grep_string, { desc = "find word under cursor" })
@@ -25,7 +25,8 @@ local function map_global_keys()
     map("", "<leader>W", vim.cmd.close, { desc = "close window" })
     map("", "<leader>X", bufdelete.bufdelete, { desc = "close buffer" })
 
-    -- Make command keys do sensible things.
+    -- Make command keys do sensible things. There some stuff in kitty.conf to
+    -- tell Kitty to pass these through to Neovim.
     map("v", "<D-c>", '"*y', { desc = "copy to system clipboard" })
     map("", "<D-q>", actions.write_all_and_quit, { desc = "save all files and quit" })
     map("", "<D-s>", actions.write_all, { desc = "save all files" })
@@ -83,6 +84,8 @@ end
 -- Set up mappings for buffers with a language server attached.
 local function map_lsp_keys(args)
     local buffer = args.buf
+
+    local telescope = require("telescope.builtin")
 
     map({ "n", "x", "o" }, "gd", telescope.lsp_definitions, { buffer = buffer, desc = "Go to defintion" })
     map({ "n", "x", "o" }, "gr", telescope.lsp_references, { buffer = buffer, desc = "Go to references" })

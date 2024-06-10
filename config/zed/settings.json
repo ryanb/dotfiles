@@ -13,13 +13,8 @@
     "calt": false // Don't use ligatures.
   },
   "buffer_font_size": 14,
-  "lsp": {
-    "solargraph": {
-      "initialization_options": {
-        "diagnostics": true,
-        "formatting": true
-      }
-    }
+  "indent_guides": {
+    "enabled": false
   },
   "relative_line_numbers": true,
   "vim_mode": true

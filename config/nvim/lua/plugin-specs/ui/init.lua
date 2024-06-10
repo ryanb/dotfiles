@@ -7,7 +7,7 @@ local dressing_spec = {
 local lualine_spec = {
     -- https://github.com/nvim-lualine/lualine.nvim
     "nvim-lualine/lualine.nvim",
-    opts = require("plugins/ui/lualine-opts"),
+    opts = require("plugin-specs.ui.lualine-opts"),
 }
 
 local nightfox_spec = {

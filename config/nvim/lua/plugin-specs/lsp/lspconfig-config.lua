@@ -2,23 +2,24 @@ return function()
     local lspconfig = require("lspconfig")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+    local opts = { capabilities = capabilities }
     local dotfiles_env = os.getenv("DOTFILES_ENV")
 
     if dotfiles_env == "home" then
-        lspconfig.bashls.setup({ capabilities = capabilities })
-        lspconfig.eslint.setup({ capabilities = capabilities })
-        lspconfig.solargraph.setup({ capabilities = capabilities })
-        lspconfig.standardrb.setup({ capabilities = capabilities })
-        lspconfig.tsserver.setup({ capabilities = capabilities })
+        lspconfig.bashls.setup(opts)
+        lspconfig.eslint.setup(opts)
+        lspconfig.solargraph.setup(opts)
+        lspconfig.standardrb.setup(opts)
+        lspconfig.tsserver.setup(opts)
     end
 
     if dotfiles_env == "work" then
-        lspconfig.bashls.setup({ capabilities = capabilities })
-        lspconfig.eslint.setup({ capabilities = capabilities })
-        lspconfig.relay_lsp.setup({ capabilities = capabilities })
-        lspconfig.rubocop.setup({ capabilities = capabilities })
-        lspconfig.sorbet.setup({ capabilities = capabilities })
-        lspconfig.tsserver.setup({ capabilities = capabilities })
+        lspconfig.bashls.setup(opts)
+        lspconfig.eslint.setup(opts)
+        lspconfig.relay_lsp.setup(opts)
+        lspconfig.rubocop.setup(opts)
+        lspconfig.sorbet.setup(opts)
+        lspconfig.tsserver.setup(opts)
     end
 
     -- Set the diagnostic signs shown in the gutter to match lualine's.

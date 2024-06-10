@@ -1,4 +1,25 @@
--- mason installs language servers and formatters for us.
+-- I use a set of plugins to provide language server support, which gives me
+-- all sorts of good things:
+--
+-- * Great auto-completion
+-- * Hover documentation (hit K to bring it up)
+-- * Real-time errors and warnings
+-- * Quick navigation to defitions and references
+-- * Auto-formatting
+--
+-- The two key plugins are:
+--
+-- * nvim-lspconfig configures and runs language servers
+-- * null-ls configures and runs formatters
+--
+-- Underlying this, I use mason to install all language servers and formatters.
+--
+-- A pair of plugins ties all this this together.
+--
+-- * mason-lspconfig ties nvim-lspconfig to mason
+-- * mason-null-ls ties null-ls to mason
+
+-- mason installs language servers and formatters.
 --
 -- It puts them in ~/.local/share/NVIM_APPNAME/mason, where NVIM_APPNAME
 -- defaults to `nvim`.
@@ -30,10 +51,10 @@ local lspconfig_spec = {
     -- https://github.com/neovim/nvim-lspconfig
     "neovim/nvim-lspconfig",
     dependencies = { "hrsh7th/cmp-nvim-lsp", mason_lspconfig_spec },
-    config = require("plugins/lsp/lspconfig-config"),
+    config = require("plugin-specs.lsp.lspconfig-config"),
 }
 
--- null-ls lets us auto-format files on save.
+-- null-ls auto-formats files on save.
 --
 -- You might notice we talk about null-ls, but the actual plugin is called
 -- none-ls. Null-ls was abandoned by its creator, and none-ls is a community
@@ -42,7 +63,7 @@ local null_ls_spec = {
     -- https://github.com/nvimtools/none-ls.nvim
     "nvimtools/none-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = require("plugins/lsp/null-ls-config"),
+    config = require("plugin-specs.lsp.null-ls-config"),
 }
 
 -- mason-null-ls uses mason to install formatters configured in null-ls.
