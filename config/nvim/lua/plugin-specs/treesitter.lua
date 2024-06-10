@@ -50,6 +50,25 @@ local treesitter_spec = {
             highlight = { enable = true },
             textobjects = treesitter_textobjects,
         })
+
+        -- Make Treesitter movements are repeatable.
+        --
+        -- Taken from:
+        -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects?tab=readme-ov-file#text-objects-move
+
+        local repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
+        local map = vim.keymap.set
+        local nxo = { "n", "x", "o" }
+
+        -- Make , and ; repeat the last Treesitter move.
+        map(nxo, ";", repeatable_move.repeat_last_move_next)
+        map(nxo, ",", repeatable_move.repeat_last_move_previous)
+
+        -- Make repeating the builtins work properly too.
+        map(nxo, "f", repeatable_move.builtin_f)
+        map(nxo, "F", repeatable_move.builtin_F)
+        map(nxo, "t", repeatable_move.builtin_t)
+        map(nxo, "T", repeatable_move.builtin_T)
     end,
 }
 
