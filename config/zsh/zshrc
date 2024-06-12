@@ -106,8 +106,7 @@ function _configure_aliases {
   alias zed='/usr/local/bin/zed'
 
   alias lvim='NVIM_APPNAME=lazyvim nvim'
-
-  alias mvim='NVIM_APPNAME=mvim nvim'
+  alias mvim='NVIM_APPNAME=nvim-up-starter nvim'
 
   function autonode { echo $1 | entr -c node $1 }
   function autoruby { echo $1 | entr -c ruby $1 }
