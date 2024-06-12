@@ -1,0 +1,21 @@
+-- Show git differences in the gutter to the left of the file being edited,
+-- and perform other basic git operations.
+local gitsigns_spec = {
+    -- https://github.com/lewis6991/gitsigns.nvim
+    "lewis6991/gitsigns.nvim",
+    opts = {},
+}
+
+local lazygit_spec = {
+    -- https://github.com/kdheepak/lazygit.nvim
+    "kdheepak/lazygit.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+        vim.g.lazygit_floating_window_use_plenary = 0
+    end,
+}
+
+return {
+    gitsigns_spec,
+    lazygit_spec,
+}

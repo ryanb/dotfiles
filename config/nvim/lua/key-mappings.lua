@@ -52,6 +52,7 @@ local function map_global_keys()
     map(nxo, "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
     map(nxo, "<leader>gc", actions.choose_git_base, { desc = "change git base" })
     map(nxo, "<leader>gh", actions.browse_on_github, { desc = "browse on github" })
+    map(nxo, "<leader>gl", vim.cmd.LazyGit, { desc = "open LazyGit" })
     map(nxo, "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
 
     which_key.register({ ["<leader>t"] = { name = "telescope" } })
