@@ -10,7 +10,7 @@ For an older version that uses [Oh My Zsh](https://github.com/robbyrussell/oh-my
 Run the `bin/install` command to copy files over. It will prompt you before replacing if the files already exist.
 
 ```sh
-git clone git://github.com/ryanb/dotfiles ~/.dotfiles
+git clone git@github.com/ryanb/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 ./bin/install
 ```
