@@ -6,6 +6,9 @@ local gitsigns_spec = {
     opts = {},
 }
 
+-- View and manipulate a git repo with LazyGit in a window.
+--
+-- (LazyGit is no relation to lazy.nvim.)
 local lazygit_spec = {
     -- https://github.com/kdheepak/lazygit.nvim
     "kdheepak/lazygit.nvim",

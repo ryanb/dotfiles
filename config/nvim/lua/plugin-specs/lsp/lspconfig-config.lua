@@ -12,7 +12,7 @@ return function()
     if dotfiles_env == "home" then
         lspconfig.bashls.setup(opts)
         lspconfig.eslint.setup(opts)
-        lspconfig.solargraph.setup(opts)
+        lspconfig.ruby_lsp.setup(opts)
         lspconfig.standardrb.setup(opts)
         lspconfig.tsserver.setup(opts)
     end
@@ -21,7 +21,7 @@ return function()
         lspconfig.bashls.setup(opts)
         lspconfig.eslint.setup(opts)
         lspconfig.relay_lsp.setup(opts)
-        lspconfig.rubocop.setup(opts)
+        lspconfig.ruby_lsp.setup(opts)
         lspconfig.sorbet.setup(opts)
         lspconfig.tsserver.setup(opts)
     end

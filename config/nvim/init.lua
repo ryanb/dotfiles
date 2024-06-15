@@ -12,9 +12,8 @@
 -- * A file explorer in the sidebar with Neo-tree
 -- * Fuzzy finding of all sorts of things with Telescope
 --
--- I try to keep the UI much more minimalist than a normal IDE. I'm easily
--- distracted, so I want my code front-and-centre with not too much other
--- information in the way.
+-- I keep the UI much more minimal than a normal IDE. I'm easily distracted, so
+-- I want my code front-and-centre with not too much other information.
 --
 -- See the lua/plugin-specs directory for more.
 
