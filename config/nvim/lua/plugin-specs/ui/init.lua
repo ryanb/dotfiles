@@ -1,15 +1,21 @@
+-- Show Nicer UI for inputs and selections.
 local dressing_spec = {
     -- https://github.com/stevearc/dressing.nvim
     "stevearc/dressing.nvim",
     opts = {},
 }
 
+-- Make the status line look clean and pretty.
 local lualine_spec = {
     -- https://github.com/nvim-lualine/lualine.nvim
     "nvim-lualine/lualine.nvim",
     opts = require("plugin-specs.ui.lualine-opts"),
 }
 
+-- I haven't settled on a colorscheme that I love, but this one isn't bad.
+--
+-- I liked good old jellybeans more, but that doesn't have support for all the
+-- modern Treesitter formatting.
 local nightfox_spec = {
     -- https://github.com/EdenEast/nightfox.nvim
     "EdenEast/nightfox.nvim",
@@ -27,6 +33,7 @@ local nightfox_spec = {
     priority = 1000,
 }
 
+-- Show notifications in nice floating boxes.
 local notify_spec = {
     -- https://github.com/rcarriga/nvim-notify
     "rcarriga/nvim-notify",
@@ -37,6 +44,10 @@ local notify_spec = {
     end,
 }
 
+-- Show key mappings in a box at the bottom of the screen.
+--
+-- This is very useful when I'm tinkering with key mappings and I can't
+-- remember what I've done.
 local which_key_spec = {
     -- https://github.com/folke/which-key.nvim
     "folke/which-key.nvim",
