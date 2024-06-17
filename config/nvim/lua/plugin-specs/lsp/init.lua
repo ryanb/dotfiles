@@ -77,7 +77,4 @@ local mason_null_ls_spec = {
     opts = { automatic_installation = true },
 }
 
-return {
-    lspconfig_spec,
-    mason_null_ls_spec,
-}
+return { lspconfig_spec, mason_null_ls_spec }

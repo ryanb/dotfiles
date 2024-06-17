@@ -18,7 +18,4 @@ local lazygit_spec = {
     end,
 }
 
-return {
-    gitsigns_spec,
-    lazygit_spec,
-}
+return { gitsigns_spec, lazygit_spec }
