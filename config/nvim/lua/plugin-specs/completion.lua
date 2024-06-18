@@ -1,3 +1,9 @@
+-- I use nvim-cmp for completion, along with LuaSnip and friendly-snippets for
+-- snippet completion.
+--
+-- I've got key mapping to allow tabbing through the completion menu, and
+-- hitting return to select.
+
 local luasnip_spec = {
     -- https://github.com/L3MON4D3/LuaSnip
     "L3MON4D3/LuaSnip",

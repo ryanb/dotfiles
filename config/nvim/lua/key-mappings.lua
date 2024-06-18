@@ -12,78 +12,86 @@ local map = vim.keymap.set
 
 -- The first parameter to map is the modes in which the mappings apply.
 --
--- An empty string sets the mapping for all these modes:
+-- Neovim's modes are:
+--   n = Normal mode
+--   i = Insert mode
+--   c = Command mode, typing a command after hitting ":"
+--   x = Visual mode, when text is selected
+--   s = Select mode, text is selected and will be replaced with typing
+--   o = Operator-pending mode, waiting for an operator after d, y, c, etc.
+--   t = Terminal mode, inside a terminal
+--   l = Lang-arg mode, used for language mappings
 --
--- * Normal (n)
--- * Visual (x)
--- * Select (s)
--- * Operator (o)
+-- "v" is a shortcut for both visual (x) and select (s) modes.
 --
--- Note that "v" means both visual (x) and select (s) modes.
+-- An empty string means normal (n), visual (x), select (s), and
+-- operator-pending (o) modes.
 --
 -- See Neovim's help for map-modes
 
--- Most of my keys are mapped in normal, visual, and operator modes, but not
--- select mode. I don't want to map printable characters in select mode.
-local nxo = { "n", "x", "o" }
+-- Most of my keys are mapped in normal and visual modes.
+local nx = { "n", "x" }
+
+-- Some of my command keys I want to have work just about everywhere.
+local everywhere = { "n", "i", "c", "x", "s", "o", "t" }
 
 -- Set up mappings available in all buffers.
 local function map_global_keys()
     -- Things I do often enough get a top-level mapping.
-    map(nxo, "<leader><leader>", telescope.find_files, { desc = "find files" })
-    map(nxo, "<leader>*", telescope.grep_string, { desc = "find word under cursor" })
-    map(nxo, "<leader>/", vim.cmd.nohlsearch, { desc = "clear search" })
-    map(nxo, "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
-    map(nxo, "<leader>e", actions.toggle_neo_tree, { desc = "toggle neo-tree explorer" })
-    map(nxo, "<leader>f", actions.show_current_file_in_neo_tree, { desc = "show current file in neo-tree" })
-    map(nxo, "<leader>Q", actions.write_all_and_quit, { desc = "save all files and quit" })
-    map(nxo, "<leader>R", actions.restore_session, { desc = "restore previoius session" })
-    map(nxo, "<leader>s", actions.write_all, { desc = "save all files" })
-    map(nxo, "<leader>S", actions.save_session_and_quit, { desc = "Save session" })
-    map(nxo, "<leader>W", vim.cmd.close, { desc = "close window" })
-    map(nxo, "<leader>X", bufdelete.bufdelete, { desc = "close buffer" })
+    map(nx, "<leader><leader>", telescope.find_files, { desc = "find files" })
+    map(nx, "<leader>*", telescope.grep_string, { desc = "find word under cursor" })
+    map(nx, "<leader>/", vim.cmd.nohlsearch, { desc = "clear search" })
+    map(nx, "<leader>d", vim.diagnostic.open_float, { desc = "show diagnostics under cursor" })
+    map(nx, "<leader>e", actions.toggle_neo_tree, { desc = "toggle neo-tree explorer" })
+    map(nx, "<leader>f", actions.show_current_file_in_neo_tree, { desc = "show current file in neo-tree" })
+    map(nx, "<leader>Q", actions.write_all_and_quit, { desc = "save all files and quit" })
+    map(nx, "<leader>R", actions.restore_session, { desc = "restore previoius session" })
+    map(nx, "<leader>s", actions.write_all, { desc = "save all files" })
+    map(nx, "<leader>S", actions.save_session_and_quit, { desc = "Save session" })
+    map(nx, "<leader>W", vim.cmd.close, { desc = "close window" })
+    map(nx, "<leader>X", bufdelete.bufdelete, { desc = "close buffer" })
 
     which_key.register({ ["<leader>c"] = { name = "code changes" } })
-    map(nxo, "<leader>cj", treesj.join, { desc = "join lines" })
-    map(nxo, "<leader>cf", refactoring.select_refactor, { desc = "refactor" })
-    map(nxo, "<leader>cs", treesj.split, { desc = "split lines" })
+    map(nx, "<leader>cj", treesj.join, { desc = "join lines" })
+    map(nx, "<leader>cf", refactoring.select_refactor, { desc = "refactor" })
+    map(nx, "<leader>cs", treesj.split, { desc = "split lines" })
 
     which_key.register({ ["<leader>g"] = { name = "git" } })
-    map(nxo, "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
-    map(nxo, "<leader>gc", actions.choose_git_base, { desc = "change git base" })
-    map(nxo, "<leader>gh", actions.browse_on_github, { desc = "browse on github" })
-    map(nxo, "<leader>gl", vim.cmd.LazyGit, { desc = "open LazyGit" })
-    map(nxo, "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
+    map(nx, "<leader>gb", gitsigns.blame_line, { desc = "git blame" })
+    map(nx, "<leader>gc", actions.choose_git_base, { desc = "change git base" })
+    map(nx, "<leader>gh", actions.browse_on_github, { desc = "browse on github" })
+    map(nx, "<leader>gl", vim.cmd.LazyGit, { desc = "open LazyGit" })
+    map(nx, "<leader>gp", gitsigns.preview_hunk_inline, { desc = "preview hunk" })
 
     which_key.register({ ["<leader>t"] = { name = "telescope" } })
-    map(nxo, "<leader>t.", telescope.resume, { desc = "repeat last find" })
-    map(nxo, "<leader>t/", telescope.live_grep, { desc = "live grep" })
-    map(nxo, "<leader>tb", telescope.buffers, { desc = "find buffers" })
-    map(nxo, "<leader>td", telescope.diagnostics, { desc = "find diagnostics" })
-    map(nxo, "<leader>tg", telescope.git_status, { desc = "find git status" })
-    map(nxo, "<leader>th", telescope.help_tags, { desc = "find help" })
-    map(nxo, "<leader>tj", telescope.jumplist, { desc = "find in jumplist" })
-    map(nxo, "<leader>tt", telescope.builtin, { desc = "find telescope builtins" })
+    map(nx, "<leader>t.", telescope.resume, { desc = "repeat last find" })
+    map(nx, "<leader>t/", telescope.live_grep, { desc = "live grep" })
+    map(nx, "<leader>tb", telescope.buffers, { desc = "find buffers" })
+    map(nx, "<leader>td", telescope.diagnostics, { desc = "find diagnostics" })
+    map(nx, "<leader>tg", telescope.git_status, { desc = "find git status" })
+    map(nx, "<leader>th", telescope.help_tags, { desc = "find help" })
+    map(nx, "<leader>tj", telescope.jumplist, { desc = "find in jumplist" })
+    map(nx, "<leader>tt", telescope.builtin, { desc = "find telescope builtins" })
 
     -- Make command keys do sensible things. There's some stuff in kitty.conf
     -- to tell Kitty to pass these through to Neovim.
-    map("x", "<D-c>", '"*ygv', { desc = "copy to system clipboard" })
-    map("", "<D-q>", actions.write_all_and_quit, { desc = "save all files and quit" })
-    map("", "<D-s>", actions.write_all, { desc = "save all files" })
-    map("", "<D-v>", '"*p', { desc = "paste from system clipboard" })
-    map({ "c", "i", "s" }, "<D-v>", "<C-R>*", { desc = "paste from system clipboard" })
-    map("", "<D-w>", vim.cmd.close, { desc = "close window" })
-    map("v", "<D-x>", '"*d', { desc = "cut to system clipboard" })
+    map("x", "<d-x>", '"*d', { desc = "cut to system clipboard" })
+    map("x", "<d-c>", '"*ygv', { desc = "copy to system clipboard" })
+    map(nx, "<d-v>", '"*p', { desc = "paste from system clipboard" })
+    map("c", "<d-v>", "<c-R>*", { desc = "paste from system clipboard" })
+    map(everywhere, "<d-s>", actions.write_all, { desc = "save all files" })
+    map(everywhere, "<d-q>", actions.write_all_and_quit, { desc = "save all files and quit" })
+    map(nx, "<d-w>", vim.cmd.close, { desc = "close window" })
 
     -- Jump between git changes in the buffer.
-    map(nxo, "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
-    map(nxo, "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
+    map(nx, "[g", gitsigns.prev_hunk, { desc = "previous git hunk in buffer" })
+    map(nx, "]g", gitsigns.next_hunk, { desc = "next git hunk in buffer" })
 
     -- Navigate between windows.
-    map("", "<c-h>", "<c-w>h", { desc = "Go to the left window" })
-    map("", "<c-j>", "<c-w>j", { desc = "Go to the down window" })
-    map("", "<c-k>", "<c-w>k", { desc = "Go to the up window" })
-    map("", "<c-l>", "<c-w>l", { desc = "Go to the right window" })
+    map(nx, "<c-h>", "<c-w>h", { desc = "Go to the left window" })
+    map(nx, "<c-j>", "<c-w>j", { desc = "Go to the down window" })
+    map(nx, "<c-k>", "<c-w>k", { desc = "Go to the up window" })
+    map(nx, "<c-l>", "<c-w>l", { desc = "Go to the right window" })
 
     -- Reselect the visual area when changing indenting in visual mode.
     map("x", "<", "<gv", { desc = "Indent left" })
@@ -94,13 +102,13 @@ end
 local function map_lsp_keys(args)
     local buffer = args.buf
 
-    map(nxo, "gd", telescope.lsp_definitions, { buffer = buffer, desc = "Go to defintion" })
-    map(nxo, "gr", telescope.lsp_references, { buffer = buffer, desc = "Go to references" })
+    map("n", "gd", telescope.lsp_definitions, { buffer = buffer, desc = "Go to defintion" })
+    map("n", "gr", telescope.lsp_references, { buffer = buffer, desc = "Go to references" })
 
-    map(nxo, "<leader>ca", vim.lsp.buf.code_action, { buffer = buffer, desc = "code actions" })
-    map(nxo, "<leader>cr", vim.lsp.buf.rename, { buffer = buffer, desc = "rename symbol under cursor" })
+    map(nx, "<leader>ca", vim.lsp.buf.code_action, { buffer = buffer, desc = "code actions" })
+    map(nx, "<leader>cr", vim.lsp.buf.rename, { buffer = buffer, desc = "rename symbol under cursor" })
 
-    map(nxo, "<leader>ts", telescope.lsp_document_symbols, { buffer = buffer, desc = "find document symbols" })
+    map(nx, "<leader>ts", telescope.lsp_document_symbols, { buffer = buffer, desc = "find document symbols" })
 end
 
 -- This sets things up so we tell Kitty when Neovim is open, so it can pass
