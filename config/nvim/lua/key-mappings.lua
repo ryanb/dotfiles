@@ -1,9 +1,7 @@
 local actions = require("actions")
 local bufdelete = require("bufdelete")
 local gitsigns = require("gitsigns")
-local refactoring = require("refactoring")
 local telescope = require("telescope.builtin")
-local treesj = require("treesj")
 local which_key = require("which-key")
 
 -- We're going to be calling this function a lot, so let's not repeat
@@ -52,9 +50,9 @@ local function map_global_keys()
     map(nx, "<leader>X", bufdelete.bufdelete, { desc = "close buffer" })
 
     which_key.register({ ["<leader>c"] = { name = "code changes" } })
-    map(nx, "<leader>cj", treesj.join, { desc = "join lines" })
-    map(nx, "<leader>cf", refactoring.select_refactor, { desc = "refactor" })
-    map(nx, "<leader>cs", treesj.split, { desc = "split lines" })
+    map(nx, "<leader>cj", actions.join_code, { desc = "join lines" })
+    map(nx, "<leader>cf", actions.select_refactor, { desc = "refactor" })
+    map(nx, "<leader>cs", actions.split_code, { desc = "split lines" })
 
     which_key.register({ ["<leader>g"] = { name = "git" } })
     map(nx, "<leader>gb", gitsigns.blame_line, { desc = "git blame" })

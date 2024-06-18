@@ -19,6 +19,15 @@ local neo_tree_spec = {
             },
             indent = { with_markers = false },
         },
+        event_handlers = {
+            {
+                event = "neo_tree_buffer_enter",
+                handler = function()
+                    -- Trigger loading the nvim-lsp-file-operations plugin.
+                    require("lsp-file-operations")
+                end,
+            },
+        },
         filesystem = {
             follow_current_file = { enabled = false, leave_dirs_open = false },
             use_libuv_file_watcher = true,
@@ -36,6 +45,7 @@ local neo_tree_spec = {
         },
         window = { position = "right", width = 49 },
     },
+    lazy = true,
 }
 
 -- nvim-lsp-file-operations automatically fixes imports whenever we rename a
@@ -47,6 +57,7 @@ local neo_tree_file_operations_spec = {
     "antosha417/nvim-lsp-file-operations",
     config = true,
     dependencies = { "nvim-lua/plenary.nvim", neo_tree_spec },
+    lazy = true,
 }
 
-return { neo_tree_file_operations_spec }
+return { neo_tree_spec, neo_tree_file_operations_spec }

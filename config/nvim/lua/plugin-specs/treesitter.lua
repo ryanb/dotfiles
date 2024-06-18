@@ -79,6 +79,7 @@ local refactoring_spec = {
     config = function()
         require("refactoring").setup()
     end,
+    lazy = true,
 }
 
 local treesj_spec = {
@@ -86,6 +87,7 @@ local treesj_spec = {
     "Wansmer/treesj",
     dependencies = { treesitter_spec },
     opts = { use_default_keymaps = false },
+    lazy = true,
 }
 
-return { refactoring_spec, treesj_spec }
+return { treesitter_spec, refactoring_spec, treesj_spec }
