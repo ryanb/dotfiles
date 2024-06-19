@@ -22,6 +22,10 @@ local nightfox_spec = {
     opts = {
         groups = {
             all = {
+                -- Darken the CursorLine to give more contrast with text.
+                -- This works nicely against our black background.
+                CursorLine = { bg = "#22262f" },
+
                 -- Work around this issue:
                 -- https://github.com/EdenEast/nightfox.nvim/issues/440
                 NeoTreeTitleBar = { fg = "#131a24", bg = "#71839b" },
