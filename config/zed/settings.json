@@ -13,6 +13,9 @@
     "calt": false // Don't use ligatures.
   },
   "buffer_font_size": 14,
+  "git": {
+    "inline_blame": { "enabled": false }
+  },
   "indent_guides": {
     "enabled": false
   },
