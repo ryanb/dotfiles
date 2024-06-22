@@ -69,6 +69,7 @@ local function map_global_keys()
     map(nx, "<leader>tg", telescope.git_status, { desc = "find git status" })
     map(nx, "<leader>th", telescope.help_tags, { desc = "find help" })
     map(nx, "<leader>tj", telescope.jumplist, { desc = "find in jumplist" })
+    map(nx, "<leader>tn", actions.telescope_notify, { desc = "find in notifications" })
     map(nx, "<leader>tt", telescope.builtin, { desc = "find telescope builtins" })
 
     -- Make command keys do sensible things. There's some stuff in kitty.conf

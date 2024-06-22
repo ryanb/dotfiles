@@ -22,15 +22,17 @@ if vim.g.vscode then
     return
 end
 
+-- I use Nightfox's Nordfox variant, with some tweaks.
+-- See lua/plugin-specs/ui/init.lua
 local colorscheme = "nordfox"
 
--- I want to set all my options before loading plugins.
+-- Some plugins depend on particular options being set, so set options first.
 require("options").configure()
 
 local plugins = require("plugins")
 plugins.install_lazy()
 plugins.install_and_load_plugins(colorscheme)
 
--- And these need to happen after the plugins have loaded:
+-- And these depend on the plugins being loaded, so do them last.
 vim.cmd.colorscheme(colorscheme)
 require("key-mappings").configure()

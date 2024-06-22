@@ -44,7 +44,13 @@ local notify_spec = {
     "rcarriga/nvim-notify",
     config = function()
         local notify = require("notify")
-        notify.setup({ top_down = false })
+        notify.setup({
+            -- Use the same icons I use everywhere else.
+            icons = { DEBUG = "", ERROR = "󰅚", INFO = "󰋽", TRACE = "", WARN = "󰀪" },
+            minimum_width = 0,
+            render = "wrapped-compact",
+            top_down = false,
+        })
         vim.notify = notify
     end,
 }

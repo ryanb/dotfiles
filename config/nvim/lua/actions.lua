@@ -62,6 +62,11 @@ return {
         require("treesj").split()
     end,
 
+    -- Search notifications in Telescope.
+    telescope_notify = function()
+        require("telescope").extensions.notify.notify()
+    end,
+
     -- Open Neo-tree if it's closed, or close it if it's open.
     toggle_neo_tree = function()
         local neo_tree = require("neo-tree.command")
@@ -71,7 +76,7 @@ return {
     -- Save every open buffer.
     write_all = function()
         vim.cmd.wall()
-        vim.notify("Saved all files.")
+        vim.notify("Saved.", vim.log.levels.INFO, { hide_from_history = true })
     end,
 
     -- Save every open buffer and quit Neovim.
