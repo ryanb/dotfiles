@@ -24,7 +24,7 @@ end
 
 local colorscheme = "nordfox"
 
--- We need to set all our options
+-- I want to set all my options before loading plugins.
 require("options").configure()
 
 local plugins = require("plugins")
