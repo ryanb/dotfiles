@@ -5,6 +5,31 @@ local dressing_spec = {
     opts = {},
 }
 
+-- Nicer notifications, and LSP progress.
+local fidget_spec = {
+    -- https://github.com/j-hui/fidget.nvim
+    "j-hui/fidget.nvim",
+    opts = {
+        notification = {
+            override_vim_notify = true,
+        },
+    },
+}
+
+-- Try to break some bad editing habits I've developed.
+local hardtime_spec = {
+    -- https://github.com/m4xshen/hardtime.nvim
+    "m4xshen/hardtime.nvim",
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    opts = {},
+}
+
+-- Show a lightbulb in the gutter when code actions are available.
+local lightbulb_spec = {
+    -- https://github.com/kosayoda/nvim-lightbulb
+    "kosayoda/nvim-lightbulb",
+}
+
 -- Make the status line look clean and pretty.
 local lualine_spec = {
     -- https://github.com/nvim-lualine/lualine.nvim
@@ -38,23 +63,6 @@ local nightfox_spec = {
     priority = 1000,
 }
 
--- Show notifications in nice floating boxes.
-local notify_spec = {
-    -- https://github.com/rcarriga/nvim-notify
-    "rcarriga/nvim-notify",
-    config = function()
-        local notify = require("notify")
-        notify.setup({
-            -- Use the same icons I use everywhere else.
-            icons = { DEBUG = "", ERROR = "󰅚", INFO = "󰋽", TRACE = "", WARN = "󰀪" },
-            minimum_width = 0,
-            render = "wrapped-compact",
-            top_down = false,
-        })
-        vim.notify = notify
-    end,
-}
-
 -- Show key mappings in a box at the bottom of the screen.
 --
 -- This is very useful when I'm tinkering with key mappings and I can't
@@ -68,4 +76,12 @@ local which_key_spec = {
     end,
 }
 
-return { dressing_spec, lualine_spec, nightfox_spec, notify_spec, which_key_spec }
+return {
+    dressing_spec,
+    fidget_spec,
+    hardtime_spec,
+    lightbulb_spec,
+    lualine_spec,
+    nightfox_spec,
+    which_key_spec,
+}
