@@ -74,7 +74,12 @@ local mason_null_ls_spec = {
     -- https://github.com/jay-babu/mason-null-ls.nvim
     "jay-babu/mason-null-ls.nvim",
     dependencies = { mason_spec, null_ls_spec },
-    opts = { automatic_installation = true },
+    opts = {
+        automatic_installation = true,
+        -- The bashls lspconfig setup doesn't automatically install shellcheck,
+        -- so install it here.
+        ensure_installed = { "shellcheck" },
+    },
 }
 
 return { lspconfig_spec, mason_null_ls_spec }
