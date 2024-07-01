@@ -65,10 +65,10 @@ local treesitter_spec = {
         map(nxo, ",", repeatable_move.repeat_last_move_previous)
 
         -- Make repeating the builtins work properly too.
-        map(nxo, "f", repeatable_move.builtin_f)
-        map(nxo, "F", repeatable_move.builtin_F)
-        map(nxo, "t", repeatable_move.builtin_t)
-        map(nxo, "T", repeatable_move.builtin_T)
+        map(nxo, "f", repeatable_move.builtin_f_expr, { expr = true })
+        map(nxo, "F", repeatable_move.builtin_F_expr, { expr = true })
+        map(nxo, "t", repeatable_move.builtin_t_expr, { expr = true })
+        map(nxo, "T", repeatable_move.builtin_T_expr, { expr = true })
     end,
 }
 

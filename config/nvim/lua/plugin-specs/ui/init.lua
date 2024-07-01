@@ -12,6 +12,10 @@ local fidget_spec = {
     opts = {
         notification = {
             override_vim_notify = true,
+            window = { border = "rounded", relative = "win" },
+        },
+        progress = {
+            display = { done_ttl = 5 },
         },
     },
 }
@@ -21,7 +25,7 @@ local hardtime_spec = {
     -- https://github.com/m4xshen/hardtime.nvim
     "m4xshen/hardtime.nvim",
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-    opts = {},
+    opts = { disable_mouse = false },
 }
 
 -- Show a lightbulb in the gutter when code actions are available.
