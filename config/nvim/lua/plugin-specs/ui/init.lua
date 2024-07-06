@@ -12,7 +12,7 @@ local fidget_spec = {
     opts = {
         notification = {
             override_vim_notify = true,
-            window = { border = "rounded", relative = "win" },
+            window = { border = "rounded", winblend = 0 },
         },
         progress = {
             display = { done_ttl = 5 },
