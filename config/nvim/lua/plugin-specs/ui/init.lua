@@ -32,6 +32,7 @@ local hardtime_spec = {
 local lightbulb_spec = {
     -- https://github.com/kosayoda/nvim-lightbulb
     "kosayoda/nvim-lightbulb",
+    opts = { autocmd = { enabled = true } },
 }
 
 -- Make the status line look clean and pretty.
