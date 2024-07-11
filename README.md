@@ -26,4 +26,4 @@ The `environments` directory contains separate `Brewfile`s and `mise.toml` files
 
 [Homebrew](https://brew.sh) installs anything where I always want the latest version, including apps from the Mac App Store.
 
-[Mise](https://mise.jdx.dev/) manages things like languages, where I want particular versions installed.
+[Mise-en-place](https://mise.jdx.dev/) manages things like languages, where I want particular versions installed.
