@@ -132,6 +132,12 @@ function _configure_mise {
   }
 }
 
+function _configure_fzf {
+  if [[ -f $HOMEBREW_PREFIX/bin/fzf ]] {
+    source <(fzf --zsh)
+  }
+}
+
 function _configure_android {
   if [[ ! -v $ANDROID_HOME ]] {
     export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -164,6 +170,7 @@ if [[ ! -v WARP_IS_LOCAL_SHELL_SESSION ]] {
 _configure_aliases
 _configure_homebrew
 _configure_mise
+_configure_fzf
 
 if [[ $DOTFILES_ENV == "work" ]] {
   _configure_android

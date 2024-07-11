@@ -5,6 +5,7 @@ brew 'mas'
 
 brew 'entr'
 brew 'fd'
+brew 'fzf'
 brew 'gh'
 brew 'git'
 brew 'jq'
