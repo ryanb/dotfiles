@@ -1,5 +1,7 @@
 # Pete's dotfiles
 
+![Screenshot with my Kitty and Neovim config](screenshot.png)
+
 This does 80% of the work of setting up a Mac the way I like it:
 
 ```sh
