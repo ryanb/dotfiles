@@ -1,3 +1,5 @@
+# :vim:ft=conf:
+
 cask_args force: true
 
 tap 'homebrew/autoupdate'
@@ -10,7 +12,6 @@ brew 'mas'
 
 cask '1password'
 mas 'Bear', id: 1091189122
-mas 'Day One', id: 1055511498
 mas 'MindNode', id: 1289197285
 mas 'Numbers', id: 409203825
 mas 'OmniGraffle', id: 1142578753
@@ -27,22 +28,19 @@ cask 'the-unarchiver'
 
 # Browsers ============================================================
 
-cask 'arc'
 cask 'firefox'
 cask 'google-chrome'
 
 # Safari extensions ===================================================
 
 mas '1Password for Safari', id: 1569813296
-mas 'Ghostery – Privacy Ad Blocker', id: 1436953057
-mas 'Hush', id: 1544743900
+mas 'Ghostery Privacy Ad Blocker', id: 6504861501
 mas 'Save to Pocket', id: 1477385213
 
 # Teh socials =========================================================
 
 mas 'Messenger', id: 1480068668
 cask 'signal'
-mas 'Slack', id: 803453959
 cask 'zoom'
 
 # Music and photos ====================================================
@@ -58,13 +56,11 @@ cask 'sysex-librarian'
 
 brew 'gh'
 brew 'git'
-cask 'iterm2'
 cask 'kitty'
 brew 'mise'
 brew 'neovim'
 cask 'swiftformat-for-xcode'
 cask 'visual-studio-code'
-cask 'warp'
 mas 'Xcode', id: 497799835
 cask 'zed'
 

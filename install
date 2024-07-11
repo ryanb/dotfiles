@@ -3,7 +3,7 @@
 set -o errexit
 
 steps_dir="$(dirname "$0")/steps"
-steps=(macos homebrew mise zsh ssh git iterm2 kitty neovim warp zed)
+steps=(macos homebrew mise zsh ssh git kitty neovim zed)
 
 red=$(tput setaf 1)
 green=$(tput setaf 2)

@@ -1,3 +1,5 @@
+# :vim:ft=conf:
+
 # If we don't list mas explicitly, brew bundle cleanup will remove it.
 brew 'mas'
 
@@ -13,14 +15,12 @@ brew 'ripgrep'
 brew 'wget'
 
 cask_args force: true
-cask 'iterm2'
 cask 'kitty'
 cask 'notion'
 cask 'obsidian'
 cask 'raycast'
 cask 'scroll-reverser'
 cask 'visual-studio-code'
-cask 'warp'
 mas 'Xcode', id: 497799835
 cask 'zed'
 

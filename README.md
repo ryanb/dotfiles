@@ -12,7 +12,7 @@ export DOTFILES_ENV=home
 ./install
 ```
 
-I re-run this frequently (it's idempotent), which ensures I maintain it.
+I re-run `./install` frequently (it's idempotent), which ensures I maintain it.
 
 I remove anything I'm not using to keep it simple.
 
