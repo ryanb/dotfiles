@@ -1,6 +1,8 @@
 function _configure_environment {
   export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
+  export BAT_THEME=base16
+  export BAT_STYLE=numbers,changes
   export CLICOLOR=1  # Make ls colour its output.
   export LESS=-R     # Make less support ANSI colour sequences.
 

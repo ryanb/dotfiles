@@ -69,6 +69,7 @@ cask 'font-inconsolata-nerd-font'
 
 # Helpful command line tools ==========================================
 
+brew 'bat'
 brew 'entr'
 brew 'fd'
 brew 'fzf'
