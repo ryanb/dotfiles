@@ -10,6 +10,8 @@ function _configure_environment {
     *)
       export DOTFILES_ENV=work;;
   }
+
+  export UP_HOME_PATH=~/src/up
 }
 
 function _configure_prompt {
@@ -52,7 +54,15 @@ function _configure_vi_mode {
 }
 
 function _configure_completion {
+  if [[ -d $UP_HOME_PATH ]] {
+    fpath=($UP_HOME_PATH/.zsh-up-completion $fpath)
+  }
+
   autoload -U compinit && compinit
+
+  if [[ -d $UP_HOME_PATH ]] {
+    source $UP_HOME_PATH/.zsh-up-completion/_up
+  }
 
   ZSH_AUTOSUGGEST_STRATEGY=(completion)
 
@@ -151,12 +161,6 @@ function _configure_android {
   }
 }
 
-function _configure_up_completion {
-  if [[ -f ~/src/up/.zsh-up-completion/init.zsh ]] {
-    source ~/src/up/.zsh-up-completion/init.zsh
-  }
-}
-
 _configure_environment
 
 if [[ ! -v WARP_IS_LOCAL_SHELL_SESSION ]] {
@@ -174,5 +178,4 @@ _configure_fzf
 
 if [[ $DOTFILES_ENV == "work" ]] {
   _configure_android
-  _configure_up_completion
 }
