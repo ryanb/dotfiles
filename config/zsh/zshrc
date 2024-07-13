@@ -1,19 +1,36 @@
-function _configure_environment {
-  export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+function _configure_homebrew {
+  if [[ -f /opt/homebrew/bin/brew ]] {
+    export HOMEBREW_NO_ENV_HINTS=true
 
-  export BAT_THEME=base16
-  export BAT_STYLE=numbers,changes
-  export CLICOLOR=1  # Make ls colour its output.
-  export LESS=-R     # Make less support ANSI colour sequences.
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 
-  case $(hostname -s) {
-    Knuth)
-      export DOTFILES_ENV=home;;
-    *)
-      export DOTFILES_ENV=work;;
+    fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+    fpath=($HOMEBREW_PREFIX/share/zsh-completions $fpath)
   }
+}
 
-  export UP_HOME_PATH=~/src/up
+function _configure_completion {
+  autoload -U compinit && compinit
+
+  if [[ -f $HOMEBREW_PREFIX/bin/fzf ]] {
+    source <(fzf --zsh)
+
+    # Use fzf as a completion menu. This needs to load after compinit, but before
+    # other plugins.
+    source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
+  }
+}
+
+function _load_zsh_syntax_highlighting_plugin {
+  if [[ -d $HOMEBREW_PREFIX/share/zsh-syntax-highlighting ]] {
+    source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  }
+}
+
+function _configure_mise {
+  if [[ -f $HOMEBREW_PREFIX/bin/mise ]] {
+    eval "$(mise activate zsh --shims)"
+  }
 }
 
 function _configure_prompt {
@@ -34,69 +51,28 @@ function _configure_prompt {
   PROMPT='${NEWLINE}${PATH_PROMPT_INFO} ${vcs_info_msg_0_} %# '
 }
 
-function _configure_vi_mode {
-  bindkey -v
-  KEYTIMEOUT=1
+function _configure_environment {
+  export BAT_THEME=base16
+  export BAT_STYLE=numbers,changes
+  export CLICOLOR=1  # Make ls colour its output.
+  export FZF_DEFAULT_COMMAND='fd --type f'
+  export LESS=-R     # Make less support ANSI colour sequences.
 
-  function _bar_cursor { echo -ne "\e[6 q" }
-  function _block_cursor { echo -ne "\e[2 q" }
-
-  # Start a new command line with the bar cursor.
-  zle -N zle-line-init _bar_cursor
-
-  # Swich between the bar and block cursors depending on the vi mode.
-  function zle-keymap-select {
-    if [[ $KEYMAP = vicmd ]] {
-      _block_cursor
-    } else {
-      _bar_cursor
-    }
-  }
-  zle -N zle-keymap-select
-}
-
-function _configure_completion {
-  if [[ -d $UP_HOME_PATH ]] {
-    fpath=($UP_HOME_PATH/.zsh-up-completion $fpath)
+  if [[ -f $HOMEBREW_PREFIX/bin/nvim ]] {
+    export EDITOR=$HOMEBREW_PREFIX/bin/nvim
   }
 
-  autoload -U compinit && compinit
-
-  if [[ -d $UP_HOME_PATH ]] {
-    source $UP_HOME_PATH/.zsh-up-completion/_up
+  case $(hostname -s) {
+    Knuth)
+      export DOTFILES_ENV=home;;
+    *)
+      export DOTFILES_ENV=work;;
   }
 
-  ZSH_AUTOSUGGEST_STRATEGY=(completion)
-
-  source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-  # Make arrows and command mode j and k search the history.
-  autoload -U up-line-or-beginning-search
-  autoload -U down-line-or-beginning-search
-
-  zle -N up-line-or-beginning-search
-  zle -N down-line-or-beginning-search
-
-  bindkey "^[[A" up-line-or-beginning-search
-  bindkey "^[[B" down-line-or-beginning-search
-  bindkey -M vicmd "k" up-line-or-beginning-search
-  bindkey -M vicmd "j" down-line-or-beginning-search
-}
-
-function _configure_history {
-  HISTFILE=$HOME/.zsh_history
-  HISTSIZE=10000
-  SAVEHIST=10000
-  setopt HIST_IGNORE_DUPS
-  setopt APPEND_HISTORY
-  setopt INC_APPEND_HISTORY
-  setopt EXTENDED_HISTORY
+  export UP_HOME_PATH=~/src/up
 }
 
 function _configure_aliases {
-  alias reload='source ~/.zshrc'
-
   alias be='bundle exec'
   alias br='./bin/rails'
 
@@ -117,7 +93,6 @@ function _configure_aliases {
 
   alias zed='/usr/local/bin/zed'
 
-  alias lvim='NVIM_APPNAME=lazyvim nvim'
   alias mvim='NVIM_APPNAME=nvim-up-starter nvim'
 
   function autonode { echo $1 | entr -c node $1 }
@@ -127,57 +102,21 @@ function _configure_aliases {
   alias sup='OVERMIND_IGNORED_PROCESSES=api,api_docs,admin_storybook,remix_packager,remix_storybook,remix_appium,remix_relay ./up'
 }
 
-function _configure_homebrew {
-  if [[ -f /opt/homebrew/bin/brew ]] {
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+# Start with a clean path.
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
-    FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
-
-    export HOMEBREW_NO_ENV_HINTS=true
-    export EDITOR=$HOMEBREW_PREFIX/bin/nvim
-  }
-}
-
-function _configure_mise {
-  if [[ -f $HOMEBREW_PREFIX/bin/mise ]] {
-    eval "$(mise activate zsh --shims)"
-  }
-}
-
-function _configure_fzf {
-  if [[ -f $HOMEBREW_PREFIX/bin/fzf ]] {
-    source <(fzf --zsh)
-  }
-}
-
-function _configure_android {
-  if [[ ! -v $ANDROID_HOME ]] {
-    export ANDROID_HOME=$HOME/Library/Android/sdk
-    export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-
-    export PATH=$ANDROID_HOME/emulator:$PATH
-    export PATH=$ANDROID_HOME/tools:$PATH
-    export PATH=$ANDROID_HOME/tools/bin:$PATH
-    export PATH=$ANDROID_HOME/platform-tools:$PATH
-    export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
-  }
-}
-
-_configure_environment
-
-if [[ ! -v WARP_IS_LOCAL_SHELL_SESSION ]] {
-  # We don't need these in Warp, coz it has its own equivalents.
-  _configure_prompt
-  _configure_vi_mode
-  _configure_completion
-  _configure_history
-}
-
-_configure_aliases
+# Configure homebrew and completion early, so other things can build on them.
 _configure_homebrew
-_configure_mise
-_configure_fzf
+_configure_completion
 
-if [[ $DOTFILES_ENV == "work" ]] {
-  _configure_android
-}
+# Other plugins can happen after completion is set up.
+_load_zsh_syntax_highlighting_plugin
+
+# Use vim keybindings.
+bindkey -v
+KEYTIMEOUT=1
+
+_configure_mise
+_configure_prompt
+_configure_environment
+_configure_aliases

@@ -1,4 +1,5 @@
 [tools]
 
-node = '20.15.0'
-ruby = '3.3.1'
+node = "latest"
+ruby = "latest"
+usage = "latest"

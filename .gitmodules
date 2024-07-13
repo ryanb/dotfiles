@@ -4,3 +4,9 @@
 [submodule "config/zsh/plugins/zsh-autosuggestions"]
 	path = config/zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "config/zsh/plugins/zsh-autocomplete"]
+	path = config/zsh/plugins/zsh-autocomplete
+	url = https://github.com/marlonrichert/zsh-autocomplete.git
+[submodule "config/zsh/plugins/fzf-tab"]
+	path = config/zsh/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab.git

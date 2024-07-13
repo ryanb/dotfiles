@@ -77,6 +77,11 @@ brew 'jq'
 brew 'ripgrep'
 brew 'wget'
 
+# Zsh plugins =========================================================
+
+brew 'zsh-completions'
+brew 'zsh-syntax-highlighting'
+
 # mason.nvim needs these to build gems ================================
 
 brew 'coreutils'
