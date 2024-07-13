@@ -28,7 +28,6 @@ cask 'visual-studio-code'
 mas 'Xcode', id: 497799835
 cask 'zed'
 
-tap 'homebrew/cask-fonts'
 cask 'font-inconsolata-nerd-font'
 
 # mason.nvim needs these to build gems:
