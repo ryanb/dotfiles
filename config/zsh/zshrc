@@ -15,9 +15,11 @@ function _configure_completion {
   if [[ -f $HOMEBREW_PREFIX/bin/fzf ]] {
     source <(fzf --zsh)
 
-    # Use fzf as a completion menu. This needs to load after compinit, but before
-    # other plugins.
-    source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
+    if [[ -d ~/.config/zsh/plugins/fzf-tab ]] {
+      # Use fzf as a completion menu for everything. This needs to load after
+      # compinit, but before other plugins.
+      source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
+    }
   }
 }
 
@@ -34,9 +36,8 @@ function _configure_mise {
 }
 
 function _configure_prompt {
-  NEWLINE=$'\n'
-
-  PATH_PROMPT_INFO='%F{blue}%~%f'
+  newline=$'\n'
+  path_prompt_info='%F{blue}%~%f'
 
   autoload -U vcs_info
   zstyle ':vcs_info:*' enable git
@@ -48,12 +49,12 @@ function _configure_prompt {
   function precmd { vcs_info }
 
   setopt prompt_subst
-  PROMPT='${NEWLINE}${PATH_PROMPT_INFO} ${vcs_info_msg_0_} %# '
+  PROMPT='${newline}${path_prompt_info} ${vcs_info_msg_0_} %# '
 }
 
 function _configure_environment {
-  export BAT_THEME=base16
   export BAT_STYLE=numbers,changes
+  export BAT_THEME=base16
   export CLICOLOR=1  # Make ls colour its output.
   export FZF_DEFAULT_COMMAND='fd --type f'
   export LESS=-R     # Make less support ANSI colour sequences.
