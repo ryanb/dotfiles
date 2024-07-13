@@ -1,7 +1,11 @@
 function _configure_completion {
+  [[ -d $UP_HOME_PATH ]] && fpath=($fpath $UP_HOME_PATH/.zsh-up-completion)
+
   autoload -U compinit && compinit
 
-  if [[ -f $HOMEBREW_PREFIX/bin/fzf ]] {
+  [[ -d $UP_HOME_PATH ]] && source $UP_HOME_PATH/.zsh-up-completion/_up
+
+  if [[ -x $HOMEBREW_PREFIX/bin/fzf ]] {
     source <(fzf --zsh)
     export FZF_DEFAULT_COMMAND='fd --type f'
 
@@ -19,9 +23,11 @@ function _load_zsh_syntax_highlighting_plugin {
   }
 }
 
-function _configure_environment {
-  export CLICOLOR=1  # Make ls colour its output.
-  export LESS=-R     # Make less support ANSI colour sequences.
+function _configure_history {
+  HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+  HISTSIZE=2000
+  SAVEHIST=1000
+  setopt SHARE_HISTORY
 }
 
 function _configure_prompt {
@@ -39,6 +45,11 @@ function _configure_prompt {
 
   setopt prompt_subst
   PROMPT='${newline}${path_prompt_info} ${vcs_info_msg_0_} %# '
+}
+
+function _configure_environment {
+  export CLICOLOR=1  # Make ls colour its output.
+  export LESS=-R     # Make less support ANSI colour sequences.
 }
 
 function _configure_aliases {
@@ -78,6 +89,7 @@ _load_zsh_syntax_highlighting_plugin
 bindkey -v
 KEYTIMEOUT=1
 
-_configure_environment
+_configure_history
 _configure_prompt
+_configure_environment
 _configure_aliases
