@@ -1,19 +1,9 @@
-function _configure_homebrew {
-  if [[ -f /opt/homebrew/bin/brew ]] {
-    export HOMEBREW_NO_ENV_HINTS=true
-
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-
-    fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
-    fpath=($HOMEBREW_PREFIX/share/zsh-completions $fpath)
-  }
-}
-
 function _configure_completion {
   autoload -U compinit && compinit
 
   if [[ -f $HOMEBREW_PREFIX/bin/fzf ]] {
     source <(fzf --zsh)
+    export FZF_DEFAULT_COMMAND='fd --type f'
 
     if [[ -d ~/.config/zsh/plugins/fzf-tab ]] {
       # Use fzf as a completion menu for everything. This needs to load after
@@ -29,10 +19,9 @@ function _load_zsh_syntax_highlighting_plugin {
   }
 }
 
-function _configure_mise {
-  if [[ -f $HOMEBREW_PREFIX/bin/mise ]] {
-    eval "$(mise activate zsh --shims)"
-  }
+function _configure_environment {
+  export CLICOLOR=1  # Make ls colour its output.
+  export LESS=-R     # Make less support ANSI colour sequences.
 }
 
 function _configure_prompt {
@@ -50,27 +39,6 @@ function _configure_prompt {
 
   setopt prompt_subst
   PROMPT='${newline}${path_prompt_info} ${vcs_info_msg_0_} %# '
-}
-
-function _configure_environment {
-  export BAT_STYLE=numbers,changes
-  export BAT_THEME=base16
-  export CLICOLOR=1  # Make ls colour its output.
-  export FZF_DEFAULT_COMMAND='fd --type f'
-  export LESS=-R     # Make less support ANSI colour sequences.
-
-  if [[ -f $HOMEBREW_PREFIX/bin/nvim ]] {
-    export EDITOR=$HOMEBREW_PREFIX/bin/nvim
-  }
-
-  case $(hostname -s) {
-    Knuth)
-      export DOTFILES_ENV=home;;
-    *)
-      export DOTFILES_ENV=work;;
-  }
-
-  export UP_HOME_PATH=~/src/up
 }
 
 function _configure_aliases {
@@ -103,21 +71,13 @@ function _configure_aliases {
   alias sup='OVERMIND_IGNORED_PROCESSES=api,api_docs,admin_storybook,remix_packager,remix_storybook,remix_appium,remix_relay ./up'
 }
 
-# Start with a clean path.
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin
-
-# Configure homebrew and completion early, so other things can build on them.
-_configure_homebrew
 _configure_completion
 
-# Other plugins can happen after completion is set up.
 _load_zsh_syntax_highlighting_plugin
 
-# Use vim keybindings.
 bindkey -v
 KEYTIMEOUT=1
 
-_configure_mise
-_configure_prompt
 _configure_environment
+_configure_prompt
 _configure_aliases

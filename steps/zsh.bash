@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 link_file config/zsh/zshrc ~/.zshrc
+link_file config/zsh/zshenv ~/.zshenv
 mkdir -p ~/.config
 link_file config/zsh ~/.config/zsh
 
