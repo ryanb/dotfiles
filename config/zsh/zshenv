@@ -25,10 +25,10 @@ case $(hostname -s) {
     export DOTFILES_ENV=work;;
 }
 
-export UP_HOME_PATH=~/src/up
+export UP_HOME_PATH=$HOME/src/up
 
 # Prevent the MacOS /etc/zprofile running its path helper and adding all sorts
 # of unnecessary nonsense to my path.
-unsetopt GLOBAL_RCS
+unsetopt global_rcs
 
 # alias /usr/libexec/path_helper=true

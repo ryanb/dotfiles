@@ -9,10 +9,10 @@ function _configure_completion {
     source <(fzf --zsh)
     export FZF_DEFAULT_COMMAND='fd --type f'
 
-    if [[ -d ~/.config/zsh/plugins/fzf-tab ]] {
+    if [[ -d $HOME/.config/zsh/plugins/fzf-tab ]] {
       # Use fzf as a completion menu for everything. This needs to load after
       # compinit, but before other plugins.
-      source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
+      source $HOME/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
     }
   }
 }
@@ -24,10 +24,10 @@ function _load_zsh_syntax_highlighting_plugin {
 }
 
 function _configure_history {
-  HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+  HISTFILE=$HOME/.zsh_history
   HISTSIZE=2000
   SAVEHIST=1000
-  setopt SHARE_HISTORY
+  setopt share_history
 }
 
 function _configure_prompt {
