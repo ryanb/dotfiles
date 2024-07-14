@@ -75,6 +75,7 @@ local nightfox_spec = {
 local which_key_spec = {
     -- https://github.com/folke/which-key.nvim
     "folke/which-key.nvim",
+    version = "^2.1.0",
     config = function()
         vim.o.timeout = true
         vim.o.timeoutlen = 300
