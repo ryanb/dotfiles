@@ -20,7 +20,7 @@ I remove anything I'm not using to keep it simple.
 
 A whole bunch of things, but key components are:
 
-- [Neovim](https://neovim.io). I've got a [pretty fancy setup](config/nvim].
+- [Neovim](https://neovim.io). I've got a [pretty fancy setup](config/nvim).
   It's got lots of IDE features, but is a lot cleaner than other IDEs I've
   used. My config is extensively commented. Starts up in about 100ms.
 - [Zsh](https://zsh.org) config. I like it fast (so none of this [Oh My
