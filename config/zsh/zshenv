@@ -1,5 +1,6 @@
-# Start with a clean path.
+# Start with clean paths.
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+export MANPATH=/usr/share/man
 
 if [[ -x /opt/homebrew/bin/brew ]] {
   export HOMEBREW_NO_ENV_HINTS=true
