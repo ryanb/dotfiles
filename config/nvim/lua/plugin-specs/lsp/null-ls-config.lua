@@ -18,7 +18,6 @@ return function()
         sources = {
             formatting.prettierd.with({
                 disabled_filetypes = { "yaml" },
-                extra_filetypes = { "ruby" },
             }),
             formatting.stylua,
         }
