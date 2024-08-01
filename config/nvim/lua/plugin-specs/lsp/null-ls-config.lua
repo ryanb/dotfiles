@@ -23,23 +23,5 @@ return function()
         }
     end
 
-    local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
-
-    null_ls.setup({
-        sources = sources,
-        -- This sets up auto-formatting on save. Taken from:
-        -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
-        on_attach = function(client, bufnr)
-            if client.supports_method("textDocument/formatting") then
-                vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                    group = augroup,
-                    buffer = bufnr,
-                    callback = function()
-                        vim.lsp.buf.format({ name = "null-ls" })
-                    end,
-                })
-            end
-        end,
-    })
+    null_ls.setup({ sources = sources })
 end

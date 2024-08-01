@@ -22,6 +22,7 @@ return function()
         lspconfig.eslint.setup(opts)
         lspconfig.relay_lsp.setup(opts)
         lspconfig.sorbet.setup(opts)
+        lspconfig.syntax_tree.setup(opts)
         lspconfig.tsserver.setup(opts)
     end
 

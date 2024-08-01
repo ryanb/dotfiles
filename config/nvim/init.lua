@@ -36,3 +36,5 @@ plugins.install_and_load_plugins(colorscheme)
 -- And these depend on the plugins being loaded, so do them last.
 vim.cmd.colorscheme(colorscheme)
 require("key-mappings").configure()
+
+require("format-on-save").configure()
