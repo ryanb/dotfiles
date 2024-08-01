@@ -79,6 +79,7 @@ brew 'wget'
 
 # Zsh plugins =========================================================
 
+brew 'pure'
 brew 'zsh-completions'
 brew 'zsh-syntax-highlighting'
 

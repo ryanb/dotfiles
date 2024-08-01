@@ -33,20 +33,9 @@ function _configure_history {
 }
 
 function _configure_prompt {
-  newline=$'\n'
-  path_prompt_info='%F{blue}%~%f'
-
-  autoload -Uz vcs_info
-  zstyle ':vcs_info:*' enable git
-  zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:*' unstagedstr '*'
-  zstyle ':vsc_info:*' check-for-staged-changes true
-  zstyle ':vcs_info:*' stagedstr '+'
-  zstyle ':vcs_info:*' formats ' %F{green}[%b%u%c]%f'
-  function precmd { vcs_info }
-
-  setopt prompt_subst
-  PROMPT='${newline}${path_prompt_info}${vcs_info_msg_0_} %# '
+  autoload -U promptinit; promptinit
+  zstyle :prompt:pure:git:stash show yes
+  prompt pure
 }
 
 function _configure_environment {
