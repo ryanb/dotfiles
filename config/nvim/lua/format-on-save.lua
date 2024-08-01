@@ -18,19 +18,6 @@ local function configure()
             vim.lsp.buf.format({ filter = filter_formatters })
         end,
     })
-
-    -- This disables showing inline diagnostics for standardrb. They're too
-    -- noisy, and I'm formatting on save so they'll go away anyway.
-    vim.api.nvim_create_autocmd("LspAttach", {
-        group = augroup,
-        callback = function(args)
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-            if client.name == "standardrb" then
-                local diagnostic_namespace = vim.lsp.diagnostic.get_namespace(client.id)
-                vim.diagnostic.enable(false, { ns_id = diagnostic_namespace })
-            end
-        end,
-    })
 end
 
 return { configure = configure }
