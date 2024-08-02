@@ -34,7 +34,10 @@ function _configure_history {
 
 function _configure_prompt {
   autoload -U promptinit; promptinit
+  # Show a symbol when there's stuff stashed.
   zstyle :prompt:pure:git:stash show yes
+  # Don't do git fetches for me, coz I'd rather not have 1Password prompts popping up randomly.
+  export PURE_GIT_PULL=0
   prompt pure
 }
 
