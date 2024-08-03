@@ -2,6 +2,9 @@
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 export MANPATH=/usr/share/man
 
+# Set up homebrew.
+#
+# https://brew.sh
 if [[ -x /opt/homebrew/bin/brew ]] {
   export HOMEBREW_NO_ENV_HINTS=true
 
@@ -11,14 +14,19 @@ if [[ -x /opt/homebrew/bin/brew ]] {
   fpath=($HOMEBREW_PREFIX/share/zsh-completions $fpath)
 }
 
+# Set up mise.
+#
+# https://mise.jdx.dev
 if [[ -x $HOMEBREW_PREFIX/bin/mise ]] {
   eval "$(mise activate zsh --shims)"
 }
 
+# Make Neovim my default editor.
 if [[ -x $HOMEBREW_PREFIX/bin/nvim ]] {
   export EDITOR=$HOMEBREW_PREFIX/bin/nvim
 }
 
+# Decide whether this is a home or work machine, based on the hostname.
 case $(hostname -s) {
   Knuth)
     export DOTFILES_ENV=home;;
@@ -26,6 +34,7 @@ case $(hostname -s) {
     export DOTFILES_ENV=work;;
 }
 
+# Set various helpful things for work.
 if [[ $DOTFILES_ENV == 'work' ]] {
   export UP_HOME_PATH=$HOME/src/up
 
@@ -41,5 +50,3 @@ if [[ $DOTFILES_ENV == 'work' ]] {
 # Prevent the MacOS /etc/zprofile running its path helper and adding all sorts
 # of unnecessary nonsense to my path.
 unsetopt global_rcs
-
-# alias /usr/libexec/path_helper=true

@@ -19,6 +19,7 @@ function _configure_completion {
   unsetopt beep
 }
 
+# https://github.com/zsh-users/zsh-syntax-highlighting
 function _load_zsh_syntax_highlighting_plugin {
   if [[ -d $HOMEBREW_PREFIX/share/zsh-syntax-highlighting ]] {
     source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -32,12 +33,17 @@ function _configure_history {
   setopt share_history
 }
 
+# Set Pure for the prompt.
+#
+# https://github.com/sindresorhus/pure
 function _configure_prompt {
-  autoload -U promptinit; promptinit
+  autoload -U promptinit && promptinit
+
   # Show a symbol when there's stuff stashed.
   zstyle :prompt:pure:git:stash show yes
   # Don't do git fetches for me, coz I'd rather not have 1Password prompts popping up randomly.
   export PURE_GIT_PULL=0
+
   prompt pure
 }
 
@@ -78,10 +84,14 @@ function _configure_aliases {
   alias sup='OVERMIND_IGNORED_PROCESSES=api,api_docs,admin_storybook,remix_packager,remix_storybook,remix_appium,remix_relay ./up'
 }
 
+# Remember that .zshenv gets run before all of this to set environment
+# variables. That sets up things like homebrew and mise.
+
 _configure_completion
 
 _load_zsh_syntax_highlighting_plugin
 
+# Use vim keybindings.
 bindkey -v
 KEYTIMEOUT=1
 
