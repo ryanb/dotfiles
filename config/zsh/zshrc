@@ -1,101 +1,97 @@
-function _configure_completion {
-  [[ -d $UP_HOME_PATH ]] && fpath=($fpath $UP_HOME_PATH/.zsh-up-completion)
+# See also .zshenv, which gets run before .zshrc to set environment variables.
+# That sets up things like homebrew and mise.
 
-  autoload -Uz compinit && compinit
+# ------------------------------------------------------------------------------------------
+# Configure completion.
 
-  [[ -d $UP_HOME_PATH ]] && source $UP_HOME_PATH/.zsh-up-completion/_up
+[[ -d $UP_HOME_PATH ]] && fpath=($fpath $UP_HOME_PATH/.zsh-up-completion)
 
-  if [[ -x $HOMEBREW_PREFIX/bin/fzf ]] {
-    source <(fzf --zsh)
-    export FZF_DEFAULT_COMMAND='fd --type f'
+autoload -Uz compinit && compinit
 
-    if [[ -d $HOME/.config/zsh/plugins/fzf-tab ]] {
-      # Use fzf as a completion menu for everything. This needs to load after
-      # compinit, but before other plugins.
-      source $HOME/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
-    }
-  }
+[[ -d $UP_HOME_PATH ]] && source $UP_HOME_PATH/.zsh-up-completion/_up
 
-  unsetopt beep
-}
+if [[ -x $HOMEBREW_PREFIX/bin/fzf ]] {
+  source <(fzf --zsh)
+  export FZF_DEFAULT_COMMAND='fd --type f'
 
-# https://github.com/zsh-users/zsh-syntax-highlighting
-function _load_zsh_syntax_highlighting_plugin {
-  if [[ -d $HOMEBREW_PREFIX/share/zsh-syntax-highlighting ]] {
-    source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  if [[ -d $HOME/.config/zsh/plugins/fzf-tab ]] {
+    # Use fzf as a completion menu for everything. This needs to load after
+    # compinit, but before other plugins.
+    source $HOME/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
   }
 }
 
-function _configure_history {
-  HISTFILE=$HOME/.zsh_history
-  HISTSIZE=2000
-  SAVEHIST=1000
-  setopt share_history
-}
+unsetopt beep
 
-# Set Pure for the prompt.
+# ------------------------------------------------------------------------------------------
+# Configure syntax highlighting.
 #
-# https://github.com/sindresorhus/pure
-function _configure_prompt {
-  autoload -U promptinit && promptinit
+# https://github.com/zsh-users/zsh-syntax-highlighting
 
-  # Show a symbol when there's stuff stashed.
-  zstyle :prompt:pure:git:stash show yes
-  # Don't do git fetches for me, coz I'd rather not have 1Password prompts popping up randomly.
-  export PURE_GIT_PULL=0
-
-  prompt pure
+if [[ -d $HOMEBREW_PREFIX/share/zsh-syntax-highlighting ]] {
+  source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 }
 
-function _configure_environment {
-  export CLICOLOR=1  # Make ls colour its output.
-  export LESS=-R     # Make less support ANSI colour sequences.
-}
-
-function _configure_aliases {
-  alias ls='ls -F'
-
-  alias be='bundle exec'
-  alias br='./bin/rails'
-
-  alias cdr='cd $(git root)'
-
-  alias ga='git add'
-  alias gc='git commit'
-  alias gco='git checkout'
-  alias gd='git diff'
-  alias gf='git fetch'
-  alias gff='git merge --ff-only'
-  alias gl='git log'
-  alias gm='git merge --no-ff'
-  alias gp='git push'
-  alias gpr='git push -u && gh pr create --web'
-  alias gb='gh pr view --web'
-  alias gs='git status'
-
-  alias zed='/usr/local/bin/zed'
-
-  alias mvim='NVIM_APPNAME=nvim-up-starter nvim'
-
-  function autonode { echo $1 | entr -c node $1 }
-  function autoruby { echo $1 | entr -c ruby $1 }
-  function autorspec { echo $1 | entr -c ./up rspec $1 }
-
-  alias sup='OVERMIND_IGNORED_PROCESSES=api,api_docs,admin_storybook,remix_packager,remix_storybook,remix_appium,remix_relay ./up'
-}
-
-# Remember that .zshenv gets run before all of this to set environment
-# variables. That sets up things like homebrew and mise.
-
-_configure_completion
-
-_load_zsh_syntax_highlighting_plugin
-
+# ------------------------------------------------------------------------------------------
 # Use vim keybindings.
+
 bindkey -v
 KEYTIMEOUT=1
 
-_configure_history
-_configure_prompt
-_configure_environment
-_configure_aliases
+# ------------------------------------------------------------------------------------------
+# Configure history.
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=2000
+SAVEHIST=1000
+
+# ------------------------------------------------------------------------------------------
+# Use Pure to set up the prompt.
+#
+# https://github.com/sindresorhus/pure
+
+autoload -U promptinit && promptinit
+# Show a symbol when there's stuff stashed.
+zstyle :prompt:pure:git:stash show yes
+# Don't do git fetches for me, coz I'd rather not have 1Password prompts popping up randomly.
+export PURE_GIT_PULL=0
+prompt pure
+
+# ------------------------------------------------------------------------------------------
+# Set flags for a couple of tools.
+
+export CLICOLOR=1  # Make ls colour its output.
+export LESS=-R     # Make less support ANSI colour sequences.
+
+# ------------------------------------------------------------------------------------------
+# Set aliases.
+
+alias ls='ls -F'
+
+alias be='bundle exec'
+alias br='./bin/rails'
+
+alias cdr='cd $(git root)'
+
+alias ga='git add'
+alias gc='git commit'
+alias gco='git checkout'
+alias gd='git diff'
+alias gf='git fetch'
+alias gff='git merge --ff-only'
+alias gl='git log'
+alias gm='git merge --no-ff'
+alias gp='git push'
+alias gpr='git push -u && gh pr create --web'
+alias gb='gh pr view --web'
+alias gs='git status'
+
+alias zed='/usr/local/bin/zed'
+
+alias mvim='NVIM_APPNAME=nvim-up-starter nvim'
+
+function autonode { echo $1 | entr -c node $1 }
+function autoruby { echo $1 | entr -c ruby $1 }
+function autorspec { echo $1 | entr -c ./up rspec $1 }
+
+alias sup='OVERMIND_IGNORED_PROCESSES=api,api_docs,admin_storybook,remix_packager,remix_storybook,remix_appium,remix_relay ./up'
