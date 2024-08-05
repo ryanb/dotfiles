@@ -27,7 +27,9 @@ if [[ -x $HOMEBREW_PREFIX/bin/mise ]] {
   eval "$(mise activate zsh --shims)"
 }
 
+# ------------------------------------------------------------------------------------------
 # Make Neovim my default editor.
+
 if [[ -x $HOMEBREW_PREFIX/bin/nvim ]] {
   export EDITOR=$HOMEBREW_PREFIX/bin/nvim
 }
