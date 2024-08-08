@@ -10,7 +10,7 @@ return {
     "bogado/file-line",
 
     -- https://github.com/windwp/nvim-autopairs
-    -- { "windwp/nvim-autopairs", config = true },
+    { "windwp/nvim-autopairs", config = true },
 
     -- https://github.com/kylechui/nvim-surround
     { "kylechui/nvim-surround", config = true },
