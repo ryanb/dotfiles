@@ -2,12 +2,7 @@ local function configure()
     -- Use these clients to format code on save.
     local formatters = { "null-ls", "syntax_tree" }
     local filter_formatters = function(client)
-        if vim.list_contains(formatters, client.name) then
-            vim.notify("Formatting with " .. client.name .. ".")
-            return true
-        else
-            return false
-        end
+        return vim.list_contains(formatters, client.name)
     end
 
     -- Install the hook that formats on save.
