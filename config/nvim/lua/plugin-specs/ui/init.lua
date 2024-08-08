@@ -20,29 +20,11 @@ local dressing_spec = {
 --     },
 -- }
 
+-- Nicer notifications, and LSP progress.
 local mini_notify_spec = {
-    "echasnovski/mini.nvim",
-    config = function()
-        local mini_notify = require("mini.notify")
-        mini_notify.setup({
-            content = {
-                format = function(notification)
-                    local symbols = { ERROR = "󰅚 ", INFO = "󰋽 ", WARN = "󰀪 " }
-                    return string.format(" %s %s ", symbols[notification.level] or "?", notification.msg)
-                end,
-            },
-            lsp_progress = {
-                duration_last = 3000,
-            },
-            window = {
-                config = function()
-                    return { anchor = "SE", border = "rounded", row = vim.o.lines - 2 }
-                end,
-                winblend = 0,
-            },
-        })
-        vim.notify = mini_notify.make_notify()
-    end,
+    -- https://github.com/echasnovski/mini.notify
+    "echasnovski/mini.notify",
+    config = require("plugin-specs.ui.mini-notify-config"),
 }
 
 -- Try to break some bad editing habits I've developed.
