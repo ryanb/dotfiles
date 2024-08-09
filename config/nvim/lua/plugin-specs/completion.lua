@@ -61,24 +61,17 @@ local function configure_global_completion()
         -- command mode, because the presets already have mappings for them.
     })
 
-    -- Include the source of completions as a column in the completion popup.
-    local function format(entry, vim_item)
-        vim_item.menu = "[" .. entry.source.name .. "]"
-        return vim_item
-    end
-
     cmp.setup({
-        formatting = { format = format },
         mapping = mapping,
         snippet = {
             expand = function(args)
-                require("luasnip").lsp_expand(args.body)
+                luasnip.lsp_expand(args.body)
             end,
         },
-        sources = cmp.config.sources({
+        sources = {
             { name = "nvim_lsp" },
             { name = "luasnip" },
-        }),
+        },
     })
 end
 
@@ -87,16 +80,12 @@ local function configure_command_line_completion()
 
     cmp.setup.cmdline(":", {
         completion = { autocomplete = false },
-        formatting = {
-            fields = { "abbr", "menu" },
-        },
         mapping = cmp.mapping.preset.cmdline(),
         matching = { disallow_symbol_nonprefix_matching = false },
-        sources = cmp.config.sources({
-            { name = "path" },
-        }, {
-            { name = "cmdline" },
-        }),
+        sources = {
+            { name = "path", group_index = 1 },
+            { name = "cmdline", group_index = 2 },
+        },
     })
 end
 
