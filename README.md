@@ -35,8 +35,11 @@ A whole bunch of things, but key components are:
 
 ## How It Works
 
-`./install` runs steps from the `steps` directory. You can run individual steps, or the whole set. See `./install -h` for usage.
+`./install` runs steps from the `steps` directory. You can run individual
+steps, or the whole set. See `./install -h` for usage.
 
-All my config files live under `config`. These get soft-linked into place by the steps.
+All my config files live under `config`. These get soft-linked into place by
+the steps.
 
-The `environments` directory contains separate `Brewfile`s and `mise.toml` files for my home and work machines.
+The `environments` directory contains separate `Brewfile`s and `mise.toml`
+files for my home and work machines.
