@@ -14,7 +14,7 @@ return function()
         lspconfig.eslint.setup(opts)
         lspconfig.ruby_lsp.setup(opts)
         lspconfig.standardrb.setup(opts)
-        lspconfig.tsserver.setup(opts)
+        lspconfig.ts_ls.setup(opts)
     end
 
     if dotfiles_env == "work" then
@@ -23,7 +23,7 @@ return function()
         lspconfig.relay_lsp.setup(opts)
         lspconfig.sorbet.setup(opts)
         lspconfig.syntax_tree.setup(opts)
-        lspconfig.tsserver.setup(opts)
+        lspconfig.ts_ls.setup(opts)
     end
 
     -- Set the diagnostic signs shown in the gutter to match lualine's.
