@@ -6,26 +6,26 @@ local dressing_spec = {
 }
 
 -- Nicer notifications, and LSP progress.
--- local fidget_spec = {
---     -- https://github.com/j-hui/fidget.nvim
---     "j-hui/fidget.nvim",
---     opts = {
---         notification = {
---             override_vim_notify = true,
---             window = { border = "rounded", winblend = 0 },
---         },
---         progress = {
---             display = { done_ttl = 5 },
---         },
---     },
--- }
+local fidget_spec = {
+    -- https://github.com/j-hui/fidget.nvim
+    "j-hui/fidget.nvim",
+    opts = {
+        notification = {
+            override_vim_notify = true,
+            window = { border = "rounded", winblend = 0 },
+        },
+        progress = {
+            display = { done_ttl = 5 },
+        },
+    },
+}
 
 -- Nicer notifications, and LSP progress.
-local mini_notify_spec = {
-    -- https://github.com/echasnovski/mini.notify
-    "echasnovski/mini.notify",
-    config = require("plugin-specs.ui.mini-notify-config"),
-}
+-- local mini_notify_spec = {
+--     -- https://github.com/echasnovski/mini.notify
+--     "echasnovski/mini.notify",
+--     config = require("plugin-specs.ui.mini-notify-config"),
+-- }
 
 -- Try to break some bad editing habits I've developed.
 local hardtime_spec = {
@@ -90,8 +90,8 @@ local which_key_spec = {
 
 return {
     dressing_spec,
-    -- fidget_spec,
-    mini_notify_spec,
+    fidget_spec,
+    -- mini_notify_spec,
     hardtime_spec,
     lightbulb_spec,
     lualine_spec,
