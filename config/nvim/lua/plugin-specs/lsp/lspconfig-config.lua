@@ -13,7 +13,7 @@ return function()
         lspconfig.bashls.setup(opts)
         lspconfig.eslint.setup(opts)
         lspconfig.ruby_lsp.setup(opts)
-        lspconfig.standardrb.setup(opts)
+        lspconfig.syntax_tree.setup(opts)
         lspconfig.ts_ls.setup(opts)
     end
 
