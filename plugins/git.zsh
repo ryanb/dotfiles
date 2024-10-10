@@ -42,6 +42,9 @@ alias gstp='git stash pop'
 alias gsw='git switch'
 alias gswc='git switch --create'
 
+gfix() {
+  git commit --fixup $1 && git rebase -i --autosquash $1^
+}
 
 # FUNCTIONS
 
