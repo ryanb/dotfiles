@@ -7,7 +7,3 @@ fi
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 brew bundle --no-lock --file "environments/$DOTFILES_ENV/Brewfile"
-
-if ! brew autoupdate status | grep "installed and running"; then
-  brew autoupdate start --upgrade
-fi
