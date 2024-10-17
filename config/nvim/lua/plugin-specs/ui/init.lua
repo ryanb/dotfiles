@@ -27,14 +27,6 @@ local fidget_spec = {
 --     config = require("plugin-specs.ui.mini-notify-config"),
 -- }
 
--- Try to break some bad editing habits I've developed.
-local hardtime_spec = {
-    -- https://github.com/m4xshen/hardtime.nvim
-    "m4xshen/hardtime.nvim",
-    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-    opts = { disable_mouse = false },
-}
-
 -- Show a lightbulb in the gutter when code actions are available.
 local lightbulb_spec = {
     -- https://github.com/kosayoda/nvim-lightbulb
@@ -92,7 +84,6 @@ return {
     dressing_spec,
     fidget_spec,
     -- mini_notify_spec,
-    hardtime_spec,
     lightbulb_spec,
     lualine_spec,
     nightfox_spec,
