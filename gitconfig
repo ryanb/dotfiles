@@ -3,10 +3,10 @@
 	status = auto
 	branch = auto
 [core]
-	excludesfile = ~/.gitignore
 	editor = code -w
 	autocrlf = input
 	pager = less -+$LESS -RSF
+	excludesFile = ~/.gitignore
 [apply]
 	whitespace = nowarn
 [format]
@@ -23,3 +23,5 @@
 	branch = false
 [init]
 	defaultBranch = main
+[merge]
+	conflictstyle = diff3
