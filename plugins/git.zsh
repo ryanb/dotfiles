@@ -38,6 +38,7 @@ alias gst='git status'
 
 alias gstl='git stash list'
 alias gsta='git stash push'
+alias gstas='git stash push --staged'
 alias gstp='git stash pop'
 
 alias gsw='git switch'
