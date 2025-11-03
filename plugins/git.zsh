@@ -4,6 +4,7 @@
 
 alias ga='git add'
 alias gaa='git add --all'
+alias gaap='git add -N . && git add -p'
 
 alias gb='git branch --sort=committerdate'
 
