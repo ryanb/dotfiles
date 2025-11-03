@@ -1,4 +1,10 @@
-.DS_Store
-.svn
-*~
+_local
 .*.swp
+.claude
+.DS_Store
+.projections.json
+.svn
+.vscode
+*~
+CLAUDE.md
+AGENTS.md
