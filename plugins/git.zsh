@@ -69,7 +69,14 @@ _gw() {
 compdef _gw gw
 
 gfix() {
-  git commit --fixup $1 && git rebase -i --autosquash $1^
+  local commit
+  if [[ -z "$1" ]]; then
+    commit=$(git log --oneline | fzf | awk '{print $1}')
+    [[ -z "$commit" ]] && return
+  else
+    commit=$1
+  fi
+  git commit --fixup $commit && GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash $commit^
 }
 
 # FUNCTIONS
