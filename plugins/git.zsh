@@ -17,6 +17,8 @@ alias gcan!='git commit --verbose --all --no-edit --amend'
 alias gc!='git commit --verbose --amend'
 alias gcn!='git commit --verbose --no-edit --amend'
 
+alias gcp='git cherry-pick'
+
 alias gd='git diff'
 alias gdh='git diff HEAD'
 alias gdca='git diff --cached'
