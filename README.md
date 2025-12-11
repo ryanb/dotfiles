@@ -28,6 +28,13 @@ I normally place all of my coding projects in ~/code, so this directory can easi
 c railsca<tab>
 ```
 
+If you don't specify an argument it will open `fzf` allowing you to fuzzy-find code directories. You can add directories to this with CODE_PATH. Just ensure the first one is the base one.
+
+```sh
+# in .zshrc
+export CODE_PATH="$HOME/code:$HOME/code/railscasts-episodes"
+```
+
 There is also an "h" command which behaves similar, but acts on the home path.
 
 ```sh
