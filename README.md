@@ -43,6 +43,8 @@ h doc<tab>
 
 If you're using git, you'll notice the current branch name shows up in the prompt while in a git repository.
 
+Use `gw` to switch branches with `fzf`. If the branch is checked out in a worktree, it will `cd` there instead.
+
 
 ## Uninstall
 

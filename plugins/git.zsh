@@ -46,6 +46,28 @@ alias gstp='git stash pop'
 alias gsw='git switch'
 alias gswc='git switch --create'
 
+gw() {
+  if [[ -z "$1" ]]; then
+    local branch
+    branch=$(git branch --sort=-committerdate | fzf | tr -d ' +')
+    [[ -z "$branch" ]] && return
+    local worktree_path
+    worktree_path=$(git worktree list | grep "\[$branch\]" | awk '{print $1}')
+    if [[ -n "$worktree_path" ]]; then
+      cd "$worktree_path"
+    else
+      git switch "$branch"
+    fi
+  else
+    git switch "$@"
+  fi
+}
+_gw() {
+  local branches=("${(@f)$(git branch --format='%(refname:short)' 2>/dev/null)}")
+  _describe 'branch' branches
+}
+compdef _gw gw
+
 gfix() {
   git commit --fixup $1 && git rebase -i --autosquash $1^
 }
