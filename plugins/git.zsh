@@ -71,7 +71,7 @@ compdef _gw gw
 gfix() {
   local commit
   if [[ -z "$1" ]]; then
-    commit=$(git log --oneline | fzf | awk '{print $1}')
+    commit=$(git log --oneline -n 100 | fzf | awk '{print $1}')
     [[ -z "$commit" ]] && return
   else
     commit=$1
