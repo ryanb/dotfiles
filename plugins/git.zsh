@@ -104,21 +104,20 @@ function git_prompt_info() {
     return 0
   fi
 
-  # In a worktree, only show [*] when dirty
-  if [[ -n $(git --no-optional-locks rev-parse --git-common-dir 2>/dev/null) ]] \
-     && [[ $(git --no-optional-locks rev-parse --git-dir 2>/dev/null) != $(git --no-optional-locks rev-parse --git-common-dir 2>/dev/null) ]]; then
+  local ref
+  ref=$(git --no-optional-locks symbolic-ref --short HEAD 2> /dev/null) \
+  || ref=$(git --no-optional-locks describe --tags --exact-match HEAD 2> /dev/null) \
+  || ref=$(git --no-optional-locks rev-parse --short HEAD 2> /dev/null) \
+  || return 0
+
+  # If branch matches directory name, only show [*] when dirty
+  if [[ "${ref//\//_}" == "${PWD:t}" ]]; then
     local dirty=$(git_dirty_info "*")
     if [[ -n $dirty ]]; then
       echo "$1$dirty$2"
     fi
     return 0
   fi
-
-  local ref
-  ref=$(git --no-optional-locks symbolic-ref --short HEAD 2> /dev/null) \
-  || ref=$(git --no-optional-locks describe --tags --exact-match HEAD 2> /dev/null) \
-  || ref=$(git --no-optional-locks rev-parse --short HEAD 2> /dev/null) \
-  || return 0
 
   echo "$1${ref:gs/%/%%}$(git_dirty_info "*")$2"
 }
