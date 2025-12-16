@@ -47,19 +47,28 @@ alias gsw='git switch'
 alias gswc='git switch --create'
 
 gw() {
+  local branch
   if [[ -z "$1" ]]; then
-    local branch
     branch=$(git branch --sort=-committerdate | fzf | tr -d ' +')
     [[ -z "$branch" ]] && return
-    local worktree_path
-    worktree_path=$(git worktree list | grep "\[$branch\]" | awk '{print $1}')
-    if [[ -n "$worktree_path" ]]; then
-      cd "$worktree_path"
-    else
-      git switch "$branch"
-    fi
   else
-    git switch "$@"
+    branch=$1
+    shift
+  fi
+
+  local worktree_path
+  worktree_path=$(git worktree list | grep "\[$branch\]" | awk '{print $1}')
+  if [[ -n "$worktree_path" ]]; then
+    cd "$worktree_path"
+  else
+    # If we're in a linked worktree, cd to main repo first
+    local main_worktree current_root
+    main_worktree=$(git worktree list | head -1 | awk '{print $1}')
+    current_root=$(git rev-parse --show-toplevel)
+    if [[ "$current_root" != "$main_worktree" ]]; then
+      cd "$main_worktree"
+    fi
+    git switch "$branch" "$@"
   fi
 }
 _gw() {
