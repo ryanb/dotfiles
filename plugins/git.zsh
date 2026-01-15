@@ -49,7 +49,7 @@ alias gswc='git switch --create'
 gw() {
   local branch
   if [[ -z "$1" ]]; then
-    branch=$(git branch --sort=-committerdate | fzf | tr -d ' +')
+    branch=$(git branch --sort=-committerdate | fzf --no-sort | tr -d ' +')
     [[ -z "$branch" ]] && return
   else
     branch=$1
@@ -80,7 +80,7 @@ compdef _gw gw
 gfix() {
   local commit
   if [[ -z "$1" ]]; then
-    commit=$(git log --oneline -n 100 | fzf | awk '{print $1}')
+    commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
     [[ -z "$commit" ]] && return
   else
     commit=$1
