@@ -18,7 +18,7 @@
 [merge "ours"]
 	driver = true
 [pull]
-	rebase = false
+	rebase = true
 [pager]
 	branch = false
 [init]
