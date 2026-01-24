@@ -27,7 +27,16 @@ alias gds='git diff --staged'
 alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
-alias grbi='git rebase --interactive'
+grbi() {
+  local commit
+  if [[ -z "$1" ]]; then
+    commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
+    [[ -z "$commit" ]] && return
+    git rebase --interactive $commit^
+  else
+    git rebase --interactive "$@"
+  fi
+}
 
 alias grst='git restore --staged'
 
