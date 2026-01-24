@@ -97,6 +97,17 @@ gfix() {
   git commit --fixup $commit && GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash $commit^
 }
 
+grbr() {
+  local commit
+  if [[ -z "$1" ]]; then
+    commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
+    [[ -z "$commit" ]] && return
+  else
+    commit=$1
+  fi
+  GIT_SEQUENCE_EDITOR="sed -i '' '1s/^pick/reword/'" git rebase -i $commit^
+}
+
 # FUNCTIONS
 
 # Outputs the name of the current branch
