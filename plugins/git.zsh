@@ -88,13 +88,23 @@ compdef _gw gw
 
 gfix() {
   local commit
+  local stashed=0
   if [[ -z "$1" ]]; then
     commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
     [[ -z "$commit" ]] && return
   else
     commit=$1
   fi
+  # Stash unstaged changes if there are any
+  if ! git diff --quiet; then
+    git stash push --keep-index -m "gfix: unstaged changes"
+    stashed=1
+  fi
   git commit --fixup $commit && GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash $commit^
+  # Restore unstaged changes if we stashed them
+  if [[ $stashed -eq 1 ]]; then
+    git stash pop
+  fi
 }
 
 grbr() {
