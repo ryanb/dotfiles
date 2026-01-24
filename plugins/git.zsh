@@ -108,6 +108,17 @@ grbr() {
   GIT_SEQUENCE_EDITOR="sed -i '' '1s/^pick/reword/'" git rebase -i $commit^
 }
 
+grbe() {
+  local commit
+  if [[ -z "$1" ]]; then
+    commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
+    [[ -z "$commit" ]] && return
+  else
+    commit=$1
+  fi
+  GIT_SEQUENCE_EDITOR="sed -i '' '1s/^pick/edit/'" git rebase -i $commit^
+}
+
 # FUNCTIONS
 
 # Outputs the name of the current branch
