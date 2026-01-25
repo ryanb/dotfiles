@@ -56,6 +56,45 @@ alias gstp='git stash pop'
 alias gsw='git switch'
 alias gswc='git switch --create'
 
+gbm() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: gbm <new-branch-name>"
+    return 1
+  fi
+
+  local new_branch=$1
+  local old_branch=$(git_current_branch)
+
+  # Convert branch names to directory names (replace / with _)
+  local old_dir_name=${old_branch//\//_}
+  local new_dir_name=${new_branch//\//_}
+
+  # Check if we're in a worktree whose directory matches the branch name
+  local current_root=$(git rev-parse --show-toplevel)
+  local current_dir_name=${current_root:t}
+
+  if [[ "$current_dir_name" == "$old_dir_name" ]]; then
+    local parent_dir=${current_root:h}
+    local new_worktree_path="$parent_dir/$new_dir_name"
+
+    # Rename the branch first
+    git branch -m "$new_branch" || return 1
+
+    # Move the worktree directory
+    cd "$parent_dir"
+    mv "$old_dir_name" "$new_dir_name" || return 1
+
+    # Repair the worktree
+    git -C "$new_worktree_path" worktree repair
+
+    # Change to the new directory
+    cd "$new_worktree_path"
+  else
+    # Just rename the branch
+    git branch -m "$new_branch"
+  fi
+}
+
 gw() {
   local branch
   if [[ -z "$1" ]]; then
