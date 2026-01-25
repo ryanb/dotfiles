@@ -37,6 +37,7 @@ grbi() {
     git rebase --interactive "$@"
   fi
 }
+compdef _git grbi=git-rebase
 
 alias grst='git restore --staged'
 
@@ -146,6 +147,7 @@ gfix() {
     git stash pop
   fi
 }
+compdef _git gfix=git-rebase
 
 grbr() {
   local commit
@@ -157,6 +159,7 @@ grbr() {
   fi
   GIT_SEQUENCE_EDITOR="sed -i '' '1s/^pick/reword/'" git rebase -i $commit^
 }
+compdef _git grbr=git-rebase
 
 grbe() {
   local commit
@@ -168,6 +171,7 @@ grbe() {
   fi
   GIT_SEQUENCE_EDITOR="sed -i '' '1s/^pick/edit/'" git rebase -i $commit^
 }
+compdef _git grbe=git-rebase
 
 # FUNCTIONS
 
