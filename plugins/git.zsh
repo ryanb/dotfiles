@@ -39,6 +39,18 @@ grbi() {
 }
 compdef _git grbi=git-rebase
 
+grbb() {
+  local branch
+  if [[ -z "$1" ]]; then
+    branch=$(git branch --sort=-committerdate | fzf --no-sort | tr -d ' +')
+    [[ -z "$branch" ]] && return
+    git rebase --interactive $branch
+  else
+    git rebase --interactive "$@"
+  fi
+}
+compdef _git grbb=git-rebase
+
 alias grst='git restore --staged'
 
 alias gpristine='git reset --hard && git clean --force -dfx'
