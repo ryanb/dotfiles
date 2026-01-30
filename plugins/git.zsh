@@ -24,6 +24,9 @@ alias gdh='git diff HEAD'
 alias gdca='git diff --cached'
 alias gds='git diff --staged'
 
+alias gl='git log'
+alias glp='git log -p'
+
 alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
