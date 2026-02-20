@@ -24,6 +24,14 @@ alias gdh='git diff HEAD'
 alias gdca='git diff --cached'
 alias gds='git diff --staged'
 
+gdb() {
+  local base_branch
+  base_branch=$(detect_base_branch)
+  echo "Base branch: $base_branch"
+  git diff --shortstat "$base_branch"...HEAD
+  git diff "$base_branch"...HEAD "$@"
+}
+
 alias gl='git log'
 alias glp='git log -p'
 
@@ -189,6 +197,25 @@ grbe() {
 compdef _git grbe=git-rebase
 
 # FUNCTIONS
+
+# Detects the base branch for the current branch by walking commits
+# and finding the first one that exists on an origin branch
+detect_base_branch() {
+  local CURRENT_BRANCH=$(git_current_branch)
+  # Start from HEAD~1 to ensure at least one commit between base and current branch
+  for commit in $(git rev-list HEAD~1 2>/dev/null); do
+    for branch in $(git branch --contains "$commit" 2>/dev/null | sed 's/^[* +]//' | grep -v "^$CURRENT_BRANCH$"); do
+      # Skip branches that are ahead of HEAD (i.e., branches created from this one)
+      if git merge-base --is-ancestor HEAD "$branch" 2>/dev/null; then
+        continue
+      fi
+      echo "$branch"
+      return
+    done
+  done
+  # Fallback to repo's default branch
+  git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|^refs/remotes/origin/||'
+}
 
 # Outputs the name of the current branch
 # Usage example: git pull origin $(git_current_branch)
