@@ -1,0 +1,12 @@
+theme = Dracula+
+
+maximize = true
+window-width = 120
+window-height = 44
+
+font-family = DejaVu Sans Mono
+font-size = 18
+adjust-cell-height = 8%
+
+adjust-cursor-thickness = 50%
+cursor-color = #FFFFFF
