@@ -3,7 +3,7 @@
 	status = auto
 	branch = auto
 [core]
-	editor = vim
+	editor = nvim
 	autocrlf = input
 	pager = less -+$LESS -RSF
 	excludesFile = ~/.gitignore
