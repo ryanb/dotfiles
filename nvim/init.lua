@@ -117,3 +117,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 require("config.lazy")
+
+-- Load Railscasts colorscheme
+require("colors.railscasts").setup()
