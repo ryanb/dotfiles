@@ -85,5 +85,8 @@ require("config.lazy")
 -- Load keymaps
 require("config.keymaps")
 
+-- Alternate file switching (reads .projections.json from cwd)
+require("alternate").setup()
+
 -- Load Railscasts colorscheme
 require("colors.railscasts").setup()
