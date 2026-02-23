@@ -47,6 +47,14 @@ map("n", "U", "<C-r>", { desc = "Redo" })
 -- Visual Mode
 -- ============================================================================
 
+-- Copy to system clipboard with Cmd+C (without affecting yank register)
+map("v", "<D-c>", function()
+  local saved_reg = vim.fn.getreg('"')
+  local saved_regtype = vim.fn.getregtype('"')
+  vim.cmd('silent normal! "+ygv')
+  vim.fn.setreg('"', saved_reg, saved_regtype)
+end, { desc = "Copy to system clipboard" })
+
 -- Stay in visual mode while indenting
 -- map('v', '<', '<gv', { desc = 'Outdent and reselect' })
 -- map('v', '>', '>gv', { desc = 'Indent and reselect' })
