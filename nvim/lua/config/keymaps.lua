@@ -10,6 +10,9 @@ local map = vim.keymap.set
 -- Exit insert mode with jk
 map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
 
+-- Option-Delete to delete previous word (like in terminal)
+map("i", "<M-BS>", "<C-w>", { desc = "Delete previous word" })
+
 -- Emacs-style navigation in insert mode
 -- map('i', '<C-b>', '<Left>', { desc = 'Move cursor left' })
 -- map('i', '<C-f>', '<Right>', { desc = 'Move cursor right' })
