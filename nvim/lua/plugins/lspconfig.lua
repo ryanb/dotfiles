@@ -48,20 +48,46 @@ return {
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
         end
+
+        -- Organize imports on save (like VS Code's source.organizeImports)
+        if client and client.name == 'ts_ls' then
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = event.buf,
+            callback = function()
+              local function run_code_action(action_name)
+                local params = vim.lsp.util.make_range_params()
+                params.context = {
+                  only = { action_name },
+                  diagnostics = {},
+                }
+                local result = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params, 1000)
+                for _, res in pairs(result or {}) do
+                  for _, action in pairs(res.result or {}) do
+                    if action.edit then
+                      vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
+                    elseif action.command then
+                      vim.lsp.buf.execute_command(action.command)
+                    end
+                  end
+                end
+              end
+              run_code_action('source.removeUnusedImports')
+              run_code_action('source.organizeImports')
+            end,
+          })
+        end
       end,
     })
 
     local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-    local servers = {
-      -- Add your language servers here
-      -- e.g. pyright = {}, gopls = {}, rust_analyzer = {}
-    }
+    local servers = {}
 
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'lua-language-server',
       'stylua',
+      'typescript-language-server',
     })
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -97,5 +123,7 @@ return {
       },
     })
     vim.lsp.enable 'lua_ls'
+
+    vim.lsp.enable 'ts_ls'
   end,
 }
