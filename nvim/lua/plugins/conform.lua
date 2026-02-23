@@ -27,6 +27,15 @@ return {
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
+      ruby = { 'standardrb' },
+      javascript = { 'prettier' },
+      javascriptreact = { 'prettier' },
+      typescript = { 'prettier' },
+      typescriptreact = { 'prettier' },
+      eruby = { 'prettier' },
+      html = { 'prettier' },
+      css = { 'prettier' },
+      json = { 'prettier' },
     },
   },
 }
