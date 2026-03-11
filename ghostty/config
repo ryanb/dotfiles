@@ -10,3 +10,5 @@ adjust-cell-height = 8%
 
 adjust-cursor-thickness = 50%
 cursor-color = #FFFFFF
+
+keybind = super+enter=text:\n
