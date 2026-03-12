@@ -6,6 +6,8 @@ ln -is $(readlink -f gitignore) ~/.gitignore
 ln -is $(readlink -f irbrc) ~/.irbrc
 ln -is $(readlink -f plugins) ~/.zsh-plugins
 
+ln -is $(readlink -f wezterm) ~/.config/wezterm
+
 cp -i $(readlink -f zshrc) ~/.zshrc
 
 read -p "Your Name for Git Commits: " git_name
