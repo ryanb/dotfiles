@@ -32,6 +32,11 @@ config.keys = {
   workspace.rename,
   workspace.close,
   {
+    key = 'Enter',
+    mods = 'ALT',
+    action = wezterm.action.SendString '\x1b\r',
+  },
+  {
     key = '{',
     mods = 'SUPER|CTRL|SHIFT',
     action = wezterm.action.MoveTabRelative(-1),
