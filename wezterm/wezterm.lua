@@ -71,6 +71,11 @@ config.keys = {
     action = wezterm.action.SendString '\x1bf',
   },
   {
+    key = 'p',
+    mods = 'SUPER|SHIFT',
+    action = wezterm.action.ActivateCommandPalette,
+  },
+  {
     key = '{',
     mods = 'SUPER|CTRL|SHIFT',
     action = wezterm.action.MoveTabRelative(-1),
