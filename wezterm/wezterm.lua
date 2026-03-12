@@ -20,11 +20,20 @@ config.keys = {
     mods = 'SUPER',
     action = wezterm.action.ClearScrollback 'ScrollbackAndViewport',
   },
+  {
+    key = 'n',
+    mods = 'SUPER',
+    action = wezterm.action_callback(function(window, pane)
+      local tab, new_pane, new_window = wezterm.mux.spawn_window {}
+      new_window:gui_window():maximize()
+    end),
+  },
 }
 
 wezterm.on('gui-startup', function(cmd)
   local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
   window:gui_window():maximize()
 end)
+
 
 return config
