@@ -28,6 +28,7 @@ config.keys = {
   },
   workspace.create,
   workspace.switcher,
+  workspace.rename,
   workspace.close,
   {
     key = '{',

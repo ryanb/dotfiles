@@ -14,13 +14,33 @@ M.create = {
   mods = 'SUPER|SHIFT',
   action = wezterm.action_callback(function(window, pane)
     local cwd = pane:get_current_working_dir()
-    local dir = cwd.file_path
+    local dir = cwd.file_path:gsub('/$', '')
     local name = dir:match('([^/]+)$')
 
     window:perform_action(
       act.SwitchToWorkspace {
         name = name,
         spawn = { cwd = dir },
+      },
+      pane
+    )
+  end),
+}
+
+M.rename = {
+  key = 'r',
+  mods = 'SUPER|SHIFT',
+  action = wezterm.action_callback(function(window, pane)
+    local current = window:active_workspace()
+    window:perform_action(
+      act.PromptInputLine {
+        description = 'Rename workspace:',
+        initial_value = current,
+        action = wezterm.action_callback(function(inner_window, inner_pane, line)
+          if line and #line > 0 then
+            wezterm.mux.rename_workspace(current, line)
+          end
+        end),
       },
       pane
     )
