@@ -37,6 +37,16 @@ config.keys = {
     action = wezterm.action.SendString '\x1b\r',
   },
   {
+    key = 'LeftArrow',
+    mods = 'OPT',
+    action = wezterm.action.SendString '\x1bb',
+  },
+  {
+    key = 'RightArrow',
+    mods = 'OPT',
+    action = wezterm.action.SendString '\x1bf',
+  },
+  {
     key = '{',
     mods = 'SUPER|CTRL|SHIFT',
     action = wezterm.action.MoveTabRelative(-1),
