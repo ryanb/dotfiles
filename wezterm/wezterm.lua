@@ -2,6 +2,11 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 config.color_scheme = 'Dracula+'
+config.window_decorations = 'RESIZE|INTEGRATED_BUTTONS'
+config.window_frame = {
+  active_titlebar_bg = '#191919',
+  inactive_titlebar_bg = '#191919',
+}
 
 config.initial_cols = 120
 config.initial_rows = 44
