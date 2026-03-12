@@ -29,6 +29,16 @@ config.keys = {
   workspace.create,
   workspace.switcher,
   workspace.close,
+  {
+    key = '{',
+    mods = 'SUPER|CTRL|SHIFT',
+    action = wezterm.action.MoveTabRelative(-1),
+  },
+  {
+    key = '}',
+    mods = 'SUPER|CTRL|SHIFT',
+    action = wezterm.action.MoveTabRelative(1),
+  },
 }
 
 config.show_tab_index_in_tab_bar = false
