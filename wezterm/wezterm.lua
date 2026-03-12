@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm'
+local workspace = require 'workspace'
 local config = wezterm.config_builder()
 
 config.color_scheme = 'Dracula+'
@@ -25,15 +26,22 @@ config.keys = {
     mods = 'SUPER',
     action = wezterm.action.ClearScrollback 'ScrollbackAndViewport',
   },
-  {
-    key = 'n',
-    mods = 'SUPER',
-    action = wezterm.action_callback(function(window, pane)
-      local tab, new_pane, new_window = wezterm.mux.spawn_window {}
-      new_window:gui_window():maximize()
-    end),
-  },
+  workspace.create,
+  workspace.switcher,
+  workspace.close,
 }
+
+config.show_tab_index_in_tab_bar = false
+
+wezterm.on('update-status', function(window, pane)
+  local workspace = window:active_workspace()
+  window:set_right_status(wezterm.format {
+    { Background = { Color = '#191919' } },
+    { Foreground = { Color = '#ffffff' } },
+    { Attribute = { Intensity = 'Bold' } },
+    { Text = workspace .. '      ' },
+  })
+end)
 
 wezterm.on('gui-startup', function(cmd)
   local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
