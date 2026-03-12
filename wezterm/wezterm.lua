@@ -28,7 +28,7 @@ config.keys = {
     action = wezterm.action.ClearScrollback 'ScrollbackAndViewport',
   },
   { key = 'n', mods = 'SUPER|SHIFT', action = workspace.create },
-  { key = 'p', mods = 'SUPER|SHIFT', action = workspace.switcher },
+  { key = 'p', mods = 'SUPER', action = workspace.switcher },
   { key = 'r', mods = 'SUPER|SHIFT', action = workspace.rename },
   { key = 'w', mods = 'SUPER|SHIFT', action = workspace.close },
   {
