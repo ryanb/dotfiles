@@ -19,4 +19,3 @@ window-inherit-font-size = true
 window-padding-x = 16
 window-padding-y = 4,8
 window-width = 120
-keybind = cmd+f=write_screen_file:copy
