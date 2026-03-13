@@ -87,6 +87,17 @@ config.keys = {
   },
 }
 
+config.mouse_bindings = {
+  {
+    event = { Down = { streak = 1, button = { WheelLeft = 1 } } },
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+  {
+    event = { Down = { streak = 1, button = { WheelRight = 1 } } },
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+}
+
 config.show_tab_index_in_tab_bar = false
 
 wezterm.on('update-status', function(window, pane)
