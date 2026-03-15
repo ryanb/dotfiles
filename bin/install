@@ -9,6 +9,7 @@ ln -is $(readlink -f plugins) ~/.zsh-plugins
 ln -is $(readlink -f wezterm) ~/.config/wezterm
 ln -is $(readlink -f ghostty) ~/.config/ghostty
 ln -is $(readlink -f kitty) ~/.config/kitty
+ln -is $(readlink -f aerospace) ~/.config/aerospace
 
 cp -i $(readlink -f zshrc) ~/.zshrc
 
