@@ -3,7 +3,7 @@
 set -o errexit
 
 steps_dir="$(dirname "$0")/steps"
-steps=(macos homebrew mise zsh ssh git ghostty neovim rancher-desktop zed bat)
+steps=(macos homebrew mise zsh ssh git ghostty neovim rancher-desktop zed bat claude)
 
 red="\033[31m"
 green="\033[32m"
