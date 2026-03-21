@@ -2,3 +2,5 @@
 tags
 .favorites.json
 .zed
+
+**/.claude/settings.local.json

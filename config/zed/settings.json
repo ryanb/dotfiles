@@ -34,8 +34,8 @@
   "agent": {
     "default_profile": "ask",
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-opus-4-6",
+      "provider": "copilot_chat",
+      "model": "claude-opus-4.6",
     },
   },
   "autosave": "on_focus_change",
@@ -73,6 +73,11 @@
     "Swift": {
       "tab_size": 4,
       "format_on_save": "off",
+    },
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
     },
   },
 }
