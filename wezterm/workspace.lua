@@ -79,8 +79,7 @@ M.rename = wezterm.action_callback(function(window, pane)
   local current = window:active_workspace()
   window:perform_action(
     act.PromptInputLine {
-      description = 'Rename workspace:',
-      initial_value = current,
+      description = 'Rename workspace (' .. current .. '):',
       action = wezterm.action_callback(function(inner_window, inner_pane, line)
         if line and #line > 0 then
           wezterm.mux.rename_workspace(current, line)
