@@ -108,11 +108,14 @@ table.insert(config.hyperlink_rules, {
 })
 
 wezterm.on('open-uri', function(window, pane, uri)
+  uri = uri:gsub('%)+$', '')
   if uri:sub(1, 7) == 'file://' then
     local path = uri:gsub('^file://', '')
     wezterm.open_with(path, 'Visual Studio Code')
-    return false
+  else
+    wezterm.open_with(uri)
   end
+  return false
 end)
 
 wezterm.on('update-status', function(window, pane)
