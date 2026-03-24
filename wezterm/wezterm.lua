@@ -101,6 +101,20 @@ config.mouse_bindings = {
 
 config.show_tab_index_in_tab_bar = false
 
+config.hyperlink_rules = wezterm.default_hyperlink_rules()
+table.insert(config.hyperlink_rules, {
+  regex = [[\bfile://\S+]],
+  format = '$0',
+})
+
+wezterm.on('open-uri', function(window, pane, uri)
+  if uri:sub(1, 7) == 'file://' then
+    local path = uri:gsub('^file://', '')
+    wezterm.open_with(path, 'Visual Studio Code')
+    return false
+  end
+end)
+
 wezterm.on('update-status', function(window, pane)
   local workspace = window:active_workspace()
   window:set_right_status(wezterm.format {
