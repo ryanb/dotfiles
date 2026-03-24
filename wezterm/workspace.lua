@@ -42,6 +42,25 @@ M.switcher = wezterm.action_callback(function(window, pane)
   )
 end)
 
+M.previous = wezterm.action_callback(function(window, pane)
+  local current = window:active_workspace()
+  local workspaces = wezterm.mux.get_workspace_names()
+
+  local best_name = nil
+  local best_time = 0
+  for _, name in ipairs(workspaces) do
+    local t = last_used[name] or 0
+    if name ~= current and t > best_time then
+      best_name = name
+      best_time = t
+    end
+  end
+
+  if best_name then
+    window:perform_action(act.SwitchToWorkspace { name = best_name }, pane)
+  end
+end)
+
 M.create = wezterm.action_callback(function(window, pane)
   local cwd = pane:get_current_working_dir()
   local dir = cwd.file_path:gsub('/$', '')
