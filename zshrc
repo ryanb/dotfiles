@@ -5,4 +5,5 @@ source ~/.zsh-plugins/init.zsh
 source ~/.zsh-plugins/git.zsh
 source ~/.zsh-plugins/bundler.zsh
 source ~/.zsh-plugins/rails.zsh
+source ~/.zsh-plugins/wezterm.zsh
 source ~/.zsh-plugins/rbates.zsh
