@@ -150,6 +150,30 @@ _gw() {
 }
 compdef _gw gw
 
+# Designed to work in a project that has a bin/worktree script
+worktree() {
+  local output
+  output=$(bin/worktree --no-cd "$@" 2>&1)
+  local exit_code=$?
+
+  echo "$output"
+
+  if [ $exit_code -ne 0 ]; then
+    return $exit_code
+  fi
+
+  # Extract worktree directory from "cd <path>" line in output
+  local worktree_dir
+  worktree_dir=$(echo "$output" | grep "^cd " | tail -1 | sed 's/^cd //')
+
+  if [ -n "$worktree_dir" ] && [ -d "$worktree_dir" ]; then
+    cd "$worktree_dir" || return 1
+    if command -v direnv >/dev/null 2>&1; then
+      direnv allow
+    fi
+  fi
+}
+
 gfix() {
   local commit
   local stashed=0
