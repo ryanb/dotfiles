@@ -41,7 +41,7 @@ alias grbc='git rebase --continue'
 grbi() {
   local commit
   if [[ -z "$1" ]]; then
-    commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
+    commit=$(git log --color -n 100 | fzf --ansi --no-sort | awk '{print $1}')
     [[ -z "$commit" ]] && return
     git rebase --interactive $commit^
   else
@@ -72,7 +72,7 @@ alias gsh='git show --format=medium'
 gshw() {
   local commit
   if [[ -z "$1" ]]; then
-    commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
+    commit=$(git log --color -n 100 | fzf --ansi --no-sort | awk '{print $1}')
     [[ -z "$commit" ]] && return
   else
     commit=$1
@@ -207,7 +207,7 @@ gfix() {
   local commit
   local stashed=0
   if [[ -z "$1" ]]; then
-    commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
+    commit=$(git log --color -n 100 | fzf --ansi --no-sort | awk '{print $1}')
     [[ -z "$commit" ]] && return
   else
     commit=$1
@@ -228,7 +228,7 @@ compdef _git gfix=git-rebase
 grbr() {
   local commit
   if [[ -z "$1" ]]; then
-    commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
+    commit=$(git log --color -n 100 | fzf --ansi --no-sort | awk '{print $1}')
     [[ -z "$commit" ]] && return
   else
     commit=$1
@@ -240,7 +240,7 @@ compdef _git grbr=git-rebase
 grbe() {
   local commit
   if [[ -z "$1" ]]; then
-    commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
+    commit=$(git log --color -n 100 | fzf --ansi --no-sort | awk '{print $1}')
     [[ -z "$commit" ]] && return
   else
     commit=$1
