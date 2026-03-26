@@ -128,6 +128,12 @@ wezterm.on('update-status', function(window, pane)
   })
 end)
 
+wezterm.on('user-var-changed', function(window, pane, name, value)
+  if name == 'switch-workspace' then
+    window:perform_action(wezterm.action.SwitchToWorkspace { name = value }, pane)
+  end
+end)
+
 wezterm.on('gui-startup', function(cmd)
   local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
   window:gui_window():maximize()
