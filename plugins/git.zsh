@@ -69,6 +69,35 @@ alias groh='git reset origin/$(git_current_branch) --hard'
 
 alias gsh='git show --format=medium'
 
+gshw() {
+  local commit
+  if [[ -z "$1" ]]; then
+    commit=$(git log --oneline -n 100 | fzf --no-sort | awk '{print $1}')
+    [[ -z "$commit" ]] && return
+  else
+    commit=$1
+  fi
+  local commits=("${(@f)$(git log --reverse --oneline $commit^..HEAD)}")
+  local total=${#commits}
+  local i=1
+  while [[ $i -ge 1 && $i -le $total ]]; do
+    local entry=${commits[$i]}
+    local sha=${entry%% *}
+    echo "\n\n[$i/$total] $entry"
+    git show --format=medium $sha
+    while true; do
+      echo ""
+      read -sk "?[n]ext [p]rev [q]uit: "
+      case $REPLY in
+        n) i=$((i + 1)); break ;;
+        p) [[ $i -gt 1 ]] && i=$((i - 1)); break ;;
+        q) echo ""; return ;;
+        *) echo "\nUnknown key '$REPLY'. Use n/p/q." ;;
+      esac
+    done
+  done
+}
+
 alias gst='git status'
 
 alias gstl='git stash list'
