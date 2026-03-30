@@ -1,12 +1,15 @@
 wt() {
-  if [[ -z "$1" ]]; then
-    echo "Usage: wt <name>"
-    return 1
+  local name="$1"
+  if [[ -z "$name" ]]; then
+    name=$(git branch -a --sort=-committerdate --format='%(refname:short)' \
+      | sed 's|^origin/||' | awk '!seen[$0]++' \
+      | fzf --no-sort)
+    [[ -z "$name" ]] && return
   fi
-  if wezterm cli list --format json | jq -e --arg ws "$1" 'any(.[]; .workspace == $ws)' > /dev/null 2>&1; then
-    printf '\033]1337;SetUserVar=switch-workspace=%s\007' "$(echo -n "$1" | base64)"
+  if wezterm cli list --format json | jq -e --arg ws "$name" 'any(.[]; .workspace == $ws)' > /dev/null 2>&1; then
+    printf '\033]1337;SetUserVar=switch-workspace=%s\007' "$(echo -n "$name" | base64)"
   else
-    wezterm cli spawn --new-window --workspace "$1" --cwd "$PWD" -- zsh -ic 'worktree '"$1"'; exec zsh'
-    printf '\033]1337;SetUserVar=switch-workspace=%s\007' "$(echo -n "$1" | base64)"
+    wezterm cli spawn --new-window --workspace "$name" --cwd "$PWD" -- zsh -ic 'worktree '"$name"'; exec zsh'
+    printf '\033]1337;SetUserVar=switch-workspace=%s\007' "$(echo -n "$name" | base64)"
   fi
 }
