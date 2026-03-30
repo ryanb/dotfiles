@@ -204,6 +204,13 @@ worktree() {
 }
 
 gfix() {
+  local git_dir="$(git rev-parse --git-dir 2>/dev/null)" || return 1
+  for state in rebase-merge rebase-apply MERGE_HEAD CHERRY_PICK_HEAD REVERT_HEAD BISECT_LOG; do
+    if [[ -e "$git_dir/$state" ]]; then
+      echo "Git operation in progress, aborting gfix"
+      return 1
+    fi
+  done
   local commit
   local stashed=0
   if [[ -z "$1" ]]; then
