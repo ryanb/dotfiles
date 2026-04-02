@@ -36,7 +36,6 @@ mas 'Ghostery Privacy Ad Blocker', id: 6504861501
 
 # Teh socials =========================================================
 
-mas 'Messenger', id: 1480068668
 cask 'signal'
 cask 'zoom'
 
