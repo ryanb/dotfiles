@@ -53,6 +53,7 @@ cask 'sysex-librarian'
 
 brew 'gh'
 brew 'git'
+brew 'gpg' # mise uses this to verify packages
 cask 'ghostty'
 brew 'lazygit'
 brew 'mise'

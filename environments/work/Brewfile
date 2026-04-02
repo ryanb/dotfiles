@@ -10,6 +10,7 @@ brew 'fd'
 brew 'fzf'
 brew 'gh'
 brew 'git'
+brew 'gpg' # mise uses this to verify packages
 brew 'jq'
 brew 'lazygit'
 brew 'neovim'
