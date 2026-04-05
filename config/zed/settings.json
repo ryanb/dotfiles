@@ -34,8 +34,10 @@
   "agent": {
     "default_profile": "ask",
     "default_model": {
+      "effort": "medium",
+      "enable_thinking": true,
       "provider": "copilot_chat",
-      "model": "claude-opus-4.6",
+      "model": "claude-sonnet-4.6",
     },
   },
   "autosave": "on_focus_change",
