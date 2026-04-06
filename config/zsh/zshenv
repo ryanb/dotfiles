@@ -55,19 +55,8 @@ if [[ -x $HOMEBREW_PREFIX/bin/nvim ]] {
 # ------------------------------------------------------------------------------------------
 # Set various helpful things for work.
 
-if [[ $DOTFILES_ENV == 'work' ]] {
-  export UP_HOME_PATH=$HOME/src/up
-
-  export ANDROID_HOME=$HOME/Library/Android/sdk
-  export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-
-  export PATH=$ANDROID_HOME/emulator:$PATH
-  export PATH=$ANDROID_HOME/tools:$PATH
-  export PATH=$ANDROID_HOME/tools/bin:$PATH
-  export PATH=$ANDROID_HOME/platform-tools:$PATH
-  export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
-
-  export WORKUP=0
+if [[ -a $HOME/.zshenv-work ]] {
+  source $HOME/.zshenv-work
 }
 
 # ------------------------------------------------------------------------------------------
