@@ -59,7 +59,9 @@ The `claude/` directory is a [Claude Code plugin](https://code.claude.com/docs/e
 ### Installing as a plugin
 
 ```sh
-/plugin install --path claude ryanb/dotfiles
+/plugin marketplace add ryanb/dotfiles
+/plugin install gfix@ryanb-dotfiles
+/plugin install review-queue@ryanb-dotfiles
 ```
 
 ### review-queue preferences

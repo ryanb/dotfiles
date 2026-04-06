@@ -1,0 +1,5 @@
+{
+  "name": "gfix",
+  "description": "Amend a commit further back in history with fixup and auto-rebase.",
+  "skills": "./"
+}

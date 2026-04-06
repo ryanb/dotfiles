@@ -1,8 +1,0 @@
-{
-  "name": "ryanb-dotfiles",
-  "description": "Claude Code skills for git workflows, PR review, and code walkthrough.",
-  "version": "1.0.0",
-  "author": {
-    "name": "Ryan Bates"
-  }
-}

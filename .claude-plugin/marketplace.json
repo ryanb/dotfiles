@@ -1,0 +1,33 @@
+{
+  "name": "ryanb-dotfiles",
+  "owner": {
+    "name": "Ryan Bates"
+  },
+  "plugins": [
+    {
+      "name": "gfix",
+      "source": "./claude/skills/gfix",
+      "description": "Amend a commit further back in history with fixup and auto-rebase."
+    },
+    {
+      "name": "rebase",
+      "source": "./claude/skills/rebase",
+      "description": "Interactive rebase workflow."
+    },
+    {
+      "name": "remote-diff",
+      "source": "./claude/skills/remote-diff",
+      "description": "Compare local vs remote branch to detect rebase/merge mistakes."
+    },
+    {
+      "name": "review-queue",
+      "source": "./claude/skills/review-queue",
+      "description": "Ranked PR review list with dependency trees and filtered line counts."
+    },
+    {
+      "name": "walkthrough",
+      "source": "./claude/skills/walkthrough",
+      "description": "Walk through PR changes from the user's perspective."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "name": "review-queue",
+  "description": "Ranked PR review list with dependency trees and filtered line counts.",
+  "skills": "./"
+}
