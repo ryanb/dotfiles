@@ -11,6 +11,9 @@ ln -is $(readlink -f ghostty) ~/.config/ghostty
 ln -is $(readlink -f kitty) ~/.config/kitty
 ln -is $(readlink -f aerospace) ~/.config/aerospace
 
+mkdir -p ~/.claude/skills
+ln -is $(readlink -f claude/skills/review-queue) ~/.claude/skills/review-queue
+
 cp -i $(readlink -f zshrc) ~/.zshrc
 
 read -p "Your Name for Git Commits: " git_name
