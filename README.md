@@ -46,6 +46,33 @@ If you're using git, you'll notice the current branch name shows up in the promp
 Use `gw` to switch branches with `fzf`. If the branch is checked out in a worktree, it will `cd` there instead.
 
 
+## Claude Code
+
+The `claude/` directory is a [Claude Code plugin](https://code.claude.com/docs/en/plugins.md) with the following skills:
+
+- **gfix** — Amend a commit further back in history with fixup + auto-rebase
+- **rebase** — Interactive rebase workflow
+- **remote-diff** — Compare local vs remote branch to detect rebase/merge mistakes
+- **review-queue** — Ranked PR review list with dependency trees and filtered line counts
+- **walkthrough** — Walk through PR changes from the user's perspective
+
+### Installing as a plugin
+
+```sh
+/plugin install --path claude ryanb/dotfiles
+```
+
+### review-queue preferences
+
+Create `~/.claude/review-queue.json` to customize which PRs are prioritized per repo:
+
+```json
+{
+  "owner/repo": "Prioritize POS PRs. Exclude my PRs (author: username) that are not yet approved."
+}
+```
+
+
 ## Uninstall
 
 To remove the dotfile configs, run the following commands. Be certain to double check the contents of the files before removing so you don't lose custom settings.
