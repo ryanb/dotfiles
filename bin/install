@@ -12,7 +12,11 @@ ln -is $(readlink -f kitty) ~/.config/kitty
 ln -is $(readlink -f aerospace) ~/.config/aerospace
 
 mkdir -p ~/.claude/skills
+ln -is $(readlink -f claude/skills/gfix) ~/.claude/skills/gfix
+ln -is $(readlink -f claude/skills/rebase) ~/.claude/skills/rebase
+ln -is $(readlink -f claude/skills/remote-diff) ~/.claude/skills/remote-diff
 ln -is $(readlink -f claude/skills/review-queue) ~/.claude/skills/review-queue
+ln -is $(readlink -f claude/skills/walkthrough) ~/.claude/skills/walkthrough
 
 cp -i $(readlink -f zshrc) ~/.zshrc
 
