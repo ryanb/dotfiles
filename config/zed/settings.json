@@ -7,6 +7,14 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent_servers": {
+    "github-copilot": {
+      "type": "registry",
+    },
+    "claude-acp": {
+      "type": "registry",
+    },
+  },
   "auto_install_extensions": {
     "basher": true,
   },
@@ -32,7 +40,17 @@
     },
   },
   "agent": {
-    "default_profile": "ask",
+    "favorite_models": [
+      {
+        "provider": "copilot_chat",
+        "model": "claude-opus-4.6",
+      },
+      {
+        "provider": "zed.dev",
+        "model": "claude-sonnet-4-5",
+      },
+    ],
+    "default_profile": "write",
     "default_model": {
       "effort": "medium",
       "enable_thinking": true,
@@ -75,11 +93,6 @@
     "Swift": {
       "tab_size": 4,
       "format_on_save": "off",
-    },
-  },
-  "agent_servers": {
-    "claude-acp": {
-      "type": "registry",
     },
   },
 }
