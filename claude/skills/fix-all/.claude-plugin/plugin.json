@@ -1,0 +1,5 @@
+{
+  "name": "fix-all",
+  "description": "Run bin/claude-review --print and automatically fix all reported issues, committing each fix individually.",
+  "skills": "./"
+}
