@@ -12,7 +12,7 @@ Automatically find and fix all issues reported by `bin/claude-review --print`.
 
 Run `bin/claude-review --print` to get the list of issues. If the command doesn't exist or fails, report back to the user and stop.
 
-Capture the full output.
+Capture the full output and **display the complete output to the user** before proceeding, so they can see what was found.
 
 ## Step 2: Parse the issues
 
@@ -36,7 +36,7 @@ Each sub-agent should:
 1. Read the relevant file and understand the issue
 2. Apply the fix
 3. Run any related tests if applicable to verify the fix doesn't break anything
-4. Create a git commit for the fix with a descriptive message
+4. Create a git commit for the fix with a descriptive message that includes **why** the change was made (e.g., the issue description or the problem it solves), not just what was changed. The reader should be able to evaluate whether the fix was appropriate from the commit message alone. Prefix the commit message with "Chore:" only for pure refactoring — bug fixes, external changes, and configuration changes are not chores.
 
 **Use your judgment on each issue:**
 - **Critical** and **Warning** issues should generally be fixed.
