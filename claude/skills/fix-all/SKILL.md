@@ -34,9 +34,10 @@ For each issue, spawn a sub-agent to fix it. Process issues **one at a time, seq
 
 Each sub-agent should:
 1. Read the relevant file and understand the issue
-2. Apply the fix
-3. Run any related tests if applicable to verify the fix doesn't break anything
-4. Create a git commit for the fix with a descriptive message that includes **why** the change was made (e.g., the issue description or the problem it solves), not just what was changed. The reader should be able to evaluate whether the fix was appropriate from the commit message alone. Prefix the commit message with "Chore:" only for pure refactoring — bug fixes, external changes, and configuration changes are not chores.
+2. If the issue is a bug fix, first write or update a test that fails due to the bug
+3. Apply the fix and verify the test now passes
+4. Run any related tests if applicable to verify the fix doesn't break anything
+5. Create a git commit for the fix with a descriptive message that includes **why** the change was made (e.g., the issue description or the problem it solves), not just what was changed. The reader should be able to evaluate whether the fix was appropriate from the commit message alone. Prefix the commit message with "Chore:" only for pure refactoring — bug fixes, external changes, and configuration changes are not chores.
 
 **Use your judgment on each issue:**
 - **Critical** and **Warning** issues should generally be fixed.
