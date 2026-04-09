@@ -66,6 +66,7 @@ alias grst='git restore --staged'
 
 alias gpristine='git reset --hard && git clean --force -dfx'
 alias groh='git reset origin/$(git_current_branch) --hard'
+alias grhr='git reset --hard @{u}'
 
 alias gsh='git show --format=medium'
 
