@@ -31,12 +31,15 @@ for window in five_hour seven_day; do
   fi
 done
 
+YELLOW='\033[33m'
+RESET='\033[0m'
+
 warnings=""
-[ -n "$hourly_usage" ] && warnings="Usage: ${hourly_usage}%"
+[ -n "$hourly_usage" ] && warnings="${YELLOW}Usage: ${hourly_usage}%${RESET}"
 [ -n "$weekly_usage" ] && warnings="${warnings:+$warnings | }7d Usage: ${weekly_usage}%"
 
 if [ -n "$warnings" ]; then
-  echo "Context: ${context}% | $warnings | $dir"
+  echo -e "Context: ${context}% | $warnings | $dir"
 else
-  echo "Context: ${context}% | $dir"
+  echo -e "Context: ${context}% | $dir"
 fi
