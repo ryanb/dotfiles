@@ -50,6 +50,7 @@ Use `gw` to switch branches with `fzf`. If the branch is checked out in a worktr
 
 The `claude/` directory is a [Claude Code plugin](https://code.claude.com/docs/en/plugins.md) with the following skills:
 
+- **bisect** — Git bisect to find the first bad commit by running a test command
 - **fix-all** — Run bin/claude-review --print and automatically fix all reported issues
 - **gfix** — Amend a commit further back in history with fixup + auto-rebase
 - **rebase** — Interactive rebase workflow
@@ -61,6 +62,7 @@ The `claude/` directory is a [Claude Code plugin](https://code.claude.com/docs/e
 
 ```sh
 /plugin marketplace add ryanb/dotfiles
+/plugin install bisect@ryanb-dotfiles
 /plugin install gfix@ryanb-dotfiles
 /plugin install review-queue@ryanb-dotfiles
 ```
