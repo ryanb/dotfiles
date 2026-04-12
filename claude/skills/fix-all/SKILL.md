@@ -2,6 +2,7 @@
 name: fix-all
 description: Run bin/claude-review --print and automatically fix all reported issues, committing each fix individually.
 disable-model-invocation: true
+user-invocable-only: true
 ---
 
 # Fix All Review Issues

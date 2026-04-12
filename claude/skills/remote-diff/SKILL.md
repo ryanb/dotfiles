@@ -1,6 +1,7 @@
 ---
 name: remote-diff
 description: Compare local branch changes against the remote branch to detect rebase/merge mistakes.
+user-invocable-only: true
 allowed-tools: Bash, Read, Glob, Grep, Agent
 argument-hint: [base-branch]
 ---

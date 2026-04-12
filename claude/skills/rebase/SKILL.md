@@ -2,6 +2,7 @@
 name: rebase
 description: Interactive rebase onto a base branch, resolving conflicts along the way and verifying tests pass. Compares against remote when done.
 disable-model-invocation: true
+user-invocable-only: true
 allowed-tools: Bash, Read, Glob, Grep, Agent, Skill, AskUserQuestion
 argument-hint: [base-branch]
 ---

@@ -2,6 +2,7 @@
 name: walkthrough
 description: Walk through PR changes from the user's perspective. Traces each UI change through its full vertical slice — what the user sees, what it triggers, and how the server handles it. Use when asked to walk through what changed, review a PR, or summarize branch changes.
 disable-model-invocation: true
+user-invocable-only: true
 allowed-tools: Bash, Read, Glob, Grep, Agent
 argument-hint: [base-branch]
 ---

@@ -1,6 +1,7 @@
 ---
 name: review-queue
 description: Show pull requests that need review, ranked by ease of review. Displays PRs as clickable links with line counts, grouped as a dependency tree when PRs build on each other.
+user-invocable-only: true
 allowed-tools: Bash, Read
 ---
 

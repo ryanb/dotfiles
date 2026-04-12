@@ -1,6 +1,7 @@
 ---
 name: gfix
 description: Amend a commit further back in the history by staging changes and using gfix to create a fixup commit and auto-rebase.
+user-invocable-only: true
 allowed-tools: Bash, Read, Glob, Grep, Edit, Write, Agent, AskUserQuestion
 argument-hint: <instructions>
 ---
