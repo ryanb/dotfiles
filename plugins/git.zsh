@@ -95,7 +95,7 @@ gshw() {
     local entry=${commits[$i]}
     local sha=${entry%% *}
     echo "\n\n[$i/$total] $entry"
-    git show --format=medium $sha
+    git -c core.pager='less -R' --paginate show --format=medium $sha
     while true; do
       echo ""
       read -sk "?[n]ext [p]rev [q]uit: "
