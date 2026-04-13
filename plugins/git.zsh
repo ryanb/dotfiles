@@ -32,7 +32,18 @@ gdb() {
   git diff "$base_branch"...HEAD "$@"
 }
 
-alias gl='git log'
+gl() {
+  if [[ -n "$1" ]]; then
+    git log "$@"
+    return
+  fi
+  local commit
+  commit=$(git log --color -n 100 | fzf --ansi --no-sort | awk '{print $1}')
+  [[ -z "$commit" ]] && return
+  git show --format=medium $commit
+}
+compdef _git gl=git-log
+
 alias glp='git log -p'
 
 alias grb='git rebase'
