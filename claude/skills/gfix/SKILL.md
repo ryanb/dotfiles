@@ -1,7 +1,6 @@
 ---
 name: gfix
-description: Amend a commit further back in the history by staging changes and using gfix to create a fixup commit and auto-rebase.
-user-invocable-only: true
+description: Amend a git commit further back in the history.
 allowed-tools: Bash, Read, Glob, Grep, Edit, Write, Agent, AskUserQuestion
 argument-hint: <instructions>
 ---
@@ -15,6 +14,7 @@ Use the `gfix` shell command to fold staged changes into a commit that is not th
 Source: `~/code/dotfiles/plugins/git.zsh` (the `gfix` function)
 
 `gfix <commit-sha>` does the following:
+
 1. Guards against running during an in-progress git operation (rebase, merge, cherry-pick, etc.)
 2. Stashes any unstaged changes (preserving the index)
 3. Creates a `git commit --fixup <commit-sha>` from whatever is currently staged
@@ -24,6 +24,7 @@ Source: `~/code/dotfiles/plugins/git.zsh` (the `gfix` function)
 ## When to use gfix
 
 Use gfix when you need to amend a commit that is **not** the HEAD commit. For example:
+
 - A review comment asks for a change to code introduced 3 commits ago
 - You notice a typo or bug in an earlier commit while working on something else
 - You want to keep a clean, logical commit history where each commit is self-contained
@@ -41,6 +42,7 @@ If you only need to amend the most recent commit, use `git commit --amend` inste
 3. **Make and stage the changes** — Edit the files, then `git add` only the files that belong to the target commit.
 
 4. **Run gfix** — Pass the target commit SHA:
+
    ```bash
    gfix <commit-sha>
    ```
