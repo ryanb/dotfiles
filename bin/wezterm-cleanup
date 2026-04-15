@@ -1,0 +1,274 @@
+#!/usr/bin/env bash
+# wezterm-cleanup — list WezTerm workspaces grouped by PR status and
+# interactively close the ones whose branches have been merged/closed.
+#
+# Groups:
+#   Keep           — current workspace, open/draft PRs, no PR, detached HEAD
+#   Close          — MERGED, CLOSED, or GONE (cwd no longer exists)
+#
+# Usage:
+#   wezterm-cleanup            interactive prompt for each close candidate
+#   wezterm-cleanup --list     list only, no prompt
+#
+# Prompt keys: y = close, n = skip, a = close all remaining, q = quit
+set -euo pipefail
+
+for cmd in wezterm jq gh git; do
+  command -v "$cmd" >/dev/null || { echo "error: $cmd not found on PATH" >&2; exit 1; }
+done
+
+mode="interactive"
+case "${1:-}" in
+  -l|--list) mode="list" ;;
+  -h|--help) sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+  "") ;;
+  *) echo "unknown arg: $1" >&2; exit 2 ;;
+esac
+
+# Colors
+if [ -t 1 ]; then
+  BOLD=$'\033[1m'; DIM=$'\033[2m'
+  RED=$'\033[31m'; GREEN=$'\033[32m'; YELLOW=$'\033[33m'
+  BLUE=$'\033[34m'; MAGENTA=$'\033[35m'; CYAN=$'\033[36m'
+  RESET=$'\033[0m'
+else
+  BOLD=""; DIM=""; RED=""; GREEN=""; YELLOW=""; BLUE=""; MAGENTA=""; CYAN=""; RESET=""
+fi
+
+tmpdir=$(mktemp -d -t wezterm-cleanup.XXXXXX)
+trap 'rm -rf "$tmpdir"' EXIT
+
+# Snapshot wezterm state once
+wezterm cli list --format json > "$tmpdir/panes.json"
+
+# Collapse panes into one row per workspace: workspace \t cwd \t pane_ids(comma)
+jq -r '
+  group_by(.workspace)
+  | map({
+      workspace: .[0].workspace,
+      cwd: (
+        [.[] | .cwd | select(. != null) | sub("^file://[^/]*"; "")]
+        | .[0] // ""
+      ),
+      pane_ids: [.[].pane_id]
+    })
+  | sort_by(.workspace)
+  | .[] | [.workspace, .cwd, (.pane_ids | join(","))] | @tsv
+' "$tmpdir/panes.json" > "$tmpdir/workspaces.tsv"
+
+# Determine current workspace (the one the caller's shell lives in)
+current_ws=""
+if [ -n "${WEZTERM_PANE:-}" ]; then
+  current_ws=$(jq -r --arg p "$WEZTERM_PANE" \
+    '.[] | select((.pane_id|tostring) == $p) | .workspace' \
+    "$tmpdir/panes.json" | head -n1)
+fi
+
+# Per-workspace lookup. Writes one TSV line to stdout:
+#   workspace \t status \t branch \t pane_ids \t cwd \t pr_num \t pr_title \t pr_url
+lookup_one() {
+  local ws="$1" cwd="$2" panes="$3"
+  local branch="" status="" pr_json="[]"
+  local pr_num="" pr_title="" pr_url=""
+
+  if [ -z "$cwd" ] || [ ! -d "$cwd" ]; then
+    status="GONE"
+  elif ! branch=$(git -C "$cwd" symbolic-ref --short HEAD 2>/dev/null); then
+    status="NO_GIT"
+  else
+    # Skip PR lookup on default branches — a stale PR authored from `master`
+    # would otherwise misclassify the main worktree as closeable.
+    local default_branch=""
+    default_branch=$(git -C "$cwd" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || true)
+    default_branch=${default_branch#origin/}
+    case "$branch" in
+      main|master|develop|trunk)
+        status="ON_DEFAULT"
+        printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+          "$ws" "$status" "$branch" "$panes" "$cwd" "" "" ""
+        return 0
+        ;;
+    esac
+    if [ -n "$default_branch" ] && [ "$branch" = "$default_branch" ]; then
+      status="ON_DEFAULT"
+      printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+        "$ws" "$status" "$branch" "$panes" "$cwd" "" "" ""
+      return 0
+    fi
+
+    pr_json=$(cd "$cwd" && gh pr list \
+      --head "$branch" --state all \
+      --json state,isDraft,mergedAt,number,title,url \
+      --limit 1 2>/dev/null || echo "[]")
+    if [ "$(echo "$pr_json" | jq 'length')" = "0" ]; then
+      status="NO_PR"
+    else
+      local state merged is_draft
+      state=$(echo "$pr_json" | jq -r '.[0].state')
+      merged=$(echo "$pr_json" | jq -r '.[0].mergedAt // empty')
+      is_draft=$(echo "$pr_json" | jq -r '.[0].isDraft')
+      if [ -n "$merged" ]; then
+        status="MERGED"
+      elif [ "$state" = "CLOSED" ]; then
+        status="CLOSED"
+      elif [ "$is_draft" = "true" ]; then
+        status="DRAFT"
+      else
+        status="OPEN"
+      fi
+      pr_num=$(echo "$pr_json" | jq -r '"#" + (.[0].number|tostring)')
+      pr_title=$(echo "$pr_json" | jq -r '.[0].title')
+      pr_url=$(echo "$pr_json" | jq -r '.[0].url')
+    fi
+  fi
+
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    "$ws" "$status" "$branch" "$panes" "$cwd" "$pr_num" "$pr_title" "$pr_url"
+}
+
+# Fan out PR lookups in parallel (one background job per workspace, writing
+# to its own temp file so output doesn't interleave).
+i=0
+printf '%sLooking up PR status for ' "$DIM"
+while IFS=$'\t' read -r ws cwd panes; do
+  lookup_one "$ws" "$cwd" "$panes" > "$tmpdir/r.$i" &
+  i=$((i + 1))
+  printf '.'
+done < "$tmpdir/workspaces.tsv"
+wait
+printf ' done%s\n' "$RESET"
+
+# Stitch results, then sort by workspace name
+cat "$tmpdir"/r.* 2>/dev/null | sort > "$tmpdir/results.tsv"
+
+# Classify: keep vs close. Current workspace always goes to keep.
+: > "$tmpdir/keep.tsv"
+: > "$tmpdir/close.tsv"
+while IFS=$'\t' read -r ws status branch panes cwd pr_num pr_title pr_url; do
+  note=""
+  if [ "$status" = "ON_DEFAULT" ]; then
+    continue
+  fi
+  if [ "$ws" = "$current_ws" ]; then
+    note="current"
+    echo -e "${ws}\t${status}\t${branch}\t${panes}\t${cwd}\t${pr_num}\t${pr_title}\t${pr_url}\t${note}" >> "$tmpdir/keep.tsv"
+    continue
+  fi
+  case "$status" in
+    MERGED|CLOSED|GONE)
+      echo -e "${ws}\t${status}\t${branch}\t${panes}\t${cwd}\t${pr_num}\t${pr_title}\t${pr_url}\t" >> "$tmpdir/close.tsv"
+      ;;
+    ON_DEFAULT)
+      # Main/master worktrees aren't cleanup candidates and aren't noise worth
+      # listing — omit them entirely.
+      continue
+      ;;
+    *)
+      echo -e "${ws}\t${status}\t${branch}\t${panes}\t${cwd}\t${pr_num}\t${pr_title}\t${pr_url}\t" >> "$tmpdir/keep.tsv"
+      ;;
+  esac
+done < "$tmpdir/results.tsv"
+
+colorize_status() {
+  case "$1" in
+    MERGED) printf '%s' "${MAGENTA}MERGED${RESET}" ;;
+    CLOSED) printf '%s' "${RED}CLOSED${RESET}" ;;
+    GONE)   printf '%s' "${DIM}GONE${RESET}  " ;;
+    OPEN)   printf '%s' "${GREEN}OPEN${RESET}  " ;;
+    DRAFT)  printf '%s' "${YELLOW}DRAFT${RESET} " ;;
+    NO_PR)  printf '%s' "${DIM}NO PR${RESET} " ;;
+    NO_GIT) printf '%s' "${DIM}NO GIT${RESET}" ;;
+    ON_DEFAULT) printf '%s' "${DIM}default branch${RESET}" ;;
+    *)      printf '%s' "$1" ;;
+  esac
+}
+
+print_row() {
+  local ws="$1" status="$2" pr_num="$3" pr_title="$4" pr_url="$5" note="$6"
+  local s pr_part="" note_part=""
+  s=$(colorize_status "$status")
+  if [ -n "$pr_num" ]; then pr_part="  ${CYAN}${pr_num}${RESET} ${pr_title}"; fi
+  if [ -n "$note" ]; then note_part="  ${BOLD}[${note}]${RESET}"; fi
+  printf '  %-44s %s%s%s\n' "$ws" "$s" "$pr_part" "$note_part"
+  if [ -n "$pr_url" ]; then
+    printf '  %-44s %s%s%s\n' "" "${DIM}" "$pr_url" "${RESET}"
+  fi
+  return 0
+}
+
+keep_count=$(wc -l < "$tmpdir/keep.tsv" | tr -d ' ')
+close_count=$(wc -l < "$tmpdir/close.tsv" | tr -d ' ')
+
+echo
+echo "${BOLD}Keep (${keep_count})${RESET}"
+if [ "$keep_count" = "0" ]; then
+  echo "  ${DIM}(none)${RESET}"
+else
+  while IFS=$'\t' read -r ws status branch panes cwd pr_num pr_title pr_url note; do
+    print_row "$ws" "$status" "$pr_num" "$pr_title" "$pr_url" "$note"
+  done < "$tmpdir/keep.tsv"
+fi
+
+echo
+echo "${BOLD}Close candidates (${close_count})${RESET}"
+if [ "$close_count" = "0" ]; then
+  echo "  ${DIM}(none)${RESET}"
+  echo
+  echo "${GREEN}Nothing to clean up.${RESET}"
+  exit 0
+fi
+while IFS=$'\t' read -r ws status branch panes cwd pr_num pr_title pr_url note; do
+  print_row "$ws" "$status" "$pr_num" "$pr_title" "$pr_url" "$note"
+done < "$tmpdir/close.tsv"
+
+echo
+
+if [ "$mode" = "list" ]; then
+  exit 0
+fi
+
+close_workspace() {
+  local panes="$1" id
+  local IFS=,
+  for id in $panes; do
+    wezterm cli kill-pane --pane-id "$id" 2>/dev/null || true
+  done
+}
+
+# Prompt per candidate. Read the list via FD 3 so stdin is free for user input.
+exec 3< "$tmpdir/close.tsv"
+close_all=false
+while IFS=$'\t' read -r ws status branch panes cwd pr_num pr_title pr_url note <&3; do
+  if $close_all; then
+    close_workspace "$panes"
+    printf '  %s✗%s closed %s%s%s\n' "$RED" "$RESET" "$BOLD" "$ws" "$RESET"
+    continue
+  fi
+  s=$(colorize_status "$status")
+  while :; do
+    printf 'Close %s%s%s (%s%s)? [y/n/a/q] ' \
+      "$BOLD" "$ws" "$RESET" "$s" "${pr_num:+ $pr_num}" > /dev/tty
+    if ! IFS= read -r ans < /dev/tty; then ans="q"; fi
+    case "$ans" in
+      y|Y)
+        close_workspace "$panes"
+        printf '  %s✗%s closed %s%s%s\n' "$RED" "$RESET" "$BOLD" "$ws" "$RESET"
+        break ;;
+      n|N|"")
+        printf '  %sskipped %s%s\n' "$DIM" "$ws" "$RESET"
+        break ;;
+      a|A)
+        close_all=true
+        close_workspace "$panes"
+        printf '  %s✗%s closed %s%s%s\n' "$RED" "$RESET" "$BOLD" "$ws" "$RESET"
+        break ;;
+      q|Q)
+        printf '  %squit%s\n' "$DIM" "$RESET"
+        exit 0 ;;
+    esac
+  done
+done
+exec 3<&-
+
+echo
+echo "${GREEN}Done.${RESET}"
