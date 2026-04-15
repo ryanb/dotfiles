@@ -25,6 +25,11 @@
       "description": "Ranked PR review list with dependency trees and filtered line counts."
     },
     {
+      "name": "standup",
+      "source": "./claude/skills/standup",
+      "description": "Summarize work since the last standup across your configured repos — merged PRs, reviews, authored PRs/commits, and per-repo change summary."
+    },
+    {
       "name": "walkthrough",
       "source": "./claude/skills/walkthrough",
       "description": "Walk through PR changes from the user's perspective."

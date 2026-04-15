@@ -56,6 +56,7 @@ The `claude/` directory is a [Claude Code plugin](https://code.claude.com/docs/e
 - **rebase** — Interactive rebase workflow
 - **remote-diff** — Compare local vs remote branch to detect rebase/merge mistakes
 - **review-queue** — Ranked PR review list with dependency trees and filtered line counts
+- **standup** — Summarize work since the last standup across your configured repos
 - **walkthrough** — Walk through PR changes from the user's perspective
 
 ### Installing as a plugin
@@ -76,6 +77,20 @@ Create `~/.claude/review-queue.json` to customize which PRs are prioritized per 
   "owner/repo": "Prioritize POS PRs. Exclude my PRs (author: username) that are not yet approved."
 }
 ```
+
+### standup preferences
+
+Create `~/.claude/standup.json` to point the skill at your project directory and optionally customize the output:
+
+```json
+{
+  "base_path": "~/code/your-project-root",
+  "default_branch": "main",
+  "preferences": "Prefix each section with the team name. Skip WIP branches."
+}
+```
+
+Only `base_path` is required. The skill writes the last-run timestamp to `~/.claude/standup-last-timestamp` so reruns only show new work since the previous run.
 
 
 ## Uninstall

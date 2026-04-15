@@ -16,6 +16,7 @@ ln -is $(readlink -f claude/skills/gfix) ~/.claude/skills/gfix
 ln -is $(readlink -f claude/skills/rebase) ~/.claude/skills/rebase
 ln -is $(readlink -f claude/skills/remote-diff) ~/.claude/skills/remote-diff
 ln -is $(readlink -f claude/skills/review-queue) ~/.claude/skills/review-queue
+ln -is $(readlink -f claude/skills/standup) ~/.claude/skills/standup
 ln -is $(readlink -f claude/skills/walkthrough) ~/.claude/skills/walkthrough
 ln -is $(readlink -f claude/skills/fix-all) ~/.claude/skills/fix-all
 
