@@ -5,6 +5,16 @@
   },
   "plugins": [
     {
+      "name": "bisect",
+      "source": "./claude/skills/bisect",
+      "description": "Git bisect to find the first bad commit by running a test command."
+    },
+    {
+      "name": "fix-all",
+      "source": "./claude/skills/fix-all",
+      "description": "Run bin/claude-review --print and automatically fix all reported issues, committing each fix individually."
+    },
+    {
       "name": "gfix",
       "source": "./claude/skills/gfix",
       "description": "Amend a commit further back in history with fixup and auto-rebase."
