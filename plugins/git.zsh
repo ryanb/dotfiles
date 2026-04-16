@@ -109,6 +109,8 @@ gshw() {
   done
 }
 
+alias opr='gh pr view --web'
+
 alias gst='git status'
 
 alias gstl='git stash list'
