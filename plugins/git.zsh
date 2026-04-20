@@ -26,7 +26,21 @@ alias gcn!='git commit --verbose --no-edit --amend'
 alias gcp='git cherry-pick'
 
 alias gd='git diff'
-alias gdh='git diff HEAD'
+gdh() {
+  local -a untracked
+  untracked=("${(@f)$(git ls-files --others --exclude-standard)}")
+  if [[ -z "${untracked[1]}" ]]; then
+    git diff HEAD "$@"
+    return
+  fi
+  git add --intent-to-add -- "${untracked[@]}" || return
+  trap 'git reset -q HEAD -- "${untracked[@]}"' EXIT INT TERM
+  git diff HEAD "$@"
+  local ret=$?
+  trap - EXIT INT TERM
+  git reset -q HEAD -- "${untracked[@]}"
+  return $ret
+}
 alias gdca='git diff --cached'
 alias gds='git diff --staged'
 
