@@ -116,6 +116,36 @@ gshw() {
 
 alias opr='gh pr view --web'
 
+ghst() {
+  local json
+  json=$(gh pr view --json number,title,url,state,isDraft,reviewDecision 2>&1) || {
+    echo "$json"
+    return 1
+  }
+  local number title url state isDraft reviewDecision pr_status
+  number=$(jq -r '.number' <<< "$json")
+  title=$(jq -r '.title' <<< "$json")
+  url=$(jq -r '.url' <<< "$json")
+  state=$(jq -r '.state' <<< "$json")
+  isDraft=$(jq -r '.isDraft' <<< "$json")
+  reviewDecision=$(jq -r '.reviewDecision' <<< "$json")
+  if [[ "$state" == "MERGED" ]]; then
+    pr_status="merged"
+  elif [[ "$state" == "CLOSED" ]]; then
+    pr_status="closed"
+  elif [[ "$isDraft" == "true" ]]; then
+    pr_status="draft"
+  else
+    case "$reviewDecision" in
+      APPROVED) pr_status="approved" ;;
+      CHANGES_REQUESTED) pr_status="changes requested" ;;
+      REVIEW_REQUIRED) pr_status="review required" ;;
+      *) pr_status="open" ;;
+    esac
+  fi
+  printf '#%s %s [%s]\n%s\n' "$number" "$title" "$pr_status" "$url"
+}
+
 alias gst='git status'
 
 alias gstl='git stash list'
