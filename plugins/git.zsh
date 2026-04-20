@@ -7,6 +7,10 @@ alias gaa='git add --all'
 alias gaap='git add -N . && git add -p'
 
 alias gb='git branch --sort=committerdate'
+alias gbd='git branch --delete'
+gbdr() {
+  git push origin --delete "${1:-$(git_current_branch)}"
+}
 
 alias gco='git checkout'
 
