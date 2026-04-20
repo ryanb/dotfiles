@@ -13,11 +13,13 @@ Use the `gfix` shell command to fold staged changes into a commit that is not th
 
 Source: `~/code/dotfiles/plugins/git.zsh` (the `gfix` function)
 
-`gfix <commit-sha>` does the following:
+`gfix [-m <message>] <commit-sha>` does the following:
 
 1. Guards against running during an in-progress git operation (rebase, merge, cherry-pick, etc.)
 2. Stashes any unstaged changes (preserving the index)
-3. Creates a `git commit --fixup <commit-sha>` from whatever is currently staged
+3. Creates a fixup commit from whatever is currently staged:
+   - With no `-m`: `git commit --fixup <commit-sha>` (content-only fixup)
+   - With `-m <message>`: creates a manual `amend!` commit with subject `amend! <original-subject>` and body `<message>`, which autosquash then folds into the target (replacing its message, and including any staged changes; `--allow-empty` is used if nothing is staged)
 4. Runs `GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash <commit-sha>^` to automatically squash the fixup into the target commit
 5. Restores any stashed unstaged changes
 
@@ -41,10 +43,11 @@ If you only need to amend the most recent commit, use `git commit --amend` inste
 
 3. **Make and stage the changes** — Edit the files, then `git add` only the files that belong to the target commit.
 
-4. **Run gfix** — Pass the target commit SHA:
+4. **Run gfix** — Pass the target commit SHA. Add `-m <message>` to also rewrite the target commit's message:
 
    ```bash
    gfix <commit-sha>
+   gfix -m "new commit message" <commit-sha>
    ```
 
 5. **Handle rebase conflicts** — If the rebase hits conflicts:

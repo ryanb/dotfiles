@@ -261,20 +261,53 @@ gfix() {
       return 1
     fi
   done
+  local message=""
+  local -a positional
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -m)
+        message="$2"
+        shift 2
+        ;;
+      -m*)
+        message="${1#-m}"
+        shift
+        ;;
+      *)
+        positional+=("$1")
+        shift
+        ;;
+    esac
+  done
   local commit
   local stashed=0
-  if [[ -z "$1" ]]; then
+  if [[ -z "${positional[1]}" ]]; then
     commit=$(git log --color -n 100 | fzf --ansi --no-sort | awk '{print $1}')
     [[ -z "$commit" ]] && return
   else
-    commit=$1
+    commit=${positional[1]}
   fi
   # Stash unstaged changes if there are any
   if ! git diff --quiet; then
     git stash push --keep-index -m "gfix: unstaged changes"
     stashed=1
   fi
-  git commit --fixup $commit && GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash $commit^
+  local fixup_ok=0
+  if [[ -n "$message" ]]; then
+    local orig_subject
+    orig_subject=$(git log -1 --format=%s $commit)
+    local -a commit_args
+    commit_args=(-m "amend! $orig_subject" -m "$message")
+    if git diff --cached --quiet; then
+      commit_args=(--allow-empty $commit_args)
+    fi
+    git commit $commit_args && fixup_ok=1
+  else
+    git commit --fixup $commit && fixup_ok=1
+  fi
+  if [[ $fixup_ok -eq 1 ]]; then
+    GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash $commit^
+  fi
   # Restore unstaged changes if we stashed them
   if [[ $stashed -eq 1 ]]; then
     git stash pop
