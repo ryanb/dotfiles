@@ -5,7 +5,7 @@
 [core]
 	editor = nvim
 	autocrlf = input
-	pager = less -+$LESS -RS --mouse
+	pager = LESS= less -RS
 	excludesFile = ~/.gitignore
 [apply]
 	whitespace = nowarn
