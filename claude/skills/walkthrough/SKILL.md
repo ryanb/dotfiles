@@ -62,10 +62,10 @@ Organize the output as **user flows**, not by file or layer. Each flow starts wi
 
 ### Formatting
 
+- Separate flows with a thick unicode rule on its own line: `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━` (place one before each flow's heading, including the first)
 - Use `##` headers for each flow, named from the user's perspective (e.g., "Flow 1: POS Operator generates a pay-by-link")
-- Use `###` headers for each step within a flow
-- Use numbered steps within each flow section
-- Reference files as **`filename.ext:line`** or **`filename.ext`** (bold backtick)
+- Use bold (`**Step N: …**`) for each step within a flow — not `###` headers
+- Reference files as `` `filename.ext:line` `` or `` `filename.ext` ``
 - Include short code snippets only when they clarify logic that's hard to describe in prose
 - Keep descriptions concise — one or two sentences per point
 
