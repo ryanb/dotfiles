@@ -78,6 +78,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function() vim.hl.on_yank() end,
 })
 
+-- Mirror explicit yanks to the system clipboard (deletes stay local)
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Copy yanks to system clipboard',
+  group = vim.api.nvim_create_augroup('yank-to-clipboard', { clear = true }),
+  callback = function()
+    if vim.v.event.operator == 'y' then
+      vim.fn.setreg('+', vim.fn.getreg('"'), vim.fn.getregtype('"'))
+    end
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 require("config.lazy")
