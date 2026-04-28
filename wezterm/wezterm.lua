@@ -92,11 +92,11 @@ config.keys = {
 config.mouse_bindings = {
   {
     event = { Down = { streak = 1, button = { WheelLeft = 1 } } },
-    action = wezterm.action.DisableDefaultAssignment,
+    action = wezterm.action.SendString '',
   },
   {
     event = { Down = { streak = 1, button = { WheelRight = 1 } } },
-    action = wezterm.action.DisableDefaultAssignment,
+    action = wezterm.action.SendString '',
   },
 }
 
