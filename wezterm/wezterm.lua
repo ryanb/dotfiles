@@ -18,6 +18,7 @@ config.font = wezterm.font('DejaVu Sans Mono')
 config.font_size = 18
 config.line_height = 1.08
 config.max_fps = 120
+config.audible_bell = 'Disabled'
 
 config.colors = {
   cursor_bg = '#FFFFFF',
