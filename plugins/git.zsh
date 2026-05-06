@@ -16,6 +16,8 @@ gbdr() {
 
 alias gco='git checkout'
 
+alias gpf='git push --force-with-lease'
+
 alias gc='git commit --verbose'
 alias gca='git commit --verbose --all'
 alias gca!='git commit --verbose --all --amend'
