@@ -13,6 +13,7 @@
 	pretty = %C(yellow)%h%Creset %s %C(red)(%an, %cr)%Creset
 [push]
 	default = simple
+	useForceIfIncludes = true
 [merge "theirs"]
 	driver = true
 [merge "ours"]
