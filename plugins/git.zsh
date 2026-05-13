@@ -70,8 +70,6 @@ compdef _git gl=git-log
 alias glp='git log -p'
 
 alias grb='git rebase'
-alias grba='git rebase --abort'
-alias grbc='git rebase --continue'
 grbi() {
   local commit
   if [[ -z "$1" ]]; then
@@ -84,15 +82,41 @@ grbi() {
 }
 compdef _git grbi=git-rebase
 
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+
+# Rebase current branch onto a chosen target. Tracks the target SHA in
+# refs/parent/<branch>, so subsequent runs replay only this branch's own
+# commits via `--onto`, even if the parent was rebased or squash-merged.
 grbb() {
-  local branch
+  local branch target new_parent old_parent
+  branch=$(git symbolic-ref --short -q HEAD) || { print -u2 "grbb: not on a branch"; return 1; }
+
   if [[ -z "$1" ]]; then
-    branch=$(git branch --sort=-committerdate | fzf --no-sort | tr -d ' +')
-    [[ -z "$branch" ]] && return
-    git rebase --interactive $branch
+    target=$(git branch --sort=-committerdate | fzf --no-sort | tr -d ' +')
+    [[ -z "$target" ]] && return
   else
-    git rebase --interactive "$@"
+    target="$1"
   fi
+
+  new_parent=$(git rev-parse --verify "$target^{commit}") || return 1
+  old_parent=$(git rev-parse --verify --quiet "refs/parent/$branch")
+
+  git config "branch.$branch.parent" "$target"
+  git config "branch.$branch.parentPending" "$new_parent"
+
+  if [[ -n "$old_parent" && "$old_parent" != "$new_parent" ]]; then
+    git rebase --interactive --onto "$new_parent" "$old_parent"
+  else
+    git rebase --interactive "$new_parent"
+  fi
+  local rc=$?
+
+  if (( rc == 0 )); then
+    git update-ref "refs/parent/$branch" "$new_parent"
+    git config --unset "branch.$branch.parentPending"
+  fi
+  return $rc
 }
 compdef _git grbb=git-rebase
 
