@@ -1,0 +1,12 @@
+#!/bin/sh
+# After a successful rebase, promote branch.<name>.parentPending (set by grbb)
+# to refs/parent/<branch>. Handles the conflict-resolution path, where the
+# rebase finishes via `git rebase --continue` rather than the initial grbb call.
+
+[ "$1" = "rebase" ] || exit 0
+
+branch=$(git symbolic-ref --short -q HEAD) || exit 0
+pending=$(git config --get "branch.$branch.parentPending" 2>/dev/null) || exit 0
+
+git update-ref "refs/parent/$branch" "$pending"
+git config --unset "branch.$branch.parentPending"

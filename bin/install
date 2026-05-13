@@ -5,6 +5,7 @@ ln -is $(readlink -f gitconfig) ~/.gitconfig
 ln -is $(readlink -f gitignore) ~/.gitignore
 ln -is $(readlink -f irbrc) ~/.irbrc
 ln -is $(readlink -f plugins) ~/.zsh-plugins
+ln -is $(readlink -f git-hooks) ~/.git-hooks
 
 ln -is $(readlink -f wezterm) ~/.config/wezterm
 ln -is $(readlink -f ghostty) ~/.config/ghostty

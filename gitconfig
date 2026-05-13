@@ -7,6 +7,7 @@
 	autocrlf = input
 	pager = LESS= less -RS
 	excludesFile = ~/.gitignore
+	hooksPath = ~/.git-hooks
 [apply]
 	whitespace = nowarn
 [format]
