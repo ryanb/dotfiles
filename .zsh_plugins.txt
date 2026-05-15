@@ -1,0 +1,13 @@
+# ~/.zsh_plugins.txt
+
+# The "Big Three" for productivity
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-completions
+
+# Optional: Enhanced directory jumping (like 'z' in OMZ)
+# ajeetdsouza/zoxide
+
+# Optional: Add specific OMZ plugins if you miss them
+# getantidote/use-omz
+# ohmyzsh/ohmyzsh path:plugins/git
