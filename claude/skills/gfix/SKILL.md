@@ -9,6 +9,8 @@ argument-hint: <instructions>
 
 Use the `gfix` shell command to fold staged changes into a commit that is not the most recent. This is the preferred way to amend historical commits in this repo.
 
+**MUST use `gfix`.** When this skill is loaded, every modification to a past commit goes through the `gfix` command. Do **not** reach for `git rebase -i`, hand-crafted `fixup!`/`amend!` commits, or `GIT_SEQUENCE_EDITOR=true git rebase --autosquash` directly — gfix already does all of this, with stash/restore guarantees and conflict handling.
+
 ## How gfix works
 
 Source: `~/code/dotfiles/plugins/git.zsh` (the `gfix` function)
