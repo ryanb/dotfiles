@@ -109,12 +109,36 @@ After all sub-agents finish, output a summary:
 - List of commits created (SHA + subject), one per addressed comment.
 - Any comments skipped per the user's instructions.
 - Any comments that failed and need the user's attention.
-- A reminder that the pending review is **still pending** on GitHub — addressing the comments locally does not submit or delete the draft. The user may want to either submit the review (if intended for someone else's PR) or delete the pending comments now that they've been addressed.
+- A reminder that the pending review is **still pending** on GitHub — addressing the comments locally does not submit or delete the draft.
 - Reminder to push commits when ready (do **not** push automatically).
+
+## Step 8: Offer to delete the pending comments
+
+Ask the user whether to delete the addressed pending comments (and/or the pending review itself) now that they've been addressed locally. Phrase it explicitly, e.g.:
+
+> Want me to delete the pending comments I just addressed? I can delete them individually, or delete the whole pending review if nothing's left worth keeping.
+
+**Wait for explicit confirmation.** Do not delete anything without the user saying so.
+
+If the user confirms, delete only the comments they confirmed:
+
+- Delete an individual pending comment:
+  ```bash
+  gh api -X DELETE "repos/$repo/pulls/comments/<comment_id>"
+  ```
+- Delete the entire pending review (only if the user asks for this, or if all comments were addressed and the user confirms):
+  ```bash
+  gh api -X DELETE "repos/$repo/pulls/$pr_number/reviews/$review_id"
+  ```
+
+Skip any comments the user chose **not** to address — those should remain pending. If deleting the whole review would discard un-addressed comments, warn the user and confirm again before doing so.
+
+After deletion, report which comments/reviews were deleted.
 
 ## Notes
 
 - This skill only operates on pending reviews authored by the current `gh`-authenticated user. Pending reviews by others are not visible via the API.
-- Never submit or delete the pending review from this skill — leave that to the user.
+- Never submit the pending review from this skill — leave submission to the user.
+- Only delete pending comments or the pending review after explicit user confirmation in Step 8.
 - Never push or force-push.
 - Respect the project's git conventions from `CLAUDE.md` (e.g. `Chore:` prefix for non-user-facing changes, no ticket code on subsequent commits, one thing per commit).
