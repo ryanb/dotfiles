@@ -17,6 +17,7 @@ Pending reviews are private to their author until submitted, so this skill only 
 pr_number=$(gh pr view --json number --jq .number)
 pr_url=$(gh pr view --json url --jq .url)
 repo=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
+base_branch=$(gh pr view --json baseRefName --jq .baseRefName)
 me=$(gh api user --jq .login)
 ```
 
@@ -87,6 +88,7 @@ Prompt for each sub-agent should include:
 - The comment body.
 - The diff hunk showing the code in question.
 - A clear instruction: "Make the smallest change that addresses this comment. Run the relevant tests. Then create a single git commit with a message summarizing the fix. Do not push. Do not address other feedback."
+- An instruction to apply the feedback **branch-wide**, not only at the commented location: if the comment articulates a general rule or pattern (e.g. "always use `order.sc_id` instead of `order.id`", "prefer `Foo.bar` over `Foo.baz`", "rename X to Y"), search the entire diff on the current branch for other instances of the same pattern and apply the same change there too. Pass the PR's actual base branch (`$base_branch` from Step 1 — may not be `main`, e.g. for stacked PRs) and tell the sub-agent to use `git diff <base_branch>...HEAD` to scope the search to lines this branch introduced or touched. Do not modify code outside the branch's diff.
 
 Example skeleton:
 
@@ -94,7 +96,7 @@ Example skeleton:
 Agent({
   subagent_type: "general-purpose",
   description: "Address pending comment #<n>",
-  prompt: "Working directory: <cwd>.\n\nAddress this pending PR review comment (drafted by the user themself, not yet submitted):\n\n<comment body>\n\nFile: <path>:<line>\nComment URL: <url>\nPR: <pr_url>\n\nDiff hunk for context:\n<diffHunk>\n\nMake the smallest change that resolves the feedback. Run the relevant tests for the changed file. Create exactly one git commit with a concise message (no ticket prefix — this isn't the first commit of the branch, per the repo's git conventions). Do not push. Do not address any other feedback. Report back with the commit SHA and a one-line summary."
+  prompt: "Working directory: <cwd>.\n\nAddress this pending PR review comment (drafted by the user themself, not yet submitted):\n\n<comment body>\n\nFile: <path>:<line>\nComment URL: <url>\nPR: <pr_url>\n\nDiff hunk for context:\n<diffHunk>\n\nMake the smallest change that resolves the feedback. If the comment expresses a general rule or pattern (not just a one-off fix at this line), also apply it to any other matching instances within this branch's diff against its base branch (use `git diff <base_branch>...HEAD` with the PR's actual base branch substituted in to find the touched code). Do not modify code outside this branch's diff. Run the relevant tests for the changed files. Create exactly one git commit with a concise message (no ticket prefix — this isn't the first commit of the branch, per the repo's git conventions). Do not push. Do not address any other feedback. Report back with the commit SHA and a one-line summary."
 })
 ```
 
