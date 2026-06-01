@@ -70,11 +70,11 @@ Output a compact markdown table or list. For each comment include:
 - Your recommendation and rationale.
 - A clickable link to the comment.
 
-End with a prompt like:
+End with a plain-text prompt like:
 
 > Reply with which to address (e.g. "all", "1,3,4", "all except 2"). I'll run one sub-agent per comment and commit each fix separately.
 
-**Stop and wait for the user's reply.** Do not proceed to Step 6 without explicit confirmation.
+**Stop and wait for the user's reply.** Do not proceed to Step 6 without explicit confirmation. Do **not** use the AskUserQuestion tool for this — just print the prompt as normal output and end your turn so the user can reply in their own words.
 
 ## Step 6: Address each confirmed comment
 
@@ -116,11 +116,11 @@ After all sub-agents finish, output a summary:
 
 ## Step 8: Offer to delete the pending comments
 
-Ask the user whether to delete the addressed pending comments (and/or the pending review itself) now that they've been addressed locally. Phrase it explicitly, e.g.:
+Ask the user whether to delete the addressed pending comments (and/or the pending review itself) now that they've been addressed locally. Phrase it explicitly as plain-text output, e.g.:
 
 > Want me to delete the pending comments I just addressed? I can delete them individually, or delete the whole pending review if nothing's left worth keeping.
 
-**Wait for explicit confirmation.** Do not delete anything without the user saying so.
+**Wait for explicit confirmation.** Do not delete anything without the user saying so. Do **not** use the AskUserQuestion tool for this — print the prompt as normal output and end your turn so the user can reply in their own words.
 
 If the user confirms, delete only the comments they confirmed:
 

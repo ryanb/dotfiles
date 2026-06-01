@@ -91,11 +91,11 @@ Output a compact markdown table or list. For each comment include:
 - Your recommendation and rationale.
 - A clickable link to the comment.
 
-End with a prompt like:
+End with a plain-text prompt like:
 
 > Reply with which to address (e.g. "all addresses", "1,3,4", "all except 2"). I'll run one sub-agent per comment and commit each fix separately.
 
-**Stop and wait for the user's reply.** Do not proceed to Step 5 without explicit confirmation.
+**Stop and wait for the user's reply.** Do not proceed to Step 5 without explicit confirmation. Do **not** use the AskUserQuestion tool for this — just print the prompt as normal output and end your turn so the user can reply in their own words.
 
 ## Step 5: Address each confirmed comment
 
@@ -136,7 +136,7 @@ After all sub-agents finish, output a summary:
 
 ## Step 7: Reply to comments
 
-Draft a reply for each triaged thread first, then show **all** drafts to the user in a single message and ask whether to post them. **Stop and wait for confirmation.** If they decline, end here.
+Draft a reply for each triaged thread first, then show **all** drafts to the user in a single plain-text message and ask whether to post them. **Stop and wait for confirmation.** Do **not** use the AskUserQuestion tool for this — print the previews and prompt as normal output and end your turn so the user can reply in their own words. If they decline, end here.
 
 Reply rules:
 
