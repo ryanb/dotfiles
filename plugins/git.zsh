@@ -55,6 +55,20 @@ gdb() {
   git diff "$base_branch"...HEAD "$@"
 }
 
+# git diff after: combined diff of changes since a commit (including that commit)
+gda() {
+  local commit
+  if [[ -n "$1" ]]; then
+    commit="$1"
+    shift
+  else
+    commit=$(git log --color -n 100 | fzf --ansi --no-sort | awk '{print $1}')
+    [[ -z "$commit" ]] && return
+  fi
+  git diff "$commit"^ HEAD "$@"
+}
+compdef _git gda=git-diff
+
 gl() {
   if [[ -n "$1" ]]; then
     git log "$@"
