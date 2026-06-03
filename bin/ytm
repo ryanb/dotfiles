@@ -2,8 +2,8 @@
 # Control YouTube Music Desktop via its local API server.
 # Download: https://github.com/pear-devs/pear-desktop/releases
 # Usage: ytm <command>
-#   up    | u    thumbs up the current song
-#   down  | d    thumbs down the current song, then skip to next
+#   like    | l    thumbs up the current song
+#   dislike | d    thumbs down the current song, then skip to next
 #   next  | n    skip to next song
 #   prev  | p    go to previous song
 #   pause        pause playback
@@ -15,12 +15,12 @@ api="http://127.0.0.1:26538/api/v1"
 post() { curl -fsS -X POST "$api/$1" >/dev/null; }
 
 case "${1:-}" in
-  up|u)     post "like" ;;
-  down|d)   post "dislike" && post "next" ;;
-  next|n)   post "next" ;;
-  prev|p)   post "previous" ;;
-  pause)    post "pause" ;;
-  play)     post "play" ;;
+  like|l)    post "like" ;;
+  dislike|d) post "dislike" && post "next" ;;
+  next|n)    post "next" ;;
+  prev|p)    post "previous" ;;
+  pause)     post "pause" ;;
+  play)      post "play" ;;
   info|i)
     curl -fsS "$api/song" \
       | jq -r '
@@ -29,7 +29,7 @@ case "${1:-}" in
         '
     ;;
   "")
-    echo "usage: ytm <up|down|next|prev|pause|play|info>" >&2
+    echo "usage: ytm <like|dislike|next|prev|pause|play|info>" >&2
     exit 1
     ;;
   *)
