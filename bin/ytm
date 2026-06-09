@@ -22,10 +22,14 @@ case "${1:-}" in
   pause)     post "pause" ;;
   play)      post "play" ;;
   info|i)
+    like=$(curl -fsS "$api/like-state" | jq -r '
+      .state | if . == "LIKE" then "👍 liked"
+               elif . == "DISLIKE" then "👎 disliked"
+               else "—" end')
     curl -fsS "$api/song" \
-      | jq -r '
+      | jq -r --arg like "$like" '
           def fmt: (./60|floor|tostring) + ":" + (./60|(.-floor)*60|floor|tostring|if length==1 then "0"+. else . end);
-          "\(.title)\n  \(.artist)\n  \(.album)\n  \(.songDuration|fmt)"
+          "\(.title)\n  \(.artist)\n  \(.album)\n  \(.songDuration|fmt)\n  \($like)"
         '
     ;;
   "")
