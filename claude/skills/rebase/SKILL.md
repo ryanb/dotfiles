@@ -64,7 +64,19 @@ git rebase --continue
 
 If there are more conflicts, go back to Step 3. Repeat until the rebase is complete.
 
-## Step 6: Check remote and compare
+## Step 6: Update the tracked parent
+
+If a tracked parent is set for this branch (`git config branch.$(git branch --show-current).parent`), update it so later tooling stays in sync and doesn't act on a stale parent ref:
+
+```bash
+branch=$(git branch --show-current)
+git config "branch.$branch.parent" "<base-branch>"
+git update-ref "refs/parent/$branch" "$(git rev-parse origin/<base-branch>^{commit})"
+```
+
+Skip this step if no tracked parent is set.
+
+## Step 7: Check remote and compare
 
 Check if a remote tracking branch exists:
 
