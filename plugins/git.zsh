@@ -396,10 +396,16 @@ compdef _git grbe=git-rebase
 
 # FUNCTIONS
 
-# Detects the base branch for the current branch by walking commits
-# and finding the first one that exists on an origin branch
+# Detects the base branch for the current branch, preferring the parent
+# tracked in branch.<name>.parent (set by grbb/wt), then falling back to
+# walking commits and finding the first one that exists on another branch
 detect_base_branch() {
   local CURRENT_BRANCH=$(git_current_branch)
+  local parent=$(git config "branch.$CURRENT_BRANCH.parent")
+  if [[ -n "$parent" ]] && git rev-parse --verify --quiet "$parent^{commit}" >/dev/null; then
+    echo "$parent"
+    return
+  fi
   # Start from HEAD~1 to ensure at least one commit between base and current branch
   for commit in $(git rev-list HEAD~1 2>/dev/null); do
     for branch in $(git branch --contains "$commit" 2>/dev/null | sed 's/^[* +]//' | grep -v "^$CURRENT_BRANCH$"); do
