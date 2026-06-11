@@ -14,8 +14,9 @@ Compare local branch changes against the remote branch to detect rebase/merge mi
 
 Determine the base branch in this order:
 1. Use `$ARGUMENTS` if the user specifies a branch
-2. Use `bin/base-branch` if the script exists and is executable
-3. Fall back to `develop`
+2. Use the tracked parent from `git config branch.$(git branch --show-current).parent`, if set and it still resolves to a commit
+3. Use `bin/base-branch` if the script exists and is executable
+4. Fall back to `develop`
 
 ## Step 2: Check prerequisites
 

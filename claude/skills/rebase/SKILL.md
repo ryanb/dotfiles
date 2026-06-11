@@ -15,8 +15,9 @@ Rebase the current branch onto a base branch, resolving conflicts and verifying 
 
 Determine the base branch in this order:
 1. Use `$ARGUMENTS` if the user specifies a branch
-2. Use `bin/base-branch` if the script exists and is executable
-3. Ask the user which branch to rebase onto
+2. Use the tracked parent from `git config branch.$(git branch --show-current).parent`, if set and it still resolves to a commit
+3. Use `bin/base-branch` if the script exists and is executable
+4. Ask the user which branch to rebase onto
 
 ## Step 2: Start the rebase
 

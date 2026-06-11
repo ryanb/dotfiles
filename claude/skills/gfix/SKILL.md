@@ -37,7 +37,7 @@ If you only need to amend the most recent commit, use `git commit --amend` inste
 
 ## Steps
 
-1. **Determine the safe range** — The target commit must be within the current branch's own commits, not on or before the base branch. Use `detect_base_branch` to find the base branch. As a last resort, ask the user.
+1. **Determine the safe range** — The target commit must be within the current branch's own commits, not on or before the base branch. Find the base branch via the tracked parent in `git config branch.$(git branch --show-current).parent`, falling back to `bin/base-branch` if that script exists. As a last resort, ask the user.
 
    The target commit **must** appear in `git log --oneline <base-branch>..HEAD`. If it does not, **stop and tell the user** — rewriting shared history would cause problems.
 

@@ -58,7 +58,7 @@ Each sub-agent should:
 
 **Defer issues that go against the grain of the branch:**
 
-Some fixes would push against the direction or intent of the changes in this branch — for example, reverting a deliberate design decision the branch is making, undoing a pattern the branch is intentionally introducing, or "fixing" something to match the old approach the branch is moving away from. To judge this, compare against what the branch is actually doing (e.g. `git diff main...HEAD` or the equivalent base branch) to understand its intent.
+Some fixes would push against the direction or intent of the changes in this branch — for example, reverting a deliberate design decision the branch is making, undoing a pattern the branch is intentionally introducing, or "fixing" something to match the old approach the branch is moving away from. To judge this, compare against what the branch is actually doing (e.g. `git diff <base>...HEAD`, where the base branch comes from `git config branch.$(git branch --show-current).parent` if set, otherwise `main` or the repo's default branch) to understand its intent.
 
 For these issues:
 - **Do not fix them inline.** Collect them into a deferred list that persists across all review rounds.
