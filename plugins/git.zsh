@@ -131,7 +131,13 @@ grbb() {
   git config "branch.$branch.parent" "$target"
   git config "branch.$branch.parentPending" "$new_parent"
 
-  if [[ -n "$old_parent" && "$old_parent" != "$new_parent" ]]; then
+  # Use --onto to replay only this branch's own commits when the recorded
+  # parent was rewritten (rebased/squash-merged): it's an ancestor of HEAD but
+  # no longer of the new parent. Otherwise a plain rebase is equivalent and
+  # robust to a stale ref left by a rebase done outside grbb.
+  if [[ -n "$old_parent" ]] \
+     && git merge-base --is-ancestor "$old_parent" HEAD 2>/dev/null \
+     && ! git merge-base --is-ancestor "$old_parent" "$new_parent" 2>/dev/null; then
     git rebase --interactive --onto "$new_parent" "$old_parent"
   else
     git rebase --interactive "$new_parent"
