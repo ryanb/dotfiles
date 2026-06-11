@@ -106,6 +106,14 @@ grbb() {
   local branch target new_parent old_parent
   branch=$(git symbolic-ref --short -q HEAD) || { print -u2 "grbb: not on a branch"; return 1; }
 
+  # Finalize a pending parent from a prior run whose rebase stopped (conflict
+  # or edit) and was completed via `git rebase --continue` outside grbb.
+  local pending=$(git config --get "branch.$branch.parentPending")
+  if [[ -n "$pending" ]] && git merge-base --is-ancestor "$pending" HEAD 2>/dev/null; then
+    git update-ref "refs/parent/$branch" "$pending"
+    git config --unset "branch.$branch.parentPending"
+  fi
+
   if [[ -z "$1" ]]; then
     local default_base=$(detect_base_branch)
     target=$({
