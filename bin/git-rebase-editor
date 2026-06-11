@@ -1,0 +1,34 @@
+#!/bin/sh
+# Custom git interactive-rebase sequence editor.
+#
+# Adds a `c` / `chore` shorthand to the rebase todo list. Write e.g.
+#
+#     c 1a2b3c4 some commit subject
+#
+# instead of `pick`, and the commit's message will be prefixed with `Chore: `.
+# Works for any number of commits in a single rebase.
+#
+# Wired up via `sequence.editor` in gitconfig. It opens your normal editor
+# first (so you edit the todo as usual), then expands the custom commands
+# into plain `pick` + `exec` lines that git understands.
+set -e
+
+todo="$1"
+
+# Open the real editor so the todo can be edited as normal.
+editor=$(git var GIT_EDITOR)
+eval "$editor \"\$todo\""
+
+# Expand `c`/`chore <hash> ...` lines into `pick` + an exec that prefixes
+# the message. Everything else is passed through untouched.
+tmp="$todo.chore.$$"
+awk '
+  /^(c|chore)[[:space:]]+[0-9a-fA-F]+/ {
+    rest = $0
+    sub(/^(c|chore)[[:space:]]+/, "", rest)
+    print "pick " rest
+    print "exec git commit-prefix \"Chore: \""
+    next
+  }
+  { print }
+' "$todo" > "$tmp" && mv "$tmp" "$todo"

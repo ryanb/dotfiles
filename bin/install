@@ -7,6 +7,9 @@ ln -is $(readlink -f irbrc) ~/.irbrc
 ln -is $(readlink -f plugins) ~/.zsh-plugins
 ln -is $(readlink -f git-hooks) ~/.git-hooks
 
+ln -is $(readlink -f bin/git-commit-prefix) ~/.bin/git-commit-prefix
+ln -is $(readlink -f bin/git-rebase-editor) ~/.bin/git-rebase-editor
+
 ln -is $(readlink -f wezterm) ~/.config/wezterm
 ln -is $(readlink -f ghostty) ~/.config/ghostty
 ln -is $(readlink -f kitty) ~/.config/kitty

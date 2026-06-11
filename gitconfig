@@ -27,3 +27,5 @@
 	defaultBranch = main
 [merge]
 	conflictstyle = diff3
+[sequence]
+	editor = git-rebase-editor

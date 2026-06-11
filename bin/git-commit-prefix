@@ -1,0 +1,22 @@
+#!/bin/sh
+# git commit-prefix <prefix>
+#
+# Prepend <prefix> to the subject line of the HEAD commit, preserving the body.
+# Idempotent: does nothing if the subject already starts with <prefix>.
+# Used by git-rebase-chore-editor's generated `exec` lines.
+set -e
+
+prefix="$1"
+[ -n "$prefix" ] || { echo "usage: git commit-prefix <prefix>" >&2; exit 1; }
+
+subject=$(git log -1 --format=%s)
+case "$subject" in
+  "$prefix"*) exit 0 ;;  # already prefixed
+esac
+
+body=$(git log -1 --format=%b)
+if [ -n "$body" ]; then
+  git commit --amend -m "$prefix$subject" -m "$body"
+else
+  git commit --amend -m "$prefix$subject"
+fi
