@@ -107,7 +107,11 @@ grbb() {
   branch=$(git symbolic-ref --short -q HEAD) || { print -u2 "grbb: not on a branch"; return 1; }
 
   if [[ -z "$1" ]]; then
-    target=$(git branch --sort=-committerdate | fzf --no-sort | tr -d ' +')
+    local default_base=$(detect_base_branch)
+    target=$({
+      [[ -n "$default_base" ]] && echo "$default_base"
+      git branch --sort=-committerdate --format='%(refname:short)' | grep -Fvx -e "$default_base" -e "$branch"
+    } | fzf --no-sort)
     [[ -z "$target" ]] && return
   else
     target="$1"
