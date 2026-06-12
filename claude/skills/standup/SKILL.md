@@ -4,6 +4,7 @@ description: Summarize work done since the last standup across the user's config
 user-invocable-only: true
 allowed-tools: Bash, Read, Grep, Glob
 argument-hint: [optional since date override, e.g. "yesterday", "last friday", "2 days ago"]
+model: sonnet
 ---
 
 # standup — Summarize work since last standup
