@@ -1,7 +1,7 @@
 #!/bin/bash
 # Claude Code statusline script. Receives JSON via stdin.
 # Shows context window usage and a rate limit warning when usage is
-# outpacing the time remaining in the window (and >= 50% consumed).
+# outpacing the time remaining in the window (and >= 20% consumed).
 input=$(cat)
 context=$(echo "$input" | jq -r '.context_window.used_percentage // 0 | floor')
 dir=$(echo "$input" | jq -r '.workspace.current_dir' | xargs basename)
@@ -19,7 +19,7 @@ for window in five_hour seven_day; do
   used=$(echo "$input" | jq -r ".rate_limits.${window}.used_percentage // 0 | floor")
   resets_at=$(echo "$input" | jq -r ".rate_limits.${window}.resets_at // 0")
   case $window in
-    five_hour) threshold=50 ;;
+    five_hour) threshold=20 ;;
     seven_day) threshold=70 ;;
   esac
   if [ "$used" -ge "$threshold" ] && [ "$resets_at" -gt 0 ]; then
