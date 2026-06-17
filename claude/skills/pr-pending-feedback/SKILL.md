@@ -7,7 +7,9 @@ allowed-tools: Bash, Read, Grep, Glob, Edit, Write, Agent
 
 # pr-pending-feedback — Triage and address pending PR review comments
 
-The goal: look at every comment on the **pending (unsubmitted) review** the current user has drafted on the PR for the current branch, evaluate each one independently, recommend which to address (and which to skip), and — only after the user confirms — dispatch a sub-agent per comment to fix it, one commit per comment.
+The goal: look at every comment on the **pending (unsubmitted) review** the current user has drafted on the PR for the current branch, evaluate each one independently, split them into ones that can simply be addressed and ones that need discussion, work through the discussion comments one at a time, and — only after all discussions are resolved and the user confirms — dispatch a sub-agent per comment to fix it, one commit per comment.
+
+These comments are the user's own. **Never recommend skipping a comment.** Every comment either gets addressed directly, or — if there's any ambiguity, subjectivity, design call, or doubt about applicability — gets opened up for discussion so the user can decide. "Skip" is only ever an outcome the user explicitly chooses during discussion, never something this skill proposes on its own.
 
 Pending reviews are private to their author until submitted, so this skill only sees comments authored by the currently authenticated `gh` user.
 
@@ -46,39 +48,54 @@ Each comment includes `path`, `line` (or `original_line`), `body`, `diff_hunk`, 
 
 ## Step 4: Evaluate each comment independently
 
-For each pending comment, read the referenced file(s) at the relevant lines to understand the current code. Then form an independent judgment on:
+For each pending comment, read the referenced file(s) at the relevant lines to understand the current code. Then classify it as exactly one of:
 
-- **What the comment is asking for** (summarize in one line).
-- **Whether it's still applicable** (the code may have changed since the comment was drafted).
-- **Recommendation**: `address`, `skip`, or `discuss`.
-  - `address` — clearly actionable and worth doing.
-  - `skip` — stale, already done, out of scope, or you disagree on reflection (explain briefly).
-  - `discuss` — needs user input before acting (ambiguous, subjective, or a design call).
-- **One-sentence rationale.**
+- **`address`** — clearly actionable, unambiguous, and you're confident how to do it. It can be handed straight to a sub-agent without further input.
+- **`discuss`** — anything else. If the comment is ambiguous, subjective, a design call, possibly stale/already-done, out of scope, or you have any doubt about whether or how to act on it, it needs the user's input first.
 
-Since these are the user's own comments, frame skip/discuss recommendations as "you may want to reconsider this" rather than disagreeing with a third party.
+**Never classify a comment as `skip`.** These are the user's own comments — if you think one might not be worth doing, that is itself a reason to `discuss` it, not to skip it. Skipping is only ever a decision the user makes during the discussion in Step 5.
 
-Evaluate each comment on its own merits; do not let one comment's recommendation influence another's.
+Evaluate each comment on its own merits; do not let one comment's classification influence another's.
 
-## Step 5: Present triage to the user
+**Do not present any triage table or list at this stage.** Do not show the user the full set of comments yet. Move straight on to working through the discussion comments.
 
-Output a compact markdown table or list. For each comment include:
+## Step 5: Work through discussion comments one at a time
 
-- A short label (e.g. `#1`, `#2`) used for confirmation.
+For each comment classified as `discuss`, ask the user about it **one question at a time** — present a single comment, wait for the reply, then move to the next. Do not batch them.
+
+For each discussion comment, present:
+
+- The comment body (quoted) and a clickable link to it.
+- The file:line and the **relevant code snippet** for context (the lines the comment refers to — pull from the actual file, falling back to the `diff_hunk` if needed). Always include this so the user has the context in front of them.
+- A short framing of what needs deciding.
+- A **numbered list of plain-text options** for how to proceed (e.g. `1.` address it a particular way, `2.` address it a different way, `3.` skip it, etc.). Always include skipping as one of the numbered options when it's a sensible choice.
+- **Explicitly state which option you recommend** and why, in one sentence.
+
+Per the user's global preference, present the options as a numbered plain-text list. Do **not** use the AskUserQuestion tool — print the question as normal output and end your turn so the user can reply in their own words.
+
+**Stop and wait for the user's reply after each discussion comment** before moving to the next one. Record the resolution for each (address in a specific way, or skip).
+
+If there are no discussion comments, skip straight to Step 6.
+
+## Step 6: Present the consolidated plan
+
+Only **after every discussion comment has been resolved**, present a single consolidated list/table of **all** comments and how each will be handled:
+
+- A short label (e.g. `#1`, `#2`).
 - The file:line (or "general" for the review body).
 - A 1-line summary of the ask.
-- Your recommendation and rationale.
+- How it will be handled: **address** (with any specifics decided during discussion) or **skip** (per the user's decision in Step 5).
 - A clickable link to the comment.
 
 End with a plain-text prompt like:
 
-> Reply with which to address (e.g. "all", "1,3,4", "all except 2"). I'll run one sub-agent per comment and commit each fix separately.
+> This is the plan. Reply to confirm and I'll run one sub-agent per comment to address, committing each fix separately. Let me know if you want to change anything.
 
-**Stop and wait for the user's reply.** Do not proceed to Step 6 without explicit confirmation. Do **not** use the AskUserQuestion tool for this — just print the prompt as normal output and end your turn so the user can reply in their own words.
+**Stop and wait for the user's reply.** Do not proceed to Step 7 without explicit confirmation. Do **not** use the AskUserQuestion tool for this — just print the prompt as normal output and end your turn so the user can reply in their own words.
 
-## Step 6: Address each confirmed comment
+## Step 7: Address each confirmed comment
 
-For each confirmed comment, dispatch a **separate sub-agent** via the Agent tool. Run them **sequentially**, not in parallel — each creates a commit on the same branch, and parallel edits would conflict.
+For each comment the user confirmed to address (skipped comments are left alone), dispatch a **separate sub-agent** via the Agent tool. Run them **sequentially**, not in parallel — each creates a commit on the same branch, and parallel edits would conflict.
 
 Prompt for each sub-agent should include:
 
@@ -105,17 +122,17 @@ After each sub-agent returns, verify with `git log --oneline -1` that a new comm
 
 If a sub-agent reports it could not address the comment (e.g. tests failed, unclear intent), **stop** and surface the problem to the user before continuing with remaining comments.
 
-## Step 7: Final report
+## Step 8: Final report
 
 After all sub-agents finish, output a summary:
 
 - List of commits created (SHA + subject), one per addressed comment.
-- Any comments skipped per the user's instructions.
+- Any comments skipped per the user's decisions during discussion.
 - Any comments that failed and need the user's attention.
 - A reminder that the pending review is **still pending** on GitHub — addressing the comments locally does not submit or delete the draft.
 - Reminder to push commits when ready (do **not** push automatically).
 
-## Step 8: Offer to delete the pending comments
+## Step 9: Offer to delete the pending comments
 
 Ask the user whether to delete the addressed pending comments (and/or the pending review itself) now that they've been addressed locally. Phrase it explicitly as plain-text output, e.g.:
 
@@ -142,6 +159,6 @@ After deletion, report which comments/reviews were deleted.
 
 - This skill only operates on pending reviews authored by the current `gh`-authenticated user. Pending reviews by others are not visible via the API.
 - Never submit the pending review from this skill — leave submission to the user.
-- Only delete pending comments or the pending review after explicit user confirmation in Step 8.
+- Only delete pending comments or the pending review after explicit user confirmation in Step 9.
 - Never push or force-push.
 - Respect the project's git conventions from `CLAUDE.md` (e.g. `Chore:` prefix for non-user-facing changes, no ticket code on subsequent commits, one thing per commit).
