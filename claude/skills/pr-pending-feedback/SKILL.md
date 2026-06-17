@@ -144,7 +144,32 @@ After all comments are addressed, output a summary:
 - A reminder that the pending review is **still pending** on GitHub — addressing the comments locally does not submit or delete the draft.
 - Reminder to push commits when ready (do **not** push automatically).
 
-## Step 9: Offer to delete the pending comments
+## Step 9: Offer to update the PR description (author only)
+
+Addressing feedback often changes what the PR does, leaving its **description out of date**. Offer to fix that — but **only if both** of these hold:
+
+1. **The current user is the PR author.** Compare the PR author to the authenticated user:
+   ```bash
+   pr_author=$(gh pr view --json author --jq .author.login)
+   ```
+   If `$pr_author` != `$me`, **skip this step entirely** — do not offer, do not mention it.
+2. **The description is actually out of date.** Read the current description (`gh pr view --json body --jq .body`) and compare it against the changes just made in Step 7. If everything the description says still holds and nothing it should mention is now missing, the description is up to date — **skip this step silently.** Only proceed if a confirmed fix made a concrete claim in the description wrong, incomplete, or misleading.
+
+If both hold, propose a **minimal** edit: the smallest set of changes that brings the description back in line with the code — fix the specific sentences/bullets that the addressed comments invalidated, and add anything now missing. Do **not** rewrite, restructure, or restyle the description; leave everything still-accurate untouched.
+
+Show the user the proposed new description (or a diff of just the changed lines) and ask a single plain-text yes/no question, e.g.:
+
+> Addressing the feedback made the PR description out of date. Here's a minimal update — apply it? (yes/no)
+
+**Wait for explicit confirmation.** Do **not** use the AskUserQuestion tool — print the prompt as normal output and end your turn. If the user confirms, apply it:
+
+```bash
+gh pr edit "$pr_number" --body "<updated description>"
+```
+
+**Screenshots:** if the description embeds screenshots (e.g. `![...](...)` images, or an attachments/screenshots section) and any addressed comment changed UI or other visible output those screenshots likely depict, you **cannot** regenerate them — so just **remind** the user to re-capture and re-upload them, naming the specific screenshots that are probably now stale. Skip this reminder when the addressed comments didn't change anything the screenshots would show.
+
+## Step 10: Offer to delete the pending comments
 
 Ask the user a **single yes/no question**, choosing the wording based on whether the whole review can be deleted cleanly. The review can be deleted cleanly only if **every** comment in the pending review was addressed — i.e. nothing was skipped during discussion, and no un-addressed comments exist (e.g. comments added since, or the review body left un-actioned).
 
@@ -177,6 +202,6 @@ After deletion, report which comments/reviews were deleted.
 
 - This skill only operates on pending reviews authored by the current `gh`-authenticated user. Pending reviews by others are not visible via the API.
 - Never submit the pending review from this skill — leave submission to the user.
-- Only delete pending comments or the pending review after explicit user confirmation in Step 9.
+- Only delete pending comments or the pending review after explicit user confirmation in Step 10.
 - Never push or force-push.
 - Respect the project's git conventions from `CLAUDE.md` (e.g. `Chore:` prefix for non-user-facing changes, no ticket code on subsequent commits, one thing per commit).
