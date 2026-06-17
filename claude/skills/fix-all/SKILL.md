@@ -41,9 +41,13 @@ If the output says "No issues found." then report that to the user and stop.
 
 ## Step 4: Fix issues sequentially
 
-For each issue, spawn a sub-agent to fix it. Process issues **one at a time, sequentially** (not in parallel) to avoid conflicts between fixes. The current working directory is the project root.
+Fix each issue, processing them **one at a time, sequentially** (not in parallel) to avoid conflicts between fixes. The current working directory is the project root.
 
-Each sub-agent should:
+**Decide whether to fix inline or via a sub-agent:**
+- **Inline (in this session):** small, localized fixes — a typo, a one-line change, a rename, a trivial guard clause. These don't warrant the overhead of a sub-agent.
+- **Sub-agent:** larger or context-heavy fixes — multi-file changes, fixes requiring significant exploration, or anything that would clutter the main context. Spawning a sub-agent keeps that work isolated.
+
+Regardless of which path you take, each fix follows the same steps and gets its **own individual commit**:
 1. Read the relevant file and understand the issue
 2. If the issue is a bug fix, first write or update a test that fails due to the bug
 3. Apply the fix and verify the test now passes
@@ -82,7 +86,7 @@ If new issues are found:
 Once all review rounds are complete, handle the accumulated deferred list (the against-the-grain issues collected across every round):
 - Present the full deferred list to the user. For each, explain what the fix would do and why it appears to conflict with the branch's intent.
 - Ask the user, as a numbered list of plain-text options, which deferred issues (if any) they want applied.
-- Apply only the deferred fixes the user confirms, following the same sub-agent + individual-commit process as Step 4.
+- Apply only the deferred fixes the user confirms, following the same process as Step 4 (inline or sub-agent as appropriate, with an individual commit per fix).
 
 If no issues were deferred, skip this step.
 
