@@ -69,6 +69,8 @@ For these issues:
 
 After all fixes are applied, run `bin/claude-review --print` again to check for remaining issues.
 
+**Print the full review output verbatim every round, exactly as in Step 2** — this is required and non-optional on every re-run, not just the first pass. Before reading any file, spawning any sub-agent, or making any edit, emit a plain-text message containing the entire, unmodified stdout from `bin/claude-review --print`, following all the same rules from Step 2 (no summarizing, truncating, paraphrasing, reordering, or omitting; one-line `=== Code Review ===` header only; do not stop after printing — continue in the same turn).
+
 If new issues are found:
 - Apply fixes for legitimate new issues following the same process as Step 4 (including deferring any that go against the grain of the branch — add them to the same deferred list; do not confirm them with the user yet).
 - If the same issues keep appearing (repeating between rounds), stop fixing them.
