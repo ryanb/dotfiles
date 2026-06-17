@@ -146,24 +146,30 @@ After all comments are addressed, output a summary:
 
 ## Step 9: Offer to delete the pending comments
 
-Ask the user whether to delete the addressed pending comments (and/or the pending review itself) now that they've been addressed locally. Phrase it explicitly as plain-text output, e.g.:
+Ask the user a **single yes/no question**, choosing the wording based on whether the whole review can be deleted cleanly. The review can be deleted cleanly only if **every** comment in the pending review was addressed — i.e. nothing was skipped during discussion, and no un-addressed comments exist (e.g. comments added since, or the review body left un-actioned).
 
-> Want me to delete the pending comments I just addressed? I can delete them individually, or delete the whole pending review if nothing's left worth keeping.
+- **If all comments were addressed**, offer to delete the whole review:
+
+  > All comments were addressed. Do you want to delete the pending review? (yes/no)
+
+- **If some comments were skipped or otherwise left un-addressed**, offer to delete only the addressed ones (leaving the rest pending):
+
+  > Do you want to delete the addressed comments? (yes/no — the skipped/un-addressed ones will stay pending.)
 
 **Wait for explicit confirmation.** Do not delete anything without the user saying so. Do **not** use the AskUserQuestion tool for this — print the prompt as normal output and end your turn so the user can reply in their own words.
 
-If the user confirms, delete only the comments they confirmed:
+If the user confirms, delete accordingly:
 
-- Delete an individual pending comment:
-  ```bash
-  gh api -X DELETE "repos/$repo/pulls/comments/<comment_id>"
-  ```
-- Delete the entire pending review (only if the user asks for this, or if all comments were addressed and the user confirms):
+- If all comments were addressed and the user said yes, delete the entire pending review:
   ```bash
   gh api -X DELETE "repos/$repo/pulls/$pr_number/reviews/$review_id"
   ```
+- If only the addressed comments should go (some were skipped/un-addressed) and the user said yes, delete those individual comments and leave the rest pending:
+  ```bash
+  gh api -X DELETE "repos/$repo/pulls/comments/<comment_id>"
+  ```
 
-Skip any comments the user chose **not** to address — those should remain pending. If deleting the whole review would discard un-addressed comments, warn the user and confirm again before doing so.
+Never delete a comment the user chose **not** to address — those must remain pending. Only delete the whole review when every comment in it was addressed.
 
 After deletion, report which comments/reviews were deleted.
 
