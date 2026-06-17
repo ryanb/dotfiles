@@ -50,10 +50,17 @@ Each comment includes `path`, `line` (or `original_line`), `body`, `diff_hunk`, 
 
 For each pending comment, read the referenced file(s) at the relevant lines to understand the current code. Then classify it as exactly one of:
 
-- **`address`** — clearly actionable, unambiguous, and you're confident how to do it. It can be handed straight to a sub-agent without further input.
+- **`address`** — clearly actionable, unambiguous, and you're confident how to do it. It can be acted on without further input.
 - **`discuss`** — anything else. If the comment is ambiguous, subjective, a design call, possibly stale/already-done, out of scope, or you have any doubt about whether or how to act on it, it needs the user's input first.
 
 **Never classify a comment as `skip`.** These are the user's own comments — if you think one might not be worth doing, that is itself a reason to `discuss` it, not to skip it. Skipping is only ever a decision the user makes during the discussion in Step 5.
+
+For every `address` comment (and any `discuss` comment the user resolves into an action in Step 5), also tag **how** it will be handled:
+
+- **`simple`** — a localized, mechanical, single-location change with no branch-wide pattern implications and no test reasoning needed (e.g. a typo, a rename at one site, a small wording tweak, an obvious guard clause). These are handled inline in the main loop with `Edit` (Step 7), no sub-agent.
+- **`involved`** — anything that articulates a general rule to apply branch-wide, touches multiple files, needs judgment, or requires running/reasoning about tests. These get a dedicated sub-agent (Step 7).
+
+When in doubt between `simple` and `involved`, treat it as `involved`.
 
 Evaluate each comment on its own merits; do not let one comment's classification influence another's.
 
@@ -84,20 +91,25 @@ Only **after every discussion comment has been resolved**, present a single cons
 - A short label (e.g. `#1`, `#2`).
 - The file:line (or "general" for the review body).
 - A 1-line summary of the ask.
-- How it will be handled: **address** (with any specifics decided during discussion) or **skip** (per the user's decision in Step 5).
+- How it will be handled: **address** (with any specifics decided during discussion) or **skip** (per the user's decision in Step 5). For each **address** comment, note whether it'll be done **inline** (simple) or via a **sub-agent** (involved).
 - A clickable link to the comment.
 
 End with a plain-text prompt like:
 
-> This is the plan. Reply to confirm and I'll run one sub-agent per comment to address, committing each fix separately. Let me know if you want to change anything.
+> This is the plan. Reply to confirm and I'll address each comment — simple ones inline, involved ones via a sub-agent — committing each fix separately. Let me know if you want to change anything.
 
 **Stop and wait for the user's reply.** Do not proceed to Step 7 without explicit confirmation. Do **not** use the AskUserQuestion tool for this — just print the prompt as normal output and end your turn so the user can reply in their own words.
 
 ## Step 7: Address each confirmed comment
 
-For each comment the user confirmed to address (skipped comments are left alone), dispatch a **separate sub-agent** via the Agent tool. Run them **sequentially**, not in parallel — each creates a commit on the same branch, and parallel edits would conflict.
+Work through the comments the user confirmed to address (skipped comments are left alone) **sequentially**, not in parallel — each creates a commit on the same branch, and parallel edits would conflict. Handle each according to its `simple`/`involved` tag from Step 4:
 
-Prompt for each sub-agent should include:
+- **Simple comments** — handle **inline in the main loop** with `Edit`. Make the smallest change that addresses the comment, then create **exactly one git commit** for it (same commit discipline as a sub-agent: one commit per comment, concise message, no ticket prefix, do not push). The same comment-discipline rule applies: do not add code comments explaining the change or that it was made in response to the review. If, once you look closely, a "simple" comment turns out to imply a branch-wide pattern or otherwise isn't trivial after all, escalate it to a sub-agent instead.
+- **Involved comments** — dispatch a **separate sub-agent** via the Agent tool (see below).
+
+Either way, the result is **one commit per addressed comment**, so the final report (Step 8) is the same regardless of how each was handled.
+
+For involved comments, the prompt for each sub-agent should include:
 
 - The current working directory (per project convention).
 - The PR URL and comment URL.
@@ -118,13 +130,13 @@ Agent({
 })
 ```
 
-After each sub-agent returns, verify with `git log --oneline -1` that a new commit landed, then proceed to the next.
+After each comment is addressed — inline or by a sub-agent — verify with `git log --oneline -1` that a new commit landed, then proceed to the next.
 
-If a sub-agent reports it could not address the comment (e.g. tests failed, unclear intent), **stop** and surface the problem to the user before continuing with remaining comments.
+If a comment can't be addressed (e.g. tests failed, or a sub-agent reports unclear intent), **stop** and surface the problem to the user before continuing with remaining comments.
 
 ## Step 8: Final report
 
-After all sub-agents finish, output a summary:
+After all comments are addressed, output a summary:
 
 - List of commits created (SHA + subject), one per addressed comment.
 - Any comments skipped per the user's decisions during discussion.
