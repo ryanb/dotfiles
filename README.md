@@ -54,6 +54,7 @@ The `claude/` directory is a [Claude Code plugin](https://code.claude.com/docs/e
 - **dependabot-prs** — Review and merge open Dependabot pull requests
 - **fix-all** — Run bin/claude-review --print and automatically fix all reported issues
 - **gfix** — Amend a commit further back in history with fixup + auto-rebase
+- **interview** — Stress-test a plan or design by interviewing you one numbered, multiple-choice question at a time
 - **pr-feedback** — Triage unresolved PR review comments and address each in a separate sub-agent and commit
 - **pr-pending-feedback** — Triage pending (unsubmitted) PR review comments and address each in a separate sub-agent and commit
 - **rebase** — Interactive rebase workflow
