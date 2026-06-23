@@ -49,7 +49,15 @@ alias gds='git diff --staged'
 
 gdb() {
   local base_branch
-  base_branch=$(detect_base_branch)
+  # Prefer the fork-point sha pinned at branch creation/rebase: with `base...HEAD`
+  # it yields exactly this branch's own commits, even after the parent is rebased
+  # or squash-merged (when the branch name's merge-base would walk back too far).
+  local current_branch=$(git_current_branch)
+  if git rev-parse --verify --quiet "refs/parent/$current_branch^{commit}" >/dev/null; then
+    base_branch="refs/parent/$current_branch"
+  else
+    base_branch=$(detect_base_branch)
+  fi
   echo "Base branch: $base_branch"
   git diff --shortstat "$base_branch"...HEAD
   git diff "$base_branch"...HEAD "$@"
