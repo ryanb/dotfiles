@@ -7,7 +7,9 @@ allowed-tools: Bash, Read, Grep, Glob, Edit, Write, Agent
 
 # pr-feedback — Triage and address unresolved PR review comments
 
-The goal: look at every **unresolved** review comment on the PR for the current branch, evaluate each one independently, recommend which to address (and which to skip), and — only after the user confirms — dispatch a sub-agent per comment to fix it, one commit per comment.
+The goal: look at every **unresolved** review comment on the PR for the current branch, evaluate each one independently, split them into ones that can simply be addressed (or skipped) and ones that need discussion, work through the discussion comments one at a time, and — only after all discussions are resolved and the user confirms — address each, one commit per comment (simple ones inline, involved ones via a sub-agent).
+
+Unlike pending feedback, these comments come from **other reviewers**, so recommending to **skip** a comment (stale, already done, out of scope, or you disagree) is a legitimate outcome — but anything ambiguous, subjective, or a design call should go to **discussion** so the user decides, not be silently skipped.
 
 ## Step 1: Find the PR for the current branch
 
@@ -16,6 +18,7 @@ pr_number=$(gh pr view --json number --jq .number)
 pr_url=$(gh pr view --json url --jq .url)
 repo=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
 base_branch=$(gh pr view --json baseRefName --jq .baseRefName)
+me=$(gh api user --jq .login)
 ```
 
 If `gh pr view` fails, stop and tell the user there is no open PR for the current branch.
@@ -64,44 +67,74 @@ gh api "repos/$repo/pulls/$pr_number/reviews" --jq \
   '.[] | select(.body != "" and .body != null) | {author: .user.login, body: .body, state: .state, url: .html_url}'
 ```
 
-Skip reviews by the current user (`gh api user --jq .login`) — don't triage the user's own comments.
+Skip reviews by the current user (`$me`, captured in Step 1) — don't triage the user's own comments.
 
 ## Step 3: Evaluate each comment independently
 
-For each unresolved thread / review body, read the referenced file(s) at the relevant lines to understand the current code. Then form an independent judgment on:
+For each unresolved thread / review body, read the referenced file(s) at the relevant lines to understand the current code. Then classify it as exactly one of:
 
-- **What the reviewer is asking for** (summarize in one line).
-- **Whether it's still applicable** (code may have moved on, especially for outdated threads).
-- **Recommendation**: `address`, `skip`, or `discuss`.
-  - `address` — clearly actionable and worth doing.
-  - `skip` — stale, already done, out of scope, or you disagree with the reviewer (explain briefly).
-  - `discuss` — needs user input before acting (ambiguous, subjective, or a design call).
-- **One-sentence rationale.**
+- **`address`** — clearly actionable, unambiguous, still applicable, and you're confident how to do it. It can be acted on without further input.
+- **`skip`** — stale, already done, out of scope, or you disagree with the reviewer, and you're confident that's the right call. (Code may have moved on, especially for outdated threads.)
+- **`discuss`** — anything else. If the comment is ambiguous, subjective, a design call, possibly stale/already-done, or you have any doubt about whether or how to act on it, it needs the user's input first.
 
-Evaluate each comment on its own merits; do not let one comment's recommendation influence another's.
+When in doubt between `skip` and acting, prefer `discuss` — let the user make the call rather than silently skipping a reviewer's comment.
 
-## Step 4: Present triage to the user
+For every `address` comment (and any `discuss` comment the user resolves into an action in Step 4), also tag **how** it will be handled:
 
-Output a compact markdown table or list. For each comment include:
+- **`simple`** — a localized, mechanical, single-location change with no branch-wide pattern implications and no test reasoning needed (e.g. a typo, a rename at one site, a small wording tweak, an obvious guard clause). These are handled inline in the main loop with `Edit` (Step 6), no sub-agent.
+- **`involved`** — anything that articulates a general rule to apply branch-wide, touches multiple files, needs judgment, or requires running/reasoning about tests. These get a dedicated sub-agent (Step 6).
 
-- A short label (e.g. `#1`, `#2`) used for confirmation.
+When in doubt between `simple` and `involved`, treat it as `involved`.
+
+Evaluate each comment on its own merits; do not let one comment's classification influence another's.
+
+**Do not present any triage table or list at this stage.** Do not show the user the full set of comments yet. Move straight on to working through the discussion comments.
+
+## Step 4: Work through discussion comments one at a time
+
+For each comment classified as `discuss`, ask the user about it **one question at a time** — present a single comment, wait for the reply, then move to the next. Do not batch them.
+
+For each discussion comment, present:
+
+- The reviewer's login and the comment body (quoted), and a clickable link to it.
+- The file:line and the **relevant code snippet** for context (the lines the comment refers to — pull from the actual file, falling back to the `diffHunk` if needed). Always include this so the user has the context in front of them.
+- A short framing of what needs deciding.
+- A **numbered list of plain-text options** for how to proceed (e.g. `1.` address it a particular way, `2.` address it a different way, `3.` skip it, etc.). Always include skipping as one of the numbered options when it's a sensible choice.
+- **Explicitly state which option you recommend** and why, in one sentence.
+
+Per the user's global preference, present the options as a numbered plain-text list. Do **not** use the AskUserQuestion tool — print the question as normal output and end your turn so the user can reply in their own words.
+
+**Stop and wait for the user's reply after each discussion comment** before moving to the next one. Record the resolution for each (address in a specific way, or skip).
+
+If there are no discussion comments, skip straight to Step 5.
+
+## Step 5: Present the consolidated plan
+
+Only **after every discussion comment has been resolved**, present a single consolidated list/table of **all** comments and how each will be handled:
+
+- A short label (e.g. `#1`, `#2`).
 - The file:line (or "general" for review-body comments).
 - The reviewer's login.
 - A 1-line summary of the ask.
-- Your recommendation and rationale.
+- How it will be handled: **address** (with any specifics decided during discussion) or **skip** (per your recommendation or the user's decision in Step 4). For each **address** comment, note whether it'll be done **inline** (simple) or via a **sub-agent** (involved).
 - A clickable link to the comment.
 
 End with a plain-text prompt like:
 
-> Reply with which to address (e.g. "all addresses", "1,3,4", "all except 2"). I'll run one sub-agent per comment and commit each fix separately.
+> This is the plan. Reply to confirm and I'll address each comment — simple ones inline, involved ones via a sub-agent — committing each fix separately. Let me know if you want to change anything.
 
-**Stop and wait for the user's reply.** Do not proceed to Step 5 without explicit confirmation. Do **not** use the AskUserQuestion tool for this — just print the prompt as normal output and end your turn so the user can reply in their own words.
+**Stop and wait for the user's reply.** Do not proceed to Step 6 without explicit confirmation. Do **not** use the AskUserQuestion tool for this — just print the prompt as normal output and end your turn so the user can reply in their own words.
 
-## Step 5: Address each confirmed comment
+## Step 6: Address each confirmed comment
 
-For each confirmed comment, dispatch a **separate sub-agent** via the Agent tool. Run them **sequentially**, not in parallel — each creates a commit on the same branch, and parallel edits would conflict.
+Work through the comments the user confirmed to address (skipped comments are left alone) **sequentially**, not in parallel — each creates a commit on the same branch, and parallel edits would conflict. Handle each according to its `simple`/`involved` tag from Step 3:
 
-Prompt for each sub-agent should include:
+- **Simple comments** — handle **inline in the main loop** with `Edit`. Make the smallest change that addresses the comment, then create **exactly one git commit** for it (same commit discipline as a sub-agent: one commit per comment, concise message, no ticket prefix, do not push). The same comment-discipline rule applies: do not add code comments explaining the change or that it was made in response to the review. If, once you look closely, a "simple" comment turns out to imply a branch-wide pattern or otherwise isn't trivial after all, escalate it to a sub-agent instead.
+- **Involved comments** — dispatch a **separate sub-agent** via the Agent tool (see below).
+
+Either way, the result is **one commit per addressed comment**, so the final report (Step 7) is the same regardless of how each was handled.
+
+For involved comments, the prompt for each sub-agent should include:
 
 - The current working directory (per project convention).
 - The PR URL and comment URL.
@@ -122,20 +155,20 @@ Agent({
 })
 ```
 
-After each sub-agent returns, verify with `git log --oneline -1` that a new commit landed, then proceed to the next.
+After each comment is addressed — inline or by a sub-agent — verify with `git log --oneline -1` that a new commit landed, then proceed to the next.
 
-If a sub-agent reports it could not address the comment (e.g. tests failed, unclear intent), **stop** and surface the problem to the user before continuing with remaining comments.
+If a comment can't be addressed (e.g. tests failed, or a sub-agent reports unclear intent), **stop** and surface the problem to the user before continuing with remaining comments.
 
-## Step 6: Final report
+## Step 7: Final report
 
-After all sub-agents finish, output a summary:
+After all comments are addressed, output a summary:
 
 - List of commits created (SHA + subject), one per addressed comment.
-- Any comments skipped per the user's instructions.
+- Any comments skipped per your recommendation or the user's decisions during discussion.
 - Any comments that failed and need the user's attention.
 - Reminder to push when ready (do **not** push automatically).
 
-## Step 7: Reply to comments
+## Step 8: Reply to comments
 
 Draft a reply for each triaged thread first, then show **all** drafts to the user in a single plain-text message and ask whether to post them. **Stop and wait for confirmation.** Do **not** use the AskUserQuestion tool for this — print the previews and prompt as normal output and end your turn so the user can reply in their own words. If they decline, end here.
 
@@ -188,6 +221,31 @@ gh api graphql -f query='
 ```
 
 Top-level review bodies (not tied to a thread) cannot be resolved; for those, post a regular issue comment via `gh pr comment "$pr_number" --body "..."` only if addressing/skipping warrants a reply.
+
+## Step 9: Offer to update the PR description (author only)
+
+Addressing feedback often changes what the PR does, leaving its **description out of date**. Offer to fix that — but **only if both** of these hold:
+
+1. **The current user is the PR author.** Compare the PR author to the authenticated user:
+   ```bash
+   pr_author=$(gh pr view --json author --jq .author.login)
+   ```
+   If `$pr_author` != `$me` (captured in Step 1), **skip this step entirely** — do not offer, do not mention it.
+2. **The description is actually out of date.** Read the current description (`gh pr view --json body --jq .body`) and compare it against the changes just made in Step 6. If everything the description says still holds and nothing it should mention is now missing, the description is up to date — **skip this step silently.** Only proceed if a confirmed fix made a concrete claim in the description wrong, incomplete, or misleading.
+
+If both hold, propose a **minimal** edit: the smallest set of changes that brings the description back in line with the code — fix the specific sentences/bullets that the addressed comments invalidated, and add anything now missing. Do **not** rewrite, restructure, or restyle the description; leave everything still-accurate untouched.
+
+Show the user the proposed new description (or a diff of just the changed lines) and ask a single plain-text yes/no question, e.g.:
+
+> Addressing the feedback made the PR description out of date. Here's a minimal update — apply it? (yes/no)
+
+**Wait for explicit confirmation.** Do **not** use the AskUserQuestion tool — print the prompt as normal output and end your turn. If the user confirms, apply it:
+
+```bash
+gh pr edit "$pr_number" --body "<updated description>"
+```
+
+**Screenshots:** if the description embeds screenshots (e.g. `![...](...)` images, or an attachments/screenshots section) and any addressed comment changed UI or other visible output those screenshots likely depict, you **cannot** regenerate them — so just **remind** the user to re-capture and re-upload them, naming the specific screenshots that are probably now stale. Skip this reminder when the addressed comments didn't change anything the screenshots would show.
 
 ## Notes
 
