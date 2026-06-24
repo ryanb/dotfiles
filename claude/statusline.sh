@@ -8,9 +8,12 @@ dir=$(echo "$input" | jq -r '.workspace.current_dir' | xargs basename)
 
 now=$(date +%s)
 hourly_usage=""
+hourly_expected=""
 weekly_usage=""
+weekly_expected=""
 
-# Check both rate limit windows; warn if usage% exceeds time-elapsed%
+# Check both rate limit windows; warn if usage% is within 5% of (or above)
+# the time-elapsed% (expected usage)
 for window in five_hour seven_day; do
   case $window in
     five_hour) seconds=18000 ;;
@@ -26,10 +29,10 @@ for window in five_hour seven_day; do
     remaining=$(( resets_at - now ))
     [ "$remaining" -lt 0 ] && remaining=0
     elapsed=$(( 100 - (remaining * 100 / seconds) ))
-    if [ "$used" -gt "$elapsed" ]; then
+    if [ "$used" -gt $(( elapsed - 5 )) ]; then
       case $window in
-        five_hour) hourly_usage=$used ;;
-        seven_day) weekly_usage=$used ;;
+        five_hour) hourly_usage=$used; hourly_expected=$elapsed ;;
+        seven_day) weekly_usage=$used; weekly_expected=$elapsed ;;
       esac
     fi
   fi
@@ -38,9 +41,12 @@ done
 YELLOW='\033[33m'
 RESET='\033[0m'
 
+fmt_delta() { local d=$(( $1 - $2 )); [ "$d" -ge 0 ] && echo "+$d" || echo "$d"; }
+delta_color() { [ "$(( $1 - $2 ))" -ge 0 ] && echo "$YELLOW"; }
+
 warnings=""
-[ -n "$hourly_usage" ] && warnings="${YELLOW}Usage: ${hourly_usage}%${RESET}"
-[ -n "$weekly_usage" ] && warnings="${warnings:+$warnings | }7d Usage: ${weekly_usage}%"
+[ -n "$hourly_usage" ] && warnings="$(delta_color "$hourly_usage" "$hourly_expected")Usage: ${hourly_usage}% $(fmt_delta "$hourly_usage" "$hourly_expected")${RESET}"
+[ -n "$weekly_usage" ] && warnings="${warnings:+$warnings | }7d Usage: ${weekly_usage}% $(fmt_delta "$weekly_usage" "$weekly_expected")"
 
 if [ -n "$warnings" ]; then
   echo -e "Context: ${context}% | $warnings | $dir"
