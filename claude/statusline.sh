@@ -48,8 +48,10 @@ warnings=""
 [ -n "$hourly_usage" ] && warnings="$(delta_color "$hourly_usage" "$hourly_expected")Usage: ${hourly_usage}% $(fmt_delta "$hourly_usage" "$hourly_expected")${RESET}"
 [ -n "$weekly_usage" ] && warnings="${warnings:+$warnings | }7d Usage: ${weekly_usage}% $(fmt_delta "$weekly_usage" "$weekly_expected")"
 
+stamp=$(date "+%b %d %I:%M %p")
+
 if [ -n "$warnings" ]; then
-  echo -e "Context: ${context}% | $warnings | $dir"
+  echo -e "Context: ${context}% | $warnings | $stamp | $dir"
 else
-  echo -e "Context: ${context}% | $dir"
+  echo -e "Context: ${context}% | $stamp | $dir"
 fi
