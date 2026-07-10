@@ -11,6 +11,18 @@ argument-hint: [base-branch]
 
 Rebase the current branch onto a base branch, resolving conflicts and verifying tests along the way.
 
+## Step 0: Check for an in-progress rebase
+
+Before anything else, check whether a rebase is already underway:
+
+```bash
+git rev-parse --git-path rebase-merge >/dev/null 2>&1 && ls "$(git rev-parse --git-path rebase-merge)" >/dev/null 2>&1 && echo "rebase in progress" || (ls "$(git rev-parse --git-path rebase-apply)" >/dev/null 2>&1 && echo "rebase in progress")
+```
+
+If a rebase is already in progress, skip Steps 1–2 entirely. Assume the task is to resolve the outstanding conflicts and continue the rebase: go straight to Step 3. Treat the base branch as the one already being rebased onto — you do not need to determine or fetch it.
+
+Otherwise, continue to Step 1.
+
 ## Step 1: Determine base branch
 
 Determine the base branch in this order:
