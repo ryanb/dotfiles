@@ -48,16 +48,7 @@ alias gdca='git diff --cached'
 alias gds='git diff --staged'
 
 gdb() {
-  local base_branch
-  # Prefer the fork-point sha pinned at branch creation/rebase: with `base...HEAD`
-  # it yields exactly this branch's own commits, even after the parent is rebased
-  # or squash-merged (when the branch name's merge-base would walk back too far).
-  local current_branch=$(git_current_branch)
-  if git rev-parse --verify --quiet "refs/parent/$current_branch^{commit}" >/dev/null; then
-    base_branch="refs/parent/$current_branch"
-  else
-    base_branch=$(detect_base_branch)
-  fi
+  local base_branch=$(detect_base_branch)
   echo "Base branch: $base_branch"
   git diff --shortstat "$base_branch"...HEAD
   git diff "$base_branch"...HEAD "$@"
@@ -123,7 +114,10 @@ grbb() {
   fi
 
   if [[ -z "$1" ]]; then
-    local default_base=$(detect_base_branch)
+    # Offer the tracked parent branch name (not refs/parent, which is a bare sha
+    # only useful for diffing) as the default; fall back to detection otherwise.
+    local default_base=$(git config "branch.$branch.parent")
+    [[ -z "$default_base" ]] && default_base=$(detect_base_branch)
     target=$({
       [[ -n "$default_base" ]] && echo "$default_base"
       git branch --sort=-committerdate --format='%(refname:short)' | grep -Fvx -e "$default_base" -e "$branch"
@@ -422,13 +416,30 @@ compdef _git grbe=git-rebase
 
 # FUNCTIONS
 
-# Detects the base branch for the current branch, preferring the parent
-# tracked in branch.<name>.parent (set by grbb/wt), then falling back to
-# walking commits and finding the first one that exists on another branch
+# Detects the base branch for the current branch, preferring the parent tracked
+# by grbb/wt, then falling back to walking commits and finding the first one that
+# exists on another branch. The parent name lives in branch.<name>.parent and its
+# fork-point sha in refs/parent/<name>. Prefer the branch name when its head still
+# matches the pinned sha (readable and equivalent); otherwise use the pinned sha so
+# `base...HEAD` stays this branch's own commits after the parent was rebased or
+# squash-merged (when the branch name's merge-base would walk back too far).
 detect_base_branch() {
   local CURRENT_BRANCH=$(git_current_branch)
   local parent=$(git config "branch.$CURRENT_BRANCH.parent")
-  if [[ -n "$parent" ]] && git rev-parse --verify --quiet "$parent^{commit}" >/dev/null; then
+  local parent_sha
+  [[ -n "$parent" ]] && parent_sha=$(git rev-parse --verify --quiet "$parent^{commit}")
+  local pinned_ref="refs/parent/$CURRENT_BRANCH"
+  local pinned_sha=$(git rev-parse --verify --quiet "$pinned_ref^{commit}")
+
+  if [[ -n "$pinned_sha" ]]; then
+    if [[ -n "$parent_sha" && "$parent_sha" == "$pinned_sha" ]]; then
+      echo "$parent"
+    else
+      echo "$pinned_ref"
+    fi
+    return
+  fi
+  if [[ -n "$parent_sha" ]]; then
     echo "$parent"
     return
   fi
