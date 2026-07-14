@@ -39,6 +39,7 @@ jq -r '
   # Helper: format label/approval/status badges
   def format_extras:
     ([.labels[] | select(startswith("ai-review:") or startswith("risk:"))]
+      + [.labels[] | select((startswith("ai-review:") or startswith("risk:")) | not)]
       | map("`" + . + "`")) as $badges
     | (if (.approvedBy | length) > 0
        then ["Approved by " + ([.approvedBy[] | "@" + .] | join(", "))]
