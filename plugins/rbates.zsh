@@ -14,6 +14,7 @@ c() {
 }
 _c() { _files -W ~/code -/; }
 compdef _c c
+compdef _c wtc
 
 h() { cd ~/$1; }
 _h() { _files -W ~/ -/; }
