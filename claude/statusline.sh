@@ -1,7 +1,8 @@
 #!/bin/bash
 # Claude Code statusline script. Receives JSON via stdin.
-# Shows context window usage and a rate limit warning when usage is
-# outpacing the time remaining in the window (and >= 20% consumed).
+# Shows context window usage. The five-hour Usage section always shows (default
+# color below the warning threshold, yellow when usage is outpacing the time
+# remaining). The weekly section shows only when warning.
 input=$(cat)
 context=$(echo "$input" | jq -r '.context_window.used_percentage // 0 | floor')
 dir=$(echo "$input" | jq -r '.workspace.current_dir' | xargs basename)
@@ -9,6 +10,7 @@ dir=$(echo "$input" | jq -r '.workspace.current_dir' | xargs basename)
 now=$(date +%s)
 hourly_usage=""
 hourly_expected=""
+hourly_warn=""
 weekly_usage=""
 weekly_expected=""
 
@@ -25,27 +27,32 @@ for window in five_hour seven_day; do
     five_hour) threshold=20 ;;
     seven_day) threshold=70 ;;
   esac
-  if [ "$used" -ge "$threshold" ] && [ "$resets_at" -gt 0 ]; then
-    remaining=$(( resets_at - now ))
-    [ "$remaining" -lt 0 ] && remaining=0
-    elapsed=$(( 100 - (remaining * 100 / seconds) ))
-    if [ "$used" -gt $(( elapsed - 5 )) ]; then
-      case $window in
-        five_hour) hourly_usage=$used; hourly_expected=$elapsed ;;
-        seven_day) weekly_usage=$used; weekly_expected=$elapsed ;;
-      esac
-    fi
-  fi
+  [ "$resets_at" -le 0 ] && continue
+  remaining=$(( resets_at - now ))
+  [ "$remaining" -lt 0 ] && remaining=0
+  elapsed=$(( 100 - (remaining * 100 / seconds) ))
+  warn=""
+  [ "$used" -ge "$threshold" ] && [ "$used" -gt $(( elapsed - 5 )) ] && warn=1
+  case $window in
+    five_hour)
+      hourly_usage=$used; hourly_expected=$elapsed; hourly_warn=$warn
+      ;;
+    seven_day)
+      [ -n "$warn" ] && weekly_usage=$used && weekly_expected=$elapsed
+      ;;
+  esac
 done
 
 YELLOW='\033[33m'
 RESET='\033[0m'
 
 fmt_delta() { local d=$(( $1 - $2 )); [ "$d" -ge 0 ] && echo "+$d" || echo "$d"; }
-delta_color() { [ "$(( $1 - $2 ))" -ge 0 ] && echo "$YELLOW"; }
 
 warnings=""
-[ -n "$hourly_usage" ] && warnings="$(delta_color "$hourly_usage" "$hourly_expected")Usage: ${hourly_usage}% $(fmt_delta "$hourly_usage" "$hourly_expected")${RESET}"
+if [ -n "$hourly_usage" ]; then
+  color=""; [ -n "$hourly_warn" ] && color=$YELLOW
+  warnings="${color}Usage: ${hourly_usage}% $(fmt_delta "$hourly_usage" "$hourly_expected")${RESET}"
+fi
 [ -n "$weekly_usage" ] && warnings="${warnings:+$warnings | }7d Usage: ${weekly_usage}% $(fmt_delta "$weekly_usage" "$weekly_expected")"
 
 stamp=$(date "+%b %d %I:%M %p")
