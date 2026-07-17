@@ -23,22 +23,18 @@ for window in five_hour seven_day; do
   esac
   used=$(echo "$input" | jq -r ".rate_limits.${window}.used_percentage // 0 | floor")
   resets_at=$(echo "$input" | jq -r ".rate_limits.${window}.resets_at // 0")
-  case $window in
-    five_hour) threshold=20 ;;
-    seven_day) threshold=70 ;;
-  esac
   [ "$resets_at" -le 0 ] && continue
   remaining=$(( resets_at - now ))
   [ "$remaining" -lt 0 ] && remaining=0
   elapsed=$(( 100 - (remaining * 100 / seconds) ))
-  warn=""
-  [ "$used" -ge "$threshold" ] && [ "$used" -gt $(( elapsed - 5 )) ] && warn=1
   case $window in
     five_hour)
-      hourly_usage=$used; hourly_expected=$elapsed; hourly_warn=$warn
+      hourly_usage=$used; hourly_expected=$elapsed
+      [ "$used" -gt "$elapsed" ] && hourly_warn=1 || hourly_warn=""
       ;;
     seven_day)
-      [ -n "$warn" ] && weekly_usage=$used && weekly_expected=$elapsed
+      [ "$used" -ge 70 ] && [ "$used" -gt $(( elapsed - 5 )) ] \
+        && weekly_usage=$used && weekly_expected=$elapsed
       ;;
   esac
 done
