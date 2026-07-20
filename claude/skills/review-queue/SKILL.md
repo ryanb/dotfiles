@@ -22,4 +22,6 @@ The output is a pre-formatted ranked list. If the first line starts with `PREFER
 
 If there is no `PREFERENCES:` line, output the list as-is with no additional commentary.
 
+A PR labeled `other base` is stacked on top of another branch, not the main branch. Never include an `other base` PR on its own — only show it nested under the PR for its base branch, as part of that stack. If applying preferences would exclude the base PR (or the base PR isn't in the queue), drop the `other base` PR too, since it can't be reviewed in isolation. Never re-parent an `other base` PR to a different branch to keep it in the list.
+
 The line counts exclude test files, spec files, docs, and lock files.
