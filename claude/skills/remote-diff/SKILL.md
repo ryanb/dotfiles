@@ -27,17 +27,29 @@ git rev-parse --verify @{u}
 
 If this fails, report that there's no remote branch to compare against and stop. The user needs to push their branch first.
 
-Ensure the tmp directory exists:
-```bash
-mkdir -p tmp
-```
+## Step 3: Fast-path — compare net changes with patch-id
 
-## Step 3: Generate and compare diffs
-
-Fetch the latest remote refs, generate both diffs with zero context lines and ignoring whitespace changes, strip metadata lines, then compare:
+Fetch the latest remote refs, then reduce each branch's net change (relative to its base) to a single normalized hash and compare:
 
 ```bash
 git fetch origin
+
+local_id=$(git diff -b --unified=0 <base-branch>...HEAD | git patch-id --stable | awk '{print $1}')
+remote_id=$(git diff -b --unified=0 origin/<base-branch>...@{u} | git patch-id --stable | awk '{print $1}')
+```
+
+If `local_id` equals `remote_id` (including both being empty, meaning neither branch changed anything), the local and remote branches make identical net changes relative to the base. Report: **Clean rebase — no issues detected.** and stop — no tmp files are created, so no cleanup is needed.
+
+`patch-id --stable` ignores line numbers, hunk headers, and file ordering, and `-b` ignores whitespace changes — so a rebase that adapted your change to overlapping base edits can still match here. A rebase that changed only whitespace would also report clean; this matches the original diff's `-b` behavior.
+
+If the hashes differ, fall through to Step 4 for the detailed comparison that localizes what changed.
+
+## Step 4: Generate and compare full diffs
+
+Generate both diffs with zero context lines and ignoring whitespace changes, strip metadata lines, then compare:
+
+```bash
+mkdir -p tmp
 
 git diff -b --unified=0 <base-branch>...HEAD > tmp/local_branch_diff.patch
 git diff -b --unified=0 origin/<base-branch>...@{u} > tmp/remote_branch_diff.patch
@@ -48,7 +60,7 @@ grep -v -E '^(index |@@ |diff --git)' tmp/remote_branch_diff.patch > tmp/remote_
 diff tmp/local_stripped.patch tmp/remote_stripped.patch > tmp/diff_comparison.patch || true
 ```
 
-## Step 4: Analyze results
+## Step 5: Analyze results
 
 Read `tmp/diff_comparison.patch`.
 
@@ -78,7 +90,7 @@ For each difference:
 - Any lost or accidentally reverted changes
 - Any suspicious conflict resolutions
 
-## Step 5: Clean up
+## Step 6: Clean up
 
 ```bash
 rm -f tmp/local_branch_diff.patch tmp/remote_branch_diff.patch tmp/local_stripped.patch tmp/remote_stripped.patch tmp/diff_comparison.patch
