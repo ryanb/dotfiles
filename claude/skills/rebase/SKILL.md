@@ -2,8 +2,7 @@
 name: rebase
 description: Interactive rebase onto a base branch, resolving conflicts along the way and verifying tests pass. Compares against remote when done.
 disable-model-invocation: true
-user-invocable-only: true
-allowed-tools: Bash, Read, Glob, Grep, Agent, Skill, AskUserQuestion
+allowed-tools: Bash, Read, Glob, Grep, Agent, AskUserQuestion
 argument-hint: [base-branch]
 ---
 
@@ -96,6 +95,6 @@ Check if a remote tracking branch exists:
 git rev-parse --verify @{u} 2>/dev/null
 ```
 
-If a remote branch exists, run the `/remote-diff` skill to compare the rebase result against the remote and flag any potential issues.
+If a remote branch exists, follow the comparison procedure in `~/.claude/skills/rebase/remote-diff.md` (read the file and carry out its steps) to compare the rebase result against the remote and flag any potential issues. Use the base branch you rebased onto as `<base-branch>`.
 
 If no remote branch exists, skip this step and report that the rebase is complete.
