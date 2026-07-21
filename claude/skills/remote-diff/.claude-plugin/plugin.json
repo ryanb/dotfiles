@@ -1,5 +1,0 @@
-{
-  "name": "remote-diff",
-  "description": "Compare local vs remote branch to detect rebase/merge mistakes.",
-  "skills": "./"
-}

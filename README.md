@@ -58,7 +58,6 @@ The `claude/` directory is a [Claude Code plugin](https://code.claude.com/docs/e
 - **pr-feedback** — Triage unresolved PR review comments and address each in a separate sub-agent and commit
 - **pr-pending-feedback** — Triage pending (unsubmitted) PR review comments and address each in a separate sub-agent and commit
 - **rebase** — Interactive rebase workflow
-- **remote-diff** — Compare local vs remote branch to detect rebase/merge mistakes
 - **review-queue** — Ranked PR review list with dependency trees and filtered line counts
 - **standup** — Summarize work since the last standup across your configured repos
 - **walkthrough** — Walk through PR changes from the user's perspective
