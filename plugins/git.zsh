@@ -432,18 +432,25 @@ git_default_branch() {
   done
 }
 
-# Records the parent branch/SHA that detect_base_branch reads, for a newly created
-# branch, mirroring grbb.
+# Records the parent branch and fork-point sha that detect_base_branch reads for a
+# branch about to be checked out. A branch that only exists on the remote takes its
+# base from its PR, since the fork point is unrecoverable once the base has moved on.
 track_branch_parent() {
   local name="$1"
   [[ -n "$name" ]] || return
   git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
   git rev-parse --verify --quiet "refs/heads/$name" >/dev/null && return
-  git ls-remote --exit-code --heads origin "$name" >/dev/null 2>&1 && return
 
   local parent parent_sha
-  parent=$(git symbolic-ref --short -q HEAD)
-  parent_sha=$(git rev-parse --verify --quiet HEAD)
+  if git ls-remote --exit-code --heads origin "$name" >/dev/null 2>&1; then
+    parent=$(gh pr view "$name" --json baseRefName --jq .baseRefName 2>/dev/null)
+    [[ -n "$parent" ]] || return
+    git fetch --quiet origin "$name" "$parent" 2>/dev/null
+    parent_sha=$(git merge-base "refs/remotes/origin/$name" "refs/remotes/origin/$parent" 2>/dev/null)
+  else
+    parent=$(git symbolic-ref --short -q HEAD)
+    parent_sha=$(git rev-parse --verify --quiet HEAD)
+  fi
 
   [[ -n "$parent" && -n "$parent_sha" ]] || return
   git config "branch.$name.parent" "$parent"
