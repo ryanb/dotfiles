@@ -29,3 +29,5 @@
 	conflictstyle = diff3
 [sequence]
 	editor = git-rebase-editor
+[rerere]
+	enabled = true
