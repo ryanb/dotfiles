@@ -433,8 +433,8 @@ git_default_branch() {
 }
 
 # Detects the base branch for the current branch, preferring the parent tracked
-# by grbb/wt, then falling back to the local branch whose merge base is closest to
-# HEAD. The parent name lives in branch.<name>.parent and its
+# by grbb/wt, then falling back to the best local branch containing the fork point
+# closest to HEAD. The parent name lives in branch.<name>.parent and its
 # fork-point sha in refs/parent/<name>. Prefer the branch name when its head still
 # matches the pinned sha (readable and equivalent); otherwise use the pinned sha so
 # `base...HEAD` stays this branch's own commits after the parent was rebased or
@@ -459,31 +459,50 @@ detect_base_branch() {
     echo "$parent"
     return
   fi
-  # Pick the local branch whose merge base is closest to HEAD, so a stacked branch
-  # resolves to its immediate parent instead of the default branch
-  local default_branch=$(git_default_branch)
-  local branch merge_base distance closer best_branch best_distance
-  for branch in $(git for-each-ref --format='%(refname:short)' refs/heads); do
-    [[ "$branch" == "$CURRENT_BRANCH" ]] && continue
-    # Skip branches that are ahead of HEAD (i.e., branches created from this one)
-    git merge-base --is-ancestor HEAD "$branch" 2>/dev/null && continue
-    merge_base=$(git merge-base HEAD "$branch" 2>/dev/null) || continue
-    [[ -z "$merge_base" ]] && continue
-    distance=$(git rev-list --count "$merge_base..HEAD")
-    closer=0
-    if [[ -z "$best_distance" ]] || (( distance < best_distance )); then
-      closer=1
-    elif (( distance == best_distance )) && [[ "$branch" == "$default_branch" ]]; then
-      closer=1
-    fi
-    if (( closer )); then
-      best_branch=$branch
-      best_distance=$distance
+  # Find the fork point closest to HEAD, then choose among the branches containing it,
+  # so a stacked branch resolves to its immediate parent instead of the default branch.
+  # Scoring every branch instead costs a git process per branch, which takes ~a minute
+  # in a repo with thousands of branches.
+  local branch
+  local -a excludes=("--exclude=$CURRENT_BRANCH") excluded=("$CURRENT_BRANCH")
+  # Branches created from this one would otherwise hide this branch's own commits
+  for branch in $(git branch --contains HEAD --format='%(refname:short)' 2>/dev/null); do
+    excludes+=("--exclude=$branch")
+    excluded+=("$branch")
+  done
+
+  local boundary distance fork fork_distance
+  for boundary in $(git rev-list --boundary HEAD --not "${excludes[@]}" --branches 2>/dev/null | sed -n 's/^-//p'); do
+    distance=$(git rev-list --count "$boundary..HEAD")
+    if [[ -z "$fork_distance" ]] || (( distance < fork_distance )); then
+      fork_distance=$distance
+      fork=$boundary
     fi
   done
-  if [[ -n "$best_branch" ]]; then
-    echo "$best_branch"
-    return
+
+  if [[ -n "$fork" ]]; then
+    local -a candidates=()
+    for branch in $(git branch --contains "$fork" --format='%(refname:short)' 2>/dev/null); do
+      (( ${excluded[(Ie)$branch]} )) || candidates+=("$branch")
+    done
+
+    local default_branch=$(git_default_branch)
+    if (( ${candidates[(Ie)$default_branch]} )); then
+      echo "$default_branch"
+      return
+    fi
+    # A stack's parent sits exactly on the fork point, while a sibling stacked on that
+    # same parent also contains it but sits past it
+    for branch in $(git branch --points-at "$fork" --format='%(refname:short)' 2>/dev/null); do
+      if (( ${candidates[(Ie)$branch]} )); then
+        echo "$branch"
+        return
+      fi
+    done
+    if (( $#candidates )); then
+      echo "$candidates[1]"
+      return
+    fi
   fi
   # Fallback to repo's default branch
   git_default_branch
