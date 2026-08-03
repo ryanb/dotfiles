@@ -416,6 +416,22 @@ compdef _git grbe=git-rebase
 
 # FUNCTIONS
 
+# Outputs the repo's default branch name
+git_default_branch() {
+  local ref=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null)
+  if [[ -n "$ref" ]]; then
+    echo "${ref#refs/remotes/origin/}"
+    return
+  fi
+  local candidate
+  for candidate in develop main master; do
+    if git rev-parse --verify --quiet "refs/heads/$candidate" >/dev/null; then
+      echo "$candidate"
+      return
+    fi
+  done
+}
+
 # Detects the base branch for the current branch, preferring the parent tracked
 # by grbb/wt, then falling back to walking commits and finding the first one that
 # exists on another branch. The parent name lives in branch.<name>.parent and its
@@ -455,7 +471,7 @@ detect_base_branch() {
     done
   done
   # Fallback to repo's default branch
-  git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's|^refs/remotes/origin/||'
+  git_default_branch
 }
 
 # Outputs the name of the current branch
