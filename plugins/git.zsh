@@ -432,6 +432,24 @@ git_default_branch() {
   done
 }
 
+# Records the parent branch/SHA that detect_base_branch reads, for a newly created
+# branch, mirroring grbb.
+track_branch_parent() {
+  local name="$1"
+  [[ -n "$name" ]] || return
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
+  git rev-parse --verify --quiet "refs/heads/$name" >/dev/null && return
+  git ls-remote --exit-code --heads origin "$name" >/dev/null 2>&1 && return
+
+  local parent parent_sha
+  parent=$(git symbolic-ref --short -q HEAD)
+  parent_sha=$(git rev-parse --verify --quiet HEAD)
+
+  [[ -n "$parent" && -n "$parent_sha" ]] || return
+  git config "branch.$name.parent" "$parent"
+  git update-ref "refs/parent/$name" "$parent_sha"
+}
+
 # Detects the base branch for the current branch, preferring the parent tracked
 # by grbb/wt, then falling back to the best local branch containing the fork point
 # closest to HEAD. The parent name lives in branch.<name>.parent and its
