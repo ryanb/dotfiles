@@ -47,7 +47,8 @@ jq -r '
     | (if .reviewDecision == "CHANGES_REQUESTED"
        then ["Changes requested"]
        else [] end) as $status
-    | ($badges + $approvals + $status) | join(" ");
+    | ([($badges | join(", "))] + $approvals + $status)
+      | map(select(. != "")) | join(" ");
 
   # Helper: format one PR line
   def format_pr($prefix):

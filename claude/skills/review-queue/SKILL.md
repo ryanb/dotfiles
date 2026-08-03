@@ -18,7 +18,7 @@ Run the pipeline:
 
 If this fails (e.g. not in a git repo, or `gh` not authenticated), report the error and stop.
 
-The output is a pre-formatted ranked list. If the first line starts with `PREFERENCES:`, apply those instructions to the list — reorder, exclude, group, or highlight PRs as described. Re-number the final list sequentially. Preserve the same line format: `N\. [title](url) (author) [+N, -N]` with backtick-wrapped labels and tree indentation using `└─` / `├─` / `│`.
+The output is a pre-formatted ranked list. If the first line starts with `PREFERENCES:`, apply those instructions to the list — reorder, exclude, group, or highlight PRs as described. Re-number the final list sequentially. Preserve the same line format: `N\. [title](url) (author) [+N, -N]` with backtick-wrapped labels separated by commas and tree indentation using `└─` / `├─` / `│`.
 
 If there is no `PREFERENCES:` line, output the list as-is with no additional commentary.
 
