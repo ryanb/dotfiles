@@ -76,8 +76,16 @@ Ask the user which PRs they'd like to merge. Wait for their response.
 
 Merge PRs in this order: **multi-dependency PRs first**, then single-dependency PRs. This reduces the chance of merge conflicts between grouped and individual updates.
 
+First determine which merge strategies the repo allows, since merging with a disabled strategy fails:
+
+```bash
+gh repo view --json squashMergeAllowed,rebaseMergeAllowed,mergeCommitAllowed
+```
+
+Pick an enabled strategy, preferring **squash** (`--squash`), then **merge commit** (`--merge`), then **rebase** (`--rebase`). If the per-repo preferences from step 1 name a strategy, use that instead — as long as it's enabled.
+
 For each PR, one at a time:
 1. Approve: `gh pr review <number> --approve`
-2. Merge: `gh pr merge <number> --merge`
+2. Merge: `gh pr merge <number> --<strategy>`
 
 Report the result of each merge.
