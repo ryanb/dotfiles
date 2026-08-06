@@ -55,6 +55,7 @@ config.keys = {
   { key = 'n', mods = 'SUPER|SHIFT', action = workspace.create },
   { key = 'p', mods = 'SUPER', action = workspace.switcher },
   { key = 'p', mods = 'SUPER|CTRL', action = workspace.previous },
+  { key = 'p', mods = 'SUPER|CTRL|SHIFT', action = workspace.oldest },
   { key = 'r', mods = 'SUPER|SHIFT', action = workspace.rename },
   { key = 'w', mods = 'SUPER|SHIFT', action = workspace.close },
   {

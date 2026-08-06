@@ -42,24 +42,30 @@ M.switcher = wezterm.action_callback(function(window, pane)
   )
 end)
 
-M.previous = wezterm.action_callback(function(window, pane)
-  local current = window:active_workspace()
-  local workspaces = wezterm.mux.get_workspace_names()
+local function switch_by(better)
+  return wezterm.action_callback(function(window, pane)
+    local current = window:active_workspace()
+    local workspaces = wezterm.mux.get_workspace_names()
 
-  local best_name = nil
-  local best_time = 0
-  for _, name in ipairs(workspaces) do
-    local t = last_used[name] or 0
-    if name ~= current and t > best_time then
-      best_name = name
-      best_time = t
+    local best_name = nil
+    local best_time = nil
+    for _, name in ipairs(workspaces) do
+      local t = last_used[name] or 0
+      if name ~= current and (best_time == nil or better(t, best_time)) then
+        best_name = name
+        best_time = t
+      end
     end
-  end
 
-  if best_name then
-    window:perform_action(act.SwitchToWorkspace { name = best_name }, pane)
-  end
-end)
+    if best_name then
+      window:perform_action(act.SwitchToWorkspace { name = best_name }, pane)
+    end
+  end)
+end
+
+M.previous = switch_by(function(a, b) return a > b end)
+
+M.oldest = switch_by(function(a, b) return a < b end)
 
 M.create = wezterm.action_callback(function(window, pane)
   local cwd = pane:get_current_working_dir()
