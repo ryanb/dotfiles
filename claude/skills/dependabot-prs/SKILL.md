@@ -40,7 +40,7 @@ If there are no open PRs, tell the user and stop.
 
 ## 3. Review each PR in a sub-agent
 
-For each PR, launch a sub-agent (run them in parallel) to review it. Each sub-agent should:
+For each PR, launch a sub-agent (Agent tool, `subagent_type: general-purpose` and `model: sonnet`; run them in parallel) to review it. Each sub-agent should:
 
 1. Get the PR details: `gh pr view <number> --json title,body,url,statusCheckRollup,mergeable`
 2. Check if all CI checks passed (all statusCheckRollup entries have conclusion "SUCCESS")
