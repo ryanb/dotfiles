@@ -42,7 +42,7 @@ If there are no open PRs, tell the user and stop.
 
 For each PR, launch a sub-agent (run them in parallel) to review it. Each sub-agent should:
 
-1. Get the PR details: `gh pr view <number> --json title,body,statusCheckRollup,mergeable`
+1. Get the PR details: `gh pr view <number> --json title,body,url,statusCheckRollup,mergeable`
 2. Check if all CI checks passed (all statusCheckRollup entries have conclusion "SUCCESS")
 3. Determine if this is a **multi-dependency PR** (e.g. a grouped Dependabot update bumping several packages at once). Check the PR title and body — grouped PRs typically list multiple packages.
 4. Read the changelog/release notes in the PR body for anything surprising:
@@ -55,13 +55,13 @@ For each PR, launch a sub-agent (run them in parallel) to review it. Each sub-ag
    - For each dependency, assess whether the version bump could introduce breaking changes based on the semver increment and release notes
    - Note which dependencies are directly used vs. transitive (less risky)
    - Report each dependency's safety status separately
-6. Return a summary with: PR number, title, CI status (pass/fail), whether it's safe to merge, whether it's a multi-dependency PR, per-dependency safety status (for multi-dependency PRs), and any concerns
+6. Return a summary with: PR number and URL, title, CI status (pass/fail) and the build URL Step 4 links it to — `detailsUrl` for GitHub Actions checks, `targetUrl` for external ones like Buildkite, whether it's safe to merge, whether it's a multi-dependency PR, per-dependency safety status (for multi-dependency PRs), and any concerns
 
 ## 4. Report findings to the user
 
 Present a table summarizing all PRs:
-- PR number and title
-- CI status (pass/fail)
+- PR number and title, with the number linked to the PR
+- CI status (pass/fail), linked to the CI build
 - Whether it looks safe to merge
 - Whether it's a multi-dependency PR
 - Any notable changes or concerns
