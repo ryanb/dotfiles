@@ -2,10 +2,15 @@
 # Claude Code statusline script. Receives JSON via stdin.
 # Shows context window usage. The five-hour Usage section always shows (default
 # color below the warning threshold, yellow when usage is outpacing the time
-# remaining). The weekly section shows only when warning.
+# remaining). The weekly section shows only when warning. The leading slash
+# command, if any, is recorded by the last-command.sh UserPromptSubmit hook.
 input=$(cat)
 context=$(echo "$input" | jq -r '.context_window.used_percentage // 0 | floor')
 dir=$(echo "$input" | jq -r '.workspace.current_dir' | xargs basename)
+session=$(echo "$input" | jq -r '.session_id // ""')
+last_command=""
+[ -n "$session" ] && [ -f "$HOME/.claude/last-command/$session" ] \
+  && last_command=$(cat "$HOME/.claude/last-command/$session")
 
 now=$(date +%s)
 hourly_usage=""
@@ -53,8 +58,10 @@ fi
 
 stamp=$(date "+%b %d %I:%M %p")
 
-if [ -n "$warnings" ]; then
-  echo -e "Context: ${context}% | $warnings | $stamp | $dir"
-else
-  echo -e "Context: ${context}% | $stamp | $dir"
-fi
+line="Context: ${context}%"
+[ -n "$warnings" ] && line="$line | $warnings"
+line="$line | $stamp"
+[ -n "$last_command" ] && line="$line | $last_command"
+line="$line | $dir"
+
+echo -e "$line"
