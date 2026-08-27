@@ -4,10 +4,14 @@
 # color below the warning threshold, yellow when usage is outpacing the time
 # remaining). The weekly section shows only when warning. The leading slash
 # command, if any, is recorded by the last-command.sh UserPromptSubmit hook.
+# The model name shows only when it isn't Opus.
 input=$(cat)
 context=$(echo "$input" | jq -r '.context_window.used_percentage // 0 | floor')
 dir=$(echo "$input" | jq -r '.workspace.current_dir' | xargs basename)
 session=$(echo "$input" | jq -r '.session_id // ""')
+model=$(echo "$input" | jq -r '.model.display_name // ""')
+model_id=$(echo "$input" | jq -r '.model.id // ""')
+case "$model_id$model" in *[Oo]pus*) model="" ;; esac
 last_command=""
 [ -n "$session" ] && [ -f "$HOME/.claude/last-command/$session" ] \
   && last_command=$(cat "$HOME/.claude/last-command/$session")
@@ -60,6 +64,7 @@ stamp=$(date "+%b %d %I:%M %p")
 
 line="Context: ${context}%"
 [ -n "$warnings" ] && line="$line | $warnings"
+[ -n "$model" ] && line="$line | $model"
 line="$line | $stamp"
 [ -n "$last_command" ] && line="$line | $last_command"
 line="$line | $dir"
