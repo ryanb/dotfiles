@@ -1,3 +1,6 @@
+alias cl='claude'
+alias clf='claude --model=fable'
+
 c() {
   local code_path="${CODE_PATH:-$HOME/code}"
   local base_path="${code_path%%:*}"
