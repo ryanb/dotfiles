@@ -1,5 +1,6 @@
 alias cl='claude'
 alias clf='claude --model=fable'
+alias clr='claude --resume'
 
 c() {
   local code_path="${CODE_PATH:-$HOME/code}"
