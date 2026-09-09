@@ -45,6 +45,11 @@
       "description": "Interactive rebase workflow."
     },
     {
+      "name": "rebase-stack",
+      "source": "./claude/skills/rebase-stack",
+      "description": "Rebase or reorder a stack of dependent PR branches across worktrees."
+    },
+    {
       "name": "review-queue",
       "source": "./claude/skills/review-queue",
       "description": "Ranked PR review list with dependency trees and filtered line counts."
