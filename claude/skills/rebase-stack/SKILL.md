@@ -11,7 +11,7 @@ argument-hint: [--base <branch>] <branch1> <branch2> [branch3 ...]
 
 Rebase a chain of dependent branches in order. The first branch is rebased onto the base branch; each subsequent branch is rebased onto the previous (now-rebased) branch, keeping only that branch's own commits so nothing is duplicated.
 
-The list you pass **defines the target order** and does not have to match the current chain — reordering is supported. Each branch's exclusion boundary is derived from its own current ancestry, so moving a branch up or down the stack replays only its own commits. See [Reordering](#reordering-changing-the-order-of-the-stack) for the extra steps a reorder needs.
+The list you pass **defines the target order** and does not have to match the current chain — reordering is supported. Each branch's exclusion boundary is derived from where it actually forked, so moving a branch up or down the stack replays only its own commits. See [Reordering](#reordering-changing-the-order-of-the-stack) for the extra steps a reorder needs.
 
 Two shell scripts shipped with this skill do the mechanical work: `rebase-stack.sh` rewrites the local branches, and `relink-stack.sh` reconciles the GitHub stack and PR bases afterwards when the order changed. This skill calls them and, when the rebase pauses on a conflict, delegates the resolution to a sub-agent so the main context stays small.
 
@@ -107,8 +107,10 @@ The script will:
 
 - Fetch `origin`.
 - Record each branch's pre-rebase tip (so we can correctly exclude old parent commits).
-- For each branch in order: locate its worktree, compute `git rebase --onto <new-base> <old-base> <branch>`, and run it via `git -C <worktree>` (no `cd` required). `<old-base>` is the branch's **deepest current ancestor** among the other branches' pre-rebase tips, falling back to its fork point from `origin/<base>` — derived from ancestry, not from list position, which is what makes a reordered list safe.
+- For each branch in order: locate its worktree, compute `git rebase --onto <new-base> <old-base> <branch>`, and run it via `git -C <worktree>` (no `cd` required). `<old-base>` is the **deepest merge-base between the branch and another branch below it**, floored at its fork point from `origin/<base>`. The merge-base, not the other branch's tip: a branch has usually forked from an older commit of its parent, so the parent's tip is not an ancestor of it and can't be the boundary itself.
+- Decide "below" from ancestry where it can — another branch whose tip the branch already contains is below it whatever order the list gives, which is what keeps a reorder safe. Where the two have diverged, ancestry can't tell a parent that advanced from a child that forked early, so the script only treats a diverged branch as below when it's the tracked parent (`branch.<branch>.parent`) or precedes the branch in the list.
 - Print `↻ <branch> moves: <old parent> → <new parent>` for any branch whose parent changes.
+- Refuse to rebase a branch that would replay more commits than it owns relative to its new parent (exit `4`) — the symptom of a boundary that landed too far back.
 - Stop before pushing if a branch ends up with **no commits of its own** (exit `3`) — the symptom of its commits having been absorbed into another branch.
 - Skip a branch entirely if its PR is already merged (detected via `gh pr view --json state`, falling back to `git merge-base --is-ancestor`). The next branch in the stack is then rebased onto `origin/<base>` directly while still excluding the merged branch's old commits.
 - Set parent tracking after each branch rebase, matching Step 6 of the `rebase` skill: set `branch.<branch>.parent` to the branch it was rebased onto (the base branch for the bottom branch, the previous stack branch otherwise) and point `refs/parent/<branch>` at that commit. The config and ref are created if they don't already exist.
@@ -120,10 +122,15 @@ Exit codes:
 - `1` — fatal error (e.g. a branch isn't in any worktree).
 - `2` — conflicts. State saved; resume after resolving.
 - `3` — a branch has no commits of its own. Nothing pushed; state saved. See [Empty branches](#empty-branches-exit-3).
+- `4` — a branch would replay more commits than it owns. Nothing pushed; state saved. See [Oversized replays](#oversized-replays-exit-4).
 
 ## Step 4: Resolve conflicts (loop)
 
-If the script exited with code `2`, read its output to find the conflicting branch and worktree path. **Delegate the resolution to a sub-agent** (via the `Agent` tool) so the main context stays small — don't read the conflicting files yourself. Spawn one sub-agent per conflicting branch with a prompt like the template below, filling in the branch name and worktree path:
+If the script exited with code `2`, read its output to find the conflicting branch and worktree path.
+
+**First check the conflict is real.** A wrong exclusion boundary produces conflicts that look like ordinary merge work but are the branch being replayed on top of itself, and a sub-agent will happily "resolve" dozens of duplicated commits. Two tells, both in the script's own output: the very first replayed commit conflicts, or the `own commit(s)` count on the `→ Rebasing` line is far larger than the branch's real size. If either shows, stop, report the numbers to the user, and check the boundary — `git -C <worktree> log --oneline $(git -C <worktree> merge-base <new-parent> <branch>)..<branch>` is the count the branch should be replaying.
+
+Once the conflict looks genuine, **delegate the resolution to a sub-agent** (via the `Agent` tool) so the main context stays small — don't read the conflicting files yourself. Spawn one sub-agent per conflicting branch with a prompt like the template below, filling in the branch name and worktree path:
 
 > Resolve the git rebase conflicts in the worktree at `<worktree>` (branch `<branch>`), then drive the rebase to completion. Do **not** force-push and do **not** run any `rebase-stack.sh` command — stop once the rebase is clean.
 >
@@ -144,7 +151,7 @@ When the sub-agent reports back, **retain its summary** — you'll need it for t
 
 `--continue` force-pushes the just-finished branch (if it has an upstream), then proceeds to the next branch in the stack. If that branch also conflicts, the script exits `2` again — spawn a fresh sub-agent for it and repeat.
 
-Repeat until the script prints `✅ Stacked rebase complete`. If the script exits `3` instead, don't resolve anything — go to [Empty branches](#empty-branches-exit-3).
+Repeat until the script prints `✅ Stacked rebase complete`. If the script exits `3` or `4` instead, don't resolve anything — go to [Empty branches](#empty-branches-exit-3) or [Oversized replays](#oversized-replays-exit-4).
 
 ## Step 5: Reconcile GitHub stack metadata (reorders only)
 
@@ -200,7 +207,7 @@ Summarize what happened:
 
 ## Reordering: changing the order of the stack
 
-To move a branch within the stack, pass the branches in the order you want. Nothing else changes — the exclusion boundaries come from ancestry, so the script replays each branch's own commits onto its new parent.
+To move a branch within the stack, pass the branches in the order you want. Nothing else changes — the exclusion boundaries come from where each branch forked, so the script replays each branch's own commits onto its new parent.
 
 > **A reorder can destroy the moved branch's PR. Warn the user before starting.**
 >
@@ -227,6 +234,12 @@ Extra care for a reorder:
 - **Watch the `↻ moves:` lines.** They are the check that the script agrees with your intent. A branch you didn't expect to move signals the list is wrong — abort and re-derive it.
 - **Do Step 5.** GitHub stack metadata and PR bases do not follow a reorder on their own; run `relink-stack.sh`.
 
+### Oversized replays (exit 4)
+
+Exit `4` means the boundary the script derived gives the branch more commits than are actually missing from its new parent, so the rebase would replay commits the parent already has. Nothing was pushed. The cause is almost always a wrong branch order, or a stack whose real parent can't be identified from ancestry (see the "below" rule in Step 3) — set `branch.<branch>.parent` for the branch, or fix the order, and re-run.
+
+The message prints both counts and a `git log` command for the commits the branch should own. Compare that list against the branch's PR; if the script's count is the right one and the parent genuinely carries duplicates of the branch's work, re-run with `REBASE_STACK_ALLOW_OVERSIZED=1` to proceed anyway.
+
 ### Empty branches (exit 3)
 
 Exit `3` means a branch's commits were all already present in its new parent, so it has nothing of its own and its PR would show an empty diff. Nothing was pushed. Almost always this means the branch list was wrong — usually a branch further down absorbed commits that weren't its own.
@@ -245,13 +258,13 @@ Stop and investigate rather than pushing through:
 - **Neither script can prevent the moved PR being auto-closed as merged** on a downward reorder — see the warning under [Reordering](#reordering-changing-the-order-of-the-stack). Plan to recreate that PR.
 - **Every branch must be checked out in its own worktree.** There is no single-worktree mode.
 - **No dry run.** The first branch is force-pushed before the last is rebased, so a bad run leaves the stack half-rewritten. Recover with the pre-rebase tips in the state file.
-- **`--abort` discards state but undoes no rebases**, and it drops the `OLD_TIPS` you'd need to recover. Read `--status` before aborting.
+- **`--abort` aborts only the paused rebase**, not the branches already rewritten in this run, and it drops the `OLD_TIPS` you'd need to recover them. Read `--status` before aborting.
 - **`--continue` always force-pushes `BRANCHES[INDEX]`** before advancing. That's also how you resume mid-stack: point `INDEX` at an already-correct branch so the push is a no-op.
 - **A merge in the stack isn't handled.** Branches are assumed to be linear chains of their own commits.
 
 ## Recovery
 
 - `~/.claude/skills/rebase-stack/rebase-stack.sh --status` — show saved state, including `OLD_TIPS` (each branch's pre-rebase tip) and `INDEX` (the branch being worked on).
-- `~/.claude/skills/rebase-stack/rebase-stack.sh --abort` — discard saved state. Does not undo any rebases already performed.
+- `~/.claude/skills/rebase-stack/rebase-stack.sh --abort` — abort the paused rebase in its worktree and discard saved state. Does not undo rebases that already completed.
 - To undo a branch: `git -C <worktree> checkout -B <branch> <old-tip>`, taking `<old-tip>` from `OLD_TIPS` or `git -C <worktree> reflog`. Then force-push it if it was already pushed. Prefer `checkout -B` over `reset --hard` — it's equivalent here and survives sandboxes that block `reset --hard`.
 - To resume mid-stack after a manual fix, edit `$(git rev-parse --git-common-dir)/rebase-stack-state` so `BRANCHES` and `OLD_TIPS` describe the real current state, set `INDEX` to the last already-correct branch, set `PARENT_NAME`/`PARENT_SHA` for that branch, then run `--continue`.

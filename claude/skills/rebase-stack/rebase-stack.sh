@@ -30,14 +30,35 @@ GIT_COMMON=$(cd "$GIT_COMMON" && pwd)
 STATE="$GIT_COMMON/rebase-stack-state"
 
 worktree_for_branch() {
+  local branch=$1 wt
   # Note: do not `exit` early from awk — under `set -o pipefail`, terminating
   # before `git worktree list` finishes writing gives git SIGPIPE and the
   # pipeline exits 141, killing the script. Consume all input and print the
   # first match instead.
-  git worktree list --porcelain | awk -v b="$1" '
+  wt=$(git worktree list --porcelain | awk -v b="$branch" '
     $1 == "worktree" { wt = $2 }
     $1 == "branch"   { if ($2 == "refs/heads/" b && !found) { print wt; found = 1 } }
-  '
+  ')
+  if [[ -z "$wt" ]]; then
+    # A worktree paused mid-rebase has a detached HEAD, so `git worktree list`
+    # never names the branch it is rebasing.
+    wt=$(rebasing_worktree_for_branch "$branch")
+  fi
+  printf '%s' "$wt"
+}
+
+rebasing_worktree_for_branch() {
+  local branch=$1 wt d
+  for wt in $(git worktree list --porcelain | awk '$1 == "worktree" { print $2 }'); do
+    [[ -d "$wt" ]] || continue
+    for d in rebase-merge rebase-apply; do
+      d=$(git -C "$wt" rev-parse --git-path "$d")
+      if [[ -f "$d/head-name" ]] && [[ "$(cat "$d/head-name")" == "refs/heads/$branch" ]]; then
+        printf '%s' "$wt"
+        return 0
+      fi
+    done
+  done
 }
 
 is_merged_pr() {
@@ -52,39 +73,46 @@ is_merged_pr() {
   git merge-base --is-ancestor "$branch" "origin/$BASE_BRANCH" 2>/dev/null
 }
 
+# --git-path because a linked worktree's rebase state lives under the common dir.
+rebase_in_progress() {
+  local wt=$1 d
+  for d in rebase-merge rebase-apply; do
+    [[ -d "$(git -C "$wt" rev-parse --git-path "$d")" ]] && return 0
+  done
+  return 1
+}
+
 is_ancestor() {
   git -C "$1" merge-base --is-ancestor "$2" "$3" 2>/dev/null
 }
 
-# The commit after which BRANCHES[$2] holds only its own commits: its deepest
-# current ancestor among the other branches' pre-rebase tips, falling back to
-# the fork point from origin/<base>. Derived from ancestry rather than list
-# position so a reordered list still excludes the right commits.
+# Boundary after which BRANCHES[$2] holds only its own commits (see SKILL.md
+# Step 3). Sets globals so the caller doesn't lose the label to a subshell.
 old_boundary_for() {
   local wt=$1 self=$2 fallback=$3
   local tip="${OLD_TIPS[$self]}" best=$fallback
-  local i cand
+  local i cand mb tracked
+  OLD_BOUNDARY_BRANCH=
+  tracked=$(git -C "$wt" config "branch.${BRANCHES[$self]}.parent" 2>/dev/null || true)
   for (( i = 0; i < ${#BRANCHES[@]}; i++ )); do
     (( i == self )) && continue
     cand="${OLD_TIPS[$i]}"
     [[ "$cand" == "$tip" ]] && continue
-    is_ancestor "$wt" "$cand" "$tip" || continue
-    if is_ancestor "$wt" "$best" "$cand"; then
-      best=$cand
+    # Merge-base, not $cand itself: a branch usually forked from an older commit
+    # of its parent, so the parent's tip is no ancestor of it.
+    mb=$(git -C "$wt" merge-base "$cand" "$tip" 2>/dev/null) || continue
+    # A branch containing $tip excludes nothing of self's own work.
+    [[ "$mb" == "$tip" || "$mb" == "$fallback" ]] && continue
+    if [[ "$mb" != "$cand" ]]; then
+      # Diverged: ancestry can't tell an advanced parent from an early-forked child.
+      [[ "${BRANCHES[$i]}" == "$tracked" ]] || (( i < self )) || continue
+    fi
+    if is_ancestor "$wt" "$best" "$mb"; then
+      best=$mb
+      OLD_BOUNDARY_BRANCH="${BRANCHES[$i]}"
     fi
   done
-  printf '%s' "$best"
-}
-
-label_for_tip() {
-  local sha=$1 i
-  for (( i = 0; i < ${#BRANCHES[@]}; i++ )); do
-    if [[ "${OLD_TIPS[$i]}" == "$sha" ]]; then
-      printf '%s' "${BRANCHES[$i]}"
-      return
-    fi
-  done
-  printf '%s' "${sha:0:8}"
+  OLD_BOUNDARY=$best
 }
 
 own_commit_count() {
@@ -150,7 +178,7 @@ Usage:
                               Start a stacked rebase
                               (any order — reordering is supported)
   $(basename "$0") --continue  Resume after a conflict or an empty-branch stop
-  $(basename "$0") --abort     Discard saved state
+  $(basename "$0") --abort     Abort the paused rebase and discard saved state
   $(basename "$0") --status    Show current state
 EOF
 }
@@ -171,8 +199,19 @@ case "$cmd" in
     exit 0
     ;;
   --abort)
+    if [[ -f "$STATE" ]]; then
+      BRANCHES=()
+      INDEX=0
+      # shellcheck disable=SC1090
+      source "$STATE"
+      abort_wt=$(worktree_for_branch "${BRANCHES[$INDEX]}")
+      if [[ -n "$abort_wt" ]] && rebase_in_progress "$abort_wt"; then
+        echo "→ Aborting the in-progress rebase of ${BRANCHES[$INDEX]} in $abort_wt..."
+        git -C "$abort_wt" rebase --abort
+      fi
+    fi
     rm -f "$STATE"
-    echo "State cleared."
+    echo "State cleared. Rebases already completed in this run are not undone."
     exit 0
     ;;
   --status)
@@ -190,7 +229,7 @@ case "$cmd" in
     source "$STATE"
     cur="${BRANCHES[$INDEX]}"
     cur_wt=$(worktree_for_branch "$cur")
-    if [[ -n "$cur_wt" ]] && { [[ -d "$cur_wt/.git/rebase-merge" ]] || [[ -d "$cur_wt/.git/rebase-apply" ]]; }; then
+    if [[ -n "$cur_wt" ]] && rebase_in_progress "$cur_wt"; then
       echo "Rebase still in progress in $cur_wt." >&2
       echo "Resolve conflicts and finish (git rebase --continue) before re-running --continue." >&2
       exit 2
@@ -242,7 +281,8 @@ while (( INDEX < ${#BRANCHES[@]} )); do
   fi
 
   base_fork=$(git -C "$wt" merge-base "${OLD_TIPS[$INDEX]}" "origin/$BASE_BRANCH")
-  old_base=$(old_boundary_for "$wt" "$INDEX" "$base_fork")
+  old_boundary_for "$wt" "$INDEX" "$base_fork"
+  old_base=$OLD_BOUNDARY
 
   if (( INDEX == 0 )); then
     new_base_ref="origin/$BASE_BRANCH"
@@ -274,12 +314,19 @@ while (( INDEX < ${#BRANCHES[@]} )); do
   new_base_sha=$(git -C "$wt" rev-parse "$new_base_ref")
   PARENT_SHA="$new_base_sha"
   branch_base=$(git -C "$wt" merge-base "$branch" "$new_base_sha")
-  if [[ "$old_base" == "$base_fork" ]]; then
-    old_parent_label="$BASE_BRANCH"
-  else
-    old_parent_label=$(label_for_tip "$old_base")
-  fi
+  old_parent_label=${OLD_BOUNDARY_BRANCH:-$BASE_BRANCH}
   before_count=$(own_commit_count "$wt" "$old_base" "${OLD_TIPS[$INDEX]}")
+  shared_count=$(own_commit_count "$wt" "$branch_base" "${OLD_TIPS[$INDEX]}")
+  if (( before_count > shared_count )) && [[ "${REBASE_STACK_ALLOW_OVERSIZED:-}" != 1 ]]; then
+    echo "✗ $branch would replay more commits than it owns relative to $PARENT_NAME." >&2
+    echo "  Boundary ${old_base:0:8} ($old_parent_label) gives $before_count commit(s)," >&2
+    echo "  but only $shared_count are missing from $PARENT_NAME (fork point ${branch_base:0:8})." >&2
+    echo "  Nothing has been pushed. The boundary or the branch order is probably wrong:" >&2
+    echo "    git -C $wt log --oneline ${branch_base:0:8}..$branch" >&2
+    echo "  Re-run with REBASE_STACK_ALLOW_OVERSIZED=1 to proceed anyway." >&2
+    save_state
+    exit 4
+  fi
 
   if [[ "$old_parent_label" != "$PARENT_NAME" ]]; then
     echo "↻ $branch moves: $old_parent_label → $PARENT_NAME ($before_count own commit(s))"
@@ -288,7 +335,7 @@ while (( INDEX < ${#BRANCHES[@]} )); do
   if [[ "$branch_base" == "$new_base_sha" && "$old_base" == "$new_base_sha" ]]; then
     echo "✓ $branch is already up to date with $new_base_ref."
   else
-    echo "→ Rebasing $branch onto $new_base_ref (excluding ${old_base:0:8}..) in $wt"
+    echo "→ Rebasing $branch onto $new_base_ref ($before_count own commit(s), excluding ${old_base:0:8}..) in $wt"
     if ! git -C "$wt" rebase --onto "$new_base_sha" "$old_base" "$branch"; then
       echo
       echo "✗ Conflicts in $branch"
