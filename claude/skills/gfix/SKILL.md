@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: gfix
 description: Amend a git commit further back in the history.
 allowed-tools: Bash, Read, Glob, Grep, Edit, Write, Agent, AskUserQuestion

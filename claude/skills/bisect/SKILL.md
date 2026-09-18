@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: bisect
 description: Git bisect to find the first bad commit by running a test command.
 user-invocable-only: true

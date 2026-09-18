@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: interview
 description: Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Like grill-me, but asks one structured, numbered question at a time with multiple-choice options. Use when the user wants a disciplined interview to stress-test a plan or design, or mentions "interview me".
 ---

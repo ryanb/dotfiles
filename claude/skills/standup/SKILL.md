@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: standup
 description: Summarize work done since the last standup across the user's configured repos — merged PRs, open PR reviews, PRs/commits authored, and a per-repo summary of code changes.
 user-invocable-only: true
