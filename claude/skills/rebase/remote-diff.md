@@ -45,7 +45,7 @@ diff tmp/local_stripped.patch tmp/remote_stripped.patch > tmp/diff_comparison.pa
 
 ## Step 3: Analyze results
 
-Read `tmp/diff_comparison.patch`, then read the relevant source files for context and report.
+Read `tmp/diff_comparison.patch`, then read only the surrounding lines of each differing hunk in the source files for context and report.
 
 ### Interpreting differences
 

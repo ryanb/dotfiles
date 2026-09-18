@@ -44,7 +44,7 @@ If the rebase completes with no conflicts, skip to Step 6.
 ## Step 3: Resolve conflicts
 
 1. Identify the conflicting files with `git diff --name-only --diff-filter=U`
-2. Read each conflicting file and understand both sides of the conflict
+2. Read only the conflict hunks (`git diff -- <file>`) with enough surrounding lines to understand both sides of the conflict. Open the whole file only when the hunk alone doesn't make the intent clear.
 3. Resolve the conflict by taking both sides into account — don't blindly pick one side. Understand the intent of each change and produce a result that incorporates both correctly.
 4. Stage the resolved files with `git add`
 
@@ -52,9 +52,9 @@ If a conflict is ambiguous and you can't confidently determine the correct resol
 
 ## Step 4: Run related tests
 
-Run the tests related to the files that had conflicts. If tests fail due to the conflict resolution, fix them before proceeding.
+Run the tests related to the files that had conflicts in a sub-agent (Agent tool, `general-purpose`, `model: haiku`). Give it the test files to run and ask for only the verdict: pass, or the failing test names with their assertion messages — no log output, and no edits. If tests fail due to the conflict resolution, fix them before proceeding.
 
-If tests fail but seem **unrelated** to the rebase, verify by stashing and testing:
+If tests fail but seem **unrelated** to the rebase, have the same sub-agent verify by stashing and testing:
 
 ```bash
 git stash
