@@ -89,12 +89,24 @@ Skip this step if no tracked parent is set.
 
 ## Step 7: Check remote and compare
 
-Check if a remote tracking branch exists:
+If there is no remote tracking branch (`git rev-parse --verify @{u}` fails), skip this step and report that the rebase is complete.
+
+Otherwise reduce each branch's net change against the base to a normalized hash and compare. `<base-branch>` is the branch you just rebased onto, using the freshly fetched `origin/` ref for both sides:
 
 ```bash
-git rev-parse --verify @{u} 2>/dev/null
+git diff -b --unified=0 origin/<base-branch>...HEAD | git patch-id --stable | awk '{print $1}'
+git diff -b --unified=0 origin/<base-branch>...@{u} | git patch-id --stable | awk '{print $1}'
 ```
 
-If a remote branch exists, follow the comparison procedure in `~/.claude/skills/rebase/remote-diff.md` (read the file and carry out its steps) to compare the rebase result against the remote and flag any potential issues. Use the base branch you rebased onto as `<base-branch>`.
+`patch-id --stable` ignores line numbers, hunk headers, and file ordering, and `-b` ignores whitespace — so a rebase that adapted your change to overlapping base edits still matches.
 
-If no remote branch exists, skip this step and report that the rebase is complete.
+If the hashes match (including both empty), report **Clean rebase — no issues detected.** and stop.
+
+If they differ, list the affected files and stop there — do not write patch files or analyze hunks:
+
+```bash
+git diff -b --unified=0 --name-only origin/<base-branch>...HEAD
+git diff -b --unified=0 --name-only origin/<base-branch>...@{u}
+```
+
+Report the file names and note that local and remote differ. Differing hashes are expected whenever the branches hold different commits — commits added since the last push, or a base that moved — so do not call it a problem on the hash alone. Investigate further only if the user asks.
