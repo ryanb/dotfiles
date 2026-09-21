@@ -34,3 +34,42 @@ wtc() {
   fi
   printf '\033]1337;SetUserVar=switch-workspace=%s\007' "$(echo -n "$ws" | base64)"
 }
+
+wtn() {
+  local current=$(git symbolic-ref --short -q HEAD) || return 1
+  if [[ -z "$current" ]]; then
+    echo "wtn: not on a branch" >&2
+    return 1
+  fi
+  local -a children
+  local line key parent branch
+  while IFS= read -r line; do
+    key=${line%% *}
+    parent=${line#* }
+    [[ "$parent" == "$current" ]] || continue
+    branch=${${key#branch.}%.parent}
+    git show-ref --verify --quiet "refs/heads/$branch" || continue
+    children+=("$branch")
+  done < <(git config --get-regexp '^branch\..*\.parent$')
+  case ${#children[@]} in
+    0) echo "wtn: no branch has $current as its parent" >&2; return 1 ;;
+    1) wt "${children[1]}" ;;
+    *) echo "wtn: multiple branches have $current as their parent:" >&2
+       printf '  %s\n' "${children[@]}" >&2
+       return 1 ;;
+  esac
+}
+
+wtp() {
+  local current=$(git symbolic-ref --short -q HEAD)
+  if [[ -z "$current" ]]; then
+    echo "wtp: not on a branch" >&2
+    return 1
+  fi
+  local parent=$(git config --get "branch.$current.parent")
+  if [[ -z "$parent" ]]; then
+    echo "wtp: no parent tracked for $current" >&2
+    return 1
+  fi
+  wt "$parent"
+}
