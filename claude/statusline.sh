@@ -60,12 +60,9 @@ if [ -n "$hourly_usage" ]; then
 fi
 [ -n "$weekly_usage" ] && warnings="${warnings:+$warnings | }7d Usage: ${weekly_usage}% $(fmt_delta "$weekly_usage" "$weekly_expected")"
 
-stamp=$(date "+%b %d %I:%M %p")
-
 line="Context: ${context}%"
 [ -n "$warnings" ] && line="$line | $warnings"
 [ -n "$model" ] && line="$line | $model"
-line="$line | $stamp"
 [ -n "$last_command" ] && line="$line | $last_command"
 line="$line | $dir"
 
