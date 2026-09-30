@@ -1,9 +1,9 @@
 #!/bin/bash
 # Claude Code statusline script. Receives JSON via stdin.
-# Shows context window usage. The five-hour Usage section always shows (default
-# color below the warning threshold, yellow when usage is outpacing the time
-# remaining). The weekly section shows only when warning. The leading slash
-# command, if any, is recorded by the last-command.sh UserPromptSubmit hook.
+# Shows context window usage. The five-hour and weekly Usage sections always
+# show (default color below the warning threshold, yellow when usage is
+# outpacing the time remaining). The leading slash command, if any, is recorded
+# by the last-command.sh UserPromptSubmit hook.
 input=$(cat)
 context=$(echo "$input" | jq -r '.context_window.used_percentage // 0 | floor')
 dir=$(echo "$input" | jq -r '.workspace.current_dir' | xargs basename)
@@ -19,6 +19,7 @@ hourly_expected=""
 hourly_warn=""
 weekly_usage=""
 weekly_expected=""
+weekly_warn=""
 
 # Check both rate limit windows; warn if usage% is within 5% of (or above)
 # the time-elapsed% (expected usage)
@@ -39,8 +40,8 @@ for window in five_hour seven_day; do
       [ "$used" -gt "$elapsed" ] && hourly_warn=1 || hourly_warn=""
       ;;
     seven_day)
-      [ "$used" -ge 70 ] && [ "$used" -gt $(( elapsed - 5 )) ] \
-        && weekly_usage=$used && weekly_expected=$elapsed
+      weekly_usage=$used; weekly_expected=$elapsed
+      [ "$used" -ge 70 ] && [ "$used" -gt $(( elapsed - 5 )) ] && weekly_warn=1 || weekly_warn=""
       ;;
   esac
 done
@@ -55,7 +56,10 @@ if [ -n "$hourly_usage" ]; then
   color=""; [ -n "$hourly_warn" ] && color=$YELLOW
   warnings="${color}Usage: ${hourly_usage}% $(fmt_delta "$hourly_usage" "$hourly_expected")${RESET}"
 fi
-[ -n "$weekly_usage" ] && warnings="${warnings:+$warnings | }7d Usage: ${weekly_usage}% $(fmt_delta "$weekly_usage" "$weekly_expected")"
+if [ -n "$weekly_usage" ]; then
+  color=""; [ -n "$weekly_warn" ] && color=$YELLOW
+  warnings="${warnings:+$warnings | }${color}Week: ${weekly_usage}% $(fmt_delta "$weekly_usage" "$weekly_expected")${RESET}"
+fi
 
 line="Context: ${context}%"
 [ -n "$warnings" ] && line="$line | $warnings"
