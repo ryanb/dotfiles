@@ -1,6 +1,7 @@
 alias cl='claude'
 alias clf='claude --model=fable'
 alias clr='claude --resume'
+alias cla='CLAUDE_CONFIG_DIR=~/.claude-alt claude'
 
 c() {
   local code_path="${CODE_PATH:-$HOME/code}"
