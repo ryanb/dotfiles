@@ -9,6 +9,7 @@ context=$(echo "$input" | jq -r '.context_window.used_percentage // 0 | floor')
 dir=$(echo "$input" | jq -r '.workspace.current_dir' | xargs basename)
 session=$(echo "$input" | jq -r '.session_id // ""')
 model=$(echo "$input" | jq -r '.model.display_name // "" | sub(" \\(.*\\)$"; "")')
+effort=$(echo "$input" | jq -r '.effort.level // ""')
 last_command=""
 [ -n "$session" ] && [ -f "$HOME/.claude/last-command/$session" ] \
   && last_command=$(cat "$HOME/.claude/last-command/$session")
@@ -63,7 +64,7 @@ fi
 
 line="Context: ${context}%"
 [ -n "$warnings" ] && line="$line | $warnings"
-[ -n "$model" ] && line="$line | $model"
+[ -n "$model" ] && line="$line | $model${effort:+ ($effort)}"
 [ -n "$last_command" ] && line="$line | $last_command"
 line="$line | $dir"
 
