@@ -142,9 +142,9 @@ Once the conflict looks genuine, **delegate the resolution to a sub-agent** (via
 > 4. Run tests related to the resolved files inside the worktree using a subshell so the parent shell's cwd never changes: `(cd <worktree> && <test command>)`. If tests fail due to your resolution, fix it. If failures look unrelated, verify by stashing: `(cd <worktree> && git stash && <test command>; status=$?; git stash pop; exit $status)` — failures present without your changes are pre-existing (note them and continue); failures only with your changes mean your resolution introduced the problem (investigate and fix).
 > 5. Continue the rebase: `git -C <worktree> rebase --continue`. If more conflicts surface, repeat from step 1.
 >
-> When the rebase is complete, report back a concise summary: each file you resolved with a one-line note on how, any test results, and anything ambiguous you had to make a judgement call on.
+> When the rebase is complete, report back a concise summary: each file you resolved with a one-line note on how, any edits you made outside the conflict hunks, which tests ran and their results, which related tests could not run and why, and anything ambiguous you had to make a judgement call on. End with a confidence rating (**Low**, **Medium**, or **High**) that the resolutions are correct and need no human review, plus one short sentence on the doubt when it isn't High.
 
-When the sub-agent reports back, **retain its summary** — you'll need it for the Step 5 report. If it flagged an ambiguous conflict it had to guess at, surface that to the user now. Otherwise, resume the script:
+When the sub-agent reports back, **retain its summary** — you'll need it for the Step 6 report. If it flagged an ambiguous conflict it had to guess at, surface that to the user now. Otherwise, resume the script:
 
 ```bash
 ~/.claude/skills/rebase-stack/rebase-stack.sh --continue
@@ -198,13 +198,18 @@ Don't plan around `gh stack modify` — an interactive TUI, not drivable by an a
 
 ## Step 6: Report
 
-Summarize what happened:
-- Branches that were rebased and force-pushed.
+Build the report from the script's `Summary:` block and the sub-agents' summaries. Start with a table, one row per branch bottom → top: branch, PR number, result, push state, and conflicts (a short note on how each was resolved, or "none").
+
+Below the table, list only what needs attention:
 - Branches whose parent changed, with old → new parent.
-- Branches that were skipped because their PR was already merged.
-- Branches that were rebased but not pushed (no upstream).
-- Any conflicts that were resolved, with a one-line note on the resolution (drawn from the sub-agents' reported summaries in Step 4).
+- Branches skipped (PR merged), not pushed (no upstream), or `NOT in sync with upstream`.
+- Branches whose net change differs, with the files. That's expected for a file that had a conflict; flag any file that differs **without** a conflict, since it means a change shifted silently.
+- Edits a sub-agent made outside the conflict hunks, judgement calls, and related tests that failed or couldn't run.
 - Whether GitHub stack metadata was reconciled (Step 5), and any PR whose base still looks wrong.
+
+Then give a confidence rating (**Low**, **Medium**, or **High**) that the conflict resolutions are correct and need no human review, for each branch that had conflicts. Base it on the sub-agent's own rating, lowered when its tests didn't run or a file's net change differs without a conflict. Branches that rebased cleanly with identical net change are **High** without a separate rating. When a rating isn't High, add one short sentence on the doubt behind it.
+
+End with an overall rating (the lowest of the branches) and a final line: `✅ Stacked rebase complete`.
 
 ## Reordering: changing the order of the stack
 

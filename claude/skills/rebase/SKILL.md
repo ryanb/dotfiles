@@ -89,7 +89,7 @@ Skip this step if no tracked parent is set.
 
 ## Step 7: Check remote and compare
 
-If there is no remote tracking branch (`git rev-parse --verify @{u}` fails), skip this step and report that the rebase is complete.
+If there is no remote tracking branch (`git rev-parse --verify @{u}` fails), skip to Step 8.
 
 Otherwise reduce each branch's net change against the base to a normalized hash and compare. `<base-branch>` is the branch you just rebased onto, using the freshly fetched `origin/` ref for both sides:
 
@@ -100,9 +100,9 @@ git diff -b --unified=0 origin/<base-branch>...@{u} | git patch-id --stable | aw
 
 `patch-id --stable` ignores line numbers, hunk headers, and file ordering, and `-b` ignores whitespace — so a rebase that adapted your change to overlapping base edits still matches.
 
-If the hashes match (including both empty), report **Clean rebase — no issues detected.** and stop.
+If the hashes match (including both empty), report **Clean rebase — no issues detected.** and go to Step 8.
 
-If they differ, list the affected files and stop there — do not write patch files or analyze hunks:
+If they differ, list the affected files, then go to Step 8 — do not write patch files or analyze hunks:
 
 ```bash
 git diff -b --unified=0 --name-only origin/<base-branch>...HEAD
@@ -110,3 +110,7 @@ git diff -b --unified=0 --name-only origin/<base-branch>...@{u}
 ```
 
 Report the file names and note that local and remote differ. Differing hashes are expected whenever the branches hold different commits — commits added since the last push, or a base that moved — so do not call it a problem on the hash alone. Investigate further only if the user asks.
+
+## Step 8: Finish
+
+End with a one-line confidence rating (**Low**, **Medium**, or **High**) that the conflict resolutions are correct and need no human review. When it's not High, add one short sentence on the doubt behind the rating. Then a final line: `✅ Rebase complete`.
