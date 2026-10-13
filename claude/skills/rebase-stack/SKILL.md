@@ -116,6 +116,7 @@ The script will:
 - Set parent tracking after each branch rebase, matching Step 6 of the `rebase` skill: set `branch.<branch>.parent` to the branch it was rebased onto (the base branch for the bottom branch, the previous stack branch otherwise) and point `refs/parent/<branch>` at that commit. The config and ref are created if they don't already exist.
 - Force-push with `--force-with-lease` after each branch rebase, but only if the branch has an upstream. Branches without an upstream are rebased but left unpushed.
 - Persist progress in `$(git rev-parse --git-common-dir)/rebase-stack-state` so it survives conflict pauses.
+- On completion, print a `Summary:` block with one line per branch: its result (`rebased`, `rebased with conflicts`, `up to date`, or `skipped (PR merged)`), its own commit count, its push state (`pushed`, `no upstream`, or `NOT in sync with upstream`), and whether its net change matches the pre-rebase version. The net-change check compares a whitespace-insensitive `git patch-id --stable` of each file's diff before and after, so it lists the files whose change actually differs.
 
 Exit codes:
 - `0` — done.

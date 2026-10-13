@@ -137,13 +137,77 @@ save_state() {
     printf 'INDEX=%s\n' "$INDEX"
     printf 'PARENT_NAME=%q\n' "${PARENT_NAME:-}"
     printf 'PARENT_SHA=%q\n' "${PARENT_SHA:-}"
-    printf 'BRANCHES=('
-    for b in "${BRANCHES[@]}"; do printf ' %q' "$b"; done
-    printf ' )\n'
-    printf 'OLD_TIPS=('
-    for t in "${OLD_TIPS[@]}"; do printf ' %q' "$t"; done
-    printf ' )\n'
+    print_array BRANCHES "${BRANCHES[@]}"
+    print_array OLD_TIPS "${OLD_TIPS[@]}"
+    print_array OLD_BASES "${OLD_BASES[@]}"
+    print_array NEW_BASES "${NEW_BASES[@]}"
+    print_array RESULTS "${RESULTS[@]}"
   } > "$STATE"
+}
+
+print_array() {
+  local name=$1 v
+  shift
+  printf '%s=(' "$name"
+  for v in "$@"; do printf ' %q' "$v"; done
+  printf ' )\n'
+}
+
+# Placeholders keep the summary arrays dense, so indices survive save/restore.
+fill_summary_arrays() {
+  local i
+  for (( i = 0; i < ${#BRANCHES[@]}; i++ )); do
+    [[ -n "${OLD_BASES[$i]:-}" ]] || OLD_BASES[$i]=-
+    [[ -n "${NEW_BASES[$i]:-}" ]] || NEW_BASES[$i]=-
+    [[ -n "${RESULTS[$i]:-}" ]] || RESULTS[$i]=pending
+  done
+}
+
+net_patch_id() {
+  git -C "$1" diff -b --unified=0 "$2" "$3" -- ${4:+"$4"} | git -C "$1" patch-id --stable | awk '{print $1}'
+}
+
+# Files whose net change differs between the pre- and post-rebase versions.
+changed_files() {
+  local wt=$1 old_base=$2 old_tip=$3 new_base=$4 new_tip=$5 f
+  { git -C "$wt" diff --name-only "$old_base" "$old_tip"
+    git -C "$wt" diff --name-only "$new_base" "$new_tip"; } | sort -u | while read -r f; do
+    [[ "$(net_patch_id "$wt" "$old_base" "$old_tip" "$f")" == "$(net_patch_id "$wt" "$new_base" "$new_tip" "$f")" ]] || echo "$f"
+  done
+}
+
+print_summary() {
+  local i branch wt result push own net files
+  echo
+  echo "Summary:"
+  for (( i = 0; i < ${#BRANCHES[@]}; i++ )); do
+    branch="${BRANCHES[$i]}"
+    result="${RESULTS[$i]}"
+    if [[ "$result" == merged ]]; then
+      echo "  $branch: skipped (PR merged)"
+      continue
+    fi
+    wt=$(worktree_for_branch "$branch")
+    if [[ -z "$wt" || "${NEW_BASES[$i]}" == - ]]; then
+      echo "  $branch: $result"
+      continue
+    fi
+    if ! remote_branch_exists "$wt"; then
+      push="no upstream"
+    elif [[ "$(git -C "$wt" rev-parse "$branch")" == "$(git -C "$wt" rev-parse '@{u}')" ]]; then
+      push="pushed"
+    else
+      push="NOT in sync with upstream"
+    fi
+    own=$(own_commit_count "$wt" "${NEW_BASES[$i]}" "$branch")
+    files=$(changed_files "$wt" "${OLD_BASES[$i]}" "${OLD_TIPS[$i]}" "${NEW_BASES[$i]}" "$branch")
+    if [[ -z "$files" ]]; then
+      net="net change identical"
+    else
+      net="net change differs in: $(echo "$files" | paste -sd, - | sed 's/,/, /g')"
+    fi
+    echo "  $branch: $result, $own commit(s), $push, $net"
+  done
 }
 
 in_stack() {
@@ -222,11 +286,15 @@ case "$cmd" in
     [[ -f "$STATE" ]] || { echo "No stacked rebase in progress." >&2; exit 1; }
     BRANCHES=()
     OLD_TIPS=()
+    OLD_BASES=()
+    NEW_BASES=()
+    RESULTS=()
     INDEX=0
     PARENT_NAME=
     PARENT_SHA=
     # shellcheck disable=SC1090
     source "$STATE"
+    fill_summary_arrays
     cur="${BRANCHES[$INDEX]}"
     cur_wt=$(worktree_for_branch "$cur")
     if [[ -n "$cur_wt" ]] && rebase_in_progress "$cur_wt"; then
@@ -266,6 +334,10 @@ case "$cmd" in
       fi
       OLD_TIPS+=("$(git rev-parse "$b")")
     done
+    OLD_BASES=()
+    NEW_BASES=()
+    RESULTS=()
+    fill_summary_arrays
     save_state
     ;;
 esac
@@ -306,6 +378,7 @@ while (( INDEX < ${#BRANCHES[@]} )); do
 
   if is_merged_pr "$branch"; then
     echo "✓ $branch is already merged — skipping."
+    RESULTS[$INDEX]=merged
     INDEX=$((INDEX + 1))
     save_state
     continue
@@ -313,6 +386,8 @@ while (( INDEX < ${#BRANCHES[@]} )); do
 
   new_base_sha=$(git -C "$wt" rev-parse "$new_base_ref")
   PARENT_SHA="$new_base_sha"
+  OLD_BASES[$INDEX]=$old_base
+  NEW_BASES[$INDEX]=$new_base_sha
   branch_base=$(git -C "$wt" merge-base "$branch" "$new_base_sha")
   old_parent_label=${OLD_BOUNDARY_BRANCH:-$BASE_BRANCH}
   before_count=$(own_commit_count "$wt" "$old_base" "${OLD_TIPS[$INDEX]}")
@@ -334,9 +409,12 @@ while (( INDEX < ${#BRANCHES[@]} )); do
 
   if [[ "$branch_base" == "$new_base_sha" && "$old_base" == "$new_base_sha" ]]; then
     echo "✓ $branch is already up to date with $new_base_ref."
+    RESULTS[$INDEX]="up to date"
   else
     echo "→ Rebasing $branch onto $new_base_ref ($before_count own commit(s), excluding ${old_base:0:8}..) in $wt"
+    RESULTS[$INDEX]=rebased
     if ! git -C "$wt" rebase --onto "$new_base_sha" "$old_base" "$branch"; then
+      RESULTS[$INDEX]="rebased with conflicts"
       echo
       echo "✗ Conflicts in $branch"
       echo "  Worktree: $wt"
@@ -375,6 +453,7 @@ while (( INDEX < ${#BRANCHES[@]} )); do
   save_state
 done
 
+print_summary
 rm -f "$STATE"
 echo
 echo "✅ Stacked rebase complete."
