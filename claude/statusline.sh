@@ -67,6 +67,5 @@ line="Context: ${context}%"
 [ -n "$model" ] && line="$line | $model${effort:+ ($effort)}"
 [ -n "$last_command" ] && line="$line | $last_command"
 line="$line | $dir"
-[[ "$CLAUDE_CONFIG_DIR" == */.claude-alt ]] && line="$line | alt"
 
 echo -e "$line"
