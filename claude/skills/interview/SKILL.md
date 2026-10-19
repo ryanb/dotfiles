@@ -11,7 +11,8 @@ Interview the user relentlessly about every aspect of this plan or design until 
 ## Rules for questions
 
 - **One question at a time.** Never bundle multiple questions into a single turn. Ask, wait for the answer, then ask the next.
-- **Number questions in strict sequence.** Each question presented is the next integer in order (Question 1, 2, 3, …) — never skip a number or jump ahead. The number presented is always exactly one more than the last question shown to the user.
+- **Don't move on until the current question is answered.** If the user asks for clarification, adds to an earlier answer, or replies without choosing, answer them and re-ask the same question under the same number, revised if needed. A reply doesn't have to contain a new question.
+- **Number questions in strict sequence.** A question keeps its number until it's answered; the next question takes the next integer.
 - **Always present a numbered list of multiple-choice answers.** Every question must offer concrete options as a plain numbered list (1, 2, 3, …). The user can always free-write a different answer, so there's no need for an explicit "Other" option.
 - **Always give a recommendation.** After the options, state which option you recommend and why, in one line.
 - **Explore before asking.** If a question can be answered by exploring the codebase, do that instead of asking.
