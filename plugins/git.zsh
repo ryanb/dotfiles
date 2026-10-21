@@ -307,10 +307,8 @@ compdef _gw gw
 # Designed to work in a project that has a bin/worktree script
 worktree() {
   local output
-  output=$(bin/worktree --no-cd "$@" 2>&1)
+  output=$(setopt pipefail; bin/worktree --no-cd "$@" 2>&1 | tee /dev/tty)
   local exit_code=$?
-
-  echo "$output"
 
   if [ $exit_code -ne 0 ]; then
     return $exit_code
