@@ -34,22 +34,25 @@ wtc() {
   printf '\033]1337;SetUserVar=switch-workspace=%s\007' "$(echo -n "$ws" | base64)"
 }
 
+_wt_children() {
+  local line key parent branch
+  while IFS= read -r line; do
+    key=${line%% *}
+    parent=${line#* }
+    [[ "$parent" == "$1" ]] || continue
+    branch=${${key#branch.}%.parent}
+    git show-ref --verify --quiet "refs/heads/$branch" || continue
+    echo "$branch"
+  done < <(git config --get-regexp '^branch\..*\.parent$')
+}
+
 wtn() {
   local current=$(git symbolic-ref --short -q HEAD) || return 1
   if [[ -z "$current" ]]; then
     echo "wtn: not on a branch" >&2
     return 1
   fi
-  local -a children
-  local line key parent branch
-  while IFS= read -r line; do
-    key=${line%% *}
-    parent=${line#* }
-    [[ "$parent" == "$current" ]] || continue
-    branch=${${key#branch.}%.parent}
-    git show-ref --verify --quiet "refs/heads/$branch" || continue
-    children+=("$branch")
-  done < <(git config --get-regexp '^branch\..*\.parent$')
+  local -a children=(${(f)"$(_wt_children "$current")"})
   case ${#children[@]} in
     0) echo "wtn: no branch has $current as its parent" >&2; return 1 ;;
     1) wt "${children[1]}" ;;
@@ -57,6 +60,39 @@ wtn() {
        printf '  %s\n' "${children[@]}" >&2
        return 1 ;;
   esac
+}
+
+wtnn() {
+  local current=$(git symbolic-ref --short -q HEAD)
+  if [[ -z "$current" ]]; then
+    echo "wtnn: not on a branch" >&2
+    return 1
+  fi
+  local -a children=(${(f)"$(_wt_children "$current")"})
+  if (( ${#children[@]} > 1 )); then
+    echo "wtnn: multiple branches have $current as their parent:" >&2
+    printf '  %s\n' "${children[@]}" >&2
+    return 1
+  fi
+  if (( ${#children[@]} == 1 )); then
+    wt "${children[1]}"
+    return
+  fi
+  local todo=_local/TODO.md
+  [[ -f "$todo" ]] || todo="${$(git rev-parse --path-format=absolute --git-common-dir):h}/_local/TODO.md"
+  local next=$(awk -v b="$current" '
+    found && /^[^[:space:]]/ { print; exit }
+    $1 ~ /^[-=x]$/ && $2 == b { found = 1 }
+  ' "$todo" 2>/dev/null)
+  local -a words=(${=next})
+  if [[ "${words[1]}" != [-=x] || -z "${words[2]}" ]]; then
+    echo "wtnn: none found" >&2
+    return 1
+  fi
+  local reply
+  read -q "reply?Create worktree for ${words[2]}? " || { echo; return 1 }
+  echo
+  wt "${words[2]}"
 }
 
 wtp() {
